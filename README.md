@@ -1,3 +1,3 @@
-# so_long
-so_long 42 urduliz.
+# cube 3d
+cube 3d 42 urduliz.
 En progreso.
