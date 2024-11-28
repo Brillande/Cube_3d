@@ -3,14 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   init_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emedina- <emedina-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:20:40 by emedina-          #+#    #+#             */
-/*   Updated: 2023/09/27 22:16:05 by emedina-         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:32:17 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "cube_3d.h"
+
+void	key_hook(mlx_key_data_t keydata, void *info)
+{
+	t_lib1	*data;
+
+	data = (t_lib1 *) info;
+	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+	{
+		mlx_close_window(data->mlx);
+		exit(0);
+	}
+	move(data);
+}
+
+void	move(t_lib1 *data)
+{
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+		key_left(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+		key_a(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+		key_d(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+		key_right(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+		key_s(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+		key_w(data);
+	print_3d(data);
+}
 
 t_lib1	*init_game(t_lib1 *map_data)
 {
@@ -21,38 +51,25 @@ t_lib1	*init_game(t_lib1 *map_data)
 void	open_window(t_lib1 *map_data)
 {
 	map_data->how_many_colums += 1;
-	map_data->mlx = mlx_init();
-	map_data->win = mlx_new_window(map_data->mlx, map_data->how_many_colums
-			* 64, map_data->how_many_lines * 64, "so_long emedina-");
+	map_data->mlx = mlx_init(map_data->how_many_colums
+			* 64, map_data->how_many_lines * 64, "cube_3d emedina-",1);
 	map_data->img = mlx_new_image(map_data->mlx, 1 * 64, 1 * 64);
 	select_img(map_data);
-	mlx_loop_hook(map_data->mlx, print_img, map_data);
-	mlx_key_hook(map_data->win, key_hook, map_data);
-	mlx_hook(map_data->win, 17, 0, exit_game, map_data);
+	mlx_key_hook(map_data->win, &key_hook, map_data);
 	mlx_loop(map_data->mlx);
 }
 
 void	select_img(t_lib1 *map_data)
 {
-	map_data->player = mlx_xpm_file_to_image(map_data->mlx, "img/player.xpm",
-			&map_data->width, &map_data->heigth);
-	map_data->wall = mlx_xpm_file_to_image(map_data->mlx, "img/wall.xpm",
-			&map_data->width, &map_data->heigth);
-	map_data->ground = mlx_xpm_file_to_image(map_data->mlx, "img/ground.xpm",
-			&map_data->width, &map_data->heigth);
-	map_data->coin = mlx_xpm_file_to_image(map_data->mlx, "img/coin.xpm",
-			&map_data->width, &map_data->heigth);
-	map_data->exit = mlx_xpm_file_to_image(map_data->mlx, "img/exit.xpm",
-			&map_data->width, &map_data->heigth);
+	map_data->player = mlx_texture_to_image(map_data->mlx, map_data->player);
+	map_data->wall = mlx_texture_to_image(map_data->mlx, map_data->wall);
+	map_data->ground = mlx_texture_to_image(map_data->mlx, map_data->ground);
+	map_data->coin = mlx_texture_to_image(map_data->mlx, map_data->coin);
+	map_data->exit = mlx_texture_to_image(map_data->mlx, map_data->exit);
 }
 
 int	print_img(t_lib1 *map_data)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
 	print_img1(map_data);
 	print_img2(map_data);
 	print_img3(map_data);
@@ -71,13 +88,14 @@ void	print_img1(t_lib1 *map_data)
 		while (map_data->map_array[i][j] != '\0')
 		{
 			if (map_data->map_array[i][j] != '1')
-				mlx_put_image_to_window(map_data->mlx, map_data->win,
+				mlx_image_to_window(map_data->mlx,
 					map_data->ground, j * 64, i * 64);
 			if (map_data->map_array[i][j] == '1')
-				mlx_put_image_to_window(map_data->mlx, map_data->win,
+				mlx_image_to_window(map_data->mlx,
 					map_data->wall, j * 64, i * 64);
 			j++;
 		}
 		i++;
 	}
 }
+

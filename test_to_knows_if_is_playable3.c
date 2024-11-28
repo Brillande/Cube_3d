@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   test_to_knows_if_is_playable3.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emedina- <emedina-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/19 19:03:19 by emedina-          #+#    #+#             */
-/*   Updated: 2023/09/19 19:03:36 by emedina-         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:39:14 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "cube_3d.h"
 
 void	find_out_if_is_playable2(t_lib1 *map_data, int playable)
 {

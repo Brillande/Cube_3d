@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   tests_to_knows_if_is_playable.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emedina- <emedina-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 13:29:35 by emedina-          #+#    #+#             */
-/*   Updated: 2023/09/19 18:33:24 by emedina-         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:39:36 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf/ft_printf.h"
-#include "so_long.h"
+#include "cube_3d.h"
 
 t_lib1	*test_to_knows_if_is_playable(t_lib1 *map_data)
 {

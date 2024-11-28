@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   join_the_fullpath.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emedina- <emedina-@student.42urduliz.co    +#+  +:+       +#+        */
+/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 13:22:49 by emedina-          #+#    #+#             */
-/*   Updated: 2023/09/27 22:17:44 by emedina-         ###   ########.fr       */
+/*   Updated: 2024/11/27 17:38:06 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "cube_3d.h"
 
 t_lib1	*join_the_fullpath(t_lib1 *map_data, char *map_name)
 {
