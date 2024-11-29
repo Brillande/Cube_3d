@@ -13,11 +13,11 @@
 #include "ft_printf/ft_printf.h"
 #include "cube_3d.h"
 
-// TODO Change test: permitted characters
+// DONE Change test: permitted characters
 // TODO Implement tests for the non-map elements "strict order"
 // NO, SO, WE, EA, F, C
 // DONE Change test: filename is .cub not .ber
-// TODO Change tests: spaces are allowed
+// DONE Change tests: spaces are allowed
 // TODO Remove test for "valid path" - not needed in this game.
 t_lib1	*test_to_knows_if_is_playable(t_lib1 *map_data)
 {
@@ -63,8 +63,12 @@ void	isnt_borded_of_walls(char **map_array, int lines, int colms)
 	}
 }
 
-// FIXME Change the allowed characters: 0, 1, N, E, W, S
+// FIXED Change the allowed characters: 0, 1, N, E, W, S
 // ...newline maybe OK still...
+// NOTE For this to work now it *must* only receive the map part of the file.
+// NOTE Spaces are OK, but may need different handling.
+// TODO Check whether the map is *always* the end of the file
+// TODO Check whether the return value causes EXIT on failure
 int	hasnt_forbidden_char(char *map_content)
 {
 	int	i;
@@ -75,8 +79,9 @@ int	hasnt_forbidden_char(char *map_content)
 		while (map_content[i] != '\0')
 		{
 			if (map_content[i] != '1' && map_content[i] != '0'
-				&& map_content[i] != 'C' && map_content[i] != 'E'
-				&& map_content[i] != 'P' && map_content[i] != '\n')
+				&& map_content[i] != 'N' && map_content[i] != 'E'
+				&& map_content[i] != 'W' && map_content[i] != 'S'
+				&& map_content[i] != ' ' && map_content[i] != '\n')
 			{
 				perror("\nerror\n hay algun caracter prohibido");
 				return (0);
