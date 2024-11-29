@@ -21,6 +21,7 @@ t_lib1	*test_to_knows_if_is_playable2(t_lib1 *map_data)
 	return (map_data);
 }
 
+// FIXME I think this can be removed. There are no PEC in cubed
 void	so_many_p_e_c_has(t_lib1 *map_data, char **map)
 {
 	int	p;

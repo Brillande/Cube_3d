@@ -53,6 +53,9 @@ typedef struct s_info {
 } t_info;
 
 // Definición de la estructura t_lib1
+// TODO Review data in struct, remove not-needed elements (e.g. number of coins)
+// TODO Consider separating game state from image / window data
+// TODO How do we change "number of columns" - the map is not a rectangle.
 typedef struct s_lib1 {
     t_player player;
     char **map;

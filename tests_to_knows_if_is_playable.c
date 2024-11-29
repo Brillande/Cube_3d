@@ -13,6 +13,12 @@
 #include "ft_printf/ft_printf.h"
 #include "cube_3d.h"
 
+// TODO Change test: permitted characters
+// TODO Implement tests for the non-map elements "strict order"
+// NO, SO, WE, EA, F, C
+// TODO Change test: filename is .cub not .ber
+// TODO Change tests: spaces are allowed
+// TODO Remove test for "valid path" - not needed in this game.
 t_lib1	*test_to_knows_if_is_playable(t_lib1 *map_data)
 {
 	if (!hasnt_forbidden_char(map_data->map_content))
@@ -27,6 +33,8 @@ t_lib1	*test_to_knows_if_is_playable(t_lib1 *map_data)
 	return (map_data);
 }
 
+// FIXME The map does not have be rectangular
+// ...does the bordering work for irregular shapes?
 void	isnt_borded_of_walls(char **map_array, int lines, int colms)
 {
 	int	x;
@@ -55,6 +63,8 @@ void	isnt_borded_of_walls(char **map_array, int lines, int colms)
 	}
 }
 
+// FIXME Change the allowed characters: 0, 1, N, E, W, S
+// ...newline maybe OK still...
 int	hasnt_forbidden_char(char *map_content)
 {
 	int	i;
@@ -78,6 +88,9 @@ int	hasnt_forbidden_char(char *map_content)
 	return (0);
 }
 
+// How many vertical lines in the map data.
+// Counts the "words" separated by char c
+// In this program we use it calling with newline
 int	count_words(const char *str, char c)
 {
 	int	num_words;
@@ -99,6 +112,7 @@ int	count_words(const char *str, char c)
 	return (num_words);
 }
 
+// FIXME Probably obsolete and can be removed.
 int	count_p_e_c(char **map, t_lib1 *map_data, char target)
 {
 	int	count;
