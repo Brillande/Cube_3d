@@ -32,21 +32,22 @@ t_lib1	*join_the_fullpath(t_lib1 *map_data, char *map_name)
 	return (map_data);
 }
 
+// Check that the filename ends in .cub.
+// If yes, return the string; if no, exit the program.
 char	*check_extension(char *map_extension)
 {
 	int	leng;
 
 	leng = 0;
 	leng = ft_strlen(map_extension);
-	if (map_extension[leng - 1] == 'r' && map_extension[leng - 2] == 'e'
-		&& map_extension[leng - 3] == 'b' && map_extension[leng - 4] == '.')
+	if (map_extension[leng - 1] == 'b' && map_extension[leng - 2] == 'u'
+		&& map_extension[leng - 3] == 'c' && map_extension[leng - 4] == '.')
 	{
 		return (map_extension);
 	}
 	else
 	{
-		perror("Error\nLa extension no es .ber\n");
+		perror("Error\nLa extension no es .cub\n");
 		exit(EXIT_FAILURE);
-		return (NULL);
 	}
 }

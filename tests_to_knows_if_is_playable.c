@@ -16,7 +16,7 @@
 // TODO Change test: permitted characters
 // TODO Implement tests for the non-map elements "strict order"
 // NO, SO, WE, EA, F, C
-// TODO Change test: filename is .cub not .ber
+// DONE Change test: filename is .cub not .ber
 // TODO Change tests: spaces are allowed
 // TODO Remove test for "valid path" - not needed in this game.
 t_lib1	*test_to_knows_if_is_playable(t_lib1 *map_data)
@@ -113,6 +113,7 @@ int	count_words(const char *str, char c)
 }
 
 // FIXME Probably obsolete and can be removed.
+// NOTE That we could keep the initial player placement logic, though.
 int	count_p_e_c(char **map, t_lib1 *map_data, char target)
 {
 	int	count;
