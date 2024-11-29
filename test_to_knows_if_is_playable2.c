@@ -14,27 +14,10 @@
 
 t_lib1	*test_to_knows_if_is_playable2(t_lib1 *map_data)
 {
-	so_many_p_e_c_has(map_data, map_data->map_array);
 	isnt_borded_of_walls(map_data->map_array, map_data->how_many_lines,
 		map_data->how_many_colums);
 	find_out_if_is_playable(map_data);
 	return (map_data);
-}
-
-// FIXME I think this can be removed. There are no PEC in cubed
-void	so_many_p_e_c_has(t_lib1 *map_data, char **map)
-{
-	int	p;
-	int	e;
-
-	map_data->total_coins = count_p_e_c(map, map_data, 'C');
-	p = count_p_e_c(map, map_data, 'P');
-	e = count_p_e_c(map, map_data, 'E');
-	if (map_data->total_coins == 0 || p == 0 || e == 0 || p > 1 || e > 1)
-	{
-		perror("error\nnumero de monedas, salidas o jugadores incorrecto");
-		exit(EXIT_FAILURE);
-	}
 }
 
 void	flood_fill(t_lib1 *map_data, int x, int y)

@@ -98,12 +98,12 @@ typedef struct s_lib1 {
 	int		width;
 	int		heigth;
 	void	*ground;
-	void	*coin;
+	void	*coin;		// TODO remove this from struct?
 	void	*exit;
 	void	*wall;
 	int		end;
-	int		coins_collected;
-	int		total_coins;
+	int		coins_collected;		// TODO remove this from struct?
+	int		total_coins;		// TODO remove this from struct?
 	int		cpy_coors_x;
 	int		cpy_coors_y;
 } t_lib1;
@@ -118,9 +118,7 @@ char		*read_map(char *full_path, int i);
 int			how_length_is_the_map(char *full_path);
 t_lib1		*test_to_knows_if_is_playable(t_lib1 *map_data);
 int			count_words(const char *str, char c);
-void		so_many_p_e_c_has(t_lib1 *map_data, char **map);
 t_lib1		*test_to_knows_if_is_playable2(t_lib1 *map_data);
-int			count_p_e_c(char **map, t_lib1 *map_data, char target);
 void		flood_fill(t_lib1 *map_data, int x, int y);
 void		find_out_if_is_playable(t_lib1 *map_data);
 t_lib1		*init_game(t_lib1 *map_data);

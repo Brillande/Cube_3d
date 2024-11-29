@@ -116,34 +116,3 @@ int	count_words(const char *str, char c)
 	}
 	return (num_words);
 }
-
-// FIXME Probably obsolete and can be removed.
-// NOTE That we could keep the initial player placement logic, though.
-int	count_p_e_c(char **map, t_lib1 *map_data, char target)
-{
-	int	count;
-	int	x;
-	int	y;
-
-	count = 0;
-	x = 0;
-	y = 0;
-	while (x < map_data->how_many_lines)
-	{
-		y = 0;
-		while (y < map_data->how_many_colums)
-		{
-			if (map[x][y] == 'P')
-			{
-				map_data->player_coor_x = x;
-				map_data->player_coor_y = y;
-			}
-			if (map[x][y] == target)
-				count++;
-			y++;
-		}
-		y = 0;
-		x++;
-	}
-	return (count);
-}
