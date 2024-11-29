@@ -12,6 +12,7 @@
 
 #include "cube_3d.h"
 
+// FIXME IS this needed? We don't have the same playability criteria.
 void	find_out_if_is_playable2(t_lib1 *map_data, int playable)
 {
 	flood_fill1(map_data, map_data->player_coor_x, map_data->player_coor_y);

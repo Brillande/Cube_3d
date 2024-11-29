@@ -24,6 +24,8 @@ t_lib1	*read_the_map(t_lib1 *map_data)
 	return (map_data);
 }
 
+// Read the file into a buffer of given size (plus null terminator)
+// How do we know what size it is?
 char	*read_map(char *full_path, int i)
 {
 	char	*buff;
@@ -45,6 +47,9 @@ char	*read_map(char *full_path, int i)
 	return (NULL);
 }
 
+// This returns the length of the buffer needed to hold the map
+// FIXME Update this and the pieces around it to cope with non-map
+// information being present in the file.
 int	how_length_is_the_map(char *full_path)
 {
 	int		file;

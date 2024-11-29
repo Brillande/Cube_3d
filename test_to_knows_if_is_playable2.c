@@ -20,6 +20,8 @@ t_lib1	*test_to_knows_if_is_playable2(t_lib1 *map_data)
 	return (map_data);
 }
 
+// TODO Understand if the flood_fill works for us now
+// What is its purpose and how does it work?
 void	flood_fill(t_lib1 *map_data, int x, int y)
 {
 	if (map_data->cpy_of_map_array[x][y] != '1'
@@ -34,6 +36,7 @@ void	flood_fill(t_lib1 *map_data, int x, int y)
 	}
 }
 
+// FIXME What does this do different from the other flood_fill?
 void	flood_fill1(t_lib1 *map_data, int x, int y)
 {
 	if (map_data->cpy_of_map_array[x][y] != '1')
@@ -46,6 +49,7 @@ void	flood_fill1(t_lib1 *map_data, int x, int y)
 	}
 }
 
+// How does this work? Is it needed? We no longer have coins or exits.
 void	find_out_if_is_playable(t_lib1 *map_data)
 {
 	int	playable;
