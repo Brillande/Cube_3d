@@ -62,31 +62,6 @@ SRCS        :=      main.c \
                           libft/ft_isprint.c \
                           libft/ft_split.c \
                           read_the_map.c \
-                          MLX42/build/CMakeFiles/3.22.1/CompilerIdC/CMakeCCompilerId.c \
-                          MLX42/build/CMakeFiles/3.22.1/CompilerIdCXX/CMakeCXXCompilerId.cpp \
-                          MLX42/build/mlx_frag_shader.c \
-                          MLX42/build/mlx_vert_shader.c \
-                          MLX42/lib/glad/glad.c \
-                          MLX42/lib/png/lodepng.c \
-                          MLX42/src/textures/mlx_png.c \
-                          MLX42/src/textures/mlx_texture.c \
-                          MLX42/src/textures/mlx_xpm42.c \
-                          MLX42/src/mlx_exit.c \
-                          MLX42/src/mlx_mouse.c \
-                          MLX42/src/mlx_cursor.c \
-                          MLX42/src/mlx_put_pixel.c \
-                          MLX42/src/mlx_window.c \
-                          MLX42/src/mlx_init.c \
-                          MLX42/src/mlx_monitor.c \
-                          MLX42/src/utils/mlx_list.c \
-                          MLX42/src/utils/mlx_utils.c \
-                          MLX42/src/utils/mlx_error.c \
-                          MLX42/src/utils/mlx_compare.c \
-                          MLX42/src/mlx_keys.c \
-                          MLX42/src/font/mlx_font.c \
-                          MLX42/src/mlx_loop.c \
-                          MLX42/src/mlx_images.c \
-                          MLX42/tests/tests.cpp \
                           ray.c \
                           print_3d.c \
                           moves.c \
@@ -97,8 +72,34 @@ SRCS        :=      main.c \
                           ft_printf/utils.c \
                           ft_printf/libftprintf.c \
                           ft_printf/utils1.c \
-                          test_to_knows_if_is_playable2.c \
-                          
+                          test_to_knows_if_is_playable2.c
+                           # NOTE These files are not compiled by us, we leave them to MLX42's make
+													 # MLX42/build/CMakeFiles/3.22.1/CompilerIdC/CMakeCCompilerId.c \
+                          # MLX42/build/CMakeFiles/3.22.1/CompilerIdCXX/CMakeCXXCompilerId.cpp \
+                          # MLX42/build/mlx_frag_shader.c \
+                          # MLX42/build/mlx_vert_shader.c \
+                          # MLX42/lib/glad/glad.c \
+                          # MLX42/lib/png/lodepng.c \
+                          # MLX42/src/textures/mlx_png.c \
+                          # MLX42/src/textures/mlx_texture.c \
+                          # MLX42/src/textures/mlx_xpm42.c \
+                          # MLX42/src/mlx_exit.c \
+                          # MLX42/src/mlx_mouse.c \
+                          # MLX42/src/mlx_cursor.c \
+                          # MLX42/src/mlx_put_pixel.c \
+                          # MLX42/src/mlx_window.c \
+                          # MLX42/src/mlx_init.c \
+                          # MLX42/src/mlx_monitor.c \
+                          # MLX42/src/utils/mlx_list.c \
+                          # MLX42/src/utils/mlx_utils.c \
+                          # MLX42/src/utils/mlx_error.c \
+                          # MLX42/src/utils/mlx_compare.c \
+                          # MLX42/src/mlx_keys.c \
+                          # MLX42/src/font/mlx_font.c \
+                          # MLX42/src/mlx_loop.c \
+                          # MLX42/src/mlx_images.c \
+                          # MLX42/tests/tests.cpp \
+
 OBJS        := $(SRCS:.c=.o)
 
 .c.o:
@@ -118,7 +119,11 @@ CYAN 		:= \033[1;36m
 RM		    := rm -f
 
 UNAME		:=	$(shell uname)
+# Change this if we are using the original MLX
+MLXDIR	= MLX42
 
+# Mac OS options, not needed
+# TODO The MAKE line will not work with MLX42
 ifeq ($(UNAME), Darwin)
 $(NAME): ${OBJS}
 			@echo "$(GREEN)Compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
@@ -128,17 +133,17 @@ $(NAME): ${OBJS}
 			@echo "$(GREEN)$(NAME) created[0m ✔️"
 endif
 
+# FIXME I think the -I parts below are incomplete
 ifeq ($(UNAME), Linux)
 $(NAME): ${OBJS}
 			@echo "$(GREEN)Linux compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
-			@chmod 777 mlx_linux/configure
-			@ $(MAKE) -C mlx_linux all
-			$(CC) $(CFLAGS) -g3 -o $(NAME) $(OBJS) -Imlx_linux -Lmlx_linux -lmlx -lmlx_Linux -L/usr/lib -lXext -lX11 -lm
+			@cmake $(MLXDIR)
+#			$(CC) $(CFLAGS) -g3 -o $(NAME) $(OBJS) -Imlx_linux -Lmlx_linux -lmlx -lmlx_Linux -L/usr/lib -lXext -lX11 -lm
+			$(CC) $(CFLAGS) -g3 -o $(NAME) $(OBJS) -Imlx42 -Lmlx42 -L/usr/lib -lXext -lX11 -lm
 			@echo "$(GREEN)$(NAME) created[0m ✔️"
 endif
 
-all:		${NAME}
-
+# Mac OS options, not needed
 ifeq ($(UNAME), Darwin)
 clean:
 			@ ${RM} *.o */*.o */*/*.o
@@ -153,11 +158,10 @@ clean:
 			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
 endif
 
-
 ifeq ($(UNAME), Linux)
 fclean:		clean
 			@ ${RM} ${NAME}
-			@ $(MAKE) -C mlx_linux clean 
+			@ $(MAKE) -C $(MLXDIR) clean
 			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✔️"
 endif
 
