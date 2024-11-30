@@ -61,7 +61,8 @@ void	open_window(t_lib1 *map_data)
 
 void	select_img(t_lib1 *map_data)
 {
-	map_data->player = mlx_texture_to_image(map_data->mlx, map_data->player);
+	// FIXME Cokmpilation error in the call below
+//	map_data->player = mlx_texture_to_image(map_data->mlx, map_data->player);
 	map_data->wall = mlx_texture_to_image(map_data->mlx, map_data->wall);
 	map_data->ground = mlx_texture_to_image(map_data->mlx, map_data->ground);
 	map_data->coin = mlx_texture_to_image(map_data->mlx, map_data->coin);

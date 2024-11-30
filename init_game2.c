@@ -51,10 +51,11 @@ void	print_img3(t_lib1 *map_data)
 			i++;
 		}
 	}
-	mlx_image_to_window(map_data->mlx, map_data->player, (j
-			* 64) + 14, (i * 64) - 4);
+	// FIXME expects mlx_image_t but passes t_player
+//	mlx_image_to_window(map_data->mlx, map_data->player, (j * 64) + 14, (i * 64) - 4);
 }
 
+// FIXME "multiple definition of key_hook"
 void	key_hook(mlx_key_data_t keydata, void *info)
 {
 	t_lib1	*data;

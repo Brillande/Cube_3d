@@ -70,6 +70,7 @@ double	find_distance(t_lib1 *data, t_lib1 *cal, double angle)
 	return (perp_dist);
 }
 
+// FIXME t_calculation is not in any header file
 double	len_find(t_lib1 *data, double angle)
 {
 	t_calculation	cal;
