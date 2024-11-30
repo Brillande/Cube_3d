@@ -2,22 +2,22 @@
 
 void	dda_alg(t_lib1 *data, t_lib1 *ca)
 {
-	while (ca->dmg == 0)
+	while (ca->hit == 0)
 	{
-		if (ca->x_side < ca->y_side)
+		if (ca->side_x < ca->side_y)
 		{
-			ca->x_side += ca->x_delta;
-			ca->x_map += ca->x_step;
-			data->player.side = 0 + (ca->x_step + 1);
+			ca->side_x += ca->delta_x;
+			ca->map_x += ca->step_x;
+			data->player.side = 0 + (ca->step_x + 1);
 		}
 		else
 		{
-			ca->y_side += ca->y_delta;
-			ca->y_map += ca->y_step;
-			data->player.side = 1 + (1 + ca->y_step);
+			ca->side_y += ca->delta_y;
+			ca->map_y += ca->step_y;
+			data->player.side = 1 + (1 + ca->step_y);
 		}
-		if (data->map[ca->y_map][ca->x_map] == '1')
-			ca->dmg = 1;
+		if (data->map[ca->map_y][ca->map_x] == '1')
+			ca->hit = 1;
 	}
 }
 
@@ -25,23 +25,23 @@ void	find_ray(t_lib1 *cal, t_lib1 *data)
 {
 	if (cal->ray_x < 0)
 	{
-		cal->x_step = -1;
-		cal->x_side = (data->player.x - cal->x_map) * cal->x_delta;
+		cal->step_x = -1;
+		cal->side_x = (data->player.x - cal->map_x) * cal->delta_x;
 	}
 	else
 	{
-		cal->x_step = 1;
-		cal->x_side = (cal->x_map + 1.0 - data->player.x) * cal->x_delta;
+		cal->step_x = 1;
+		cal->side_x = (cal->map_x + 1.0 - data->player.x) * cal->delta_x;
 	}
 	if (cal->ray_y < 0)
 	{
-		cal->y_step = -1;
-		cal->y_side = (data->player.y - cal->y_map) * cal->y_delta;
+		cal->step_y = -1;
+		cal->side_y = (data->player.y - cal->map_y) * cal->delta_y;
 	}
 	else
 	{
-		cal->y_step = 1;
-		cal->y_side = (cal->y_map + 1.0 - data->player.y) * cal->y_delta;
+		cal->step_y = 1;
+		cal->side_y = (cal->map_y + 1.0 - data->player.y) * cal->delta_y;
 	}
 }
 
@@ -52,9 +52,9 @@ double	find_distance(t_lib1 *data, t_lib1 *cal, double angle)
 	double	perp_dist;
 
 	if (data->player.side == 0 || data->player.side == 2)
-		distance = cal->x_side - cal->x_delta;
+		distance = cal->side_x - cal->delta_x;
 	else
-		distance = cal->y_side - cal->y_delta;
+		distance = cal->side_y - cal->delta_y;
 	ca = data->player.pa - angle;
 	if (ca < 0)
 		ca += 2 * M_PI;
@@ -76,11 +76,11 @@ double	len_find(t_lib1 *data, double angle)
 
 	maths.y = (int)data->player_coor_y;
 	maths.x = (int)data->player_coor_x;
-	maths.x_ray = cos(angle);
-	maths.y_ray = sin(angle);
-	maths.x_delta = fabs(1 / maths.x_ray);
-	maths.dmg = 0;
-	maths.y_delta = fabs(1 / maths.y_ray);
+	maths.ray_x = cos(angle);
+	maths.ray_y = sin(angle);
+	maths.delta_x = fabs(1 / maths.ray_x);
+	maths.hit = 0;
+	maths.delta_y = fabs(1 / maths.ray_y);
 	find_ray(&maths, data);
 	dda_alg(data, &maths);
 	return (find_distance(data, &maths, angle));

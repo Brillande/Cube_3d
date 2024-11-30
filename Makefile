@@ -1,6 +1,18 @@
-NAME        := cub3d
+#  |  |  ___ \    \  |         |
+#  |  |     ) |  |\/ |   _  |  |  /   _ 
+# ___ __|  __/   |   |  (   |    <    __/ 
+#    _|  _____| _|  _| \__,_| _|\_\ \___|
+#                              by jcluzet
+################################################################################
+#                                     CONFIG                                   #
+################################################################################
+
+NAME        := cube3d
 CC        := gcc
 FLAGS    := -Wall -Wextra -Werror 
+################################################################################
+#                                 PROGRAM'S SRCS                               #
+################################################################################
 
 SRCS        :=      main.c \
                           join_the_fullpath.c \
@@ -9,6 +21,7 @@ SRCS        :=      main.c \
                           libft/ft_isascii.c \
                           libft/ft_strjoin.c \
                           libft/ft_isalpha.c \
+                          libft/ft_strtrim.c \
                           libft/ft_strnstr.c \
                           libft/ft_putstr_fd.c \
                           libft/ft_lstlast_bonus.c \
@@ -44,15 +57,43 @@ SRCS        :=      main.c \
                           libft/ft_atoi.c \
                           libft/ft_lstsize_bonus.c \
                           libft/ft_toupper.c \
+                          libft/ft_memchr.c \
                           libft/ft_lstdelone_bonus.c \
                           libft/ft_isprint.c \
                           libft/ft_split.c \
                           read_the_map.c \
+                          MLX42/build/CMakeFiles/3.22.1/CompilerIdC/CMakeCCompilerId.c \
+                          MLX42/build/CMakeFiles/3.22.1/CompilerIdCXX/CMakeCXXCompilerId.cpp \
+                          MLX42/build/mlx_frag_shader.c \
+                          MLX42/build/mlx_vert_shader.c \
+                          MLX42/lib/glad/glad.c \
+                          MLX42/lib/png/lodepng.c \
+                          MLX42/src/textures/mlx_png.c \
+                          MLX42/src/textures/mlx_texture.c \
+                          MLX42/src/textures/mlx_xpm42.c \
+                          MLX42/src/mlx_exit.c \
+                          MLX42/src/mlx_mouse.c \
+                          MLX42/src/mlx_cursor.c \
+                          MLX42/src/mlx_put_pixel.c \
+                          MLX42/src/mlx_window.c \
+                          MLX42/src/mlx_init.c \
+                          MLX42/src/mlx_monitor.c \
+                          MLX42/src/utils/mlx_list.c \
+                          MLX42/src/utils/mlx_utils.c \
+                          MLX42/src/utils/mlx_error.c \
+                          MLX42/src/utils/mlx_compare.c \
+                          MLX42/src/mlx_keys.c \
+                          MLX42/src/font/mlx_font.c \
+                          MLX42/src/mlx_loop.c \
+                          MLX42/src/mlx_images.c \
+                          MLX42/tests/tests.cpp \
+                          ray.c \
                           print_3d.c \
                           moves.c \
                           test_to_knows_if_is_playable3.c \
                           init_game2.c \
                           distance.c \
+                          moves2.c \
                           ft_printf/utils.c \
                           ft_printf/libftprintf.c \
                           ft_printf/utils1.c \
@@ -62,6 +103,10 @@ OBJS        := $(SRCS:.c=.o)
 
 .c.o:
 	${CC} ${FLAGS} -c $< -o ${<:.c=.o}
+
+################################################################################
+#                                  Makefile  objs                              #
+################################################################################
 
 
 CLR_RMV		:= \033[0m

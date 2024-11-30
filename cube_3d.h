@@ -6,14 +6,13 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 13:23:09 by emedina-          #+#    #+#             */
-/*   Updated: 2024/11/27 17:53:21 by emedina-         ###   ########.fr       */
+/*   Updated: 2024/11/30 15:56:40 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUBE_3D_H
 # define CUBE_3D_H
 # include "./libft/libft.h"
-# include "./mlx/include/MLX42/MLX42.h"
 # include "ft_printf/ft_printf.h"
 # include <fcntl.h>
 # include <stdbool.h>
@@ -21,8 +20,59 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <math.h>
-typedef struct s_lib1
-{
+
+#define SCREENWIDTH 640
+#define SCREENHEIGHT 480
+#define EAST 2
+#define WEST 3
+#define NORTH 4
+#define SOUTH 
+#define TRUE 1
+#define FALSE 0
+
+typedef struct s_player {
+    double pa; // Ángulo de orientación del jugador
+    double x; // Coordenada x del jugador
+    double y; // Coordenada y del jugador
+    double ray; // Longitud del rayo
+    double wall_x; // Coordenada x de la pared
+    int side; // Lado del impacto
+	double x_camera; // Coordenada x de la cámara
+    double y_camera; // Coordenada y de la cámara
+    double game_speed; // Velocidad del juego
+} t_player;
+
+typedef struct s_info {
+    mlx_texture_t *tex;
+    double top;
+    double bottom;
+    double text_start;
+    double step;
+    int color;
+} t_info;
+
+// Definición de la estructura t_lib1
+typedef struct s_lib1 {
+    t_player player;
+    char **map;
+    int hit; // Indicador de impacto
+    double side_x; // Lado x
+    double side_y; // Lado y
+    double delta_x; // Delta x
+    double delta_y; // Delta y
+    int map_x; // Coordenada x del mapa
+    int map_y; // Coordenada y del mapa
+    int step_x; // Paso x
+    int step_y; // Paso y
+    double ray_x; // Coordenada x del rayo
+    double ray_y; // Coordenada y del rayo
+    void *img; // Imagen
+    int rgb_ceiling; // Color del techo
+    int rgb_floor; // Color del suelo
+    void *texture[4];
+	int len_cols; // Número de columnas
+    int len_rows; // Número de filas
+	mlx_t *mlx;
 	char	**map_array;
 	char	**cpy_of_map_array;
 	int		player_coor_x;
@@ -32,33 +82,17 @@ typedef struct s_lib1
 	int		map_length;
 	int		x;
 	int		y;
-	int 	pa;
-	int 	ray;
 	int		count;
 	char	*fullpath;
 	char	*map_content;
-	void	*img;
 	char	*addr;
-	int 	x_ray;
-	int 	y_ray;
-	int 	y_delta;
-	int 	x_map;
-	int 	y_map;
-	int 	y_side;
-	int 	x_side;
-	int 	y_step;
-	int 	x_step;
-	int 	x_delta;
-	int 	dmg;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
 	int		color;
-	void	*mlx;
 	void	*win;
 	int		width;
 	int		heigth;
-	void	*player;
 	void	*ground;
 	void	*coin;
 	void	*exit;
@@ -68,8 +102,7 @@ typedef struct s_lib1
 	int		total_coins;
 	int		cpy_coors_x;
 	int		cpy_coors_y;
-}			t_lib1;
-
+} t_lib1;
 int			main(int argc, char **argv);
 void		isnt_borded_of_walls(char **map_array, int lines, int colms);
 int			hasnt_forbidden_char(char *map_content);
@@ -108,4 +141,7 @@ void		flood_fill1(t_lib1 *map_data, int x, int y);
 void		find_out_if_is_playable2(t_lib1 *map_data, int playable);
 void		print_3d(t_lib1 *data);
 void		walls(t_lib1 *data, int i);
+int			check_move(int x, int y, t_lib1 *data);
+double		len_find(t_lib1 *data, double angle);
+
 #endif
