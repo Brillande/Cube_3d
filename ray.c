@@ -73,7 +73,7 @@ double	find_distance(t_lib1 *data, t_lib1 *cal, double angle)
 // FIXME t_calculation is not in any header file
 double	len_find(t_lib1 *data, double angle)
 {
-	t_calculation	cal;
+	t_lib1	cal;
 
 	cal.map_y = (int)data->player.y;
 	cal.map_x = (int)data->player.x;
