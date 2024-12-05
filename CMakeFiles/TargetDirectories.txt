@@ -1,7 +1,7 @@
-/home/emedina-/Cube_3d/CMakeFiles/mlx42.dir
-/home/emedina-/Cube_3d/CMakeFiles/edit_cache.dir
-/home/emedina-/Cube_3d/CMakeFiles/rebuild_cache.dir
-/home/emedina-/Cube_3d/CMakeFiles/list_install_components.dir
-/home/emedina-/Cube_3d/CMakeFiles/install.dir
-/home/emedina-/Cube_3d/CMakeFiles/install/local.dir
-/home/emedina-/Cube_3d/CMakeFiles/install/strip.dir
+/home/emedina-/cube_3d/CMakeFiles/mlx42.dir
+/home/emedina-/cube_3d/CMakeFiles/edit_cache.dir
+/home/emedina-/cube_3d/CMakeFiles/rebuild_cache.dir
+/home/emedina-/cube_3d/CMakeFiles/list_install_components.dir
+/home/emedina-/cube_3d/CMakeFiles/install.dir
+/home/emedina-/cube_3d/CMakeFiles/install/local.dir
+/home/emedina-/cube_3d/CMakeFiles/install/strip.dir
