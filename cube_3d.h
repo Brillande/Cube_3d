@@ -107,6 +107,16 @@ typedef struct s_lib1 {
 	int		cpy_coors_x;
 	int		cpy_coors_y;
 } t_lib1;
+
+// NOTE This does not look compatible with int rgb_ceiling above
+// ...is there some kind of bit-shifting trick there?
+typedef struct s_rgb
+{
+	int	r;
+	int	g;
+	int	b;
+}	t_rgb;
+
 int			main(int argc, char **argv);
 void		isnt_borded_of_walls(char **map_array, int lines, int colms);
 int			hasnt_forbidden_char(char *map_content);
