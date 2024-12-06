@@ -25,22 +25,23 @@ void	key_hook(mlx_key_data_t keydata, void *info)
 	move(data);
 }
 
-void	move(t_lib1 *data)
-{
-	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-		key_left(data);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		key_a(data);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-		key_d(data);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-		key_right(data);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-		key_s(data);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
-		key_w(data);
-	print_3d(data);
-}
+// NOTE Commented out because is duplicated in moves2.c
+/* void	move(t_lib1 *data) */
+/* { */
+/* 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT)) */
+/* 		key_left(data); */
+/* 	if (mlx_is_key_down(data->mlx, MLX_KEY_A)) */
+/* 		key_a(data); */
+/* 	if (mlx_is_key_down(data->mlx, MLX_KEY_D)) */
+/* 		key_d(data); */
+/* 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT)) */
+/* 		key_right(data); */
+/* 	if (mlx_is_key_down(data->mlx, MLX_KEY_S)) */
+/* 		key_s(data); */
+/* 	if (mlx_is_key_down(data->mlx, MLX_KEY_W)) */
+/* 		key_w(data); */
+/* 	print_3d(data); */
+/* } */
 
 t_lib1	*init_game(t_lib1 *map_data)
 {

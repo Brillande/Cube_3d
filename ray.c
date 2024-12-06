@@ -1,49 +1,51 @@
 #include "cube_3d.h"
 
-void	dda_alg(t_lib1 *data, t_lib1 *ca)
-{
-	while (ca->hit == 0)
-	{
-		if (ca->side_x < ca->side_y)
-		{
-			ca->side_x += ca->delta_x;
-			ca->map_x += ca->step_x;
-			data->player.side = 0 + (ca->step_x + 1);
-		}
-		else
-		{
-			ca->side_y += ca->delta_y;
-			ca->map_y += ca->step_y;
-			data->player.side = 1 + (1 + ca->step_y);
-		}
-		if (data->map[ca->map_y][ca->map_x] == '1')
-			ca->hit = 1;
-	}
-}
+// FIXME This is defined twice
+/* void	dda_alg(t_lib1 *data, t_lib1 *ca) */
+/* { */
+/* 	while (ca->hit == 0) */
+/* 	{ */
+/* 		if (ca->side_x < ca->side_y) */
+/* 		{ */
+/* 			ca->side_x += ca->delta_x; */
+/* 			ca->map_x += ca->step_x; */
+/* 			data->player.side = 0 + (ca->step_x + 1); */
+/* 		} */
+/* 		else */
+/* 		{ */
+/* 			ca->side_y += ca->delta_y; */
+/* 			ca->map_y += ca->step_y; */
+/* 			data->player.side = 1 + (1 + ca->step_y); */
+/* 		} */
+/* 		if (data->map[ca->map_y][ca->map_x] == '1') */
+/* 			ca->hit = 1; */
+/* 	} */
+/* } */
 
-void	find_ray(t_lib1 *cal, t_lib1 *data)
-{
-	if (cal->ray_x < 0)
-	{
-		cal->step_x = -1;
-		cal->side_x = (data->player.x - cal->map_x) * cal->delta_x;
-	}
-	else
-	{
-		cal->step_x = 1;
-		cal->side_x = (cal->map_x + 1.0 - data->player.x) * cal->delta_x;
-	}
-	if (cal->ray_y < 0)
-	{
-		cal->step_y = -1;
-		cal->side_y = (data->player.y - cal->map_y) * cal->delta_y;
-	}
-	else
-	{
-		cal->step_y = 1;
-		cal->side_y = (cal->map_y + 1.0 - data->player.y) * cal->delta_y;
-	}
-}
+// FIXME This is defined twice
+/* void	find_ray(t_lib1 *cal, t_lib1 *data) */
+/* { */
+/* 	if (cal->ray_x < 0) */
+/* 	{ */
+/* 		cal->step_x = -1; */
+/* 		cal->side_x = (data->player.x - cal->map_x) * cal->delta_x; */
+/* 	} */
+/* 	else */
+/* 	{ */
+/* 		cal->step_x = 1; */
+/* 		cal->side_x = (cal->map_x + 1.0 - data->player.x) * cal->delta_x; */
+/* 	} */
+/* 	if (cal->ray_y < 0) */
+/* 	{ */
+/* 		cal->step_y = -1; */
+/* 		cal->side_y = (data->player.y - cal->map_y) * cal->delta_y; */
+/* 	} */
+/* 	else */
+/* 	{ */
+/* 		cal->step_y = 1; */
+/* 		cal->side_y = (cal->map_y + 1.0 - data->player.y) * cal->delta_y; */
+/* 	} */
+/* } */
 
 double	find_distance(t_lib1 *data, t_lib1 *cal, double angle)
 {
