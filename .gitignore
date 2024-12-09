@@ -1,2 +1,5 @@
 *.o
 cub3d
+/*.o
+/ft_printf/*.o
+/CMakeFiles/

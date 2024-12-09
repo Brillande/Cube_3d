@@ -45,46 +45,47 @@ void	find_ray(t_lib1 *cal, t_lib1 *data)
 	}
 }
 
-double	find_distance(t_lib1 *data, t_lib1 *cal, double angle)
-{
-	double	distance;
-	double	ca;
-	double	perp_dist;
+/* double	find_distance(t_lib1 *data, t_lib1 *cal, double angle) */
+/* { */
+/* 	double	distance; */
+/* 	double	ca; */
+/* 	double	perp_dist; */
 
-	if (data->player.side == 0 || data->player.side == 2)
-		distance = cal->side_x - cal->delta_x;
-	else
-		distance = cal->side_y - cal->delta_y;
-	ca = data->player.pa - angle;
-	if (ca < 0)
-		ca += 2 * M_PI;
-	else if (ca > 2 * M_PI)
-		ca -= 2 * M_PI;
-	perp_dist = distance * cos(ca);
-	perp_dist = fabs(perp_dist);
-	if (data->player.side == EAST || data->player.side == WEST)
-		data->player.wall_x = data->player.y + cal->ray_y * perp_dist;
-	else
-		data->player.wall_x = data->player.x + cal->ray_x * perp_dist;
-	data->player.wall_x -= floorf(data->player.wall_x);
-	return (perp_dist);
-}
+/* 	if (data->player.side == 0 || data->player.side == 2) */
+/* 		distance = cal->side_x - cal->delta_x; */
+/* 	else */
+/* 		distance = cal->side_y - cal->delta_y; */
+/* 	ca = data->player.pa - angle; */
+/* 	if (ca < 0) */
+/* 		ca += 2 * M_PI; */
+/* 	else if (ca > 2 * M_PI) */
+/* 		ca -= 2 * M_PI; */
+/* 	perp_dist = distance * cos(ca); */
+/* 	perp_dist = fabs(perp_dist); */
+/* 	if (data->player.side == EAST || data->player.side == WEST) */
+/* 		data->player.wall_x = data->player.y + cal->ray_y * perp_dist; */
+/* 	else */
+/* 		data->player.wall_x = data->player.x + cal->ray_x * perp_dist; */
+/* 	data->player.wall_x -= floorf(data->player.wall_x); */
+/* 	return (perp_dist); */
+/* } */
 
-double	len_find(t_lib1 *data, double angle)
-{
-	t_lib1	maths;
+// FIXME defined more than once
+/* double	len_find(t_lib1 *data, double angle) */
+/* { */
+/* 	t_lib1	maths; */
 
-	maths.y = (int)data->player_coor_y;
-	maths.x = (int)data->player_coor_x;
-	maths.ray_x = cos(angle);
-	maths.ray_y = sin(angle);
-	maths.delta_x = fabs(1 / maths.ray_x);
-	maths.hit = 0;
-	maths.delta_y = fabs(1 / maths.ray_y);
-	find_ray(&maths, data);
-	dda_alg(data, &maths);
-	return (find_distance(data, &maths, angle));
-}
+/* 	maths.y = (int)data->player_coor_y; */
+/* 	maths.x = (int)data->player_coor_x; */
+/* 	maths.ray_x = cos(angle); */
+/* 	maths.ray_y = sin(angle); */
+/* 	maths.delta_x = fabs(1 / maths.ray_x); */
+/* 	maths.hit = 0; */
+/* 	maths.delta_y = fabs(1 / maths.ray_y); */
+/* 	find_ray(&maths, data); */
+/* 	dda_alg(data, &maths); */
+/* 	return (find_distance(data, &maths, angle)); */
+/* } */
 
 void	print_3d(t_lib1 *data)
 {
