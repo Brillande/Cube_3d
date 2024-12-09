@@ -1,0 +1,39 @@
+gcc -Wall -Wextra -Werror -g3 -I MLX42 -I ./libft -c main.c -o main.o
+gcc -Wall -Wextra -Werror -g3 -I MLX42 -I ./libft -c join_the_fullpath.c -o join_the_fullpath.o
+gcc -Wall -Wextra -Werror -g3 -I MLX42 -I ./libft -c tests_to_knows_if_is_playable.c -o tests_to_knows_if_is_playable.o
+gcc -Wall -Wextra -Werror -g3 -I MLX42 -I ./libft -c init_game.c -o init_game.o
+gcc -Wall -Wextra -Werror -g3 -I MLX42 -I ./libft -c read_the_map.c -o read_the_map.o
+gcc -Wall -Wextra -Werror -g3 -I MLX42 -I ./libft -c print_3d.c -o print_3d.o
+gcc -Wall -Wextra -Werror -g3 -I MLX42 -I ./libft -c moves.c -o moves.o
+gcc -Wall -Wextra -Werror -g3 -I MLX42 -I ./libft -c test_to_knows_if_is_playable3.c -o test_to_knows_if_is_playable3.o
+gcc -Wall -Wextra -Werror -g3 -I MLX42 -I ./libft -c init_game2.c -o init_game2.o
+gcc -Wall -Wextra -Werror -g3 -I MLX42 -I ./libft -c distance.c -o distance.o
+gcc -Wall -Wextra -Werror -g3 -I MLX42 -I ./libft -c moves2.c -o moves2.o
+gcc -Wall -Wextra -Werror -g3 -I MLX42 -I ./libft -c ft_printf/utils.c -o ft_printf/utils.o
+gcc -Wall -Wextra -Werror -g3 -I MLX42 -I ./libft -c ft_printf/libftprintf.c -o ft_printf/libftprintf.o
+gcc -Wall -Wextra -Werror -g3 -I MLX42 -I ./libft -c ft_printf/utils1.c -o ft_printf/utils1.o
+gcc -Wall -Wextra -Werror -g3 -I MLX42 -I ./libft -c test_to_knows_if_is_playable2.c -o test_to_knows_if_is_playable2.o
+gcc -Wall -Wextra -Werror -g3 -I MLX42 -I ./libft -c ray.c -o ray.o
+cmake MLX42
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- MLX42 @ 2.4.1
+-- Building in RELEASE mode
+-- Found OpenGL: /usr/lib/x86_64-linux-gnu/libOpenGL.so   
+-- Found GLFW: /usr/lib/x86_64-linux-gnu/libglfw.so
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/emedina-/cube_3d
+make -C MLX42
+make[1]: Entering directory '/home/emedina-/cube_3d/MLX42'
+make[1]: Leaving directory '/home/emedina-/cube_3d/MLX42'
