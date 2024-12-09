@@ -21,7 +21,6 @@ SRCS        :=      main.c \
                          read_the_map.c \
                           print_3d.c \
                           moves.c \
-                          test_to_knows_if_is_playable3.c \
                           init_game2.c \
                           distance.c \
                           moves2.c \
