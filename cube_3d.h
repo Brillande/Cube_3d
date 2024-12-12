@@ -58,6 +58,7 @@ typedef struct s_info {
 // TODO How do we change "number of columns" - the map is not a rectangle.
 typedef struct s_lib1 {
     t_player player;
+	void *player_one;
     char **map;
     int hit; // Indicador de impacto
     double side_x; // Lado x

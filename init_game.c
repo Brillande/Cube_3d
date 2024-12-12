@@ -19,6 +19,7 @@ void	key_hook(mlx_key_data_t keydata, void *info)
 	data = (t_lib1 *) info;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
+		printf("hola");
 		mlx_close_window(data->mlx);
 		exit(0);
 	}
@@ -63,11 +64,7 @@ void	open_window(t_lib1 *map_data)
 void	select_img(t_lib1 *map_data)
 {
 	// FIXME Cokmpilation error in the call below
-//	map_data->player = mlx_texture_to_image(map_data->mlx, map_data->player);
-	map_data->wall = mlx_texture_to_image(map_data->mlx, map_data->wall);
-	map_data->ground = mlx_texture_to_image(map_data->mlx, map_data->ground);
-	map_data->coin = mlx_texture_to_image(map_data->mlx, map_data->coin);
-	map_data->exit = mlx_texture_to_image(map_data->mlx, map_data->exit);
+	map_data->player_one = mlx_load_png("img/player.png");
 }
 
 int	print_img(t_lib1 *map_data)
