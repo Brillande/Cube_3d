@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:20:40 by emedina-          #+#    #+#             */
-/*   Updated: 2024/11/27 17:32:17 by emedina-         ###   ########.fr       */
+/*   Updated: 2024/12/19 18:14:25 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	key_hook(mlx_key_data_t keydata, void *info)
 	data = (t_lib1 *) info;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
-		printf("hola");
 		mlx_close_window(data->mlx);
 		exit(0);
 	}
@@ -57,7 +56,10 @@ void	open_window(t_lib1 *map_data)
 			* 64, map_data->how_many_lines * 64, "cube_3d emedina-",1);
 	map_data->img = mlx_new_image(map_data->mlx, 1 * 64, 1 * 64);
 	select_img(map_data);
+	//hay que configurar loop hook para que funcione con print img
+	mlx_loop_hook(map_data->mlx, print_img, map_data);
 	mlx_key_hook(map_data->win, &key_hook, map_data);
+	
 	mlx_loop(map_data->mlx);
 }
 
