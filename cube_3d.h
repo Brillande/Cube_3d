@@ -99,8 +99,8 @@ typedef struct s_lib1 {
 	int		heigth;
 	void	*ground;
 	void	*coin;		// TODO remove this from struct?
-	void	*exit;
-	void	*wall;
+	void	*exit;		// TODO remove this from struct?
+	void	*wall;		// FIXME Implicated in segfault, not initialised correctly?
 	int		end;
 	int		coins_collected;		// TODO remove this from struct?
 	int		total_coins;		// TODO remove this from struct?
@@ -117,22 +117,14 @@ typedef struct s_rgb
 	int	b;
 }	t_rgb;
 
-int			main(int argc, char **argv);
-void		isnt_borded_of_walls(char **map_array, int lines, int colms);
-int			hasnt_forbidden_char(char *map_content);
-char		*check_name(char *map_name);
-char		*check_extension(char *map_extension);
+int		main(int argc, char **argv);
 t_lib1		*join_the_fullpath(t_lib1 *map_data, char *map_name);
 t_lib1		*read_the_map(t_lib1 *map_data);
 char		*read_map(char *full_path, int i);
-int			how_length_is_the_map(char *full_path);
-t_lib1		*test_to_knows_if_is_playable(t_lib1 *map_data);
-int			count_words(const char *str, char c);
-t_lib1		*test_to_knows_if_is_playable2(t_lib1 *map_data);
 t_lib1		*init_game(t_lib1 *map_data);
 void		open_window(t_lib1 *map_data);
 void		select_img(t_lib1 *map_data);
-int			print_img(t_lib1 *map_data);
+int		print_img(t_lib1 *map_data);
 void		move(t_lib1 *data);
 void		key_left(t_lib1 *data);
 void		key_right(t_lib1 *data);
@@ -141,17 +133,27 @@ void		key_a(t_lib1 *data);
 void		key_s(t_lib1 *data);
 void		key_w(t_lib1 *data);
 void		key_hook(mlx_key_data_t keydata, void *info);
-int			exit_game(t_lib1 *map_data);
+int		exit_game(t_lib1 *map_data);
 void		print_img2(t_lib1 *map_data);
-int			st_map(char x, int i);
-int			st_temp(char c, int i);
+int		st_map(char x, int i);
+int		st_temp(char c, int i);
 void		print_img3(t_lib1 *map_data);
 void		print_img1(t_lib1 *map_data);
 void		print_3d(t_lib1 *data);
 void		walls(t_lib1 *data, int i);
-int			check_move(int x, int y, t_lib1 *data);
+int		check_move(int x, int y, t_lib1 *data);
 double		len_find(t_lib1 *data, double angle);
-void	dda_alg(t_lib1 *data, t_lib1 *ca);
-void	find_ray(t_lib1 *cal, t_lib1 *data);
+void		dda_alg(t_lib1 *data, t_lib1 *ca);
+void		find_ray(t_lib1 *cal, t_lib1 *data);
 
+// Parsing the files
+void		get_visuals(t_lib1 *map_data, int fd);
+t_lib1		*test_to_knows_if_is_playable(t_lib1 *map_data);
+void		isnt_borded_of_walls(char **map_array, int lines, int colms);
+int		hasnt_forbidden_char(char *map_content);
+int		how_length_is_the_map(char *full_path);
+int		count_words(const char *str, char c);
+t_lib1		*test_to_knows_if_is_playable2(t_lib1 *map_data);
+char		*check_name(char *map_name);
+char		*check_extension(char *map_extension);
 #endif

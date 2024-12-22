@@ -27,6 +27,7 @@ SRCS        :=      main.c \
                           ft_printf/utils.c \
                           ft_printf/libftprintf.c \
                           ft_printf/utils1.c \
+													get_visuals.c \
                           test_to_knows_if_is_playable2.c \
                           ray.c
 
