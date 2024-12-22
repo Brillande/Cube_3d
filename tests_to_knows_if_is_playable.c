@@ -18,7 +18,7 @@
 // NO, SO, WE, EA, F, C
 // DONE Change test: filename is .cub not .ber
 // DONE Change tests: spaces are allowed
-// TODO Remove test for "valid path" - not needed in this game.
+// DONE Remove test for "valid path" - not needed in this game.
 // NOTE Why are we storing two copies of the map_content in the struct??
 t_lib1	*test_to_knows_if_is_playable(t_lib1 *map_data)
 {
@@ -35,7 +35,10 @@ t_lib1	*test_to_knows_if_is_playable(t_lib1 *map_data)
 }
 
 // FIXME The map does not have be rectangular
-// ...does the bordering work for irregular shapes?
+// ...the bordering does not work for irregular shapes
+// Can we assume that the map starts at 0,0 or not? NO
+// - Find first marker
+// - Must be a wall (1)
 void	isnt_borded_of_walls(char **map_array, int lines, int colms)
 {
 	int	x;

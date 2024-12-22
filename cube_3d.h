@@ -74,11 +74,11 @@ typedef struct s_lib1 {
     int rgb_ceiling; // Color del techo
     int rgb_floor; // Color del suelo
     void *texture[4];
-	int len_cols; // Número de columnas
-    int len_rows; // Número de filas
+	int len_cols; // Número de columnas NOTE sería el maximo
+    int len_rows; // Número de filas NOTE sería el maximo
 	mlx_t *mlx;
 	char	**map_array;
-	char	**cpy_of_map_array;
+	char	**cpy_of_map_array;		// TODO remove this from struct?
 	int		player_coor_x;
 	int		player_coor_y;
 	int		how_many_lines;

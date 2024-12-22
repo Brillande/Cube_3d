@@ -60,6 +60,7 @@ void	open_window(t_lib1 *map_data)
 	mlx_loop(map_data->mlx);
 }
 
+// FIXME Invalid read in the texture_to_image calls below, leads to segfault
 void	select_img(t_lib1 *map_data)
 {
 	// FIXME Cokmpilation error in the call below
