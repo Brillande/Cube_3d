@@ -33,6 +33,7 @@ void	read_map_from_fd(t_lib1 *map_data, int fd)
 		free (line);
 		line = get_next_line(fd);
 	}
+	map_data->map_content = line;	// HACK This is to put *something* there before strjoin call, but may mess up the map...
 	while ((line) && (line_is_blank(line) == 0))
 	{
 		map_data->how_many_lines++;
@@ -56,8 +57,8 @@ void	print_read_from_file(t_lib1 map_data)
 	ft_printf("South texture: %s\n", map_data.texture_paths[1]);
 	ft_printf("East texture: %s\n", map_data.texture_paths[2]);
 	ft_printf("West texture: %s\n", map_data.texture_paths[3]);
-	ft_printf("Floor colour: %i", map_data.rgb_floor);
-	ft_printf("Ceiling colour: %i", map_data.rgb_ceiling);
+	ft_printf("Floor colour: %i\n", map_data.rgb_floor);
+	ft_printf("Ceiling colour: %i\n", map_data.rgb_ceiling);
 	ft_printf("Map data read:\n%s", map_data.map_content);
 }
 

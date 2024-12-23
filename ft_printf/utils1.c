@@ -13,12 +13,13 @@
 #include "ft_printf.h"
 
 // FIXME This clashes with the ft_strlen in libft :|
+// NOTE Have added some hardening here as a temporary fix
 size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
 	i = 0;
-	while (s[i] != '\0')
+	while ((s) && (s[i] != '\0'))
 	{
 		i++;
 	}

@@ -72,7 +72,7 @@ static char	*get_texture(char *side, int fd)
 // FIXME Must free the parts array before returning.
 // FIXME This will be too long for norm
 // FIXME Too many variables
-// FIXME Does not work! Never reaches the atoi calls
+// TODO Will need to harden this against bad input.
 static int	get_colours(int fd, char key)
 {
     int	i;
@@ -81,6 +81,7 @@ static int	get_colours(int fd, char key)
     int	r;
     int	g;
     int	b;
+	char	*tmp;
 
     i = 0;
 	line = get_next_line(fd);
@@ -91,19 +92,22 @@ static int	get_colours(int fd, char key)
         free(line);
         line = get_next_line(fd);
     }
-    parts = ft_split(line, ',');
-    if (!parts[3])
-        return (-1);
+	parts = ft_split(line, ',');
+	/* if (!parts[3]) */
+	/* 	return (-1); */
     while (parts[0][i] != key)
     {
         if (parts[0][i++] == '\0')
             return (-1);
     }
-    r = ft_atoi(parts[0]);	// HACK this only works if atoi tolerates leading alpha
+	tmp = ft_substr(parts[0], 2, ft_strlen(parts[0]) - 2);
+    r = ft_atoi(tmp);
     g = ft_atoi(parts[1]);
     b = ft_atoi(parts[2]);
-    // free parts array
+	ft_printf("Colour read\t%i\t%i\t%i\n", r, g, b);	// HACK for debugging
+    // TODO free parts array
     free (line);
+	free(tmp);
     return (create_trgb(0, r, g, b));
 }
 
