@@ -119,8 +119,6 @@ typedef struct s_rgb
 
 int		main(int argc, char **argv);
 t_lib1		*join_the_fullpath(t_lib1 *map_data, char *map_name);
-t_lib1		*read_the_map(t_lib1 *map_data);
-char		*read_map(char *full_path, int i);
 t_lib1		*init_game(t_lib1 *map_data);
 void		open_window(t_lib1 *map_data);
 void		select_img(t_lib1 *map_data);
@@ -146,6 +144,10 @@ double		len_find(t_lib1 *data, double angle);
 void		dda_alg(t_lib1 *data, t_lib1 *ca);
 void		find_ray(t_lib1 *cal, t_lib1 *data);
 
+// Perhaps to be removed later
+t_lib1		*read_the_map(t_lib1 *map_data);
+char		*read_map(char *full_path, int i);
+
 // Parsing the files
 void		get_visuals(t_lib1 *map_data, int fd);
 t_lib1		*test_to_knows_if_is_playable(t_lib1 *map_data);
@@ -156,4 +158,5 @@ int		count_words(const char *str, char c);
 t_lib1		*test_to_knows_if_is_playable2(t_lib1 *map_data);
 char		*check_name(char *map_name);
 char		*check_extension(char *map_extension);
+int		line_is_blank(char *line);
 #endif

@@ -10,12 +10,12 @@
 
 // Return 1 if the line only contains spaces.
 // 0 if there is some other kind character
-static int	line_is_blank(char *line)
+int	line_is_blank(char *line)
 {
     int	i;
 
     i = 0;
-    while (line[i] != '\0')
+    while ((line) && (line[i] != '\0'))
     {
         if (ft_isprint(line[i++]))
             return (0);
@@ -81,20 +81,21 @@ static int	get_colours(int fd, char key)
     int	b;
 
     i = 0;
+	line = get_next_line(fd);
     while (line_is_blank(line) == 1)
     {
         if (!line)
-            return (NULL);
+            return (-1);
         free(line);
         line = get_next_line(fd);
     }
     parts = ft_split(line, ',');
-    if (parts[3] != '\0')
-        return (NULL);
+    if (!parts[3])
+        return (-1);
     while (parts[0][i] != key)
     {
-        if (parts[0][i++] = '\0')
-            return NULL;
+        if (parts[0][i++] == '\0')
+            return (-1);
     }
     r = ft_atoi(parts[0]);	// HACK this only works if atoi tolerates leading alpha
     g = ft_atoi(parts[1]);
@@ -111,8 +112,6 @@ static int	get_colours(int fd, char key)
 // TODO get_texture does not use the paths returned, or attempt to load them.
 void	get_visuals(t_lib1 *map_data, int fd)
 {
-    char	*line;
-
     get_texture("NO", fd);
     get_texture("SO", fd);
     get_texture("WE", fd);

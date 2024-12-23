@@ -14,12 +14,13 @@
 #include "cube_3d.h"
 
 // DONE Change test: permitted characters
-// TODO Implement tests for the non-map elements "strict order"
-// NO, SO, WE, EA, F, C
+// TODO Implement tests for the non-map elements: present and valid
 // DONE Change test: filename is .cub not .ber
 // DONE Change tests: spaces are allowed
 // DONE Remove test for "valid path" - not needed in this game.
 // NOTE Why are we storing two copies of the map_content in the struct??
+// NOTE how_many_lines and how_many_columns was counted in read_map_from_fd
+// TODO There is no need to return map_data, caller doesn't use it
 t_lib1	*test_to_knows_if_is_playable(t_lib1 *map_data)
 {
 	if (!hasnt_forbidden_char(map_data->map_content))
