@@ -32,6 +32,8 @@ t_lib1	*test_to_knows_if_is_playable(t_lib1 *map_data)
 	map_data->how_many_lines = count_words(map_data->map_content, '\n');
 	map_data->how_many_colums = (map_data->map_length
 			/ map_data->how_many_lines) - 1;
+	isnt_borded_of_walls(map_data->map_array, map_data->how_many_lines,
+		map_data->how_many_colums);
 	return (map_data);
 }
 
@@ -101,6 +103,7 @@ int	hasnt_forbidden_char(char *map_content)
 // How many vertical lines in the map data.
 // Counts the "words" separated by char c
 // In this program we use it calling with newline
+// TODO Consider removing this, not used in parsing now
 int	count_words(const char *str, char c)
 {
 	int	num_words;

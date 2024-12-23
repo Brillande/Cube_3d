@@ -58,7 +58,7 @@ typedef struct s_info {
 // TODO How do we change "number of columns" - the map is not a rectangle.
 typedef struct s_lib1 {
     t_player player;
-    char **map;
+    char **map;		// NOTE What is the difference between this and map_content?
     int hit; // Indicador de impacto
     double side_x; // Lado x
     double side_y; // Lado y
@@ -83,12 +83,12 @@ typedef struct s_lib1 {
 	int		player_coor_y;
 	int		how_many_lines;
 	int		how_many_colums;
-	int		map_length;
+	int		map_length;		// NOTE IS this needed?
 	int		x;
 	int		y;
 	int		count;
 	char	*fullpath;
-	char	*map_content;
+	char	*map_content;	// NOTE I assume this is the "raw" map data and map above is it as a structured array?
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
@@ -107,15 +107,6 @@ typedef struct s_lib1 {
 	int		cpy_coors_x;
 	int		cpy_coors_y;
 } t_lib1;
-
-// NOTE This does not look compatible with int rgb_ceiling above
-// ...is there some kind of bit-shifting trick there?
-typedef struct s_rgb
-{
-	int	r;
-	int	g;
-	int	b;
-}	t_rgb;
 
 int		main(int argc, char **argv);
 t_lib1		*join_the_fullpath(t_lib1 *map_data, char *map_name);
@@ -155,7 +146,6 @@ void		isnt_borded_of_walls(char **map_array, int lines, int colms);
 int		hasnt_forbidden_char(char *map_content);
 int		how_length_is_the_map(char *full_path);
 int		count_words(const char *str, char c);
-t_lib1		*test_to_knows_if_is_playable2(t_lib1 *map_data);
 char		*check_name(char *map_name);
 char		*check_extension(char *map_extension);
 int		line_is_blank(char *line);

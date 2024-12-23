@@ -12,7 +12,8 @@
 
 #include "cube_3d.h"
 
-// Copy map file contents into an array of determined length.
+// Copy map file contents into a character array of determined length.
+// NOTE Again, there is no need to return the tlib here, passed as reference
 t_lib1	*read_the_map(t_lib1 *map_data)
 {
 	map_data->map_length = how_length_is_the_map(map_data->fullpath);
@@ -26,6 +27,7 @@ t_lib1	*read_the_map(t_lib1 *map_data)
 }
 
 // Read the file into a buffer of given size (plus null terminator)
+// TODO No longer used, remove later
 char	*read_map(char *full_path, int i)
 {
 	char	*buff;
@@ -50,10 +52,10 @@ char	*read_map(char *full_path, int i)
 }
 
 // This returns the length of the buffer needed to hold the map
-// FIXME Update this and the pieces around it to cope with non-map
 // information being present in the file.
 // ...that would imply some get_next_line use and not opening the file here.
 // ...find the first line of map data and read until the end.
+// TODO No longer used, remove later assuming the replacement works...
 int	how_length_is_the_map(char *full_path)
 {
 	int		file;
