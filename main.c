@@ -19,27 +19,25 @@
 // or next blank line
 // ...put it all in map_data->map_content
 // TODO Test this function
-// TODO Find out where to put size_x and size_y, use it directly.
 void	read_map_from_fd(t_lib1 *map_data, int fd)
 {
 	char	*line;
 	char	*newcontent;
 
-	map_data->how_many_colums = 0;
 	map_data->how_many_lines = 0;
+	line = find_next_line(fd);
+	if (!line)
+		exit (EXIT_FAILURE);	// HACK should free things not just exit
+	map_data->how_many_lines++;
+	map_data->how_many_colums = ft_strlen(line);
+	map_data->map_content = line;	// NOTE This is to put *something* there before strjoin call, but may mess up the map...
 	line = get_next_line(fd);
-	while ((line) && (line_is_blank(line) == 1))
-	{
-		free (line);
-		line = get_next_line(fd);
-	}
-	map_data->map_content = line;	// HACK This is to put *something* there before strjoin call, but may mess up the map...
 	while ((line) && (line_is_blank(line) == 0))
 	{
 		map_data->how_many_lines++;
 		if ((int) ft_strlen(line) > map_data->how_many_colums)
 			map_data->how_many_colums = ft_strlen(line);
-		newcontent = ft_strjoin(map_data->map_content, line);	// FIXME this causes invlaid read
+		newcontent = ft_strjoin(map_data->map_content, line);
 		free(line);
 		// FIXME Invalid free here.
 //		free(map_data->map_content);
@@ -50,6 +48,7 @@ void	read_map_from_fd(t_lib1 *map_data, int fd)
 		free(line);
 }
 
+// HACK This is for debugging, remove later.
 void	print_read_from_file(t_lib1 map_data)
 {
 	ft_printf("Have read file\n");
@@ -60,6 +59,7 @@ void	print_read_from_file(t_lib1 map_data)
 	ft_printf("Floor colour: %i\n", map_data.rgb_floor);
 	ft_printf("Ceiling colour: %i\n", map_data.rgb_ceiling);
 	ft_printf("Map data read:\n%s", map_data.map_content);
+	ft_printf("Sizes:\nX: %i\tY: %i\n", map_data.how_many_colums, map_data.how_many_lines);
 }
 
 // Initialises a map data object

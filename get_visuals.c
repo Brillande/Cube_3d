@@ -8,6 +8,20 @@
 // After that we skip blank lines until we reach the map
 // ...then switch context.
 
+// Skip forward over the blank lines and return the next with content.
+char	*find_next_line(int fd)
+{
+	char	*line;
+
+	line = get_next_line(fd);
+	while ((line) && (line_is_blank(line) == 1))
+	{
+		free (line);
+		line = get_next_line(fd);
+	}
+	return (line);
+}
+
 // Return 1 if the line only contains spaces.
 // 0 if there is some other kind character
 int	line_is_blank(char *line)
@@ -46,15 +60,8 @@ static char	*get_texture(char *side, int fd)
     char	*path;
     char	*line;
 
-    line = get_next_line(fd);
-    while (line_is_blank(line) == 1)
-    {
-        if (!line)
-            return (NULL);
-        free(line);
-        line = get_next_line(fd);
-    }
-    if (ft_strncmp(side, line, 2) == 0)
+	line = find_next_line(fd);
+   if (ft_strncmp(side, line, 2) == 0)
     {
         path = ft_substr(line, 2, ft_strlen(line) - 2);
     }
@@ -84,14 +91,7 @@ static int	get_colours(int fd, char key)
 	char	*tmp;
 
     i = 0;
-	line = get_next_line(fd);
-    while (line_is_blank(line) == 1)
-    {
-        if (!line)
-            return (-1);
-        free(line);
-        line = get_next_line(fd);
-    }
+	line = find_next_line(fd);
 	parts = ft_split(line, ',');
 	/* if (!parts[3]) */
 	/* 	return (-1); */

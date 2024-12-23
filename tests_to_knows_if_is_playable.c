@@ -59,8 +59,9 @@ void	isnt_borded_of_walls(char **map_array, int lines, int colms)
 				perror("\nerror\n no esta rodeado de muros o no es rectangular");
 				exit(EXIT_FAILURE);
 			}
-			// FIXME Invalid read here, allocated in a split call (map_array?)
-			if (map_array[x][0] != '1' || map_array[x][colms] != '1')
+			// FIXME Invalid read here, of the [x][colms])
+			if (map_array[x][0] != '1' ||
+				map_array[x][colms] != '1')
 			{
 				perror("\nerror\n no esta rodeado de muros o no es rectangular");
 				exit(EXIT_FAILURE);
