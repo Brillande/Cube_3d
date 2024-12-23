@@ -112,10 +112,10 @@ static int	get_colours(int fd, char key)
 // TODO get_texture does not use the paths returned, or attempt to load them.
 void	get_visuals(t_lib1 *map_data, int fd)
 {
-    get_texture("NO", fd);
-    get_texture("SO", fd);
-    get_texture("WE", fd);
-    get_texture("EA", fd);
+    map_data->texture_paths[0] = get_texture("NO", fd);
+    map_data->texture_paths[1] = get_texture("SO", fd);
+    map_data->texture_paths[2] = get_texture("WE", fd);
+    map_data->texture_paths[3] = get_texture("EA", fd);
     map_data->rgb_floor = get_colours(fd, 'F');	// FIXME HAve to convert first
     map_data->rgb_ceiling = get_colours(fd, 'C');	// FIXME HAve to convert first
 }

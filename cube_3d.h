@@ -74,6 +74,7 @@ typedef struct s_lib1 {
     int rgb_ceiling; // Color del techo
     int rgb_floor; // Color del suelo
     void *texture[4];
+	char	*texture_paths[4];	// NOTE New, perhaps temporary
 	int len_cols; // Número de columnas NOTE sería el maximo
     int len_rows; // Número de filas NOTE sería el maximo
 	mlx_t *mlx;

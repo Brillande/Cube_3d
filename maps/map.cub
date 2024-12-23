@@ -5,13 +5,6 @@ EA img/WallE.png
 
 F 220,126, 62
 C 62,120, 220
-NO img/WallN.png
-SO img/WallS.png
-WE img/WallW.png
-EA img/WallE.png
-
-F 220,126, 62
-C 62,120, 220
 
 
 11111111
