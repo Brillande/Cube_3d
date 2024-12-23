@@ -31,6 +31,7 @@ void	read_map_from_fd(t_lib1 *map_data, int fd)
 	map_data->how_many_lines++;
 	map_data->how_many_colums = ft_strlen(line);
 	map_data->map_content = line;	// NOTE This is to put *something* there before strjoin call, but may mess up the map...
+//	free (line);	// NOTE Do not free this, it is the base of map_content now
 	line = get_next_line(fd);
 	while ((line) && (line_is_blank(line) == 0))
 	{
@@ -39,8 +40,7 @@ void	read_map_from_fd(t_lib1 *map_data, int fd)
 			map_data->how_many_colums = ft_strlen(line);
 		newcontent = ft_strjoin(map_data->map_content, line);
 		free(line);
-		// FIXME Invalid free here.
-//		free(map_data->map_content);
+		free(map_data->map_content);
 		map_data->map_content = newcontent;
 		line = get_next_line(fd);
 	}

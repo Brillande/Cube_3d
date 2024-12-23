@@ -93,6 +93,7 @@ static int	get_colours(int fd, char key)
     i = 0;
 	line = find_next_line(fd);
 	parts = ft_split(line, ',');
+    free (line);
 	/* if (!parts[3]) */
 	/* 	return (-1); */
     while (parts[0][i] != key)
@@ -102,12 +103,16 @@ static int	get_colours(int fd, char key)
     }
 	tmp = ft_substr(parts[0], 2, ft_strlen(parts[0]) - 2);
     r = ft_atoi(tmp);
+	free(tmp);
     g = ft_atoi(parts[1]);
     b = ft_atoi(parts[2]);
 	ft_printf("Colour read\t%i\t%i\t%i\n", r, g, b);	// HACK for debugging
-    // TODO free parts array
-    free (line);
-	free(tmp);
+	// FIXME This frees evertything but is so FRAGILE
+	free(parts[0]);
+	free(parts[1]);
+	free(parts[2]);
+	free(parts[3]);
+	free(parts);
     return (create_trgb(0, r, g, b));
 }
 
