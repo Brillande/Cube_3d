@@ -17,6 +17,10 @@
 // NOTE Why are we storing two copies of the map_content in the struct??
 // NOTE how_many_lines and how_many_columns was counted in read_map_from_fd
 // TODO There is no need to return map_data, caller doesn't use it
+// - Check that map_content only has allowed characters
+// - turn the raw contant intto map_array using ft_split
+// - file in lines and columns -- NOTE obsolete step IMO
+// - check to make sure the map is surrounded -- NOTE oonly works for rectangular maps
 t_lib1	*test_to_knows_if_is_playable(t_lib1 *map_data)
 {
 	if (!hasnt_forbidden_char(map_data->map_content))
@@ -36,6 +40,8 @@ t_lib1	*test_to_knows_if_is_playable(t_lib1 *map_data)
 // Can we assume that the map starts at 0,0 or not? NO
 // - Find first marker
 // - Must be a wall (1)
+// FIXME This is not working now for valid .cub files (e.g. map1.cub)
+// FIXME If the test is failed, we have to clear map_content!
 void	isnt_borded_of_walls(char **map_array, int lines, int colms)
 {
 	int	x;
@@ -53,6 +59,7 @@ void	isnt_borded_of_walls(char **map_array, int lines, int colms)
 				perror("\nerror\n no esta rodeado de muros o no es rectangular");
 				exit(EXIT_FAILURE);
 			}
+			// FIXME Invalid read here, allocated in a split call (map_array?)
 			if (map_array[x][0] != '1' || map_array[x][colms] != '1')
 			{
 				perror("\nerror\n no esta rodeado de muros o no es rectangular");

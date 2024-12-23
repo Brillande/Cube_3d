@@ -38,9 +38,10 @@ void	read_map_from_fd(t_lib1 *map_data, int fd)
 		map_data->how_many_lines++;
 		if ((int) ft_strlen(line) > map_data->how_many_colums)
 			map_data->how_many_colums = ft_strlen(line);
-		newcontent = ft_strjoin(map_data->map_content, line);
+		newcontent = ft_strjoin(map_data->map_content, line);	// FIXME this causes invlaid read
 		free(line);
-		free(map_data->map_content);
+		// FIXME Invalid free here.
+//		free(map_data->map_content);
 		map_data->map_content = newcontent;
 		line = get_next_line(fd);
 	}

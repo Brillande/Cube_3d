@@ -40,6 +40,7 @@ static int	create_trgb(int t, int r, int g, int b)
 // (may need trimmed)
 // Check path is valid.
 // return NULL if not
+// FIXME Do I have to remove a trailing \n from the paths returned?
 static char	*get_texture(char *side, int fd)
 {
     char	*path;
@@ -71,6 +72,7 @@ static char	*get_texture(char *side, int fd)
 // FIXME Must free the parts array before returning.
 // FIXME This will be too long for norm
 // FIXME Too many variables
+// FIXME Does not work! Never reaches the atoi calls
 static int	get_colours(int fd, char key)
 {
     int	i;

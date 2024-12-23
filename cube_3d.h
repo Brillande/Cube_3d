@@ -27,6 +27,7 @@
 #define EAST 2
 #define WEST 3
 #define NORTH 4
+// FIXME This is incomplete; also can't be used as index to arrays without 0 and 1
 #define SOUTH 
 #define TRUE 1
 #define FALSE 0
