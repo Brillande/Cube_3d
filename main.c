@@ -18,7 +18,7 @@
 // After first good line, add the lines until the end of the file,
 // or next blank line
 // ...put it all in map_data->map_content
-// TODO Test this function
+// NOTE the -1 is to remove a newline that later goes away
 void	read_map_from_fd(t_lib1 *map_data, int fd)
 {
 	char	*line;
@@ -29,15 +29,15 @@ void	read_map_from_fd(t_lib1 *map_data, int fd)
 	if (!line)
 		exit (EXIT_FAILURE);	// HACK should free things not just exit
 	map_data->how_many_lines++;
-	map_data->how_many_colums = ft_strlen(line);
+	map_data->how_many_colums = ft_strlen(line) - 1;
 	map_data->map_content = line;	// NOTE This is to put *something* there before strjoin call, but may mess up the map...
 //	free (line);	// NOTE Do not free this, it is the base of map_content now
 	line = get_next_line(fd);
 	while ((line) && (line_is_blank(line) == 0))
 	{
 		map_data->how_many_lines++;
-		if ((int) ft_strlen(line) > map_data->how_many_colums)
-			map_data->how_many_colums = ft_strlen(line);
+		if (((int) ft_strlen(line) - 1) > map_data->how_many_colums)
+			map_data->how_many_colums = (ft_strlen(line) - 1);
 		newcontent = ft_strjoin(map_data->map_content, line);
 		free(line);
 		free(map_data->map_content);
