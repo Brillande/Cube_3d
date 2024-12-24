@@ -143,7 +143,7 @@ char		*read_map(char *full_path, int i);
 
 // Parsing the files
 void		get_visuals(t_lib1 *map_data, int fd);
-t_lib1		*test_to_knows_if_is_playable(t_lib1 *map_data);
+void		map_is_playable(t_lib1 *map_data);
 void		isnt_borded_of_walls(char **map_array, int lines, int colms);
 int		hasnt_forbidden_char(char *map_content);
 int		how_length_is_the_map(char *full_path);

@@ -62,7 +62,7 @@ int	only_one_player(char *map)
 // - turn the raw content into map_array using ft_split
 // - file in lines and columns -- NOTE obsolete step IMO
 // - check to make sure the map is surrounded -- NOTE only works for rectangular maps
-t_lib1	*test_to_knows_if_is_playable(t_lib1 *map_data)
+void	map_is_playable(t_lib1 *map_data)
 {
 	if (!hasnt_forbidden_char(map_data->map_content))
 		exit(EXIT_FAILURE);
@@ -76,7 +76,6 @@ t_lib1	*test_to_knows_if_is_playable(t_lib1 *map_data)
 	/* 		/ map_data->how_many_lines) - 1; */
 	isnt_borded_of_walls(map_data->map_array, map_data->how_many_lines,
 		map_data->how_many_colums);
-	return (map_data);
 }
 
 // FIXME The map does not have be rectangular, this only approves those

@@ -86,7 +86,7 @@ int	main(int argc, char **argv)
 		read_map_from_fd(&map_data, fd);
 		print_read_from_file(map_data);		// HACK this is for debugging only
 //		read_the_map(&map_data);
-		test_to_knows_if_is_playable(&map_data);
+		map_is_playable(&map_data);
 		init_game(&map_data);
 	}
 }
