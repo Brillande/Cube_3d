@@ -16,7 +16,7 @@ FLAGS    := -Wall -Wextra -Werror -g3
 
 SRCS        :=      main.c \
                           join_the_fullpath.c \
-                          tests_to_knows_if_is_playable.c \
+                          map_is_playable.c \
                           init_game.c \
                          read_the_map.c \
                           print_3d.c \
