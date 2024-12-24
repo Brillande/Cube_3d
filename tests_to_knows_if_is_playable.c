@@ -25,7 +25,7 @@ void	print_map_array(t_lib1 *map_data)
 	j = 0;
 	while (j < map_data->how_many_lines)
 	{
-		ft_printf("Line %i:\t%s\n", j, map_data->map_array[j]);	// FIXME Invalid read
+		ft_printf("Line %i:\t%s\n", j, map_data->map_array[j]);
 		j++;
 	}
 }
@@ -54,14 +54,52 @@ int	only_one_player(char *map)
 		return (1);
 }
 
+// NOTE, this won't handle sticking-out bits at the tlop and bottom....
+int	count_walls(char *map_line)
+{
+	int	n;
+	int	j;
+
+	n = 0;
+	j = 0;
+	while (map_line[j] != '\0')
+	{
+		if (map_line[j]  == '1')
+			n++;
+		j++;
+	}
+	return (n);
+}
+
+// A simple / quick test: each line must have at least 2 wall characters.
+// return 0 if each line of map data has at least 2 wall characters.
+// Return 1 if not.
+// NOTE Special case treatment of first and last lines for "pointy" maps
+int	basic_wall_test(t_lib1 *map_data)
+{
+	int	i;
+
+	i = 1;
+	if (count_walls(map_data->map_array[0]) < 1)
+		return (1);
+	while (i < (map_data->how_many_lines) - 1)
+	{
+		if (count_walls(map_data->map_array[i]) < 2)
+			return (1);
+		i++;
+	}
+	if (count_walls(map_data->map_array[map_data->how_many_lines]) < 1)
+		return (1);
+	return (0);
+}
+
 // TODO Implement tests for the non-map elements: present and valid
 // NOTE Why are we storing two copies of the map_content in the struct??
 // NOTE how_many_lines and how_many_columns was counted in read_map_from_fd
-// TODO There is no need to return map_data, caller doesn't use it
-// - Check that map_content only has allowed characters
+// - Check that map_content only has allowed characters and a single player
 // - turn the raw content into map_array using ft_split
-// - file in lines and columns -- NOTE obsolete step IMO
 // - check to make sure the map is surrounded -- NOTE only works for rectangular maps
+// TODO If any test fails, we have to clear map_content!
 void	map_is_playable(t_lib1 *map_data)
 {
 	if (!hasnt_forbidden_char(map_data->map_content))
@@ -70,10 +108,8 @@ void	map_is_playable(t_lib1 *map_data)
 		exit (EXIT_FAILURE);
 	map_data->map_array = ft_split(map_data->map_content, '\n');
 	print_map_array(map_data);	// HACK for debugging
-	/* map_data->cpy_of_map_array = ft_split(map_data->map_content, '\n'); */
-	/* map_data->how_many_lines = count_words(map_data->map_content, '\n'); */
-	/* map_data->how_many_colums = (map_data->map_length */
-	/* 		/ map_data->how_many_lines) - 1; */
+	if (basic_wall_test(map_data) == 1)
+		exit (EXIT_FAILURE);
 	isnt_borded_of_walls(map_data->map_array, map_data->how_many_lines,
 		map_data->how_many_colums);
 }
@@ -84,7 +120,6 @@ void	map_is_playable(t_lib1 *map_data)
 // - Find first marker
 // - Must be a wall (1)
 // FIXME This is not working now for valid .cub files (e.g. map1.cub)
-// FIXME If the test is failed, we have to clear map_content!
 void	isnt_borded_of_walls(char **map_array, int lines, int colms)
 {
 	int	x;
