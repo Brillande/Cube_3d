@@ -54,7 +54,6 @@ static int	create_trgb(int t, int r, int g, int b)
 // (may need trimmed)
 // Check path is valid.
 // return NULL if not
-// FIXME Do I have to remove a trailing \n from the paths returned?
 static char	*get_texture(char *side, int fd)
 {
     char	*path;
@@ -63,7 +62,8 @@ static char	*get_texture(char *side, int fd)
 	line = find_next_line(fd);
    if (ft_strncmp(side, line, 2) == 0)
     {
-        path = ft_substr(line, 2, ft_strlen(line) - 2);
+		// NOTE -2 for the starting code, -1 to remove the newline
+        path = ft_substr(line, 2, ft_strlen(line) - 3);
     }
     free (line);
     return (path);
@@ -119,7 +119,7 @@ static int	get_colours(int fd, char key)
 // read each line from a file (fd?) and make sure it fits the
 // order given in spec
 // NOTE see what join_the_full_path does / returns
-// FIXME get_next_line is not in the libft we have here :|
+// FIXED get_next_line is not in the libft we have here :|
 // TODO get_texture does not use the paths returned, or attempt to load them.
 void	get_visuals(t_lib1 *map_data, int fd)
 {
@@ -127,6 +127,6 @@ void	get_visuals(t_lib1 *map_data, int fd)
     map_data->texture_paths[1] = get_texture("SO", fd);
     map_data->texture_paths[2] = get_texture("WE", fd);
     map_data->texture_paths[3] = get_texture("EA", fd);
-    map_data->rgb_floor = get_colours(fd, 'F');	// FIXME HAve to convert first
-    map_data->rgb_ceiling = get_colours(fd, 'C');	// FIXME HAve to convert first
+    map_data->rgb_floor = get_colours(fd, 'F');
+    map_data->rgb_ceiling = get_colours(fd, 'C');
 }
