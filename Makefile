@@ -29,6 +29,7 @@ SRCS        :=      main.c \
                           ft_printf/utils1.c \
 													get_visuals.c \
                           ray.c \
+													boundary_test.c \
 													debug.c
 
 OBJS        := $(SRCS:.c=.o)
