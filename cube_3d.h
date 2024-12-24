@@ -137,17 +137,15 @@ double		len_find(t_lib1 *data, double angle);
 void		dda_alg(t_lib1 *data, t_lib1 *ca);
 void		find_ray(t_lib1 *cal, t_lib1 *data);
 
-// Perhaps to be removed later
-t_lib1		*read_the_map(t_lib1 *map_data);
-char		*read_map(char *full_path, int i);
+// Debugging files
+void	print_read_from_file(t_lib1 map_data);
+void	print_map_array(t_lib1 *map_data);
 
 // Parsing the files
+void		read_map_from_fd(t_lib1 *map_data, int fd);
 void		get_visuals(t_lib1 *map_data, int fd);
 void		map_is_playable(t_lib1 *map_data);
-void		isnt_borded_of_walls(char **map_array, int lines, int colms);
-int		hasnt_forbidden_char(char *map_content);
-int		how_length_is_the_map(char *full_path);
-int		count_words(const char *str, char c);
+int		only_legal_char(char *map_content);
 char		*check_name(char *map_name);
 char		*check_extension(char *map_extension);
 int		line_is_blank(char *line);

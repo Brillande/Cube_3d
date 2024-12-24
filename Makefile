@@ -28,7 +28,8 @@ SRCS        :=      main.c \
                           ft_printf/libftprintf.c \
                           ft_printf/utils1.c \
 													get_visuals.c \
-                          ray.c
+                          ray.c \
+													debug.c
 
 OBJS        := $(SRCS:.c=.o)
 

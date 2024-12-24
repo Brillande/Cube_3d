@@ -12,72 +12,37 @@
 
 #include "cube_3d.h"
 
-// Copy map file contents into a character array of determined length.
-// NOTE Again, there is no need to return the tlib here, passed as reference
-t_lib1	*read_the_map(t_lib1 *map_data)
+// Read the map data from an already-open file to the BIG STRUCT
+// Is it a blank line? carry on until we get something.
+// After first good line, add the lines until the end of the file,
+// or next blank line
+// ...put it all in map_data->map_content
+// NOTE the -1 is to remove a newline that later goes away
+void	read_map_from_fd(t_lib1 *map_data, int fd)
 {
-	map_data->map_length = how_length_is_the_map(map_data->fullpath);
-	if (map_data->map_length == 0)
-	{
-		exit(EXIT_FAILURE);
-	}
-	map_data->map_content = read_map(map_data->fullpath,
-			map_data->map_length);
-	return (map_data);
-}
+	char	*line;
+	char	*newcontent;
 
-// Read the file into a buffer of given size (plus null terminator)
-// TODO No longer used, remove later
-char	*read_map(char *full_path, int i)
-{
-	char	*buff;
-	int		file;
-
-	buff = malloc(sizeof(char *) * (i + 1));
-	if (buff == NULL)
-		return (NULL);
-	file = open(full_path, O_RDONLY);
-	if (file == -1)
+	map_data->how_many_lines = 0;
+	line = find_next_line(fd);
+	if (!line)
+		exit (EXIT_FAILURE);	// HACK should free things not just exit
+	map_data->how_many_lines++;
+	map_data->how_many_colums = ft_strlen(line) - 1;
+	map_data->map_content = line;	// NOTE This is to put *something* there before strjoin call, but may mess up the map...
+//	free (line);	// NOTE Do not free this, it is the base of map_content now
+	line = get_next_line(fd);
+	while ((line) && (line_is_blank(line) == 0))
 	{
-		perror("error\n en read_map: no se pudo abrir el archivo");
-		return (NULL);
+		map_data->how_many_lines++;
+		if (((int) ft_strlen(line) - 1) > map_data->how_many_colums)
+			map_data->how_many_colums = (ft_strlen(line) - 1);
+		newcontent = ft_strjoin(map_data->map_content, line);
+		free(line);
+		free(map_data->map_content);
+		map_data->map_content = newcontent;
+		line = get_next_line(fd);
 	}
-	else
-	{
-		read(file, buff, i);
-		buff[i] = '\0';
-		close(file);
-		return (buff);
-	}
-}
-
-// This returns the length of the buffer needed to hold the map
-// information being present in the file.
-// ...that would imply some get_next_line use and not opening the file here.
-// ...find the first line of map data and read until the end.
-// TODO No longer used, remove later assuming the replacement works...
-int	how_length_is_the_map(char *full_path)
-{
-	int		file;
-	char	*buff[1];
-	int		i;
-
-	i = 0;
-	file = open(full_path, O_RDONLY);
-	if (file == -1)
-	{
-		perror("ERROR\n No existe el archivo\n");
-		exit(EXIT_FAILURE);
-	}
-	else
-	{
-		while (read(file, buff, 1))
-		{
-			i++;
-		}
-		close(file);
-		if (i < 1)
-			return (close(file), perror("error,\n mapa vacio"), 0);
-		return (i);
-	}
+	if (line)
+		free(line);
 }
