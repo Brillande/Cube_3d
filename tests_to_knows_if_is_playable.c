@@ -12,20 +12,64 @@
 
 #include "ft_printf/ft_printf.h"
 #include "cube_3d.h"
+#include <stdlib.h>
+
+// HACK for debugging, remove later
+// NOTE Now the map is not rectangulaar, cannot rely on how_many_rows
+// to count through the array.
+// Also, there are no newlines in the map once it arrives in the array.
+void	print_map_array(t_lib1 *map_data)
+{
+	int	j;
+
+	j = 0;
+	while (j < map_data->how_many_lines)
+	{
+		ft_printf("Line %i:\t%s\n", j, map_data->map_array[j]);	// FIXME Invalid read
+		j++;
+	}
+}
+
+// The player should only be generated in one place in the map.
+// Return 1 if the map has one player exactly
+// Return 0 if there are 0 or more than 1 players.
+int	only_one_player(char *map)
+{
+	char	*c;
+	int		flag;
+
+	c = map;
+	flag = 0;
+	while (*c != '\0')
+	{
+		if ((*c == 'N') || (*c == 'W') || (*c == 'E') || (*c == 'S'))
+			flag++;
+		c++;
+		if (flag > 1)
+			return (0);
+	}
+	if (flag == 0)
+		return (0);
+	else
+		return (1);
+}
 
 // TODO Implement tests for the non-map elements: present and valid
 // NOTE Why are we storing two copies of the map_content in the struct??
 // NOTE how_many_lines and how_many_columns was counted in read_map_from_fd
 // TODO There is no need to return map_data, caller doesn't use it
 // - Check that map_content only has allowed characters
-// - turn the raw contant intto map_array using ft_split
+// - turn the raw content into map_array using ft_split
 // - file in lines and columns -- NOTE obsolete step IMO
-// - check to make sure the map is surrounded -- NOTE oonly works for rectangular maps
+// - check to make sure the map is surrounded -- NOTE only works for rectangular maps
 t_lib1	*test_to_knows_if_is_playable(t_lib1 *map_data)
 {
 	if (!hasnt_forbidden_char(map_data->map_content))
 		exit(EXIT_FAILURE);
+	if (only_one_player(map_data->map_content) == 0)
+		exit (EXIT_FAILURE);
 	map_data->map_array = ft_split(map_data->map_content, '\n');
+	print_map_array(map_data);	// HACK for debugging
 	/* map_data->cpy_of_map_array = ft_split(map_data->map_content, '\n'); */
 	/* map_data->how_many_lines = count_words(map_data->map_content, '\n'); */
 	/* map_data->how_many_colums = (map_data->map_length */
