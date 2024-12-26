@@ -61,9 +61,8 @@ t_lib1	*init_game(t_lib1 *map_data)
 // (Could use SCREENWIDTH and SCREENHEIGHT)
 void	open_window(t_lib1 *map_data)
 {
-	map_data->how_many_colums += 1;
-	map_data->mlx = mlx_init(map_data->how_many_colums
-			* 64, map_data->how_many_lines * 64, "cube_3d emedina-",1);
+	map_data->mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT,
+							 "cube_3d chris branch",1);
 	map_data->img = mlx_new_image(map_data->mlx, 1 * 64, 1 * 64);
 	select_img(map_data);
 	mlx_key_hook(map_data->win, &key_hook, map_data);
