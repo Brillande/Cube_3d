@@ -78,6 +78,8 @@ int	walls_vertical(int line, char **map_array, int max_y, int column)
 // ...does not happen on "tall" maps, only wide ones.
 // (Tall maps check wrong, only read as far as the other axis)
 // ...they must be getting mixed up!
+// Return 0 if the map cannot be played
+// Return 1 if the map can be played.
 int	check_each_square(t_lib1 *map_data)
 {
 	int	test_col;
@@ -91,15 +93,15 @@ int	check_each_square(t_lib1 *map_data)
 		{
 			ft_printf("col: %i, line:%i\n", test_col, test_line);	// HACK debugging only
 			if (walls_horizontal(test_col, map_data->map_array[test_line],
-								 ft_strlen(map_data->map_array[test_line]) - 1) == 1)
-				return (1);
+					ft_strlen(map_data->map_array[test_line]) - 1) == 1)
+				return (0);
 			if (walls_vertical(test_line, map_data->map_array,
-							   map_data->how_many_lines, test_col) == 1)
-				return (1);
+					map_data->how_many_lines, test_col) == 1)
+				return (0);
 			test_col++;
 		}
 		test_col = 0;
 		test_line++;
 	}
-	return (0);
+	return (1);
 }

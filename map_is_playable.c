@@ -37,7 +37,7 @@ int	only_one_player(char *map)
 		return (1);
 }
 
-// NOTE, this won't handle sticking-out bits at the tlop and bottom....
+// Helper for basic_wall_test. Returns the number of '1' chars in a line.
 int	count_walls(char *map_line)
 {
 	int	n;
@@ -56,8 +56,8 @@ int	count_walls(char *map_line)
 }
 
 // A simple / quick test: each line must have at least 2 wall characters.
-// return 0 if each line of map data has at least 2 wall characters.
-// Return 1 if not.
+// Return 0 if the map cannot be played.
+// Return 1 if the map can be played.
 // NOTE Special case treatment of first and last lines for "pointy" maps
 int	basic_wall_test(t_lib1 *map_data)
 {
@@ -65,16 +65,16 @@ int	basic_wall_test(t_lib1 *map_data)
 
 	i = 1;
 	if (count_walls(map_data->map_array[0]) < 1)
-		return (1);
+		return (0);
 	while (i < (map_data->how_many_lines - 1))
 	{
 		if (count_walls(map_data->map_array[i]) < 2)
-			return (1);
+			return (0);
 		i++;
 	}
 	if (count_walls(map_data->map_array[map_data->how_many_lines - 1]) < 1)
-		return (1);
-	return (0);
+		return (0);
+	return (1);
 }
 
 // TODO Implement tests for the non-map elements: present and valid
@@ -82,31 +82,32 @@ int	basic_wall_test(t_lib1 *map_data)
 // NOTE how_many_lines and how_many_columns was counted in read_map_from_fd
 // - Check that map_content only has allowed characters and a single player
 // - turn the raw content into map_array using ft_split
-// - check to make sure the map is surrounded -- NOTE only works for rectangular maps
+// - check to make sure the map is surrounded
 // TODO If any test fails, we have to clear map_content!
 void	map_is_playable(t_lib1 *map_data)
 {
-	if ((!only_legal_char(map_data->map_content)) ||
-		(!only_one_player(map_data->map_content)))
+	if ((!only_legal_char(map_data->map_content))
+		|| (!only_one_player(map_data->map_content)))
 		exit (EXIT_FAILURE);
 	map_data->map_array = ft_split(map_data->map_content, '\n');
 	print_map_array(map_data);	// HACK for debugging
-	if (basic_wall_test(map_data) == 1)
+	if (!basic_wall_test(map_data))
 	{
 		ft_printf("Wall count error\n");
 		exit (EXIT_FAILURE);
 	}
-	if (check_each_square(map_data) == 1)
+	if (!check_each_square(map_data))
 	{
 		ft_printf("Map bounding error\n");
 		exit (EXIT_FAILURE);
 	}
 }
 
-// NOTE For this to work now it *must* only receive the map part of the file.
 // NOTE Spaces are OK, but may need different handling.
-// TODO Check whether the map is *always* the end of the file
-// TODO Check whether the return value causes EXIT on failure
+// Reads the map part of the file (in form of string)
+// and complains if an odd character is found.
+// Returns 0 if the map cannot be played.
+// Returns 1 is the map is acceptable.
 int	only_legal_char(char *map_content)
 {
 	int	i;
@@ -121,7 +122,7 @@ int	only_legal_char(char *map_content)
 				&& map_content[i] != 'W' && map_content[i] != 'S'
 				&& map_content[i] != ' ' && map_content[i] != '\n')
 			{
-				perror("\nerror\n hay algun caracter prohibido");
+				perror("Illegal character in map\n");
 				return (0);
 			}
 			i++;
