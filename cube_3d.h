@@ -111,7 +111,6 @@ typedef struct s_lib1 {
 } t_lib1;
 
 int		main(int argc, char **argv);
-t_lib1		*join_the_fullpath(t_lib1 *map_data, char *map_name);
 t_lib1		*init_game(t_lib1 *map_data);
 void		open_window(t_lib1 *map_data);
 void		select_img(t_lib1 *map_data);
@@ -147,13 +146,14 @@ void		get_visuals(t_lib1 *map_data, int fd);
 void		map_is_playable(t_lib1 *map_data);
 int		only_legal_char(char *map_content);
 char		*check_name(char *map_name);
-char		*check_extension(char *map_extension);
-int		line_is_blank(char *line);
 char		*find_next_line(int fd);
 int		check_each_square(t_lib1 *map_data);
+// file_helpers.c
 char	*find_next_line(int fd);
-int	line_is_blank(char *line);
-int	test_path(char *path);
+int		test_path(char *path);
+char	*check_extension(char *map_extension);
+void	join_the_fullpath(t_lib1 *map_data, char *map_name);
+int		line_is_blank(char *line);
 
 // exit routines
 void	clear_data(t_lib1 *map_data);

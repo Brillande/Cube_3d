@@ -3,7 +3,6 @@
 #include <sys/stat.h>
 
 // TODO Add 42 header
-// TODO Merge with join_the_fullpath
 
 // Skip forward over the blank lines and return the next with content.
 char	*find_next_line(int fd)
@@ -43,10 +42,53 @@ int	test_path(char *path)
 
 	if (stat(path, &pstat) == -1)
 		return (0);
-//	ft_printf("Testing path: %s\n", path);
+//	ft_printf("Testing path: %s\n", path);	// HACK for debugging
 	if ((access(path, R_OK) == 0)
 		&& S_ISREG(pstat.st_mode))
 		return (1);
 	else
 		return (0);
+}
+
+// Takes the value from argv[1], checks it's valid and...
+// Adds the full (relative) path for the map to the data struct->fullpath
+// TODO Remove hardcoding of maps_directory (move to .h or something)
+// NOTE Fullpath gets freed in the clear_data function on failure.
+void	join_the_fullpath(t_lib1 *map_data, char *map_name)
+{
+	char	*map_name_with_extension;
+	char	*maps_directory;
+
+	map_name_with_extension = check_extension(map_name);
+	if (map_name_with_extension != NULL)
+	{
+		maps_directory = "maps/";
+		map_data->fullpath = ft_strjoin(maps_directory,
+				map_name_with_extension);
+		if (map_data->fullpath == NULL)
+		{
+			perror("Error\n al asignar memoria\n");
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
+// Check that the filename ends in .cub.
+// If yes, return the string; if no, exit the program.
+char	*check_extension(char *map_extension)
+{
+	int	leng;
+
+	leng = 0;
+	leng = ft_strlen(map_extension);
+	if (map_extension[leng - 1] == 'b' && map_extension[leng - 2] == 'u'
+		&& map_extension[leng - 3] == 'c' && map_extension[leng - 4] == '.')
+	{
+		return (map_extension);
+	}
+	else
+	{
+		perror("Error\nLa extension no es .cub\n");
+		exit(EXIT_FAILURE);
+	}
 }
