@@ -51,7 +51,7 @@ int	count_walls(char *map_line)
 			n++;
 		j++;
 	}
-	ft_printf("Counted %i walls\n", n);	// HACK for debugging
+//	ft_printf("Counted %i walls\n", n);	// HACK for debugging
 	return (n);
 }
 
@@ -90,7 +90,7 @@ void	map_is_playable(t_lib1 *map_data)
 		|| (!only_one_player(map_data->map_content)))
 		clear_data(map_data);
 	map_data->map_array = ft_split(map_data->map_content, '\n');
-	print_map_array(map_data);	// HACK for debugging
+//	print_map_array(map_data);	// HACK for debugging
 	if (!basic_wall_test(map_data))
 	{
 		ft_printf("Wall count error\n");

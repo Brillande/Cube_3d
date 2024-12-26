@@ -92,7 +92,7 @@ int	check_each_square(t_lib1 *map_data)
 	{
 		while (test_col < (map_data->how_many_colums))
 		{
-			ft_printf("col: %i, line:%i\n", test_col, test_line);	// HACK debugging only
+//			ft_printf("col: %i, line:%i\n", test_col, test_line);	// HACK debugging only
 			if (walls_horizontal(test_col, map_data->map_array[test_line],
 					ft_strlen(map_data->map_array[test_line]) - 1) == 1)
 				return (0);
