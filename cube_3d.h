@@ -151,4 +151,6 @@ char		*check_extension(char *map_extension);
 int		line_is_blank(char *line);
 char		*find_next_line(int fd);
 int		check_each_square(t_lib1 *map_data);
+char	*find_next_line(int fd);
+int	line_is_blank(char *line);
 #endif

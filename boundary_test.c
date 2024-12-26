@@ -1,4 +1,5 @@
 #include "cube_3d.h"
+// TODO Add 42 header to boundary_test.c
 
 // return the position of the first character in a map line
 // This is simply the first non-space character
@@ -24,7 +25,7 @@ int	walls_horizontal(int x, char *mapline, int max_x)
 		while (test_x >= 0)
 		{
 			if (mapline[test_x] == '1')
-				break;
+				break ;
 			test_x--;
 		}
 		if (test_x < 0)
@@ -33,7 +34,7 @@ int	walls_horizontal(int x, char *mapline, int max_x)
 		while (test_x <= max_x)
 		{
 			if (mapline[test_x] == '1')
-				break;
+				break ;
 			test_x++;
 		}
 		if (test_x > max_x)
@@ -55,7 +56,7 @@ int	walls_vertical(int line, char **map_array, int max_y, int column)
 		while (test_y >= 0)
 		{
 			if (map_array[test_y][column] == '1')
-				break;
+				break ;
 			test_y--;
 		}
 		if (test_y < 0)
@@ -64,7 +65,7 @@ int	walls_vertical(int line, char **map_array, int max_y, int column)
 		while (test_y <= max_y)
 		{
 			if (map_array[test_y][column] == '1')
-				break;
+				break ;
 			test_y++;
 		}
 		if (test_y > max_y)

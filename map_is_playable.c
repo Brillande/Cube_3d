@@ -47,7 +47,7 @@ int	count_walls(char *map_line)
 	j = 0;
 	while ((map_line) && (map_line[j] != '\0'))
 	{
-		if (map_line[j]  == '1')
+		if (map_line[j] == '1')
 			n++;
 		j++;
 	}
