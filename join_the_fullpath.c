@@ -12,12 +12,11 @@
 
 #include "cube_3d.h"
 
-// TODO Remove hardcoding of maps_directory (move to .h or something)
-// TODO Check where fullpath gets freed and where it may not be.
-// TODO Give file and function a better name
 // Takes the value from argv[1], checks it's valid and...
-// Adds the full path for the map to the data struct->fullpath
-// NOTE Does map_data even have to be returned? It is changed by pointer here.
+// Adds the full (relative) path for the map to the data struct->fullpath
+// TODO map_data doesn't need to be returned It is changed by pointer here.
+// TODO Remove hardcoding of maps_directory (move to .h or something)
+// NOTE Fullpath gets freed in the clear_data function on failure.
 t_lib1	*join_the_fullpath(t_lib1 *map_data, char *map_name)
 {
 	char	*map_name_with_extension;

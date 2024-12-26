@@ -20,16 +20,19 @@ static int	create_trgb(int t, int r, int g, int b)
 // (may need trimmed)
 // Check path is valid.
 // return NULL if not
-// NOTE -2 for the starting code, -1 to remove the newline
+// NOTE In substr: -2 for the starting code, -1 to remove the newline
 static char	*get_texture(char *side, int fd)
 {
 	char	*path;
+	char	*tmppath;
 	char	*line;
 
 	line = find_next_line(fd);
 	if (ft_strncmp(side, line, 2) == 0)
 	{
-		path = ft_substr(line, 2, ft_strlen(line) - 3);
+		tmppath = ft_substr(line, 2, ft_strlen(line) - 3);
+		path = ft_strtrim(tmppath, "\n \t");
+		free(tmppath);
 	}
 	free (line);
 	return (path);
@@ -70,7 +73,7 @@ static int	get_colours(int fd, char key)
 	free(tmp);
 	g = ft_atoi(parts[1]);
 	b = ft_atoi(parts[2]);
-	ft_printf("Colour read\t%i\t%i\t%i\n", r, g, b);	// HACK for debugging
+//	ft_printf("Colour read\t%i\t%i\t%i\n", r, g, b);	// HACK for debugging
 	// FIXME This frees evertything but is so FRAGILE
 	free(parts[0]);
 	free(parts[1]);
@@ -83,14 +86,25 @@ static int	get_colours(int fd, char key)
 // read each line from a file (fd?) and make sure it fits the
 // order given in spec
 // NOTE see what join_the_full_path does / returns
-// FIXED get_next_line is not in the libft we have here :|
 // TODO get_texture does not use the paths returned, or attempt to load them.
 void	get_visuals(t_lib1 *map_data, int fd)
 {
+	int	i;
+
+	i = 0;
 	map_data->texture_paths[0] = get_texture("NO", fd);
 	map_data->texture_paths[1] = get_texture("SO", fd);
 	map_data->texture_paths[2] = get_texture("WE", fd);
 	map_data->texture_paths[3] = get_texture("EA", fd);
+	while (i < 4)
+	{
+		if (!test_path(map_data->texture_paths[i]))
+		{
+			ft_printf("Inaccessible path: %s\n", map_data->texture_paths[i]);
+			clear_data(map_data);
+		}
+		i++;
+	}
 	map_data->rgb_floor = get_colours(fd, 'F');
 	map_data->rgb_ceiling = get_colours(fd, 'C');
 }

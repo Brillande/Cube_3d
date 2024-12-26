@@ -14,9 +14,7 @@
 #include <stdlib.h>
 
 // Free memory reserved for map_data t_lib and exit
-// TODO Test this works
-// TODO Call this from various places.
-// NOTE Perhaps later split this so it can be called at end of game, too.
+// TODO later split this so it can be called at end of game, too.
 void	clear_data(t_lib1 *map_data)
 {
 	int	i;
