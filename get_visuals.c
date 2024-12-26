@@ -103,6 +103,7 @@ void	get_visuals(t_lib1 *map_data, int fd)
 			ft_printf("Inaccessible path: %s\n", map_data->texture_paths[i]);
 			clear_data(map_data);
 		}
+		map_data->texture[i] = mlx_load_png(map_data->texture_paths[i]);
 		i++;
 	}
 	map_data->rgb_floor = get_colours(fd, 'F');
