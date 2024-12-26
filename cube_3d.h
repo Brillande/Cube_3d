@@ -95,7 +95,7 @@ typedef struct s_lib1 {
 	int		line_length;
 	int		endian;
 	int		color;			// NOTE what colour is this? Obsolete with rgb_* ?
-	void	*win;
+	void	*win;			// TODO How does this work? We are not setting it now.
 	int		width;
 	int		heigth;
 	void	*ground;
@@ -117,8 +117,6 @@ void		key_s(t_lib1 *data);
 void		key_w(t_lib1 *data);
 void		key_hook(mlx_key_data_t keydata, void *info);
 int		exit_game(t_lib1 *map_data);
-int		st_map(char x, int i);
-int		st_temp(char c, int i);
 void		print_3d(t_lib1 *data);
 void		walls(t_lib1 *data, int i);
 int		check_move(int x, int y, t_lib1 *data);

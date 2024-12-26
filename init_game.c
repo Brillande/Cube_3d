@@ -13,7 +13,8 @@
 #include "cube_3d.h"
 
 // Defines a hook whereby ESCAPE quites the game
-// TODO Free memory before quitting -- call exit_game?
+// TODO Free memory before quitting -- call exit_game? Where is the t_lib?
+// TODO Add other key hooks here? How does it relate to moves.c?
 void	key_hook(mlx_key_data_t keydata, void *info)
 {
 	t_lib1	*data;
@@ -26,24 +27,6 @@ void	key_hook(mlx_key_data_t keydata, void *info)
 	}
 	move(data);
 }
-
-// NOTE Commented out because is duplicated in moves2.c
-/* void	move(t_lib1 *data) */
-/* { */
-/* 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT)) */
-/* 		key_left(data); */
-/* 	if (mlx_is_key_down(data->mlx, MLX_KEY_A)) */
-/* 		key_a(data); */
-/* 	if (mlx_is_key_down(data->mlx, MLX_KEY_D)) */
-/* 		key_d(data); */
-/* 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT)) */
-/* 		key_right(data); */
-/* 	if (mlx_is_key_down(data->mlx, MLX_KEY_S)) */
-/* 		key_s(data); */
-/* 	if (mlx_is_key_down(data->mlx, MLX_KEY_W)) */
-/* 		key_w(data); */
-/* 	print_3d(data); */
-/* } */
 
 // NOTE I don't think returning the map_data is needed here.
 // Entry point to the game after the map data has been read.
@@ -63,8 +46,10 @@ void	open_window(t_lib1 *map_data)
 {
 	map_data->mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT,
 							 "cube_3d chris branch",1);
-	map_data->img = mlx_new_image(map_data->mlx, 1 * 64, 1 * 64);
+	// NOTE Why always the new image when nothing changes?
+	map_data->img = mlx_new_image(map_data->mlx, SCREENWIDTH, SCREENHEIGHT);
 //	select_img(map_data);
+	// FIXME Invlaid read below. map_data->win? When is that set?
 	mlx_key_hook(map_data->win, &key_hook, map_data);
 	mlx_loop(map_data->mlx);
 }
@@ -106,4 +91,3 @@ int	print_img(t_lib1 *map_data)
 	}
 	return (0);
 }
-
