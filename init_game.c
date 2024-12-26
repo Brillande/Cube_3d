@@ -12,6 +12,8 @@
 
 #include "cube_3d.h"
 
+// Defines a hook whereby ESCAPE quites the game
+// TODO Free memory before quitting -- call exit_game?
 void	key_hook(mlx_key_data_t keydata, void *info)
 {
 	t_lib1	*data;
@@ -43,12 +45,20 @@ void	key_hook(mlx_key_data_t keydata, void *info)
 /* 	print_3d(data); */
 /* } */
 
+// NOTE I don't think returning the map_data is needed here.
+// Entry point to the game after the map data has been read.
 t_lib1	*init_game(t_lib1 *map_data)
 {
 	open_window(map_data);
 	return (map_data);
 }
 
+// opens tyhe main game window
+// Defines some key hooks (which?)
+// Selects initial images
+// Enters the loop
+// FIXME The window sizes are based on a 2d map, we need fixed viewport size
+// (Could use SCREENWIDTH and SCREENHEIGHT)
 void	open_window(t_lib1 *map_data)
 {
 	map_data->how_many_colums += 1;
@@ -61,6 +71,7 @@ void	open_window(t_lib1 *map_data)
 }
 
 // FIXME Invalid read in the texture_to_image calls below, leads to segfault
+// NOTE All these seem based on 2 dimensional model, with obsolete parts
 void	select_img(t_lib1 *map_data)
 {
 	// FIXME Cokmpilation error in the call below
@@ -79,6 +90,7 @@ int	print_img(t_lib1 *map_data)
 	return (0);
 }
 
+// Prints a 2-d grid of images
 void	print_img1(t_lib1 *map_data)
 {
 	int	i;

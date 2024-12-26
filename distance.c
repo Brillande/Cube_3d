@@ -1,5 +1,6 @@
 #include "cube_3d.h"
 
+// What does this do?
 void	dda_alg(t_lib1 *data, t_lib1 *ca)
 {
 	while (ca->hit == 0)
@@ -21,6 +22,7 @@ void	dda_alg(t_lib1 *data, t_lib1 *ca)
 	}
 }
 
+// What does this do?
 void	find_ray(t_lib1 *cal, t_lib1 *data)
 {
 	if (cal->ray_x < 0)
@@ -87,6 +89,7 @@ void	find_ray(t_lib1 *cal, t_lib1 *data)
 /* 	return (find_distance(data, &maths, angle)); */
 /* } */
 
+// NOTE Unclear what these constants are.
 void	print_3d(t_lib1 *data)
 {
 	int		a;

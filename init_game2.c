@@ -12,6 +12,7 @@
 
 #include "cube_3d.h"
 
+// FIXME Prints images of coin / exit that are not part of this game!
 void	print_img2(t_lib1 *map_data)
 {
 	int	i;
@@ -70,6 +71,7 @@ void	print_img3(t_lib1 *map_data)
 /* } */
 
 
+// FIXME This function is never called and is incomplete
 int	exit_game(t_lib1 *map_data)
 {
 	free(map_data->mlx);
