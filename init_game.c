@@ -57,40 +57,33 @@ t_lib1	*init_game(t_lib1 *map_data)
 // Defines some key hooks (which?)
 // Selects initial images
 // Enters the loop
-// FIXME The window sizes are based on a 2d map, we need fixed viewport size
+// FIXED The window sizes are based on a 2d map, we need fixed viewport size
 // (Could use SCREENWIDTH and SCREENHEIGHT)
 void	open_window(t_lib1 *map_data)
 {
 	map_data->mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT,
 							 "cube_3d chris branch",1);
 	map_data->img = mlx_new_image(map_data->mlx, 1 * 64, 1 * 64);
-	select_img(map_data);
+//	select_img(map_data);
 	mlx_key_hook(map_data->win, &key_hook, map_data);
 	mlx_loop(map_data->mlx);
 }
 
 // FIXME Invalid read in the texture_to_image calls below, leads to segfault
 // NOTE All these seem based on 2 dimensional model, with obsolete parts
+// We need to translate textures to images / an image to put to the window
+// TODO Here perhaps translate the floor and ceiling colours to a texture?
 void	select_img(t_lib1 *map_data)
 {
 	// FIXME Cokmpilation error in the call below
 //	map_data->player = mlx_texture_to_image(map_data->mlx, map_data->player);
 	map_data->wall = mlx_texture_to_image(map_data->mlx, map_data->wall);
 	map_data->ground = mlx_texture_to_image(map_data->mlx, map_data->ground);
-	map_data->coin = mlx_texture_to_image(map_data->mlx, map_data->coin);
-	map_data->exit = mlx_texture_to_image(map_data->mlx, map_data->exit);
 }
 
+// Prints a 2-d grid of images to the window / surface
+// TODO Remove as obsolete? Does not get called from anywhere!
 int	print_img(t_lib1 *map_data)
-{
-	print_img1(map_data);
-	print_img2(map_data);
-	print_img3(map_data);
-	return (0);
-}
-
-// Prints a 2-d grid of images
-void	print_img1(t_lib1 *map_data)
 {
 	int	i;
 	int	j;
@@ -111,5 +104,6 @@ void	print_img1(t_lib1 *map_data)
 		}
 		i++;
 	}
+	return (0);
 }
 

@@ -60,7 +60,7 @@ typedef struct s_info {
 typedef struct s_lib1 {
     t_player player;
     char **map;		// NOTE What is the difference between this and map_content?
-    int hit; // Indicador de impacto
+    int hit; // Indicador de impacto NOTE why do we need this?
     double side_x; // Lado x
     double side_y; // Lado y
     double delta_x; // Delta x
@@ -74,40 +74,33 @@ typedef struct s_lib1 {
     void *img; // Imagen
     int rgb_ceiling; // Color del techo
     int rgb_floor; // Color del suelo
-    void *texture[4];
+    void 	*texture[4];		// NOTE The N, S, E, W images loaded from...
 	char	*texture_paths[4];	// NOTE New, perhaps temporary
 	int len_cols; // Número de columnas NOTE sería el maximo
     int len_rows; // Número de filas NOTE sería el maximo
 	mlx_t *mlx;
 	char	**map_array;
-	char	**cpy_of_map_array;		// TODO remove this from struct?
 	int		player_coor_x;
 	int		player_coor_y;
-	int		how_many_lines;
+	int		how_many_lines;		// TODO Differences between these, len_cols, width?
 	int		how_many_colums;
 	int		map_length;		// NOTE IS this needed?
 	int		x;
 	int		y;
-	int		count;
+	int		count;			// NOTE count of what??
 	char	*fullpath;
 	char	*map_content;	// NOTE I assume this is the "raw" map data and map above is it as a structured array?
 	char	*addr;
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	int		color;
+	int		color;			// NOTE what colour is this? Obsolete with rgb_* ?
 	void	*win;
 	int		width;
 	int		heigth;
 	void	*ground;
-	void	*coin;		// TODO remove this from struct?
-	void	*exit;		// TODO remove this from struct?
 	void	*wall;		// FIXME Implicated in segfault, not initialised correctly?
 	int		end;
-	int		coins_collected;		// TODO remove this from struct?
-	int		total_coins;		// TODO remove this from struct?
-	int		cpy_coors_x;
-	int		cpy_coors_y;
 } t_lib1;
 
 int		main(int argc, char **argv);
@@ -124,11 +117,8 @@ void		key_s(t_lib1 *data);
 void		key_w(t_lib1 *data);
 void		key_hook(mlx_key_data_t keydata, void *info);
 int		exit_game(t_lib1 *map_data);
-void		print_img2(t_lib1 *map_data);
 int		st_map(char x, int i);
 int		st_temp(char c, int i);
-void		print_img3(t_lib1 *map_data);
-void		print_img1(t_lib1 *map_data);
 void		print_3d(t_lib1 *data);
 void		walls(t_lib1 *data, int i);
 int		check_move(int x, int y, t_lib1 *data);
