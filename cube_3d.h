@@ -153,4 +153,7 @@ char		*find_next_line(int fd);
 int		check_each_square(t_lib1 *map_data);
 char	*find_next_line(int fd);
 int	line_is_blank(char *line);
+
+// exit routines
+void	clear_data(t_lib1 *map_data);
 #endif

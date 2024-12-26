@@ -83,23 +83,23 @@ int	basic_wall_test(t_lib1 *map_data)
 // - Check that map_content only has allowed characters and a single player
 // - turn the raw content into map_array using ft_split
 // - check to make sure the map is surrounded
-// TODO If any test fails, we have to clear map_content!
+// DONE If any test fails, we have to clear map_content!
 void	map_is_playable(t_lib1 *map_data)
 {
 	if ((!only_legal_char(map_data->map_content))
 		|| (!only_one_player(map_data->map_content)))
-		exit (EXIT_FAILURE);
+		clear_data(map_data);
 	map_data->map_array = ft_split(map_data->map_content, '\n');
 	print_map_array(map_data);	// HACK for debugging
 	if (!basic_wall_test(map_data))
 	{
 		ft_printf("Wall count error\n");
-		exit (EXIT_FAILURE);
+		clear_data(map_data);
 	}
 	if (!check_each_square(map_data))
 	{
 		ft_printf("Map bounding error\n");
-		exit (EXIT_FAILURE);
+		clear_data(map_data);
 	}
 }
 
