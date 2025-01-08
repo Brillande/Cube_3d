@@ -59,35 +59,52 @@ t_lib1	*init_game(t_lib1 *map_data)
 // Enters the loop
 // FIXME The window sizes are based on a 2d map, we need fixed viewport size
 // (Could use SCREENWIDTH and SCREENHEIGHT)
-void	open_window(t_lib1 *map_data)
-{
-	map_data->how_many_colums += 1;
-	map_data->mlx = mlx_init(map_data->how_many_colums
-			* 64, map_data->how_many_lines * 64, "cube_3d emedina-",1);
-	map_data->img = mlx_new_image(map_data->mlx, 1 * 64, 1 * 64);
-	select_img(map_data);
-	mlx_key_hook(map_data->win, &key_hook, map_data);
-	mlx_loop(map_data->mlx);
+void open_window(t_lib1 *map_data) {
+    map_data->how_many_colums += 1;
+    map_data->mlx = mlx_init(map_data->how_many_colums * 64, map_data->how_many_lines * 64, "cube_3d emedina-", true);
+    if (!map_data->mlx) {
+        fprintf(stderr, "Error initializing MLX\n");
+        exit(EXIT_FAILURE);
+    }
+    map_data->img = mlx_new_image(map_data->mlx, map_data->how_many_colums * 64, map_data->how_many_lines * 64);
+    if (!map_data->img) {
+        fprintf(stderr, "Error creating new image\n");
+      /*   free_resources(map_data); */
+        exit(EXIT_FAILURE);
+    }
+    select_img(map_data);
+    mlx_image_to_window(map_data->mlx, map_data->img, 0, 0);
+    mlx_key_hook(map_data->mlx, &key_hook, map_data);
+    mlx_loop(map_data->mlx);
 }
-
 // FIXME Invalid read in the texture_to_image calls below, leads to segfault
 // NOTE All these seem based on 2 dimensional model, with obsolete parts
-void	select_img(t_lib1 *map_data)
-{
-	// FIXME Cokmpilation error in the call below
-//	map_data->player = mlx_texture_to_image(map_data->mlx, map_data->player);
-	map_data->wall = mlx_texture_to_image(map_data->mlx, map_data->wall);
-	map_data->ground = mlx_texture_to_image(map_data->mlx, map_data->ground);
-	map_data->coin = mlx_texture_to_image(map_data->mlx, map_data->coin);
-	map_data->exit = mlx_texture_to_image(map_data->mlx, map_data->exit);
-}
+void select_img(t_lib1 *map_data) {
+    // Cargar las texturas
+    mlx_texture_t *wallE_texture = mlx_load_png("img/wallE.png");
+    mlx_texture_t *wallN_texture = mlx_load_png("img/wallN.png");
+    mlx_texture_t *wallS_texture = mlx_load_png("img/wallS.png");
+    mlx_texture_t *wallW_texture = mlx_load_png("img/wallW.png");
 
-int	print_img(t_lib1 *map_data)
-{
-	print_img1(map_data);
-	print_img2(map_data);
-	print_img3(map_data);
-	return (0);
+    // Verificar que las texturas se cargaron correctamente
+    if (!wallE_texture || !wallN_texture || !wallS_texture || !wallW_texture) {
+        fprintf(stderr, "Error loading textures\n");
+      /*   free_resources(map_data); */
+        exit(EXIT_FAILURE);
+    }
+
+    // Convertir las texturas en imágenes
+    map_data->wallE = mlx_texture_to_image(map_data->mlx, wallE_texture);
+    map_data->wallN = mlx_texture_to_image(map_data->mlx, wallN_texture);
+    map_data->wallS = mlx_texture_to_image(map_data->mlx, wallS_texture);
+    map_data->wallW = mlx_texture_to_image(map_data->mlx, wallW_texture);
+
+    // Verificar que las imágenes se crearon correctamente
+    if (!map_data->wallE || !map_data->wallN || !map_data->wallS || !map_data->wallW) {
+        fprintf(stderr, "Error converting textures to images\n");
+     /*    free_resources(map_data); */
+        exit(EXIT_FAILURE);
+    }
 }
 
 // Prints a 2-d grid of images
@@ -107,10 +124,9 @@ void	print_img1(t_lib1 *map_data)
 					map_data->ground, j * 64, i * 64);
 			if (map_data->map_array[i][j] == '1')
 				mlx_image_to_window(map_data->mlx,
-					map_data->wall, j * 64, i * 64);
+					map_data->wallE, j * 64, i * 64);
 			j++;
 		}
 		i++;
 	}
 }
-

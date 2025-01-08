@@ -88,6 +88,7 @@ typedef struct s_lib1 {
 	int		map_length;		// NOTE IS this needed?
 	int		x;
 	int		y;
+	int 	wind;
 	int		count;
 	char	*fullpath;
 	char	*map_content;	// NOTE I assume this is the "raw" map data and map above is it as a structured array?
@@ -102,7 +103,10 @@ typedef struct s_lib1 {
 	void	*ground;
 	void	*coin;		// TODO remove this from struct?
 	void	*exit;		// TODO remove this from struct?
-	void	*wall;		// FIXME Implicated in segfault, not initialised correctly?
+	void	*wallE;		// FIXME Implicated in segfault, not initialised correctly?
+	void	*wallN;		// FIXME Implicated in segfault, not initialised correctly?
+	void	*wallS;		// FIXME Implicated in segfault, not initialised correctly?
+	void	*wallW;		// FIXME Implicated in segfault, not initialised correctly?
 	int		end;
 	int		coins_collected;		// TODO remove this from struct?
 	int		total_coins;		// TODO remove this from struct?
