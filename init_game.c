@@ -48,13 +48,12 @@ void	open_window(t_lib1 *map_data)
     map_data->mlx = mlx_init(map_data->how_many_colums * 64, map_data->how_many_lines * 64, "cube_3d emedina-", true);
     if (!map_data->mlx) {
         fprintf(stderr, "Error initializing MLX\n");
-        exit(EXIT_FAILURE);
+		clear_data(map_data);
     }
     map_data->img = mlx_new_image(map_data->mlx, map_data->how_many_colums * 64, map_data->how_many_lines * 64);
     if (!map_data->img) {
         fprintf(stderr, "Error creating new image\n");
-      /*   free_resources(map_data); */
-        exit(EXIT_FAILURE);
+		clear_data(map_data);
     }
     select_img(map_data);
     mlx_image_to_window(map_data->mlx, map_data->img, 0, 0);
@@ -83,7 +82,7 @@ void select_img(t_lib1 *map_data)
     // Verificar que las texturas se cargaron correctamente
     if (!wallE_texture || !wallN_texture || !wallS_texture || !wallW_texture) {
         fprintf(stderr, "Error loading textures\n");
-      /*   free_resources(map_data); */
+		clear_data(map_data);
         exit(EXIT_FAILURE);
     }
 
@@ -96,7 +95,7 @@ void select_img(t_lib1 *map_data)
     // Verificar que las imágenes se crearon correctamente
     if (!map_data->wallE || !map_data->wallN || !map_data->wallS || !map_data->wallW) {
         fprintf(stderr, "Error converting textures to images\n");
-     /*    free_resources(map_data); */
+		clear_data(map_data);
         exit(EXIT_FAILURE);
     }
 }
