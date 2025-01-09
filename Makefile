@@ -69,8 +69,9 @@ $(LIBFT):
 	@echo "making libft"
 	make -C $(FTDIR)
 
+# NOTE Specify source and build location, else we overwrite our own Makefile!
 libmlx:
-	cmake $(MLXDIR)
+	cmake -S $(MLXDIR) -B $(MLXDIR)
 	make -C $(MLXDIR)
 
 ifeq ($(UNAME), Linux)
@@ -87,9 +88,10 @@ clean:
 			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)objs ✔️"
 
 fclean:		clean
-			@ ${RM} ${NAME}
-			@ $(MAKE) -C $(MLXDIR) clean
 			@ echo "$(RED)Deleting $(CYAN)$(NAME) $(CLR_RMV)binary ✔️"
+			@ ${RM} ${NAME}
+			-@ $(MAKE) -C $(MLXDIR) clean
+			-@ make -C $(FTDIR) fclean
 endif
 
 re:			fclean all

@@ -96,6 +96,7 @@ void select_img(t_lib1 *map_data) {
 
 // Prints a 2-d grid of images to the window / surface
 // TODO Remove as obsolete? Does not get called from anywhere!
+// NOTE Also does not appear in header file...
 void	print_img1(t_lib1 *map_data)
 {
 	int	i;
@@ -117,5 +118,4 @@ void	print_img1(t_lib1 *map_data)
 		}
 		i++;
 	}
-	return (0);
 }
