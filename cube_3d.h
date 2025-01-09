@@ -130,6 +130,9 @@ double		len_find(t_lib1 *data, double angle);
 void		dda_alg(t_lib1 *data, t_lib1 *ca);
 void		find_ray(t_lib1 *cal, t_lib1 *data);
 
+// Display things on the windows
+mlx_image_t	*make_background(t_lib1 *map_data);
+
 // Debugging files
 void	print_read_from_file(t_lib1 map_data);
 void	print_map_array(t_lib1 *map_data);

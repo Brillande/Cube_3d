@@ -28,6 +28,41 @@ void	key_hook(mlx_key_data_t keydata, void *info)
 	move(data);
 }
 
+// Create and return the background of floor / ceiling colours
+// Define an image to use
+// Set the pixels in the top half to rgb_ceiling
+// and those in the bottom to rgb_floor
+// (Later, experiment with fading to black to simulate darkness / distance)
+// FIXED Find the correct location for to write to
+mlx_image_t	*make_background(t_lib1 *map_data)
+{
+	int			x;
+	int			y;
+	mlx_image_t	*bg;
+
+	x = 0;
+	y = 0;
+	bg = mlx_new_image(map_data->mlx, SCREENWIDTH, SCREENHEIGHT);
+	while (x < (SCREENWIDTH))
+	{
+		while (y < (SCREENHEIGHT / 2))
+			mlx_put_pixel(bg, x, y++, map_data->rgb_ceiling);
+		x++;
+		y = 0;
+	}
+	x = 0;
+	y = (SCREENHEIGHT / 2);
+	while (x < SCREENWIDTH)
+	{
+		while (y < SCREENHEIGHT)
+			mlx_put_pixel(bg, x, y++, map_data->rgb_floor);
+		x++;
+		y = (SCREENHEIGHT / 2);
+	}
+	bg->enabled = TRUE;
+	return (bg);
+}
+
 // NOTE I don't think returning the map_data is needed here.
 // Entry point to the game after the map data has been read.
 t_lib1	*init_game(t_lib1 *map_data)
@@ -56,17 +91,18 @@ void	open_window(t_lib1 *map_data)
 		clear_data(map_data);
 	}
 	select_img(map_data);
+	map_data->img = make_background(map_data);
 	mlx_image_to_window(map_data->mlx, map_data->img, 0, 0);
 	mlx_key_hook(map_data->mlx, &key_hook, map_data);
 	mlx_loop(map_data->mlx);
 }
 
 // We need to translate textures to images / an image to put to the window
-// TODO Here perhaps translate the floor and ceiling colours to a texture?
 // - Load textures from texture_paths
 // - Verify image loading
 // - Convert to images
 // - Verify conversion
+// TODO select_img is not a descriptive name for the function anymore
 void select_img(t_lib1 *map_data)
 {
     // Cargar las texturas
