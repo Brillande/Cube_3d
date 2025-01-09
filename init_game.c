@@ -45,20 +45,20 @@ t_lib1	*init_game(t_lib1 *map_data)
 void	open_window(t_lib1 *map_data)
 {
    map_data->how_many_colums += 1;
-    map_data->mlx = mlx_init(map_data->how_many_colums * 64, map_data->how_many_lines * 64, "cube_3d emedina-", true);
-    if (!map_data->mlx) {
-        fprintf(stderr, "Error initializing MLX\n");
+   map_data->mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT, "cub3d with DEFINEd sizes", 1);
+	if (!map_data->mlx) {
+		fprintf(stderr, "Error initializing MLX\n");
 		clear_data(map_data);
-    }
-    map_data->img = mlx_new_image(map_data->mlx, map_data->how_many_colums * 64, map_data->how_many_lines * 64);
-    if (!map_data->img) {
-        fprintf(stderr, "Error creating new image\n");
+	}
+	map_data->img = mlx_new_image(map_data->mlx, map_data->how_many_colums * 64, map_data->how_many_lines * 64);
+	if (!map_data->img) {
+		fprintf(stderr, "Error creating new image\n");
 		clear_data(map_data);
-    }
-    select_img(map_data);
-    mlx_image_to_window(map_data->mlx, map_data->img, 0, 0);
-    mlx_key_hook(map_data->mlx, &key_hook, map_data);
-    mlx_loop(map_data->mlx);
+	}
+	select_img(map_data);
+	mlx_image_to_window(map_data->mlx, map_data->img, 0, 0);
+	mlx_key_hook(map_data->mlx, &key_hook, map_data);
+	mlx_loop(map_data->mlx);
 }
 
 // We need to translate textures to images / an image to put to the window
