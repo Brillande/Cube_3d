@@ -85,7 +85,7 @@ void	open_window(t_lib1 *map_data)
 		fprintf(stderr, "Error initializing MLX\n");
 		clear_data(map_data);
 	}
-	map_data->img = mlx_new_image(map_data->mlx, map_data->how_many_colums * 64, map_data->how_many_lines * 64);
+	map_data->img = mlx_new_image(map_data->mlx, 10 * 64, 10 * 64);
 	if (!map_data->img) {
 		fprintf(stderr, "Error creating new image\n");
 		clear_data(map_data);
