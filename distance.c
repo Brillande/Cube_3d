@@ -1,25 +1,32 @@
 #include "cube_3d.h"
 
 // What does this do?
-void	dda_alg(t_lib1 *data, t_lib1 *ca)
-{
-	while (ca->hit == 0)
-	{
-		if (ca->side_x < ca->side_y)
-		{
-			ca->side_x += ca->delta_x;
-			ca->map_x += ca->step_x;
-			data->player.side = 0 + (ca->step_x + 1);
-		}
-		else
-		{
-			ca->side_y += ca->delta_y;
-			ca->map_y += ca->step_y;
-			data->player.side = 1 + (1 + ca->step_y);
-		}
-		if (data->map[ca->map_y][ca->map_x] == '1')
-			ca->hit = 1;
-	}
+void dda_alg(t_lib1 *data, t_lib1 *ca) {
+    while (ca->hit == 0) {
+        // Avanzar en la dirección X o Y
+        if (ca->side_x < ca->side_y) {
+            ca->side_x += ca->delta_x;
+            ca->map_x += ca->step_x;
+            // Determinar el lado del impacto
+            data->player.side = (ca->step_x > 0) ? 0 : 1;
+        } else {
+            ca->side_y += ca->delta_y;
+            ca->map_y += ca->step_y;
+            // Determinar el lado del impacto
+            data->player.side = (ca->step_y > 0) ? 2 : 3;
+        }
+
+        // Verificar límites del mapa
+        if (ca->map_x < 0 || ca->map_x >= data->how_many_lines || ca->map_y < 0 || ca->map_y >= data->how_many_colums) {
+            fprintf(stderr, "Error: Out of map bounds\n");
+            exit(EXIT_FAILURE);
+        }
+
+        // Verificar colisión con una pared
+        if (data->map[ca->map_y][ca->map_x] == '1') {
+            ca->hit = 1;
+        }
+    }
 }
 
 // What does this do?
