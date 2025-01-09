@@ -88,6 +88,7 @@ typedef struct s_lib1 {
 	int		x;
 	int		y;
 	int		count;			// NOTE count of what??
+	int 	wind;
 	char	*fullpath;
 	char	*map_content;	// NOTE I assume this is the "raw" map data and map above is it as a structured array?
 	char	*addr;
@@ -99,7 +100,12 @@ typedef struct s_lib1 {
 	int		width;
 	int		heigth;
 	void	*ground;
-	void	*wall;		// FIXME Implicated in segfault, not initialised correctly?
+	void	*coin;		// TODO remove this from struct?
+	void	*exit;		// TODO remove this from struct?
+	void	*wallE;		// FIXME Implicated in segfault, not initialised correctly?
+	void	*wallN;		// FIXME Implicated in segfault, not initialised correctly?
+	void	*wallS;		// FIXME Implicated in segfault, not initialised correctly?
+	void	*wallW;		// FIXME Implicated in segfault, not initialised correctly?
 	int		end;
 } t_lib1;
 
