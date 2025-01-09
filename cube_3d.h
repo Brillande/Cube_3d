@@ -102,10 +102,10 @@ typedef struct s_lib1 {
 	void	*ground;
 	void	*coin;		// TODO remove this from struct?
 	void	*exit;		// TODO remove this from struct?
-	void	*wallE;		// FIXME Implicated in segfault, not initialised correctly?
-	void	*wallN;		// FIXME Implicated in segfault, not initialised correctly?
-	void	*wallS;		// FIXME Implicated in segfault, not initialised correctly?
-	void	*wallW;		// FIXME Implicated in segfault, not initialised correctly?
+	void	*wallE;
+	void	*wallN;
+	void	*wallS;
+	void	*wallW;
 	int		end;
 } t_lib1;
 

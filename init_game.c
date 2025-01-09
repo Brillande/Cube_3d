@@ -62,17 +62,24 @@ void	open_window(t_lib1 *map_data)
     mlx_loop(map_data->mlx);
 }
 
-// FIXME Invalid read in the texture_to_image calls below, leads to segfault
-// NOTE All these seem based on 2 dimensional model, with obsolete parts
 // We need to translate textures to images / an image to put to the window
 // TODO Here perhaps translate the floor and ceiling colours to a texture?
-void select_img(t_lib1 *map_data) {
+// - Load textures from texture_paths
+// - Verify image loading
+// - Convert to images
+// - Verify conversion
+void select_img(t_lib1 *map_data)
+{
     // Cargar las texturas
-    mlx_texture_t *wallE_texture = mlx_load_png("img/wallE.png");
-    mlx_texture_t *wallN_texture = mlx_load_png("img/wallN.png");
-    mlx_texture_t *wallS_texture = mlx_load_png("img/wallS.png");
-    mlx_texture_t *wallW_texture = mlx_load_png("img/wallW.png");
+    mlx_texture_t	*wallE_texture;
+    mlx_texture_t	*wallN_texture;
+    mlx_texture_t	*wallS_texture;
+    mlx_texture_t	*wallW_texture;
 
+	wallE_texture = mlx_load_png(map_data->texture_paths[0]);
+	wallN_texture = mlx_load_png(map_data->texture_paths[1]);
+	wallS_texture = mlx_load_png(map_data->texture_paths[2]);
+	wallW_texture = mlx_load_png(map_data->texture_paths[3]);
     // Verificar que las texturas se cargaron correctamente
     if (!wallE_texture || !wallN_texture || !wallS_texture || !wallW_texture) {
         fprintf(stderr, "Error loading textures\n");
