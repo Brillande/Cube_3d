@@ -82,6 +82,7 @@ typedef struct s_lib1 {
 	char	**map_array;
 	int		player_coor_x;
 	int		player_coor_y;
+	int		player_faces;		// The direction the player is facing at the start.
 	int		how_many_lines;		// TODO Differences between these, len_cols, width?
 	int		how_many_colums;
 	int		map_length;		// NOTE IS this needed?
@@ -140,16 +141,18 @@ void	print_map_array(t_lib1 *map_data);
 // Parsing the files
 void		read_map_from_fd(t_lib1 *map_data, int fd);
 void		get_visuals(t_lib1 *map_data, int fd);
+int		get_orientation(char c);
 void		map_is_playable(t_lib1 *map_data);
 int		only_legal_char(char *map_content);
 char		*check_name(char *map_name);
-char		*find_next_line(int fd);
 int		check_each_square(t_lib1 *map_data);
+int		only_one_player(char *map);
+
 // file_helpers.c
-char	*find_next_line(int fd);
+char		*find_next_line(int fd);
 int		test_path(char *path);
-char	*check_extension(char *map_extension);
-void	join_the_fullpath(t_lib1 *map_data, char *map_name);
+char		*check_extension(char *map_extension);
+void		join_the_fullpath(t_lib1 *map_data, char *map_name);
 int		line_is_blank(char *line);
 
 // exit routines
