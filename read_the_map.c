@@ -82,15 +82,12 @@ void	get_start_position(t_lib1 *map_data)
 	{
 		while (map_data->map_array[i][j] != '\0')
 		{
-			if ((map_data->map_array[i][j] == 'E')
-				|| (map_data->map_array[i][j] == 'W')
-				|| (map_data->map_array[i][j] == 'S')
-				|| (map_data->map_array[i][j] == 'N'))
+			if (ft_strchr("NEWS", map_data->map_array[i][j]))
 			{
 				map_data->player_coor_x = i;
 				map_data->player_coor_y = j;
-				map_data->player_faces =
-					get_orientation(map_data->map_array[i][j]);
+				map_data->player_faces
+					= get_orientation(map_data->map_array[i][j]);
 				return ;
 			}
 			j++;
