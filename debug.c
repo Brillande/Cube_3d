@@ -11,7 +11,8 @@ void	print_read_from_file(t_lib1 map_data)
 	ft_printf("Floor colour: %i\n", map_data.rgb_floor);
 	ft_printf("Ceiling colour: %i\n", map_data.rgb_ceiling);
 	ft_printf("Map data read:\n%s", map_data.map_content);
-	ft_printf("Sizes:\nX: %i\tY: %i\n", map_data.how_many_colums, map_data.how_many_lines);
+	ft_printf("Sizes:\nX: %i\tY: %i\n", map_data.how_many_colums,
+		map_data.how_many_lines);
 }
 
 // HACK for debugging, remove later
@@ -30,9 +31,11 @@ void	print_map_array(t_lib1 *map_data)
 	}
 }
 
-// Print the player's coordinates and orientation (as a compass bearing, 0-270 degrees).
+// Print the player's coordinates and orientation
+// (as a compass bearing, 0-270 degrees).
 void	print_start_position(t_lib1 *map_data)
 {
 	ft_printf("The player starts at X: %i Y: %i, facing %i degrees\n",
-			  map_data->player_coor_x, map_data->player_coor_y, map_data->player_faces);
+		map_data->player_coor_x, map_data->player_coor_y,
+		map_data->player_faces);
 }

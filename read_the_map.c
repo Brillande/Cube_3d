@@ -69,6 +69,7 @@ int	get_orientation(char c)
 // NOTE The first coordinate in each case is 0!!
 // NOTE Careful about X and Y!
 // NOTE We intialise player_faces to -1 as 0 is a valid direction
+// FIXME Get this under 25 lines somehow
 void	get_start_position(t_lib1 *map_data)
 {
 	int	i;
@@ -88,7 +89,8 @@ void	get_start_position(t_lib1 *map_data)
 			{
 				map_data->player_coor_x = i;
 				map_data->player_coor_y = j;
-				map_data->player_faces = get_orientation(map_data->map_array[i][j]);
+				map_data->player_faces =
+					get_orientation(map_data->map_array[i][j]);
 				return ;
 			}
 			j++;
@@ -96,6 +98,4 @@ void	get_start_position(t_lib1 *map_data)
 		i++;
 		j = 0;
 	}
-	if (map_data->player_faces == -1)
-		clear_data(map_data);
 }
