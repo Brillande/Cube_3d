@@ -101,6 +101,11 @@ void	map_is_playable(t_lib1 *map_data)
 		ft_printf("Map bounding error\n");
 		clear_data(map_data);
 	}
+	get_start_position(map_data);
+	if (map_data->player_faces == -1)
+		clear_data(map_data);
+	print_map_array(map_data);
+	print_start_position(map_data);
 }
 
 // NOTE Spaces are OK, but may need different handling.

@@ -148,6 +148,7 @@ int		only_legal_char(char *map_content);
 char		*check_name(char *map_name);
 int		check_each_square(t_lib1 *map_data);
 int		only_one_player(char *map);
+void		get_start_position(t_lib1 *map_data);
 
 // file_helpers.c
 char		*find_next_line(int fd);

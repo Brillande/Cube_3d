@@ -65,12 +65,11 @@ int	get_orientation(char c)
 		return (-1);
 }
 
-// Read the map contents; set player_coor_x and y
-// ...also the orientation.
+// Read the map contents; set player_coor_x and y as well as orientation.
+// NOTE The first coordinate in each case is 0!!
 // NOTE Careful about X and Y!
 // NOTE We intialise player_faces to -1 as 0 is a valid direction
-// FIXME This needs to loop correctly through map_array
-void	get_start_position(tlib1 *map_data)
+void	get_start_position(t_lib1 *map_data)
 {
 	int	i;
 	int	j;
@@ -78,19 +77,24 @@ void	get_start_position(tlib1 *map_data)
 	i = 0;
 	j = 0;
 	map_data->player_faces = -1;
-	while (map_data->map_array[i][j] != '\0')
+	while (map_data->map_array[i])
 	{
-		if ((map_data->map_array[i][j] == 'E')
-			|| (map_data->map_array[i][j] == 'W')
-			|| (map_data->map_array[i][j] == 'S')
-			|| (map_data->map_array[i][j] == 'N'))
+		while (map_data->map_array[i][j] != '\0')
 		{
-			map_data->player_coor_x = i;
-			map_data->player_coor_y = j;
-			map_data->player_faces = get_orientation(map_data->map_array[i][j]);
-			break;
+			if ((map_data->map_array[i][j] == 'E')
+				|| (map_data->map_array[i][j] == 'W')
+				|| (map_data->map_array[i][j] == 'S')
+				|| (map_data->map_array[i][j] == 'N'))
+			{
+				map_data->player_coor_x = i;
+				map_data->player_coor_y = j;
+				map_data->player_faces = get_orientation(map_data->map_array[i][j]);
+				return ;
+			}
+			j++;
 		}
-		j++;
+		i++;
+		j = 0;
 	}
 	if (map_data->player_faces == -1)
 		clear_data(map_data);
