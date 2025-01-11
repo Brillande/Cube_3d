@@ -137,6 +137,7 @@ mlx_image_t	*make_background(t_lib1 *map_data);
 // Debugging files
 void	print_read_from_file(t_lib1 map_data);
 void	print_map_array(t_lib1 *map_data);
+void	print_start_position(t_lib1 *map_data);
 
 // Parsing the files
 void		read_map_from_fd(t_lib1 *map_data, int fd);

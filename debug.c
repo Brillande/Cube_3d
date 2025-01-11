@@ -25,7 +25,14 @@ void	print_map_array(t_lib1 *map_data)
 	j = 0;
 	while (j < map_data->how_many_lines)
 	{
-		ft_printf("Line %i:\t%s\n", j, map_data->map_array[j]);
+		ft_printf("L%i:\t%s\n", j, map_data->map_array[j]);
 		j++;
 	}
+}
+
+// Print the player's coordinates and orientation (as a compass bearing, 0-270 degrees).
+void	print_start_position(t_lib1 *map_data)
+{
+	ft_printf("The player starts at X: %i Y: %i, facing %i degrees\n",
+			  map_data->player_coor_x, map_data->player_coor_y, map_data->player_faces);
 }
