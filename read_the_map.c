@@ -18,6 +18,9 @@
 // or next blank line
 // ...put it all in map_data->map_content
 // NOTE the -1 is to remove a newline that later goes away
+// NOTE Do not free line it becomes the base of map_content
+// TODO Norm fixes and tidying needed here.
+// TODO Work out what needs to be freed if find_next_line fails
 void	read_map_from_fd(t_lib1 *map_data, int fd)
 {
 	char	*line;
@@ -30,7 +33,7 @@ void	read_map_from_fd(t_lib1 *map_data, int fd)
 	map_data->how_many_lines++;
 	map_data->how_many_colums = ft_strlen(line) - 1;
 	map_data->map_content = line;	// NOTE This is to put *something* there before strjoin call, but may mess up the map...
-//	free (line);	// NOTE Do not free this, it is the base of map_content now
+//	free (line);
 	line = get_next_line(fd);
 	while ((line) && (line_is_blank(line) == 0))
 	{
@@ -69,7 +72,6 @@ int	get_orientation(char c)
 // NOTE The first coordinate in each case is 0!!
 // NOTE Careful about X and Y!
 // NOTE We intialise player_faces to -1 as 0 is a valid direction
-// FIXME Get this under 25 lines somehow
 void	get_start_position(t_lib1 *map_data)
 {
 	int	i;

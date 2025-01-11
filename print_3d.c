@@ -1,5 +1,6 @@
 #include "cube_3d.h"
 
+// NOTE Is this is a general function we could use elsewhere?
 static int	get_rgba(mlx_texture_t *texture, int x, int y)
 {
 	int	r;
@@ -14,6 +15,7 @@ static int	get_rgba(mlx_texture_t *texture, int x, int y)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
+// TODO Give this function a useful name and description
 void fill_info(t_info *info, t_lib1 *data, double height) {
     info->tex = data->texture[data->player.side];
     if (height >= SCREENHEIGHT) {
@@ -29,6 +31,7 @@ void fill_info(t_info *info, t_lib1 *data, double height) {
     info->step = 1.0 * info->tex->height / height;
 }
 
+// TODO Work out how this relates to the get_background function
 void draw_ceiling_and_floor(t_lib1 *data, int i) {
     int start = 0;
     int half = (SCREENHEIGHT - start) / 2;
@@ -43,6 +46,7 @@ void draw_ceiling_and_floor(t_lib1 *data, int i) {
     }
 }
 
+// TODO Give this function a useful name and description
 void walls(t_lib1 *data, int i) {
     double height;
     int x;
