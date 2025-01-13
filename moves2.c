@@ -48,6 +48,7 @@ void click_button(mlx_key_data_t keydata, void *info) {
     move(data);
 }
 
+// FIXME This ending method leaks memory - should be the same as ESC
 int close_clik(t_lib1 *data) {
     mlx_close_window(data->mlx);
     exit(0);

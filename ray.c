@@ -25,7 +25,6 @@ double	find_distance(t_lib1 *data, t_lib1 *cal, double angle)
 	return (perp_dist);
 }
 
-// FIXME t_calculation is not in any header file
 double	len_find(t_lib1 *data, double angle)
 {
 	t_lib1	cal;
@@ -42,6 +41,8 @@ double	len_find(t_lib1 *data, double angle)
 	return (find_distance(data, &cal, angle));
 }
 
+// NOTE What is i? What is it based on?
+// a is fed to walls in print3d.c, which is not described.
 void	draw_3d(t_lib1 *data)
 {
 	int		a;
