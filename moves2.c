@@ -17,10 +17,10 @@ void	key_w(t_lib1 *data)
 int check_move(int x, int y, t_lib1 *data) {
     if (data->len_cols > x && data->len_rows > y && x > 0 && y > 0) {
         if (data->map[y][x] == '1')
-            return (FALSE);
-        return (TRUE);
+            return (false);
+        return (true);
     }
-    return (FALSE);
+    return (false);
 }
 
 void move(t_lib1 *data) {

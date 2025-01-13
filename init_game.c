@@ -59,7 +59,7 @@ mlx_image_t	*make_background(t_lib1 *map_data)
 		x++;
 		y = (SCREENHEIGHT / 2);
 	}
-	bg->enabled = TRUE;
+	bg->enabled = true;
 	return (bg);
 }
 

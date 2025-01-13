@@ -24,9 +24,6 @@
 
 # define SCREENWIDTH 640
 # define SCREENHEIGHT 480
-// FIXME This is incomplete; also can't be used as index to arrays without 0 and 1
-# define TRUE 1
-# define FALSE 0
 
 enum e_direction
 {
