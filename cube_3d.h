@@ -22,15 +22,19 @@
 # include <unistd.h>
 # include <math.h>
 
-#define SCREENWIDTH 640
-#define SCREENHEIGHT 480
-#define EAST 2
-#define WEST 3
-#define NORTH 4
+# define SCREENWIDTH 640
+# define SCREENHEIGHT 480
 // FIXME This is incomplete; also can't be used as index to arrays without 0 and 1
-#define SOUTH 
-#define TRUE 1
-#define FALSE 0
+# define TRUE 1
+# define FALSE 0
+
+enum e_direction
+{
+	NORTH = 0,
+	EAST = 1,
+	SOUTH = 2,
+	WEST = 3
+};
 
 typedef struct s_player {
     double pa; // Ángulo de orientación del jugador
@@ -38,7 +42,7 @@ typedef struct s_player {
     double y; // Coordenada y del jugador
     double ray; // Longitud del rayo
     double wall_x; // Coordenada x de la pared
-    int side; // Lado del impacto
+    int side; // Lado del impacto	NOTE Should this then be e_direction?
 	double x_camera; // Coordenada x de la cámara
     double y_camera; // Coordenada y de la cámara
     double game_speed; // Velocidad del juego

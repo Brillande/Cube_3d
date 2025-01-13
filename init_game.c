@@ -95,8 +95,11 @@ void	open_window(t_lib1 *map_data)
 	// HACK Now lets try and overlay something to that background
 	mlx_put_string(map_data->mlx, "KIULLLLLL MOOAR NAZIS!!!", 200, 150);
 	mlx_image_to_window(map_data->mlx, map_data->img, 0, 0);
-	// Adding a texture to an already-there image.
-	mlx_image_to_window(map_data->mlx, map_data->wallE, 100, 100);
+	// HACK Test to add textures to an already-there image.
+	mlx_image_to_window(map_data->mlx, map_data->wallE, 100, 200);
+	mlx_image_to_window(map_data->mlx, map_data->wallN, 200, 100);
+	mlx_image_to_window(map_data->mlx, map_data->wallS, 200, 300);
+	mlx_image_to_window(map_data->mlx, map_data->wallW, 300, 200);
 	mlx_key_hook(map_data->mlx, &key_hook, map_data);
 	mlx_loop(map_data->mlx);
 }
@@ -116,10 +119,10 @@ void select_img(t_lib1 *map_data)
     mlx_texture_t	*wallS_texture;
     mlx_texture_t	*wallW_texture;
 
-	wallE_texture = mlx_load_png(map_data->texture_paths[0]);
-	wallN_texture = mlx_load_png(map_data->texture_paths[1]);
-	wallS_texture = mlx_load_png(map_data->texture_paths[2]);
-	wallW_texture = mlx_load_png(map_data->texture_paths[3]);
+	wallE_texture = mlx_load_png(map_data->texture_paths[EAST]);
+	wallN_texture = mlx_load_png(map_data->texture_paths[NORTH]);
+	wallS_texture = mlx_load_png(map_data->texture_paths[SOUTH]);
+	wallW_texture = mlx_load_png(map_data->texture_paths[WEST]);
     // Verificar que las texturas se cargaron correctamente
     if (!wallE_texture || !wallN_texture || !wallS_texture || !wallW_texture) {
         fprintf(stderr, "Error loading textures\n");

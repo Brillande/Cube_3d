@@ -93,10 +93,10 @@ void	get_visuals(t_lib1 *map_data, int fd)
 	int	i;
 
 	i = 0;
-	map_data->texture_paths[0] = get_texture("NO", fd);
-	map_data->texture_paths[1] = get_texture("SO", fd);
-	map_data->texture_paths[2] = get_texture("WE", fd);
-	map_data->texture_paths[3] = get_texture("EA", fd);
+	map_data->texture_paths[NORTH] = get_texture("NO", fd);
+	map_data->texture_paths[SOUTH] = get_texture("SO", fd);
+	map_data->texture_paths[WEST] = get_texture("WE", fd);
+	map_data->texture_paths[EAST] = get_texture("EA", fd);
 	while (i < 4)
 	{
 		if (!test_path(map_data->texture_paths[i]))
