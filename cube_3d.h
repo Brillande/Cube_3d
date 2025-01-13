@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <math.h>
+# include <stdint.h>
 
 #define SCREENWIDTH 640
 #define SCREENHEIGHT 480
@@ -159,4 +160,7 @@ int		line_is_blank(char *line);
 
 // exit routines
 void	clear_data(t_lib1 *map_data);
+
+void player (void * param);
+int	create_trgb(int t, int r, int g, int b);
 #endif
