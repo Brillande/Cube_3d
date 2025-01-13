@@ -71,7 +71,7 @@ t_lib1	*init_game(t_lib1 *map_data)
 	return (map_data);
 }
 
-// opens tyhe main game window
+// opens the main game window
 // Defines some key hooks (which?)
 // Selects initial images
 // Enters the loop
@@ -92,7 +92,11 @@ void	open_window(t_lib1 *map_data)
 	}
 	select_img(map_data);
 	map_data->img = make_background(map_data);
+	// HACK Now lets try and overlay something to that background
+	mlx_put_string(map_data->mlx, "KIULLLLLL MOOAR NAZIS!!!", 200, 150);
 	mlx_image_to_window(map_data->mlx, map_data->img, 0, 0);
+	// Adding a texture to an already-there image.
+	mlx_image_to_window(map_data->mlx, map_data->wallE, 100, 100);
 	mlx_key_hook(map_data->mlx, &key_hook, map_data);
 	mlx_loop(map_data->mlx);
 }
@@ -103,6 +107,7 @@ void	open_window(t_lib1 *map_data)
 // - Convert to images
 // - Verify conversion
 // TODO select_img is not a descriptive name for the function anymore
+// FIXME The textures go to the wrong places, i.e. WallE is the north image.
 void select_img(t_lib1 *map_data)
 {
     // Cargar las texturas
