@@ -10,7 +10,7 @@
 // and RGB values range from 0 to 255, we can perfectly fit
 // a integer (as an int is 4 bytes).
 // In order to set the values programatically we use bitshifting."
-static int	create_trgb(int t, int r, int g, int b)
+int	create_trgb(int t, int r, int g, int b)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
 }
