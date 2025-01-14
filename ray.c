@@ -1,6 +1,12 @@
 #include "cube_3d.h"
 
+// TODO Check that player.side is compatible with enums etc
+// TODO Compare with player_view_distance
 // Calcula la distancia perpendicular desde el jugador hasta la pared más cercana
+// angle = ???
+// distance = ???
+// ca = corrected (against...?) angle
+// perp_dist = returned
 double	find_distance(t_lib1 *data, t_lib1 *cal, double angle)
 {
 	double	distance;

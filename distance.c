@@ -1,6 +1,9 @@
 #include "cube_3d.h"
 
-// What does this do?
+// NOTE What does dda stand for?
+// TODO Use e_directions instead of cryptic numbers here
+// FIXME Norm forbids ternary expressions like
+// data->player.side = (ca->step_x > 0) ? 0 : 1;
 void dda_alg(t_lib1 *data, t_lib1 *ca) {
     while (ca->hit == 0) {
         // Avanzar en la dirección X o Y
@@ -23,6 +26,7 @@ void dda_alg(t_lib1 *data, t_lib1 *ca) {
         }
 
         // Verificar colisión con una pared
+        // FIXME Should this be map_array[][]? map is blank
         if (data->map[ca->map_y][ca->map_x] == '1') {
             ca->hit = 1;
         }
