@@ -30,6 +30,7 @@ SRCS        :=      main.c \
                           ray.c \
 													boundary_test.c \
 													file_helpers.c \
+													maths.c \
 													debug.c
 
 OBJS        := $(SRCS:.c=.o)

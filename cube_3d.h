@@ -160,6 +160,11 @@ char		*check_extension(char *map_extension);
 void		join_the_fullpath(t_lib1 *map_data, char *map_name);
 int		line_is_blank(char *line);
 
+// maths functions
+double	player_view_distance(double delta_x, double delta_y, double beta);
+double	angle_per_pixel_column(void);
+double	view_angle_horizontal(double theta);
+
 // exit routines
 void	clear_data(t_lib1 *map_data);
 

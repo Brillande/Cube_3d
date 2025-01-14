@@ -1,12 +1,26 @@
 #include "cube_3d.h"
 
-// TODO Check that player.side is compatible with enums etc
-// TODO Compare with player_view_distance
+// Return the wall face that a ray of angle x intersects with
+// TODO Implement and test get_wall_face
+// Add protection against zero and negative numbers
+// TODO How to handle numbers that go above 360 afer adding 45?
+enum e_direction	get_wall_face(double x)
+{
+	if ((x < 0) || (x >= 360))
+		return (-1);
+	x += 45.0;
+	if (x == 0)
+		return (NORTH);
+	return ((x / 90.0));
+}
+
 // Calcula la distancia perpendicular desde el jugador hasta la pared más cercana
 // angle = ???
 // distance = ???
 // ca = corrected (against...?) angle
 // perp_dist = returned
+// TODO Check that player.side is compatible with enums etc
+// TODO Compare with player_view_distance
 double	find_distance(t_lib1 *data, t_lib1 *cal, double angle)
 {
 	double	distance;
