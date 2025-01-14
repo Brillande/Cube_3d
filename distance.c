@@ -17,9 +17,10 @@ void dda_alg(t_lib1 *data, t_lib1 *ca) {
         }
 
         // Verificar límites del mapa
-        if (ca->map_x < 0 || ca->map_x >= data->how_many_lines || ca->map_y < 0 || ca->map_y >= data->how_many_colums) {
+		ft_printf("map_x: %d, map_y: %d\n", ca->map_x, ca->map_y);
+         if (ca->map_x < 0 || ca->map_x >= data->len_cols || ca->map_y < 0 || ca->map_y >= data->len_rows) {
             fprintf(stderr, "Error: Out of map bounds\n");
-            exit(EXIT_FAILURE);
+           break;
         }
 
         // Verificar colisión con una pared
