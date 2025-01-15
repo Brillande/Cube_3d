@@ -61,9 +61,9 @@ typedef struct s_info {
 // TODO How do we change "number of columns" - the map is not a rectangle.
 typedef struct s_lib1 {
     t_player player;
-    char **map;		// NOTE What is the difference between this and map_content?
-    int hit; // Indicador de impacto NOTE why do we need this?
-    double side_x; // Lado x
+    char **map;		// NOTE What is the difference between this and map_content? or map_array?
+    int		hit;	// Indicador de impacto de un rayo con el pared
+    double side_x; // Lado x	NOTE Need more info on this, where is it set? Lado de qué?
     double side_y; // Lado y
     double delta_x; // Delta x
     double delta_y; // Delta y

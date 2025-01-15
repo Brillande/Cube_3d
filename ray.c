@@ -14,13 +14,13 @@ enum e_direction	get_wall_face(double x)
 	return ((x / 90.0));
 }
 
+// TODO Check that player.side is compatible with enums etc
+// TODO Compare with player_view_distance
 // Calcula la distancia perpendicular desde el jugador hasta la pared más cercana
 // angle = ???
 // distance = ???
 // ca = corrected (against...?) angle
 // perp_dist = returned
-// TODO Check that player.side is compatible with enums etc
-// TODO Compare with player_view_distance
 double	find_distance(t_lib1 *data, t_lib1 *cal, double angle)
 {
 	double	distance;
@@ -72,6 +72,10 @@ double	len_find(t_lib1 *data, double angle)
 }
 
 // Dibuja la vista 3D del entorno
+// Loop over each ray to be calculated for the view window
+// TODO Why are we using 0.3 and 0.0006 for range / increment?
+// ...what is special about these values?
+// a - the pixel coordinate (x) where the ray will be drawn (in walls)
 void	draw_3d(t_lib1 *data)
 {
 	int		a;
