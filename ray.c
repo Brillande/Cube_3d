@@ -38,23 +38,24 @@ double	find_distance(t_lib1 *data, t_lib1 *cal, double angle)
 }
 
 // Encuentra la longitud del rayo desde el jugador hasta la pared más cercana
+// FIXME There is not good reason for the extra cal...
 double	len_find(t_lib1 *data, double angle)
 {
-	t_lib1	cal;
+//	t_lib1	cal;
 
 	// Inicializa las coordenadas del mapa y los rayos
-	cal.map_y = (int)data->player.y;
-	cal.map_x = (int)data->player.x;
-	cal.ray_x = cos(angle);
-	cal.ray_y = sin(angle);
-	cal.delta_x = fabs(1 / cal.ray_x);
-	cal.hit = 0;
-	cal.delta_y = fabs(1 / cal.ray_y);
+	data->map_y = (int)data->player.y;
+	data->map_x = (int)data->player.x;
+	data->ray_x = cos(angle);
+	data->ray_y = sin(angle);
+	data->delta_x = fabs(1 / data->ray_x);
+	data->hit = 0;
+	data->delta_y = fabs(1 / data->ray_y);
 	// Encuentra el rayo y ejecuta el algoritmo DDA
-	find_ray(&cal, data);
-	dda_alg(data, &cal);
+	find_ray(data, data);
+	dda_alg(data, data);
 	// Calcula y retorna la distancia perpendicular
-	return (find_distance(data, &cal, angle));
+	return (find_distance(data, data, angle));
 }
 
 // Dibuja la vista 3D del entorno
