@@ -73,28 +73,22 @@ t_lib1	*init_game(t_lib1 *map_data)
 
 // opens the main game window
 // Defines some key hooks (which?)
-// Selects initial images
+// Loads the wall textures
+// Generates the background
+// Draws the first walls
 // Enters the loop
-// FIXED The window sizes are based on a 2d map, we need fixed viewport size
-// (Could use SCREENWIDTH and SCREENHEIGHT)
 void	open_window(t_lib1 *map_data)
 {
-   map_data->how_many_colums += 1;	// TODO Consider removing this; where is it used?
    map_data->mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT, "cub3d with DEFINEd sizes", 1);
-	if (!map_data->mlx) {
+	if (!map_data->mlx)
+	{
 		fprintf(stderr, "Error initializing MLX\n");
 		clear_data(map_data);
 	}
-	// FIXME Should this not be WIDTH / HEIGHT?
-	map_data->img = mlx_new_image(map_data->mlx, 10 * 64, 10 * 64);
-	if (!map_data->img) {
-		fprintf(stderr, "Error creating new image\n");
-		clear_data(map_data);
-	}
-	draw_3d(map_data);
 	load_wall_textures(map_data);
 	map_data->img = make_background(map_data);
 	mlx_image_to_window(map_data->mlx, map_data->img, 0, 0);
+	draw_3d(map_data);
 	mlx_key_hook(map_data->mlx, &key_hook, map_data);
 	mlx_loop(map_data->mlx);
 }

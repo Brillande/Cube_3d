@@ -74,7 +74,7 @@ void walls(t_lib1 *data, int i)
      // Llena la estructura info con los datos necesarios para dibujar la pared
     fill_info(&info, data, height);
     // Dibuja el techo y el suelo
-    draw_ceiling_and_floor(data, i);
+//    draw_ceiling_and_floor(data, i);
      // Dibuja la pared píxel por píxel
     while (x < info.bottom - info.top) {
         if (data->player.side == EAST || data->player.side == NORTH)
