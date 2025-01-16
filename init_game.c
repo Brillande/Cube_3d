@@ -85,6 +85,7 @@ void	open_window(t_lib1 *map_data)
 		fprintf(stderr, "Error initializing MLX\n");
 		clear_data(map_data);
 	}
+	// FIXME Should this not be WIDTH / HEIGHT?
 	map_data->img = mlx_new_image(map_data->mlx, 10 * 64, 10 * 64);
 	if (!map_data->img) {
 		fprintf(stderr, "Error creating new image\n");
@@ -93,14 +94,7 @@ void	open_window(t_lib1 *map_data)
 	draw_3d(map_data);
 	select_img(map_data);
 	map_data->img = make_background(map_data);
-	// HACK Now lets try and overlay something to that background
-	mlx_put_string(map_data->mlx, "KIULLLLLL MOOAR NAZIS!!!", 200, 150);
 	mlx_image_to_window(map_data->mlx, map_data->img, 0, 0);
-	// HACK Test to add textures to an already-there image.
-	mlx_image_to_window(map_data->mlx, map_data->wallE, 100, 200);
-	mlx_image_to_window(map_data->mlx, map_data->wallN, 200, 100);
-	mlx_image_to_window(map_data->mlx, map_data->wallS, 200, 300);
-	mlx_image_to_window(map_data->mlx, map_data->wallW, 300, 200);
 	mlx_key_hook(map_data->mlx, &key_hook, map_data);
 	mlx_loop(map_data->mlx);
 	
@@ -146,30 +140,4 @@ void select_img(t_lib1 *map_data)
 		clear_data(map_data);
         exit(EXIT_FAILURE);
     }
-}
-
-// Prints a 2-d grid of images to the window / surface
-// TODO Remove as obsolete? Does not get called from anywhere!
-// NOTE Also does not appear in header file...
-void	print_img1(t_lib1 *map_data)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (map_data->map_array[i])
-	{
-		j = 0;
-		while (map_data->map_array[i][j] != '\0')
-		{
-			if (map_data->map_array[i][j] != '1')
-				mlx_image_to_window(map_data->mlx,
-					map_data->ground, j * 64, i * 64);
-			if (map_data->map_array[i][j] == '1')
-				mlx_image_to_window(map_data->mlx,
-					map_data->wallE, j * 64, i * 64);
-			j++;
-		}
-		i++;
-	}
 }
