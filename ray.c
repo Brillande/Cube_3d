@@ -41,8 +41,6 @@ double	find_distance(t_lib1 *data, t_lib1 *cal, double angle)
 // FIXME There is not good reason for the extra cal...
 double	len_find(t_lib1 *data, double angle)
 {
-//	t_lib1	cal;
-
 	// Inicializa las coordenadas del mapa y los rayos
 	data->map_y = (int)data->player.y;
 	data->map_x = (int)data->player.x;
@@ -52,8 +50,8 @@ double	len_find(t_lib1 *data, double angle)
 	data->hit = 0;
 	data->delta_y = fabs(1 / data->ray_y);
 	// Encuentra el rayo y ejecuta el algoritmo DDA
-	find_ray(data, data);
-	dda_alg(data, data);
+	find_ray(data);
+	dda_alg(data);
 	// Calcula y retorna la distancia perpendicular
 	return (find_distance(data, data, angle));
 }

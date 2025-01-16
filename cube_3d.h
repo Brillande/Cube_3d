@@ -127,8 +127,8 @@ void		draw_3d(t_lib1 *data);
 void		walls(t_lib1 *data, int i);
 int		check_move(int x, int y, t_lib1 *data);
 double		len_find(t_lib1 *data, double angle);
-void		dda_alg(t_lib1 *data, t_lib1 *ca);
-void		find_ray(t_lib1 *cal, t_lib1 *data);
+void		dda_alg(t_lib1 *data);
+void		find_ray(t_lib1 *cal);
 
 // Display things on the windows
 mlx_image_t	*make_background(t_lib1 *map_data);

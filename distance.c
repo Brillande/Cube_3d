@@ -1,9 +1,8 @@
 #include "cube_3d.h"
 
 // TODO Use e_directions instead of cryptic numbers here
-void dda_alg(t_lib1 *data, t_lib1 *ca)
+void dda_alg(t_lib1 *data)
 {
-	(void) ca;
     while (data->hit == 0) {
         // Avanzar en la dirección X o Y
         if (data->side_x < data->side_y) {
@@ -42,9 +41,8 @@ void dda_alg(t_lib1 *data, t_lib1 *ca)
 }
 
 // What does this do?
-void	find_ray(t_lib1 *cal, t_lib1 *data)
+void	find_ray(t_lib1 *data)
 {
-	(void) cal;
 	if (data->ray_x < 0)
 	{
 		data->step_x = -1;
