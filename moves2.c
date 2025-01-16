@@ -18,6 +18,7 @@ void	key_w(t_lib1 *data)
 }
 
 // Función para verificar si el movimiento es válido
+// FIXME len_cols and len_rows are not populated - map is not a rectangle
 int check_move(int x, int y, t_lib1 *data) {
     // Verifica si las nuevas coordenadas están dentro de los límites del mapa
     if (data->len_cols > x && data->len_rows > y && x > 0 && y > 0) {

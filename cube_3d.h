@@ -62,7 +62,7 @@ typedef struct s_info {
 typedef struct s_lib1 {
     t_player player;
     char **map;		// NOTE What is the difference between this and map_content?
-    int hit; // Indicador de impacto NOTE why do we need this?
+    int hit; // Indicador de impacto entre rayo y pared
     double side_x; // Lado x
     double side_y; // Lado y
     double delta_x; // Delta x
@@ -74,8 +74,8 @@ typedef struct s_lib1 {
     double ray_x; // Coordenada x del rayo
     double ray_y; // Coordenada y del rayo
     void *img; // Imagen
-    int rgb_ceiling; // Color del techo
-    int rgb_floor; // Color del suelo
+    int	rgb_ceiling; // Color del techo
+    int	rgb_floor; // Color del suelo
     void 	*texture[4];		// NOTE The N, S, E, W images loaded from...
 	char	*texture_paths[4];	// NOTE New, perhaps temporary
 	int len_cols; // Número de columnas NOTE sería el maximo
@@ -106,7 +106,7 @@ typedef struct s_lib1 {
 	void	*wallN;
 	void	*wallS;
 	void	*wallW;
-	int		end;
+	int		end;	// TODO Check to see if this should be removed
 } t_lib1;
 
 int		main(int argc, char **argv);

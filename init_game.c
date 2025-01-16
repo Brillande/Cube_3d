@@ -99,11 +99,15 @@ void	open_window(t_lib1 *map_data)
 	mlx_loop(map_data->mlx);
 }
 
-// We need to translate textures to images / an image to put to the window
+// Translate textures to images / an image to put to the window
 // - Load textures from texture_paths
 // - Verify image loading
 // - Convert to images
 // - Verify conversion
+// TODO Understand whether we need *images* at this stage or are textures enough?
+// NOTE Later we refer to parts of these to get hold of the things-we-need-draw
+// But right now I don't know how that works. Images or textures??
+// TODO Convert the multiple variables to an array like texture[i]
 void load_wall_textures(t_lib1 *map_data)
 {
     // Cargar las texturas
