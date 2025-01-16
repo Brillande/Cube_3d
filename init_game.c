@@ -79,7 +79,7 @@ t_lib1	*init_game(t_lib1 *map_data)
 // (Could use SCREENWIDTH and SCREENHEIGHT)
 void	open_window(t_lib1 *map_data)
 {
-   map_data->how_many_colums += 1;
+   map_data->how_many_colums += 1;	// TODO Consider removing this; where is it used?
    map_data->mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT, "cub3d with DEFINEd sizes", 1);
 	if (!map_data->mlx) {
 		fprintf(stderr, "Error initializing MLX\n");

@@ -77,6 +77,16 @@ int	basic_wall_test(t_lib1 *map_data)
 	return (1);
 }
 
+// this should not be needed, but it copies the read player start poisiotn
+// to the player thing that is read later.
+// HACK replace this with a sensible data structure!
+void	copy_start_position(t_lib1 *map_data)
+{
+	map_data->player.x = map_data->player_coor_x + 0.5;
+	map_data->player.y = map_data->player_coor_y + 0.5;
+	map_data->player.pa = (double) map_data->player_faces;
+}
+
 // TODO Implement tests for the non-map elements: present and valid
 // NOTE Why are we storing two copies of the map_content in the struct??
 // NOTE how_many_lines and how_many_columns was counted in read_map_from_fd
@@ -104,6 +114,7 @@ void	map_is_playable(t_lib1 *map_data)
 	get_start_position(map_data);
 	if (map_data->player_faces == -1)
 		clear_data(map_data);
+	copy_start_position(map_data);	// HACK This makes sure that we start from init'd values.
 	print_map_array(map_data);
 	print_start_position(map_data);
 }

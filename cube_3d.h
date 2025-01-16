@@ -82,8 +82,8 @@ typedef struct s_lib1 {
     int len_rows; // Número de filas NOTE sería el maximo
 	mlx_t *mlx;
 	char	**map_array;
-	int		player_coor_x;
-	int		player_coor_y;
+	int		player_coor_x;		// Player starting position, x coord
+	int		player_coor_y;		// Player starting position, y coord
 	int		player_faces;		// The direction the player is facing at the start.
 	int		how_many_lines;		// TODO Differences between these, len_cols, width?
 	int		how_many_colums;
