@@ -90,6 +90,7 @@ void	open_window(t_lib1 *map_data)
 		fprintf(stderr, "Error creating new image\n");
 		clear_data(map_data);
 	}
+	draw_3d(map_data);
 	select_img(map_data);
 	map_data->img = make_background(map_data);
 	// HACK Now lets try and overlay something to that background
@@ -102,6 +103,9 @@ void	open_window(t_lib1 *map_data)
 	mlx_image_to_window(map_data->mlx, map_data->wallW, 300, 200);
 	mlx_key_hook(map_data->mlx, &key_hook, map_data);
 	mlx_loop(map_data->mlx);
+	
+	
+
 }
 
 // We need to translate textures to images / an image to put to the window

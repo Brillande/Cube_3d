@@ -124,6 +124,7 @@ void		key_d(t_lib1 *data);
 void		key_a(t_lib1 *data);
 void		key_s(t_lib1 *data);
 void		key_w(t_lib1 *data);
+void		draw_3d(t_lib1 *data);
 void		key_hook(mlx_key_data_t keydata, void *info);
 int		exit_game(t_lib1 *map_data);
 void		print_3d(t_lib1 *data);
