@@ -7,7 +7,7 @@
 // distance = ???
 // ca = corrected (against...?) angle
 // perp_dist = returned
-double	find_distance(t_lib1 *data, t_lib1 *cal, double angle)
+double	find_distance(t_lib1 *data, double angle)
 {
 	double	distance;
 	double	ca;
@@ -15,9 +15,9 @@ double	find_distance(t_lib1 *data, t_lib1 *cal, double angle)
 
 	 // Determina la distancia inicial basada en el lado del jugador
 	if (data->player.side == 0 || data->player.side == 2)
-		distance = cal->side_x - cal->delta_x;
+		distance = data->side_x - data->delta_x;
 	else
-		distance = cal->side_y - cal->delta_y;
+		distance = data->side_y - data->delta_y;
 	// Calcula el ángulo corregido
 	ca = data->player.pa - angle;
 	if (ca < 0)
@@ -29,9 +29,9 @@ double	find_distance(t_lib1 *data, t_lib1 *cal, double angle)
 	perp_dist = fabs(perp_dist);
 	// Calcula la posición de la pared en el eje x
 	if (data->player.side == EAST || data->player.side == WEST)
-		data->player.wall_x = data->player.y + cal->ray_y * perp_dist;
+		data->player.wall_x = data->player.y + data->ray_y * perp_dist;
 	else
-		data->player.wall_x = data->player.x + cal->ray_x * perp_dist;
+		data->player.wall_x = data->player.x + data->ray_x * perp_dist;
 	// Ajusta la posición de la pared para que esté en el rango [0, 1]
 	data->player.wall_x -= floorf(data->player.wall_x);
 	return (perp_dist);
@@ -53,7 +53,7 @@ double	len_find(t_lib1 *data, double angle)
 	find_ray(data);
 	dda_alg(data);
 	// Calcula y retorna la distancia perpendicular
-	return (find_distance(data, data, angle));
+	return (find_distance(data, angle));
 }
 
 // Dibuja la vista 3D del entorno
