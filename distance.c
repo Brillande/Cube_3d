@@ -35,8 +35,8 @@ void dda_alg(t_lib1 *data, t_lib1 *ca) {
         }
 
         // Verificar colisión con una pared
-        // FIXME Should this be map_array[][]? map is blank
-        if (data->map[ca->map_y][ca->map_x] == '1') {
+        // NOTE this should be map_array[][] as map is blank
+        if (data->map_array[ca->map_y][ca->map_x] == '1') {
             ca->hit = 1;
         }
     }
