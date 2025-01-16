@@ -60,25 +60,34 @@ double	len_find(t_lib1 *data, double angle)
 }
 
 // Dibuja la vista 3D del entorno
-// NOTE Unclear what these constants are.
+// NOTE Unclear why these values. They give a range of 1000 steps.
 // TODO The ray calculation should be based on the width of the window
 // and some other parameter, not magic numbers.
 // i.e. SCREENWIDTH is the number of rays / x-columns we need to calculate.
+// Currently: (I think...)
+// a = the column we will cast for
+// angle = the angle of the ray being cast
+// TODO Use FIELDOFVIEW to calculate the angle_offset
 void	draw_3d(t_lib1 *data)
 {
-	int		a;
-	double	i;
+	int		view_col;
+	double	angle_offset;
+	double	view_step;
+
 	// Inicializa el ángulo de inicio y el contador
-	i = -0.3;
-	a = 0;
-	while (i < 0.3)
+	angle_offset = -0.3;
+	view_col = 0;
+	view_step = (0.6 / SCREENWIDTH);
+//	while (angle_offset < 0.3)
+	while (view_col <= SCREENWIDTH)
 	{
 		// Recorre un rango de ángulos para dibujar cada rayo
-		data->player.ray = len_find(data, data->player.pa + i);
-		walls(data, a);
+		data->player.ray = len_find(data, data->player.pa + angle_offset);
+		walls(data, view_col);
 		// Incrementa el ángulo y el contador
-		i += 0.0006;
-		a++;
+//		angle_offset += 0.0006;	// FIXME Remove magic number which was 0.6 / 1000
+		angle_offset += view_step;
+		view_col++;
 	}
 	// Muestra la imagen en la ventana
 	mlx_image_to_window(data->mlx, data->img, 0, 0);

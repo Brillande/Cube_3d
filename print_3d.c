@@ -61,6 +61,7 @@ void draw_ceiling_and_floor(t_lib1 *data, int i) {
 // NOTE What does player.side represent?
 // NOTE What does player.ray represent?
 // NOTE What is t_info doing?
+// i = ....? The column we are drawing?
 // Esta función dibuja las paredes en la pantalla
 void walls(t_lib1 *data, int i)
 {
