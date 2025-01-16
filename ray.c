@@ -61,13 +61,11 @@ double	len_find(t_lib1 *data, double angle)
 
 // Dibuja la vista 3D del entorno
 // NOTE Unclear why these values. They give a range of 1000 steps.
-// TODO The ray calculation should be based on the width of the window
+// The ray calculation should be based on the width of the window
 // and some other parameter, not magic numbers.
 // i.e. SCREENWIDTH is the number of rays / x-columns we need to calculate.
-// Currently: (I think...)
-// a = the column we will cast for
-// angle = the angle of the ray being cast
 // TODO Use FIELDOFVIEW to calculate the angle_offset
+// ...what does 0.3 represent in degrees?
 void	draw_3d(t_lib1 *data)
 {
 	int		view_col;
@@ -77,7 +75,7 @@ void	draw_3d(t_lib1 *data)
 	// Inicializa el ángulo de inicio y el contador
 	angle_offset = -0.3;
 	view_col = 0;
-	view_step = (0.6 / SCREENWIDTH);
+	view_step = ((fabs(angle_offset) * 2) / SCREENWIDTH);
 //	while (angle_offset < 0.3)
 	while (view_col <= SCREENWIDTH)
 	{
