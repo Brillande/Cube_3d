@@ -93,7 +93,7 @@ void	copy_start_position(t_lib1 *map_data)
 // - Check that map_content only has allowed characters and a single player
 // - turn the raw content into map_array using ft_split
 // - check to make sure the map is surrounded
-// DONE If any test fails, we have to clear map_content!
+// FIXME check_each_square fails to allow not_rectangle.cub
 void	map_is_playable(t_lib1 *map_data)
 {
 	if ((!only_legal_char(map_data->map_content))

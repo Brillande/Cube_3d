@@ -74,13 +74,14 @@ int	walls_vertical(int line, char **map_array, int max_y, int column)
 	return (0);
 }
 
-// Calls vertical and horizontal check for each squuare
+// Calls vertical and horizontal check for each square
 // Bound to fail in interesting ways with space, player chars, etc.
 // ...does not happen on "tall" maps, only wide ones.
 // (Tall maps check wrong, only read as far as the other axis)
 // ...they must be getting mixed up!
 // Return 0 if the map cannot be played
 // Return 1 if the map can be played.
+// FIXME check_each_square fails to allow not_rectangle.cub
 int	check_each_square(t_lib1 *map_data)
 {
 	int	test_col;
