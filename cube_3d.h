@@ -39,7 +39,7 @@ typedef struct s_player {
     double x; // Coordenada x del jugador
     double y; // Coordenada y del jugador
     double ray; // Longitud del rayo
-    double wall_x; // Coordenada x de la pared
+    double wall_x; // Coordenada x de la pared	NOTE porque no hay wall_y?? Scanning?
     int side; // Lado del impacto	NOTE Should this then be e_direction?
 	double x_camera; // Coordenada x de la cámara
     double y_camera; // Coordenada y de la cámara

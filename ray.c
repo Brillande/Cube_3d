@@ -38,7 +38,10 @@ double	find_distance(t_lib1 *data, double angle)
 }
 
 // Encuentra la longitud del rayo desde el jugador hasta la pared más cercana
-// FIXME There is not good reason for the extra cal...
+// TODO variables that don't change should be set outside this function
+// ...for example the initial player position.
+// We call this function for *every* ray we scan;
+// the player is not moving at that time.
 double	len_find(t_lib1 *data, double angle)
 {
 	// Inicializa las coordenadas del mapa y los rayos
@@ -58,6 +61,9 @@ double	len_find(t_lib1 *data, double angle)
 
 // Dibuja la vista 3D del entorno
 // NOTE Unclear what these constants are.
+// TODO The ray calculation should be based on the width of the window
+// and some other parameter, not magic numbers.
+// i.e. SCREENWIDTH is the number of rays / x-columns we need to calculate.
 void	draw_3d(t_lib1 *data)
 {
 	int		a;
