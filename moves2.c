@@ -45,7 +45,7 @@ void move(t_lib1 *data) {
     if (mlx_is_key_down(data->mlx, MLX_KEY_W))
         key_w(data);
     // Llama a la función para dibujar la vista 3D
-    print_3d(data);
+    draw_3d(data);
 }
 
 // Función para manejar los eventos de teclas

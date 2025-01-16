@@ -58,6 +58,7 @@ double	len_find(t_lib1 *data, double angle)
 }
 
 // Dibuja la vista 3D del entorno
+// NOTE Unclear what these constants are.
 void	draw_3d(t_lib1 *data)
 {
 	int		a;
