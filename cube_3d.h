@@ -115,7 +115,6 @@ typedef struct s_lib1 {
 int		main(int argc, char **argv);
 t_lib1		*init_game(t_lib1 *map_data);
 void		open_window(t_lib1 *map_data);
-void		select_img(t_lib1 *map_data);
 int		print_img(t_lib1 *map_data);
 void		move(t_lib1 *data);
 void		key_left(t_lib1 *data);
@@ -152,6 +151,7 @@ char		*check_name(char *map_name);
 int		check_each_square(t_lib1 *map_data);
 int		only_one_player(char *map);
 void		get_start_position(t_lib1 *map_data);
+void		load_wall_textures(t_lib1 *map_data);
 
 // file_helpers.c
 char		*find_next_line(int fd);

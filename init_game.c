@@ -92,14 +92,11 @@ void	open_window(t_lib1 *map_data)
 		clear_data(map_data);
 	}
 	draw_3d(map_data);
-	select_img(map_data);
+	load_wall_textures(map_data);
 	map_data->img = make_background(map_data);
 	mlx_image_to_window(map_data->mlx, map_data->img, 0, 0);
 	mlx_key_hook(map_data->mlx, &key_hook, map_data);
 	mlx_loop(map_data->mlx);
-	
-	
-
 }
 
 // We need to translate textures to images / an image to put to the window
@@ -107,9 +104,7 @@ void	open_window(t_lib1 *map_data)
 // - Verify image loading
 // - Convert to images
 // - Verify conversion
-// TODO select_img is not a descriptive name for the function anymore
-// FIXME The textures go to the wrong places, i.e. WallE is the north image.
-void select_img(t_lib1 *map_data)
+void load_wall_textures(t_lib1 *map_data)
 {
     // Cargar las texturas
     mlx_texture_t	*wallE_texture;
