@@ -12,6 +12,7 @@
 // TODO Use e_directions instead of cryptic numbers here
 // data - the main t_lib1 struct.
 // TODO ca - another t_lib1, reasons to be clarified
+// FIXME map_y keeps going to -1 and causing a segfault.
 void dda_alg(t_lib1 *data, t_lib1 *ca) {
     while (ca->hit == 0) {
         // Avanzar en la dirección X o Y
@@ -36,17 +37,21 @@ void dda_alg(t_lib1 *data, t_lib1 *ca) {
         }
 
         // Verificar límites del mapa
+        // HACK Commented out; prevents a segfault though.
         ft_printf("map_x: %d, map_y: %d\n", ca->map_x, ca->map_y);
-        if (ca->map_x < 0 || ca->map_x >= data->len_cols || ca->map_y < 0 || ca->map_y >= data->len_rows) {
+//        if (ca->map_x < 0 || ca->map_x >= data->len_cols || ca->map_y < 0 || ca->map_y >= data->len_rows) {
+        if (ca->map_x < 0 || ca->map_y < 0)
+		{
            fprintf(stderr, "Error: Out of map bounds\n");
             break;
-        }
+       }
 
         // Verificar colisión con una pared
         // FIXME Should this be map_array[][]? map is blank
-        if (data->map[ca->map_y][ca->map_x] == '1') {
+        // FIXME Segfault from going out of bounds here (map_y = -1)
+        // TODO Explain why the array index is [y][x] not [x][y] here
+        if (data->map[ca->map_y] [ca->map_x] == '1')
            ca->hit = 1;
-        }
     }
 }
 
