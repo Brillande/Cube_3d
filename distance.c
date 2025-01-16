@@ -10,8 +10,6 @@
 // for each xi the equations xi = xi−1 + 1, yi = yi−1 + m,
 // where m is the slope of the line."
 // TODO Use e_directions instead of cryptic numbers here
-// FIXME Norm forbids ternary expressions like
-// data->player.side = (ca->step_x > 0) ? 0 : 1;
 // data - the main t_lib1 struct.
 // TODO ca - another t_lib1, reasons to be clarified
 void dda_alg(t_lib1 *data, t_lib1 *ca) {
@@ -53,6 +51,20 @@ void dda_alg(t_lib1 *data, t_lib1 *ca) {
 }
 
 // What does this do? Where were delta_x and delta_y calculated?
+// calculates the initial steps and distances for the (DDA) algorithm,
+// used to determine the intersection of a ray with a grid of pixels or cells.
+// Depending on the direction of ray_x and ray_y (set in WHERE?)
+// We modify step (i.e. direction)
+// and calculate side_ based on delta_x (FROM WHERE)
+// and the fractional part of the player's location
+// (i.e. the difference between their real coords and the map square they are within).
+// ------------------------------
+// At the end of this function we have updated:
+// step_x = whether the calculations go forward or back in the x_axis
+// step_y = same for the y-axis
+// side_x = are these intersection coords with the gridlines then?
+// side_y =
+// ...these values are then used in dda_alg()
 void	find_ray(t_lib1 *cal, t_lib1 *data)
 {
 	if (cal->ray_x < 0)
@@ -78,6 +90,7 @@ void	find_ray(t_lib1 *cal, t_lib1 *data)
 }
 
 // NOTE Unclear what these constants are.
+// FIXME We have print_3d and draw_3d functions. Why?
 void	print_3d(t_lib1 *data)
 {
 	int		a;

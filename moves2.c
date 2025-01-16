@@ -30,6 +30,7 @@ int check_move(int x, int y, t_lib1 *data) {
 }
 
 // Función para manejar el movimiento del jugador
+// TODO print_3d or draw_3d, we only need one. Standardise
 void move(t_lib1 *data) {
     // Verifica si se presionó la tecla correspondiente y llama a la función de movimiento adecuada
     if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))

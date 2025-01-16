@@ -52,6 +52,7 @@ double	find_distance(t_lib1 *data, t_lib1 *cal, double angle)
 }
 
 // Encuentra la longitud del rayo desde el jugador hasta la pared más cercana
+// This is called from distance.c and from ray.c
 double	len_find(t_lib1 *data, double angle)
 {
 	t_lib1	cal;
@@ -72,6 +73,7 @@ double	len_find(t_lib1 *data, double angle)
 }
 
 // Dibuja la vista 3D del entorno
+// FIXME We have print_3d and draw_3d functions. Why?
 // Loop over each ray to be calculated for the view window
 // TODO Why are we using 0.3 and 0.0006 for range / increment?
 // ...what is special about these values?

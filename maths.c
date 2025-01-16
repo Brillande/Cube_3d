@@ -56,8 +56,13 @@ double	angle_per_pixel_column(void)
 // player_x, player_y - fractional player position coordinates
 // ray_angle - where player is looking
 // Returns the delta_x / stepsize to be used in casting a single ray.
+// NOTE This might not be needed, done in len_find function.
 double	get_delta_x(double player_x, double player_y, double ray_angle)
 {
+	// HACK for compilation
+	(void) player_x;
+	(void) player_y;
+	(void) ray_angle;
     return (0.0);
 }
 
@@ -65,6 +70,7 @@ double	get_delta_x(double player_x, double player_y, double ray_angle)
 // Also starting with the assumption that we're looking at an uncomplicated angle
 // I need to find the intersection coordinates
 // ray_angle = bearing of the ray we are testing
+// NOTE May not be needed, handled in dda_alg
 void	get_wall_intersection(t_lib1 *map_data, double ray_angle)
 {
     double	check_x;
@@ -72,5 +78,8 @@ void	get_wall_intersection(t_lib1 *map_data, double ray_angle)
 
     check_x = map_data->player.x;
     check_y = map_data->player.y;
+	(void) check_x;
+	(void) check_y;	// HACK for compilation
     ray_angle = 60.0;	// HACK for testing, remove later
+	(void) ray_angle;	// HACK for compilation
 }

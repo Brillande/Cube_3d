@@ -77,6 +77,7 @@ t_lib1	*init_game(t_lib1 *map_data)
 // Enters the loop
 // FIXED The window sizes are based on a 2d map, we need fixed viewport size
 // (Could use SCREENWIDTH and SCREENHEIGHT)
+// FIXME We have draw_3d and print_3d, only one is needed.
 void	open_window(t_lib1 *map_data)
 {
    map_data->how_many_colums += 1;
@@ -90,8 +91,7 @@ void	open_window(t_lib1 *map_data)
 		fprintf(stderr, "Error creating new image\n");
 		clear_data(map_data);
 	}
-	draw_3d(map_data);
-	select_img(map_data);
+	select_img(map_data);	// NOTE Badly named; this loads wall textures
 	map_data->img = make_background(map_data);
 	// HACK Now lets try and overlay something to that background
 	mlx_put_string(map_data->mlx, "KIULLLLLL MOOAR NAZIS!!!", 200, 150);
@@ -101,11 +101,10 @@ void	open_window(t_lib1 *map_data)
 	mlx_image_to_window(map_data->mlx, map_data->wallN, 200, 100);
 	mlx_image_to_window(map_data->mlx, map_data->wallS, 200, 300);
 	mlx_image_to_window(map_data->mlx, map_data->wallW, 300, 200);
+	// This is the one that draws (or calculates at least) walls
+	draw_3d(map_data);
 	mlx_key_hook(map_data->mlx, &key_hook, map_data);
 	mlx_loop(map_data->mlx);
-	
-	
-
 }
 
 // We need to translate textures to images / an image to put to the window
@@ -114,7 +113,6 @@ void	open_window(t_lib1 *map_data)
 // - Convert to images
 // - Verify conversion
 // TODO select_img is not a descriptive name for the function anymore
-// FIXME The textures go to the wrong places, i.e. WallE is the north image.
 void select_img(t_lib1 *map_data)
 {
     // Cargar las texturas
