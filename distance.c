@@ -42,24 +42,25 @@ void dda_alg(t_lib1 *data, t_lib1 *ca) {
 // What does this do?
 void	find_ray(t_lib1 *cal, t_lib1 *data)
 {
-	if (cal->ray_x < 0)
+	(void) cal;
+	if (data->ray_x < 0)
 	{
-		cal->step_x = -1;
-		cal->side_x = (data->player.x - cal->map_x) * cal->delta_x;
+		data->step_x = -1;
+		data->side_x = (data->player.x - data->map_x) * data->delta_x;
 	}
 	else
 	{
-		cal->step_x = 1;
-		cal->side_x = (cal->map_x + 1.0 - data->player.x) * cal->delta_x;
+		data->step_x = 1;
+		data->side_x = (data->map_x + 1.0 - data->player.x) * data->delta_x;
 	}
-	if (cal->ray_y < 0)
+	if (data->ray_y < 0)
 	{
-		cal->step_y = -1;
-		cal->side_y = (data->player.y - cal->map_y) * cal->delta_y;
+		data->step_y = -1;
+		data->side_y = (data->player.y - data->map_y) * data->delta_y;
 	}
 	else
 	{
-		cal->step_y = 1;
-		cal->side_y = (cal->map_y + 1.0 - data->player.y) * cal->delta_y;
+		data->step_y = 1;
+		data->side_y = (data->map_y + 1.0 - data->player.y) * data->delta_y;
 	}
 }
