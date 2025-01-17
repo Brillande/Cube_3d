@@ -15,11 +15,14 @@ int	find_top_left(char *str)
 
 // return 1 if either side has no wall
 // Return 0 if both directions reach a wall or startpoint is invalid
+// refuse to test walls or newlines
+// Move left through the array until a 1 is hit.
+// Move right through the array (until the max) or a 1 is hit.
 int	walls_horizontal(int x, char *mapline, int max_x)
 {
 	int	test_x;
 
-	if (mapline[x] != '1')
+	if ((mapline[x] != '1') && (mapline[x] != '\n'))
 	{
 		test_x = x;
 		while (test_x >= 0)
@@ -81,7 +84,12 @@ int	walls_vertical(int line, char **map_array, int max_y, int column)
 // ...they must be getting mixed up!
 // Return 0 if the map cannot be played
 // Return 1 if the map can be played.
-// FIXME check_each_square fails to allow not_rectangle.cub
+// FIXED check_each_square fails to allow not_rectangle.cub
+// FIXME check_each_square fails to allow not_rectangle_left.cub
+// TODO If our square is 1, space or newline we do not need to check it.
+// TODO Check that the columns / rows thing works.
+// the problem is that is columns is bigger than the line we are checking,
+// it fails. Exception for newline?
 int	check_each_square(t_lib1 *map_data)
 {
 	int	test_col;
@@ -91,15 +99,22 @@ int	check_each_square(t_lib1 *map_data)
 	test_col = find_top_left(map_data->map_array[test_line]);
 	while (test_line < (map_data->how_many_lines))
 	{
-		while (test_col < (map_data->how_many_colums))
+//		while (test_col < (map_data->how_many_colums))
+		while (test_col < ((int) ft_strlen(map_data->map_array[test_line]) - 1))
 		{
-//			ft_printf("col: %i, line:%i\n", test_col, test_line);	// HACK debugging only
+			ft_printf("col: %i, line:%i\n", test_col, test_line);	// HACK debugging only
 			if (walls_horizontal(test_col, map_data->map_array[test_line],
 					ft_strlen(map_data->map_array[test_line]) - 1) == 1)
+			{
+				ft_printf("Map failed horizontal test!\n");
 				return (0);
+			}
 			if (walls_vertical(test_line, map_data->map_array,
 					map_data->how_many_lines, test_col) == 1)
+			{
+				ft_printf("Map failed vertical test!\n");
 				return (0);
+			}
 			test_col++;
 		}
 		test_col = 0;
