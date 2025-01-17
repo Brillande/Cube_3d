@@ -1,8 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   file_helpers.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chaikney <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/17 14:14:24 by chaikney          #+#    #+#             */
+/*   Updated: 2025/01/17 14:14:28 by chaikney         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube_3d.h"
 #include <fcntl.h>
 #include <sys/stat.h>
-
-// TODO Add 42 header
 
 // Skip forward over the blank lines and return the next with content.
 char	*find_next_line(int fd)
@@ -42,7 +52,6 @@ int	test_path(char *path)
 
 	if (stat(path, &pstat) == -1)
 		return (0);
-//	ft_printf("Testing path: %s\n", path);	// HACK for debugging
 	if ((access(path, R_OK) == 0)
 		&& S_ISREG(pstat.st_mode))
 		return (1);
