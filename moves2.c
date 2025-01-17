@@ -56,12 +56,16 @@ void click_button(mlx_key_data_t keydata, void *info) {
     data = (t_lib1 *)info;
     // Cierra la ventana si se presiona la tecla ESC
     if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+	{
+		clear_data(data);
         mlx_close_window(data->mlx);
+	}
     // Llama a la función de movimiento
     move(data);
 }
 
 // FIXME This ending method leaks memory - should be the same as ESC
+// NOTE Does this even get called from anywhere??
 // Función para manejar el evento de cerrar la ventana
 int close_clik(t_lib1 *data) {
     // Cierra la ventana y termina el programa

@@ -42,6 +42,7 @@ mlx_image_t	*make_background(t_lib1 *map_data)
 
 	x = 0;
 	y = 0;
+	// FIXME This image is never (fully?) freed.
 	bg = mlx_new_image(map_data->mlx, SCREENWIDTH, SCREENHEIGHT);
 	while (x < (SCREENWIDTH))
 	{
@@ -86,6 +87,7 @@ void	open_window(t_lib1 *map_data)
 		clear_data(map_data);
 	}
 	// FIXME Should this not be WIDTH / HEIGHT?
+	// FIXME This image is never freed and is possibly useless anyway.
 	map_data->img = mlx_new_image(map_data->mlx, 10 * 64, 10 * 64);
 	if (!map_data->img) {
 		fprintf(stderr, "Error creating new image\n");
