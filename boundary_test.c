@@ -49,29 +49,41 @@ int	walls_horizontal(int x, char *mapline, int max_x)
 // return 1 if either end has no wall
 // Return 0 if both directions reach a wall or startpoint is invalid
 // we are testing a column; so x shoulld not change
-// FIXME Does not correctly reject not_bounded.cub
+// FIXED Does not correctly reject not_bounded.cub
 // NOTE The problem is the short middle line - if a char does not exist
 // we should treat that the same as a gap / space.
 // But also! The shorter missing line does not produce a character to check horizontally.
-int	walls_vertical(int line, char **map_array, int max_y, int column)
+// Treat a mising value as a fail, i.e. A gap before reaching a 1.
+// start_line = coord to cheeck from
+// column = same, other axis
+// map_array = the map
+// max_y = the number of lines in the map, where to stop the downward check.
+// - Check that we haave a map and that the check char is not already a wall.
+// -
+int	walls_vertical(int start_line, char **map_array, int max_y, int column)
 {
 	int	test_y;
 
-	if ((map_array) && (map_array[line][column] != '1'))
+	if ((map_array) && (map_array[start_line][column] != '1'))
 	{
-		test_y = line;
+		test_y = start_line;
 		while (test_y >= 0)
 		{
-			if (map_array[test_y][column] == '1')
+			if (!map_array[test_y][column])
+				return (1);
+			else if (map_array[test_y][column] == '1')
 				break ;
 			test_y--;
 		}
 		if (test_y < 0)
 			return (1);
-		test_y = line;
+		test_y = start_line;
 		while (test_y <= max_y)
 		{
-			if (map_array[test_y][column] == '1')
+			if (!map_array[test_y][column])
+				return (1);
+			// FIXME Invalid read below, e.g. not_bounded.cub
+			else if (map_array[test_y][column] == '1')
 				break ;
 			test_y++;
 		}
@@ -89,11 +101,9 @@ int	walls_vertical(int line, char **map_array, int max_y, int column)
 // Return 0 if the map cannot be played
 // Return 1 if the map can be played.
 // FIXED check_each_square fails to allow not_rectangle.cub
-// FIXME check_each_square fails to allow not_rectangle_left.cub
-// TODO If our square is 1, space or newline we do not need to check it.
-// TODO Check that the columns / rows thing works.
-// the problem is that is columns is bigger than the line we are checking,
-// it fails. Exception for newline?
+// FIXED check_each_square fails to allow not_rectangle_left.cub
+// NOTE If our square is 1, space or newline we do not need to check it.
+// TODO Check that the how_many_lines thing works.
 int	check_each_square(t_lib1 *map_data)
 {
 	int	test_col;
@@ -119,7 +129,7 @@ int	check_each_square(t_lib1 *map_data)
 					map_data->how_many_lines, test_col) == 1)
 			{
 				// HACK for debugging remove later
-				ft_printf("Map failed vertical test! &c \n", map_data->map_array[test_line][test_col]);
+				ft_printf("Map failed vertical test! %c \n", map_data->map_array[test_line][test_col]);
 				return (0);
 			}
 			test_col++;
