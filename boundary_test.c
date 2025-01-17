@@ -50,16 +50,12 @@ int	walls_horizontal(int x, char *mapline, int max_x)
 // Return 0 if both directions reach a wall or startpoint is invalid
 // we are testing a column; so x shoulld not change
 // FIXED Does not correctly reject not_bounded.cub
-// NOTE The problem is the short middle line - if a char does not exist
-// we should treat that the same as a gap / space.
-// But also! The shorter missing line does not produce a character to check horizontally.
 // Treat a mising value as a fail, i.e. A gap before reaching a 1.
 // start_line = coord to cheeck from
 // column = same, other axis
 // map_array = the map
 // max_y = the number of lines in the map, where to stop the downward check.
-// - Check that we haave a map and that the check char is not already a wall.
-// -
+// FIXME there are too many lines in walls_vertical
 int	walls_vertical(int start_line, char **map_array, int max_y, int column)
 {
 	int	test_y;
@@ -82,7 +78,6 @@ int	walls_vertical(int start_line, char **map_array, int max_y, int column)
 		{
 			if (!map_array[test_y][column])
 				return (1);
-			// FIXME Invalid read below, e.g. not_bounded.cub
 			else if (map_array[test_y][column] == '1')
 				break ;
 			test_y++;

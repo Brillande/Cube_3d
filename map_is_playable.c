@@ -10,8 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf/ft_printf.h"
 #include "cube_3d.h"
+
+// FIXME There are too many functions in map_is_playable.c
 
 // The player should only be generated in one place in the map.
 // Return 1 if the map has one player exactly
@@ -93,7 +94,6 @@ void	copy_start_position(t_lib1 *map_data)
 // - Check that map_content only has allowed characters and a single player
 // - turn the raw content into map_array using ft_split
 // - check to make sure the map is surrounded
-// FIXME check_each_square fails to allow not_rectangle.cub
 void	map_is_playable(t_lib1 *map_data)
 {
 	if ((!only_legal_char(map_data->map_content))
