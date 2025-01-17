@@ -28,7 +28,7 @@ void dda_alg(t_lib1 *data)
 				data->player.side = 3;
 		}
 		// Verificar límites del mapa
-		ft_printf("map_x: %d, map_y: %d\n", data->map_x, data->map_y);
+//		ft_printf("map_x: %d, map_y: %d\n", data->map_x, data->map_y);
 		if (data->map_x < 0 || data->map_y < 0 )
 		{
 			fprintf(stderr, "Error: Out of map bounds\n");

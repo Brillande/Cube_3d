@@ -51,6 +51,7 @@ void draw_ceiling_and_floor(t_lib1 *data, int i) {
     }
     // Dibuja el suelo
     while (start < SCREENHEIGHT) {
+		// FIXME invalid write here
         mlx_put_pixel(data->img, i, start, data->rgb_floor);
         start++;
     }

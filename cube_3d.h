@@ -102,10 +102,6 @@ typedef struct s_lib1 {
 	void	*win;			// TODO How does this work? We are not setting it now.
 	int		width;
 	int		heigth;
-	void	*wallE;
-	void	*wallN;
-	void	*wallS;
-	void	*wallW;
 	int		end;	// TODO Check to see if this should be removed
 } t_lib1;
 
