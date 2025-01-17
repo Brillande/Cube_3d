@@ -31,6 +31,12 @@ void	clear_data(t_lib1 *map_data)
 	i = 0;
 	while (i < 4)
 		free(map_data->texture_paths[i++]);
+	i = 0;
+	while (i < 4)
+	{
+		mlx_delete_texture(map_data->texture[i++]);
+		free(map_data->texture[i]);
+	}
 	exit (EXIT_FAILURE);
 }
 
