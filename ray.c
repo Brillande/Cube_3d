@@ -1,5 +1,19 @@
 #include "cube_3d.h"
 
+// Return the wall face that a ray of angle x intersects with
+// TODO Implement and test get_wall_face
+// Add protection against zero and negative numbers
+// TODO How to handle numbers that go above 360 afer adding 45?
+enum e_direction	get_wall_face(double x)
+{
+	if ((x < 0) || (x >= 360))
+		return (-1);
+	x += 45.0;
+	if (x == 0)
+		return (NORTH);
+	return ((x / 90.0));
+}
+
 // TODO Check that player.side is compatible with enums etc
 // TODO Compare with player_view_distance
 // Calcula la distancia perpendicular desde el jugador hasta la pared más cercana
@@ -40,10 +54,11 @@ double	find_distance(t_lib1 *data, double angle)
 }
 
 // Encuentra la longitud del rayo desde el jugador hasta la pared más cercana
-// TODO variables that don't change should be set outside this function
+// DONE variables that don't change should be set outside this function
 // ...for example the initial player position.
 // We call this function for *every* ray we scan;
 // the player is not moving at that time.
+// This is called from distance.c and from ray.c
 double	len_find(t_lib1 *data, double angle)
 {
 	// Inicializa las coordenadas del mapa y los rayos
@@ -60,12 +75,14 @@ double	len_find(t_lib1 *data, double angle)
 }
 
 // Dibuja la vista 3D del entorno
+// Loop over each ray to be calculated for the view window
 // NOTE Unclear why these values. They give a range of 1000 steps.
 // The ray calculation should be based on the width of the window
 // and some other parameter, not magic numbers.
 // i.e. SCREENWIDTH is the number of rays / x-columns we need to calculate.
 // TODO Use FIELDOFVIEW to calculate the angle_offset
 // ...what does 0.3 represent in degrees?
+// a - the pixel coordinate (x) where the ray will be drawn (in walls)
 void	draw_3d(t_lib1 *data)
 {
 	int		view_col;

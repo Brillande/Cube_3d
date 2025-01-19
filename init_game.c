@@ -77,6 +77,8 @@ t_lib1	*init_game(t_lib1 *map_data)
 // Generates the background
 // Draws the first walls
 // Enters the loop
+// FIXED The window sizes are based on a 2d map, we need fixed viewport size
+// (Could use SCREENWIDTH and SCREENHEIGHT)
 void	open_window(t_lib1 *map_data)
 {
    map_data->mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT, "cub3d with DEFINEd sizes", 1);
@@ -88,6 +90,7 @@ void	open_window(t_lib1 *map_data)
 	load_wall_textures(map_data);
 	map_data->img = make_background(map_data);
 	mlx_image_to_window(map_data->mlx, map_data->img, 0, 0);
+	// This is the one that draws (or calculates at least) walls
 	draw_3d(map_data);
 	mlx_key_hook(map_data->mlx, &key_hook, map_data);
 	mlx_loop(map_data->mlx);

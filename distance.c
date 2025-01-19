@@ -50,10 +50,21 @@ void dda_alg(t_lib1 *data)
 	}
 }
 
-// What does this do?
-// NOTE ray_x is set in......
-// step_x = x direction
-// side_x = a double meaning what? ? Direction? This is a mess.
+// What does this do? Where were delta_x and delta_y calculated?
+// calculates the initial steps and distances for the (DDA) algorithm,
+// used to determine the intersection of a ray with a grid of pixels or cells.
+// Depending on the direction of ray_x and ray_y (set in WHERE?)
+// We modify step (i.e. direction)
+// and calculate side_ based on delta_x (FROM WHERE)
+// and the fractional part of the player's location
+// (i.e. the difference between their real coords and the map square they are within).
+// ------------------------------
+// At the end of this function we have updated:
+// step_x = whether the calculations go forward or back in the x_axis
+// step_y = same for the y-axis
+// side_x = are these intersection coords with the gridlines then?
+// side_y =
+// ...these values are then used in dda_alg()
 void	find_ray(t_lib1 *data)
 {
 	if (data->ray_x < 0)
