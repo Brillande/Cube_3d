@@ -45,8 +45,6 @@ double	find_distance(t_lib1 *data, double angle)
 double	len_find(t_lib1 *data, double angle)
 {
 	// Inicializa las coordenadas del mapa y los rayos
-	data->map_y = (int)data->player.y;
-	data->map_x = (int)data->player.x;
 	data->ray_x = cos(angle);
 	data->ray_y = sin(angle);
 	data->delta_x = fabs(1 / data->ray_x);
@@ -76,6 +74,9 @@ void	draw_3d(t_lib1 *data)
 	angle_offset = -0.3;
 	view_col = 0;
 	view_step = ((fabs(angle_offset) * 2) / SCREENWIDTH);
+	// Moved this from len_find - only need called once
+	data->map_y = (int)data->player.y;
+	data->map_x = (int)data->player.x;
 //	while (angle_offset < 0.3)
 	while (view_col <= SCREENWIDTH)
 	{
