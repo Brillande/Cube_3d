@@ -15,7 +15,8 @@ double	find_distance(t_lib1 *data, double angle)
 	double	perp_dist;
 
 	 // Determina la distancia inicial basada en el lado del jugador
-	if (data->player.side == 0 || data->player.side == 2)
+	 // Was 0 (guessing NORTH) and 2 (EAST)
+	if (data->player.side == NORTH || data->player.side == EAST)
 		distance = data->side_x - data->delta_x;
 	else
 		distance = data->side_y - data->delta_y;

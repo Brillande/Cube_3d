@@ -21,9 +21,9 @@ void dda_alg(t_lib1 *data)
 			data->map_x += data->step_x;
 			// Determinar el lado del impacto
 			if (data->step_x > 0)
-				data->player.side = 0;
+				data->player.side = NORTH; // was 0; guessing here
 			else
-				data->player.side = 1;
+				data->player.side = SOUTH; // was 1; guessing here
 		}
 		else
 		{
@@ -31,9 +31,9 @@ void dda_alg(t_lib1 *data)
 			data->map_y += data->step_y;
 			// Determinar el lado del impacto
 			if (data->step_y > 0)
-				data->player.side = 2;
+				data->player.side = EAST; // was 2
 			else
-				data->player.side = 3;
+				data->player.side = WEST; // was 3
 		}
 		// Verificar límites del mapa
 		ft_printf("map_x: %d, map_y: %d\n", data->map_x, data->map_y);
