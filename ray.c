@@ -7,6 +7,7 @@
 // distance = ???
 // ca = corrected (against...?) angle
 // perp_dist = returned
+// What do we use PI for?
 double	find_distance(t_lib1 *data, double angle)
 {
 	double	distance;

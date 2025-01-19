@@ -1,12 +1,20 @@
 #include "cube_3d.h"
 
 // TODO Use e_directions instead of cryptic numbers here
+// Old versions:
+// #define EAST 2
+// #define WEST 3
+// #define NORTH 4
+// ...and we had true and false taking up 0 and 1...
 // FIXED Constantly throws "out of bounds" errrors
+// FIXME x goes below 0 (-321) because we add -1 (step) - so collision not detected in time.
 void dda_alg(t_lib1 *data)
 {
 	while (data->hit == 0)
 	{
 		// Avanzar en la dirección X o Y
+		// NOTE Surely side_x and side_y can be equal?
+		// Therefore there should be a third condition?
 		if (data->side_x < data->side_y)
 		{
 			data->side_x += data->delta_x;
@@ -43,6 +51,9 @@ void dda_alg(t_lib1 *data)
 }
 
 // What does this do?
+// NOTE ray_x is set in......
+// step_x = x direction
+// side_x = a double meaning what? ? Direction? This is a mess.
 void	find_ray(t_lib1 *data)
 {
 	if (data->ray_x < 0)
