@@ -65,10 +65,9 @@ mlx_image_t	*make_background(t_lib1 *map_data)
 
 // NOTE I don't think returning the map_data is needed here.
 // Entry point to the game after the map data has been read.
-t_lib1	*init_game(t_lib1 *map_data)
+void	init_game(t_lib1 *map_data)
 {
 	open_window(map_data);
-	return (map_data);
 }
 
 // opens the main game window
