@@ -111,7 +111,7 @@ typedef struct s_lib1 {
 } t_lib1;
 
 int		main(int argc, char **argv);
-t_lib1		*init_game(t_lib1 *map_data);
+void		init_game(t_lib1 *map_data);
 void		open_window(t_lib1 *map_data);
 int		print_img(t_lib1 *map_data);
 void		move(t_lib1 *data);

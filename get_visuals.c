@@ -1,8 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_visuals.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chaikney <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/17 14:14:36 by chaikney          #+#    #+#             */
+/*   Updated: 2025/01/17 14:14:53 by chaikney         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "MLX42/include/MLX42/MLX42.h"
 #include "cube_3d.h"
-#include "libft/libft.h"
-
-// TODO Add 42 header
 
 // Lifted from the documentation
 // https://harm-smits.github.io/42docs/libs/minilibx/colors.html
@@ -52,12 +61,12 @@ static char	*get_texture(char *side, int fd)
 // TODO Will need to harden this against bad input.
 static int	get_colours(int fd, char key)
 {
-	int	i;
+	int		i;
 	char	*line;
 	char	**parts;
-	int	r;
-	int	g;
-	int	b;
+	int		r;
+	int		g;
+	int		b;
 	char	*tmp;
 
 	i = 0;

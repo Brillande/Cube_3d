@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   boundary_test.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chaikney <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/01/17 14:13:04 by chaikney          #+#    #+#             */
+/*   Updated: 2025/01/17 14:13:08 by chaikney         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cube_3d.h"
-// TODO Add 42 header to boundary_test.c
 
 // return the position of the first character in a map line
 // This is simply the first non-space character
