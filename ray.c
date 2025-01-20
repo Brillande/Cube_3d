@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaikney <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:22:32 by chaikney          #+#    #+#             */
-/*   Updated: 2025/01/17 14:22:39 by chaikney         ###   ########.fr       */
+/*   Updated: 2025/01/20 12:27:15 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ double	find_distance(t_lib1 *data, double angle)
 // We call this function for *every* ray we scan;
 // the player is not moving at that time.
 // This is called from distance.c and from ray.c
-double	len_find(t_lib1 *data, double angle)
+/* double	len_find(t_lib1 *data, double angle)
 {
 	// Inicializa las coordenadas del mapa y los rayos
 	data->ray_x = cos(angle);
@@ -84,6 +84,26 @@ double	len_find(t_lib1 *data, double angle)
 	dda_alg(data);
 	// Calcula y retorna la distancia perpendicular
 	return (find_distance(data, angle));
+} */
+
+double len_find(t_lib1 *data, double angle) {
+    // Inicializa las coordenadas del rayo
+    data->ray_x = cos(angle);
+    data->ray_y = sin(angle);
+    data->delta_x = fabs(1 / data->ray_x);
+    data->delta_y = fabs(1 / data->ray_y);
+    data->hit = 0;
+
+    // Inicializa las coordenadas del mapa
+    data->map_x = (int)data->player.x;
+    data->map_y = (int)data->player.y;
+
+    // Encuentra el rayo y ejecuta el algoritmo DDA
+    find_ray(data);
+    dda_alg(data);
+
+    // Calcula y retorna la distancia perpendicular
+    return find_distance(data, angle);
 }
 
 // Dibuja la vista 3D del entorno
@@ -102,7 +122,7 @@ void	draw_3d(t_lib1 *data)
 	double	view_step;
 
 	// Inicializa el ángulo de inicio y el contador
-	angle_offset = -0.3;
+	angle_offset = - 0.3;
 	view_col = 0;
 	view_step = ((fabs(angle_offset) * 2) / SCREENWIDTH);
 	// Moved this from len_find - only need called once

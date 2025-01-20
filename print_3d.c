@@ -21,21 +21,22 @@ static int	get_rgba(mlx_texture_t *texture, int x, int y)
 // TODO Give this function a useful name and description
 // esta función llena la estructura info con la información necesaria para dibujar una pared
 void fill_info(t_info *info, t_lib1 *data, double height) {
-    // asigna la textura correspondiente a la pared
+    // Asigna la textura correspondiente a la pared
     info->tex = data->texture[data->player.side];
-    // calcula los valores de top, bottom y text_start
+
+    // Calcula los valores de top, bottom y text_start
     if (height >= SCREENHEIGHT) {
         info->top = 0;
         info->bottom = SCREENHEIGHT - 1;
-        info->text_start = (((1 - (1.0 * SCREENHEIGHT / height)) / 2.0)
-                            * info->tex->height);
+        info->text_start = ((height - SCREENHEIGHT) / 2.0) * info->tex->height / height;
     } else {
         info->top = (SCREENHEIGHT - height) / 2;
         info->bottom = (SCREENHEIGHT + height) / 2;
         info->text_start = 0.0;
     }
-    // calcula el paso de la textura en función de la altura de la pared
-    info->step = 1.0 * info->tex->height / height;
+
+    // Calcula el paso de la textura en función de la altura de la pared
+    info->step = info->tex->height / height;
 }
 
 // TODO Work out how this relates to the get_background function
@@ -61,7 +62,6 @@ void draw_ceiling_and_floor(t_lib1 *data, int i) {
 // NOTE What does player.side represent?
 // NOTE What does player.ray represent?
 // NOTE What is t_info doing?
-// i = ....? The column we are drawing?
 // Esta función dibuja las paredes en la pantalla
 void walls(t_lib1 *data, int i)
 {
@@ -74,8 +74,7 @@ void walls(t_lib1 *data, int i)
      // Llena la estructura info con los datos necesarios para dibujar la pared
     fill_info(&info, data, height);
     // Dibuja el techo y el suelo
-    // TODO This was handled elsewhere
-//    draw_ceiling_and_floor(data, i);
+    draw_ceiling_and_floor(data, i);
      // Dibuja la pared píxel por píxel
     while (x < info.bottom - info.top) {
         if (data->player.side == EAST || data->player.side == NORTH)

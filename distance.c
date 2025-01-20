@@ -11,46 +11,40 @@
 // If side_x = 1
 // ....wait why the hell do we have player.side and side_x and y?!
 // side_x and y are set in find_ray
-void dda_alg(t_lib1 *data)
-{
-	while (data->hit == 0)
-	{
-		// Avanzar en la dirección X o Y
-		// NOTE Surely side_x and side_y can be equal?
-		// Therefore there should be a third condition?
-		if (data->side_x < data->side_y)
-		{
-			data->side_x += data->delta_x;
-			data->map_x += data->step_x;
-			// Determinar el lado del impacto
-			if (data->step_x > 0)
-				data->player.side = NORTH; // was 0; guessing here
-			else
-				data->player.side = SOUTH; // was 1; guessing here
-		}
-		else
-		{
-			data->side_y += data->delta_y;
-			data->map_y += data->step_y;
-			// Determinar el lado del impacto
-			if (data->step_y > 0)
-				data->player.side = EAST; // was 2
-			else
-				data->player.side = WEST; // was 3
-		}
-		// Verificar límites del mapa
-		ft_printf("map_x: %d, map_y: %d\n", data->map_x, data->map_y);
-		if (data->map_x < 0 || data->map_y < 0 )
-		{
-			fprintf(stderr, "Error: Out of map bounds\n");
-			break;
-		}
-		// Verificar colisión con una pared
-		// NOTE this should be map_array[][] as map is blank
-		if (data->map_array[data->map_x][data->map_y] == '1') {
-			data->hit = 1;
-		}
-	}
+void dda_alg(t_lib1 *data) {
+    while (data->hit == 0) {
+        // Avanzar en la dirección X o Y
+        if (data->side_x < data->side_y) {
+            data->side_x += data->delta_x;
+            data->map_x += data->step_x;
+            // Determinar el lado del impacto
+            if (data->step_x > 0) {
+                data->player.side = EAST; // was 2
+            } else {
+                data->player.side = WEST; // was 3
+            }
+        } else {
+            data->side_y += data->delta_y;
+            data->map_y += data->step_y;
+            // Determinar el lado del impacto
+            if (data->step_y > 0) {
+                data->player.side = NORTH; // was 0
+            } else {
+                data->player.side = SOUTH; // was 1
+            }
+        }
+
+        // Verificar límites del mapa
+        if (data->map_x < 0 || data->map_x >= data->len_cols || data->map_y < 0 || data->map_y >= data->len_rows) {
+            fprintf(stderr, "Error: Out of map bounds\n");
+            break;
+        }
+
+        // Verificar colisión con una pared
+        if (data->map_array[data->map_y][data->map_x] == '1') {
+            data->hit = 1;
+        }
+    }
 }
 
 // What does this do? Where were delta_x and delta_y calculated?
