@@ -8,6 +8,9 @@
 // ...and we had true and false taking up 0 and 1...
 // FIXED Constantly throws "out of bounds" errrors
 // FIXME x goes below 0 (-321) because we add -1 (step) - so collision not detected in time.
+// If side_x = 1
+// ....wait why the hell do we have player.side and side_x and y?!
+// side_x and y are set in find_ray
 void dda_alg(t_lib1 *data)
 {
 	while (data->hit == 0)

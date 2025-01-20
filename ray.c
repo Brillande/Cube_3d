@@ -106,6 +106,7 @@ void	draw_3d(t_lib1 *data)
 	view_col = 0;
 	view_step = ((fabs(angle_offset) * 2) / SCREENWIDTH);
 	// Moved this from len_find - only need called once
+	// (It's the player's map coords)
 	data->map_y = (int)data->player.y;
 	data->map_x = (int)data->player.x;
 //	while (angle_offset < 0.3)

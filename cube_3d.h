@@ -42,7 +42,7 @@ typedef struct s_player {
     double ray; // Longitud del rayo
     double wall_x; // Coordenada x de la pared	NOTE porque no hay wall_y?? Scanning?
     int side; // Lado del impacto	NOTE Should this then be e_direction?
-	double x_camera; // Coordenada x de la cámara
+	double x_camera; // Coordenada x de la cámara -- pero no tenemos cámara...
     double y_camera; // Coordenada y de la cámara
     double game_speed; // Velocidad del juego
 } t_player;
@@ -72,8 +72,8 @@ typedef struct s_lib1 {
     int map_y; // Coordenada y del mapa
     int step_x; // Paso x
     int step_y; // Paso y
-    double ray_x; // Coordenada x del rayo
-    double ray_y; // Coordenada y del rayo
+    double ray_x; // Coordenada x del rayo - I guess when it crosses some gridline?
+    double ray_y; // Coordenada y del rayo - beause the ray *angle* is a bearing.
     void *img; // Imagen
     int	rgb_ceiling; // Color del techo
     int	rgb_floor; // Color del suelo
