@@ -35,6 +35,14 @@ enum e_direction
 	WEST = 3
 };
 
+// Will things be more clear passing around a struct for the vectors?
+// Player orientation, each ray, camera plane...?
+typedef struct s_vec
+{
+	double	x;
+	double	y;
+} t_vec;
+
 typedef struct s_player {
     double pa; // Ángulo de orientación del jugador
     double x; // Coordenada x del jugador
