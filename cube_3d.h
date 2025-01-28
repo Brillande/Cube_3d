@@ -45,11 +45,12 @@ typedef struct s_vec
 	double	y;
 } t_vec;
 
-typedef struct s_player {
-    double pa; // Ángulo de orientación del jugador
+typedef struct s_player
+{
+    double pa; // Ángulo de orientación del jugador IN DEGREES
     double x; // VECTOR Coordenada x del jugador
     double y; // VECTOR Coordenada y del jugador
-    double ray; // Longitud del rayo
+    double ray; // Longitud del rayo Length of ray from (player or camera plane) to wall.
     double wall_x; // Coordenada x de la pared	NOTE porque no hay wall_y?? Scanning?
     int side; // Lado del impacto	NOTE Should this then be e_direction?
 	double x_camera; // VECTOR Coordenada x de la cámara plane
@@ -69,17 +70,17 @@ typedef struct s_info {
 // Definición de la estructura t_lib1
 // TODO Review data in struct, remove not-needed elements (e.g. number of coins)
 // TODO Consider separating game state from image / window data
+// ...another sensible split could be things that change on movement v things that don't?
 // TODO How do we change "number of columns" - the map is not a rectangle.
 typedef struct s_lib1 {
     t_player player;
-    char **map;		// NOTE What is the difference between this and map_content? or map_array?
     int		hit;	// Indicador de impacto de un rayo con el pared
     double		side_dist_x; // Length of ray from current position to next x-side
     double		side_dist_y; // Length of ray from current position to next y-side
-    double delta_x; // Delta x
-    double delta_y; // Delta y
-    int map_x; // Coordenada x del mapa
-    int map_y; // Coordenada y del mapa
+    double delta_x; // Delta x - length of ray from one x side to next x-side
+    double delta_y; // Delta y - length of ray from one x side to next x-side
+    int map_x; // Coordenada x del mapa POR EL RAY
+    int map_y; // Coordenada y del mapa POR EL RAY
     int	direction_x; // +/- 1 for the x direction of a ray
     int	direction_y; // +/- 1 for the y direction of a ray
     double ray_x; // Coordenada x del rayo - I guess when it crosses some gridline?
@@ -118,7 +119,6 @@ typedef struct s_lib1 {
 	void	*wallN;
 	void	*wallS;
 	void	*wallW;
-	int		end;	// TODO Check to see if this should be removed
 } t_lib1;
 
 int		main(int argc, char **argv);
