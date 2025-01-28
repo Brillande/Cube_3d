@@ -48,15 +48,16 @@ double	find_distance(t_lib1 *data, double angle)
 
 	 // Determina la distancia inicial basada en el lado del jugador
 	 // If this is North-South, we use X, else Y
-	 // FIXME This simple version cannot be used unless we know side and delta are scaled to |ray_dir| or eq.
-	/* if (data->player.side == 0) */
-	/* 	distance = data->side_dist_x - data->delta_x; */
-	/* else */
-	/* 	distance = data->side_dist_y - data->delta_y; */
+	 // NOTE Can use this simple version as we know side and delta are scaled to |ray_dir| or eq.
+	 // THEY ARE. HOW DO I KNOW THAT?
 	if (data->player.side == 0)
-		perp_dist = (data->map_x - data->player_coor_x + (1 - data->direction_x / 2) / data->ray_x) ;
+		perp_dist = data->side_dist_x - data->delta_x;
 	else
-		perp_dist = (data->map_y - data->player_coor_y + (1 - data->direction_y / 2) / data->ray_y) ;
+		perp_dist = data->side_dist_y - data->delta_y;
+	/* if (data->player.side == 0) */
+	/* 	perp_dist = (data->map_x - data->player_coor_x + (1 - data->direction_x / 2) / data->ray_x) ; */
+	/* else */
+	/* 	perp_dist = (data->map_y - data->player_coor_y + (1 - data->direction_y / 2) / data->ray_y) ; */
 	// Calcula el ángulo corregido
 	ca = data->player.pa - angle;
 	if (ca < 0)
@@ -84,23 +85,34 @@ double	find_distance(t_lib1 *data, double angle)
 // Get a vector representation of the ray at angle (deg to radian, radian to x and y)
 double len_find(t_lib1 *data, double angle)
 {
+	double	rads;
+
     // Inicializa las coordenadas del rayo
-    data->ray_x = cos(angle);
-    data->ray_y = sin(angle);
+    // HACK Protect against accidental division by zero. Would this even work?
+	printf("In len_find. angle passed in: %f\n", angle);
+    /* if (data->ray_x == 0) */
+	/* 	data->ray_x = 1e30; */
+    /* if (data->ray_y == 0) */
+	/* 	data->ray_y = 1e30; */
+    // NOTE angle must be in RADIANS for this. Is it?
+    rads = degrees_to_radians(angle);
+	// NOTE These two lines convert the ray representation from radians to vector
+    data->ray_x = cos(rads);
+    data->ray_y = sin(rads);
     data->delta_x = fabs(1 / data->ray_x);
     data->delta_y = fabs(1 / data->ray_y);
     data->hit = 0;
-
-    // Inicializa las coordenadas del mapa
-    data->map_x = (int)data->player.x;
-    data->map_y = (int)data->player.y;
+	data->map_y = (int)data->player.y;
+	data->map_x = (int)data->player.x;
 
     // Encuentra el rayo y ejecuta el algoritmo DDA
-    get_step_and_side(data);
-    dda_alg(data);
+    get_step_and_side(data);	// NOTE Only a ray needed here
+    dda_alg(data);				// NOTE Ray and map needed there.
 
     // Calcula y retorna la distancia perpendicular
-    return find_distance(data, angle);
+    // NOTE Does find_distance work with radians, vectors, or degrees??
+    return find_distance(data, rads);
+//    return find_distance(data, angle);
 }
 
 // Dibuja la vista 3D del entorno
