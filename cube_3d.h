@@ -174,6 +174,8 @@ double	player_view_distance(double delta_x, double delta_y, double beta);
 double	angle_per_pixel_column(void);
 double	view_angle_horizontal(double theta);
 double	degrees_to_radians(double bearing);
+t_vec	radians_to_vector(double angle);
+double	radians_to_degrees(double rads);
 
 // exit routines
 void	clear_data(t_lib1 *map_data);

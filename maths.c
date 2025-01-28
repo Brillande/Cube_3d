@@ -94,4 +94,24 @@ double	degrees_to_radians(double bearing)
 		ft_printf("Warning! bearing out of range: %f", bearing);
 	rads = bearing * (M_PI / 180);
 	return (rads);
+};
+
+double	radians_to_degrees(double rads)
+{
+	double	degrees;
+
+	if (rads > (2 * M_PI))
+		ft_printf("Warning! radians out of range: %f", rads);
+	degrees = rads * (180 / M_PI);
+	return (degrees);
+}
+
+// Convert an angle in radians to a t_vec
+t_vec	radians_to_vector(double angle)
+{
+	t_vec	v;
+
+	v.x = cos(angle);
+	v.y = sin(angle);
+	return(v);
 }
