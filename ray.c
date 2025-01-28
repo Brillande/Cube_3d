@@ -65,27 +65,6 @@ double	find_distance(t_lib1 *data, double angle)
 	return (perp_dist);
 }
 
-// Encuentra la longitud del rayo desde el jugador hasta la pared más cercana
-// DONE variables that don't change should be set outside this function
-// ...for example the initial player position.
-// We call this function for *every* ray we scan;
-// the player is not moving at that time.
-// This is called from distance.c and from ray.c
-/* double	len_find(t_lib1 *data, double angle)
-{
-	// Inicializa las coordenadas del mapa y los rayos
-	data->ray_x = cos(angle);
-	data->ray_y = sin(angle);
-	data->delta_x = fabs(1 / data->ray_x);
-	data->hit = 0;
-	data->delta_y = fabs(1 / data->ray_y);
-	// Encuentra el rayo y ejecuta el algoritmo DDA
-	find_ray(data);
-	dda_alg(data);
-	// Calcula y retorna la distancia perpendicular
-	return (find_distance(data, angle));
-} */
-
 double len_find(t_lib1 *data, double angle) {
     // Inicializa las coordenadas del rayo
     data->ray_x = cos(angle);
@@ -99,7 +78,7 @@ double len_find(t_lib1 *data, double angle) {
     data->map_y = (int)data->player.y;
 
     // Encuentra el rayo y ejecuta el algoritmo DDA
-    find_ray(data);
+    get_step_and_side(data);
     dda_alg(data);
 
     // Calcula y retorna la distancia perpendicular
