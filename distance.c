@@ -47,7 +47,7 @@ void dda_alg(t_lib1 *data) {
         /* } */
 
         // Verificar colisión con una pared
-        if (data->map_array[data->map_y][data->map_x] == '1') {
+        if (data->map_array[data->map_x][data->map_y] == '1') {
             data->hit = 1;
         }
     }
