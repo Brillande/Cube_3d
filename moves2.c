@@ -23,7 +23,7 @@ int check_move(int x, int y, t_lib1 *data) {
     // Verifica si las nuevas coordenadas están dentro de los límites del mapa
     if (data->len_cols > x && data->len_rows > y && x > 0 && y > 0) {
         // Verifica si la posición en el mapa no es una pared ('1')
-        if (data->map[y][x] == '1')
+        if (data->map_array[y][x] == '1')
             return (false);
         return (true);
     }
