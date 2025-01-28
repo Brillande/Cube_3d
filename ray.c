@@ -52,9 +52,9 @@ double	find_distance(t_lib1 *data, double angle)
 	/* else */
 	/* 	distance = data->side_y - data->delta_y; */
 	if (data->player.side == 0)
-		perp_dist = (data->map_x - data->player_coor_x + (1 - data->step_x / 2) / data->ray_x) ;
+		perp_dist = (data->map_x - data->player_coor_x + (1 - data->direction_x / 2) / data->ray_x) ;
 	else
-		perp_dist = (data->map_y - data->player_coor_y + (1 - data->step_y / 2) / data->ray_y) ;
+		perp_dist = (data->map_y - data->player_coor_y + (1 - data->direction_y / 2) / data->ray_y) ;
 	// Calcula el ángulo corregido
 	ca = data->player.pa - angle;
 	if (ca < 0)
@@ -120,8 +120,8 @@ void	draw_3d(t_lib1 *data)
 	data->map_y = (int)data->player.y;
 	data->map_x = (int)data->player.x;
 	// HACK below for debugging, tidy later.
-	/* printf("Debugging len_find loop. map_x: %i\tmap_y: %i\n", data->map_x, data->map_y); */
-	/* printf("Debugging len_find loop. player.x: %f\tplayer.y: %f\n", data->player.x, data->player.y); */
+	printf("Debugging len_find loop. map_x: %i\tmap_y: %i\n", data->map_x, data->map_y);
+	printf("Debugging len_find loop. player.x: %f\tplayer.y: %f\n", data->player.x, data->player.y);
 //	while (angle_offset < 0.3)
 	while (view_col <= SCREENWIDTH)
 	{

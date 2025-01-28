@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+// TODO Ensure all these includes are permitted
 #ifndef CUBE_3D_H
 # define CUBE_3D_H
 # include "./libft/libft.h"
@@ -27,6 +28,7 @@
 # define SCREENHEIGHT 480
 # define FIELDOFVIEW 60
 
+// NOTE This is of use for texture arrays but *not* player.side!
 enum e_direction
 {
 	NORTH = 0,
@@ -45,13 +47,13 @@ typedef struct s_vec
 
 typedef struct s_player {
     double pa; // Ángulo de orientación del jugador
-    double x; // Coordenada x del jugador
-    double y; // Coordenada y del jugador
+    double x; // VECTOR Coordenada x del jugador
+    double y; // VECTOR Coordenada y del jugador
     double ray; // Longitud del rayo
     double wall_x; // Coordenada x de la pared	NOTE porque no hay wall_y?? Scanning?
     int side; // Lado del impacto	NOTE Should this then be e_direction?
-	double x_camera; // Coordenada x de la cámara -- pero no tenemos cámara...
-    double y_camera; // Coordenada y de la cámara
+	double x_camera; // VECTOR Coordenada x de la cámara plane
+    double y_camera; // VECTOR Coordenada y de la cámara
     double game_speed; // Velocidad del juego
 } t_player;
 
@@ -78,8 +80,8 @@ typedef struct s_lib1 {
     double delta_y; // Delta y
     int map_x; // Coordenada x del mapa
     int map_y; // Coordenada y del mapa
-    int step_x; // Paso x
-    int step_y; // Paso y
+    int	direction_x; // +/- 1 for the x direction of a ray
+    int	direction_y; // +/- 1 for the y direction of a ray
     double ray_x; // Coordenada x del rayo - I guess when it crosses some gridline?
     double ray_y; // Coordenada y del rayo - beause the ray *angle* is a bearing.
     void *img; // Imagen
