@@ -26,26 +26,35 @@ enum e_direction	get_wall_face(double x)
 	return ((x / 90.0));
 }
 
-// TODO Check that player.side is compatible with enums etc
+// NOTE Check that player.side is NOT MEANT TO BE compatible with enums etc
 // TODO Compare with player_view_distance
 // Calcula la distancia perpendicular desde el jugador hasta la pared más cercana
 // angle = ???
 // distance = ???
 // ca = corrected (against...?) angle
 // perp_dist = returned
+// NOTE from elsewhere thing. The distance to the camera plane...
+//This can be computed as (mapX - posX + (1 - stepX) / 2) / rayDirX for side == 0, or same formula with Y
+//for size == 1, but can be simplified to the code below thanks to how sideDist and deltaDist are computed:
+//because they were left scaled to |rayDir|. sideDist is the entire length of the ray above after the multiple
 // What do we use PI for?
 double	find_distance(t_lib1 *data, double angle)
 {
-	double	distance;
+//	double	distance;
 	double	ca;
 	double	perp_dist;
 
 	 // Determina la distancia inicial basada en el lado del jugador
-	 // Was 0 (guessing NORTH) and 2 (EAST)
-	if (data->player.side == NORTH || data->player.side == EAST)
-		distance = data->side_x - data->delta_x;
+	 // If this is North-South, we use X, else Y
+	 // FIXME This simple version cannot be used unless we know side and delta are scaled to |ray_dir| or eq.
+	/* if (data->player.side == 0) */
+	/* 	distance = data->side_x - data->delta_x; */
+	/* else */
+	/* 	distance = data->side_y - data->delta_y; */
+	if (data->player.side == 0)
+		perp_dist = (data->map_x - data->player_coor_x + (1 - data->step_x / 2) / data->ray_x) ;
 	else
-		distance = data->side_y - data->delta_y;
+		perp_dist = (data->map_y - data->player_coor_y + (1 - data->step_y / 2) / data->ray_y) ;
 	// Calcula el ángulo corregido
 	ca = data->player.pa - angle;
 	if (ca < 0)
@@ -53,9 +62,10 @@ double	find_distance(t_lib1 *data, double angle)
 	else if (ca > 2 * M_PI)
 		ca -= 2 * M_PI;
 	// Calcula la distancia perpendicular usando el coseno del ángulo corregido
-	perp_dist = distance * cos(ca);
-	perp_dist = fabs(perp_dist);
+	/* perp_dist = distance * cos(ca); */
+	/* perp_dist = fabs(perp_dist); */
 	// Calcula la posición de la pared en el eje x
+	// TODO Split this to a separate function
 	if (data->player.side == EAST || data->player.side == WEST)
 		data->player.wall_x = data->player.y + data->ray_y * perp_dist;
 	else
@@ -109,6 +119,9 @@ void	draw_3d(t_lib1 *data)
 	// (It's the player's map coords)
 	data->map_y = (int)data->player.y;
 	data->map_x = (int)data->player.x;
+	// HACK below for debugging, tidy later.
+	/* printf("Debugging len_find loop. map_x: %i\tmap_y: %i\n", data->map_x, data->map_y); */
+	/* printf("Debugging len_find loop. player.x: %f\tplayer.y: %f\n", data->player.x, data->player.y); */
 //	while (angle_offset < 0.3)
 	while (view_col <= SCREENWIDTH)
 	{

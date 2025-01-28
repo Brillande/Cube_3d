@@ -11,7 +11,8 @@
 // If side_x = 1
 // NOTE That *side* here represents N-S or E-W - better named axis??
 // side_x and y are set in find_ray
-void dda_alg(t_lib1 *data) {
+void dda_alg(t_lib1 *data)
+{
 	while (data->hit == 0)
 	{
 		// Avanzar en la dirección X o Y
@@ -40,11 +41,12 @@ void dda_alg(t_lib1 *data) {
             /* } */
         }
 
-        /* // Verificar límites del mapa */
-        /* if (data->map_x < 0 || data->map_x >= data->len_cols || data->map_y < 0 || data->map_y >= data->len_rows) { */
-        /*     fprintf(stderr, "Error: Out of map bounds\n"); */
-        /*     break; */
-        /* } */
+        // Verificar límites del mapa
+        if (data->map_x < 0 || data->map_y < 0 )
+		{
+            fprintf(stderr, "Error: Out of map bounds: x %i y %i\n", data->map_x, data->map_y);
+            break;
+        }
 
         // Verificar colisión con una pared
         if (data->map_array[data->map_x][data->map_y] == '1') {
