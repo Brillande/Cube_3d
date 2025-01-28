@@ -38,6 +38,8 @@ enum e_direction	get_wall_face(double x)
 //for size == 1, but can be simplified to the code below thanks to how sideDist and deltaDist are computed:
 //because they were left scaled to |rayDir|. sideDist is the entire length of the ray above after the multiple
 // What do we use PI for?
+// TODO Do the simple maths version of this.
+// TODO Is angle in DEGREES or RADIANS??
 double	find_distance(t_lib1 *data, double angle)
 {
 //	double	distance;
@@ -65,7 +67,7 @@ double	find_distance(t_lib1 *data, double angle)
 	/* perp_dist = distance * cos(ca); */
 	/* perp_dist = fabs(perp_dist); */
 	// Calcula la posición de la pared en el eje x
-	// TODO Split this to a separate function
+	// TODO Split this to a separate function -- what does it *do*??
 	if (data->player.side == EAST || data->player.side == WEST)
 		data->player.wall_x = data->player.y + data->ray_y * perp_dist;
 	else
@@ -75,6 +77,11 @@ double	find_distance(t_lib1 *data, double angle)
 	return (perp_dist);
 }
 
+// Calculate the length of a ray (for one screen column) before it strikes a wall
+// TODO Make sure that ray_x/y are set correctly. Where?
+// - what is it representing?
+// - what format is it mean to be in? For the delta thing it *must* be radians!
+// Get a vector representation of the ray at angle (deg to radian, radian to x and y)
 double len_find(t_lib1 *data, double angle)
 {
     // Inicializa las coordenadas del rayo
@@ -105,34 +112,35 @@ double len_find(t_lib1 *data, double angle)
 // TODO Use FIELDOFVIEW to calculate the angle_offset
 // ...what does 0.3 represent in degrees?
 // a - the pixel coordinate (x) where the ray will be drawn (in walls)
+// FIXME There is a mix of DEGREES and RADIANS in use here, it is confusing
 void	draw_3d(t_lib1 *data)
 {
 	int		view_col;
-	double	angle_offset;
+	double	radian_offset;
+	double	deg_offset;
 	double	view_step;
 
 	// Inicializa el ángulo de inicio y el contador
-	angle_offset = - 0.3;
+	// NOTE This is a radian value sometimes applied to degrees later! Makes things very small.
+	radian_offset = - 0.3;
+	deg_offset = radians_to_degrees(radian_offset);
 	view_col = 0;
-	view_step = ((fabs(angle_offset) * 2) / SCREENWIDTH);
-	// Moved this from len_find - only need called once
-	// (It's the player's map coords)
-	data->map_y = (int)data->player.y;
-	data->map_x = (int)data->player.x;
+	view_step = ((fabs(deg_offset) * 2) / SCREENWIDTH);
 	// HACK below for debugging, tidy later.
+	printf("Debugging len_find loop. radian_offset: %f\tdegree offset: %f\tview_step: %f\n", radian_offset, deg_offset, view_step);
 	printf("Debugging len_find loop. map_x: %i\tmap_y: %i\n", data->map_x, data->map_y);
 	printf("Debugging len_find loop. player.x: %f\tplayer.y: %f\n", data->player.x, data->player.y);
 //	while (angle_offset < 0.3)
-	while (view_col <= SCREENWIDTH)
+	while (view_col < SCREENWIDTH)
 	{
 		// Recorre un rango de ángulos para dibujar cada rayo
-		data->player.ray = len_find(data, data->player.pa + angle_offset);
+		data->player.ray = len_find(data, data->player.pa + deg_offset); // FIXME The 2nd parameter never changes
 		walls(data, view_col);
 		// Incrementa el ángulo y el contador
 //		angle_offset += 0.0006;	// FIXME Remove magic number which was 0.6 / 1000
-		angle_offset += view_step;
+		radian_offset += view_step; // FIXME IS view_step in degrees or radians>?
 		view_col++;
 	}
 	// Muestra la imagen en la ventana
-	mlx_image_to_window(data->mlx, data->img, 0, 0);
+	mlx_image_to_window(data->mlx, data->img, 0, 0);	// FIXME Invalid read here
 }

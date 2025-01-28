@@ -123,7 +123,7 @@ int	check_each_square(t_lib1 *map_data)
 		test_line_len = (int) ft_strlen(map_data->map_array[test_line]) - 1;
 		while (test_col < test_line_len)
 		{
-			ft_printf("col: %i, line:%i\n", test_col, test_line);	// HACK debugging only
+//			ft_printf("col: %i, line:%i\n", test_col, test_line);	// HACK debugging only
 			if (walls_horizontal(test_col, map_data->map_array[test_line],
 					test_line_len) == 1)
 			{

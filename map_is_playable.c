@@ -115,7 +115,7 @@ void	map_is_playable(t_lib1 *map_data)
 	if (map_data->player_faces == -1)
 		clear_data(map_data);
 	copy_start_position(map_data);	// HACK This makes sure that we start from init'd values.
-	print_map_array(map_data);
+//	print_map_array(map_data);
 	print_start_position(map_data);
 }
 
