@@ -74,8 +74,8 @@ typedef struct s_lib1 {
     t_player player;
     char **map;		// NOTE What is the difference between this and map_content? or map_array?
     int		hit;	// Indicador de impacto de un rayo con el pared
-    double side_x; // Lado x	NOTE Need more info on this, where is it set? Lado de qué?
-    double side_y; // Lado y
+    double		side_dist_x; // Length of ray from current position to next x-side
+    double		side_dist_y; // Length of ray from current position to next y-side
     double delta_x; // Delta x
     double delta_y; // Delta y
     int map_x; // Coordenada x del mapa

@@ -48,9 +48,9 @@ double	find_distance(t_lib1 *data, double angle)
 	 // If this is North-South, we use X, else Y
 	 // FIXME This simple version cannot be used unless we know side and delta are scaled to |ray_dir| or eq.
 	/* if (data->player.side == 0) */
-	/* 	distance = data->side_x - data->delta_x; */
+	/* 	distance = data->side_dist_x - data->delta_x; */
 	/* else */
-	/* 	distance = data->side_y - data->delta_y; */
+	/* 	distance = data->side_dist_y - data->delta_y; */
 	if (data->player.side == 0)
 		perp_dist = (data->map_x - data->player_coor_x + (1 - data->direction_x / 2) / data->ray_x) ;
 	else

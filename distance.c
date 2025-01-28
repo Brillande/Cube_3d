@@ -8,22 +8,22 @@
 // ...and we had true and false taking up 0 and 1...
 // FIXED Constantly throws "out of bounds" errrors
 // FIXME x goes below 0 (-321) because we add -1 (step) - so collision not detected in time.
-// FIXME Side_x and side_y are doubles but we have defined them as 1 or -1.
-// If side_x = 1
+// FIXME Side_dist_x and side_dist_y are doubles but we have defined them as 1 or -1.
+// If side_dist_x = 1
 // NOTE That *side* here represents N-S or E-W - better named axis??
-// side_x and y are set in find_ray
+// side_dist_x and y are set in find_ray
 void dda_alg(t_lib1 *data)
 {
 	while (data->hit == 0)
 	{
-		printf("side_x: %f, side_y: %f\n", data->side_x, data->side_y);
+		printf("side_dist_x: %f, side_dist_y: %f\n", data->side_dist_x, data->side_dist_y);
 		// Avanzar en la dirección X o Y
-		if (data->side_x < data->side_y)
+		if (data->side_dist_x < data->side_dist_y)
 		{
-			data->side_x += data->delta_x;
+			data->side_dist_x += data->delta_x;
 			data->map_x += data->direction_x;
 			data->player.side = 0;
-			printf("DDA for x. side_x now: %f, applied delta: %f\n", data->side_x, data->delta_x);
+			printf("DDA for x. side_dist_x now: %f, applied delta: %f\n", data->side_dist_x, data->delta_x);
 			// Determinar el lado del impacto
 			/* if (data->direction_x > 0) { */
 			/*     data->player.side = EAST; // was 2 */
@@ -33,11 +33,11 @@ void dda_alg(t_lib1 *data)
 		}
 		else
 		{
-            data->side_y += data->delta_y;
+            data->side_dist_y += data->delta_y;
             data->map_y += data->direction_y;
             // Determinar el lado del impacto
 			data->player.side = 1;
-			printf("DDA for y. side_y now: %f, applied delta: %f\n", data->side_y, data->delta_y);
+			printf("DDA for y. side_dist_y now: %f, applied delta: %f\n", data->side_dist_y, data->delta_y);
             /* if (data->step_y > 0) { */
             /*     data->player.side = NORTH; // was 0 */
             /* } else { */
@@ -71,8 +71,8 @@ void dda_alg(t_lib1 *data)
 // At the end of this function we have updated:
 // direction_x = whether the calculations go forward or back in the x_axis
 // direction_y = same for the y-axis
-// side_x = are these intersection coords with the gridlines then?
-// side_y =
+// side_dist_x = are these intersection coords with the gridlines then?
+// side_dist_y =
 // ...these values are then used in dda_alg()
 // calculates STEP (i.e. direction in each)
 // and SIDE DISTANCEs (i.e. distance to next crossing)
@@ -81,21 +81,21 @@ void	get_step_and_side(t_lib1 *data)
 	if (data->ray_x < 0)
 	{
 		data->direction_x = -1;
-		data->side_x = (data->player.x - data->map_x) * data->delta_x;
+		data->side_dist_x = (data->player.x - data->map_x) * data->delta_x;
 	}
 	else
 	{
 		data->direction_x = 1;
-		data->side_x = (data->map_x + 1.0 - data->player.x) * data->delta_x;
+		data->side_dist_x = (data->map_x + 1.0 - data->player.x) * data->delta_x;
 	}
 	if (data->ray_y < 0)
 	{
 		data->direction_y = -1;
-		data->side_y = (data->player.y - data->map_y) * data->delta_y;
+		data->side_dist_y = (data->player.y - data->map_y) * data->delta_y;
 	}
 	else
 	{
 		data->direction_y = 1;
-		data->side_y = (data->map_y + 1.0 - data->player.y) * data->delta_y;
+		data->side_dist_y = (data->map_y + 1.0 - data->player.y) * data->delta_y;
 	}
 }
