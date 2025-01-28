@@ -95,7 +95,8 @@ typedef struct s_lib1 {
 	char	**map_array;
 	int		player_coor_x;		// Player starting position, x coord
 	int		player_coor_y;		// Player starting position, y coord
-	int		player_faces;		// The direction the player is facing at the start.
+	// NOTE This below should / could be turned into a vector?
+	int		player_faces;		// The direction the player is facing at the start. IN DEGREES
 	int		how_many_lines;		// TODO Differences between these, len_cols, width?
 	int		how_many_colums;
 	int		map_length;		// NOTE IS this needed?
@@ -172,6 +173,7 @@ int		line_is_blank(char *line);
 double	player_view_distance(double delta_x, double delta_y, double beta);
 double	angle_per_pixel_column(void);
 double	view_angle_horizontal(double theta);
+double	degrees_to_radians(double bearing);
 
 // exit routines
 void	clear_data(t_lib1 *map_data);

@@ -83,3 +83,15 @@ void	get_wall_intersection(t_lib1 *map_data, double ray_angle)
     ray_angle = 60.0;	// HACK for testing, remove later
 	(void) ray_angle;	// HACK for compilation
 }
+
+// Convert an angle in dgress (like a compass bearing)
+// to Radians (for use in making a vector)
+double	degrees_to_radians(double bearing)
+{
+	double	rads;
+
+	if (bearing >= 360)
+		ft_printf("Warning! bearing out of range: %f", bearing);
+	rads = bearing * (M_PI / 180);
+	return (rads);
+}
