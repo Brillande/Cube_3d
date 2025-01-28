@@ -65,7 +65,8 @@ double	find_distance(t_lib1 *data, double angle)
 	return (perp_dist);
 }
 
-double len_find(t_lib1 *data, double angle) {
+double len_find(t_lib1 *data, double angle)
+{
     // Inicializa las coordenadas del rayo
     data->ray_x = cos(angle);
     data->ray_y = sin(angle);

@@ -9,36 +9,42 @@
 // FIXED Constantly throws "out of bounds" errrors
 // FIXME x goes below 0 (-321) because we add -1 (step) - so collision not detected in time.
 // If side_x = 1
-// ....wait why the hell do we have player.side and side_x and y?!
+// NOTE That *side* here represents N-S or E-W - better named axis??
 // side_x and y are set in find_ray
 void dda_alg(t_lib1 *data) {
-    while (data->hit == 0) {
-        // Avanzar en la dirección X o Y
-        if (data->side_x < data->side_y) {
-            data->side_x += data->delta_x;
-            data->map_x += data->step_x;
-            // Determinar el lado del impacto
-            if (data->step_x > 0) {
-                data->player.side = EAST; // was 2
-            } else {
-                data->player.side = WEST; // was 3
-            }
-        } else {
+	while (data->hit == 0)
+	{
+		// Avanzar en la dirección X o Y
+		if (data->side_x < data->side_y)
+		{
+			data->side_x += data->delta_x;
+			data->map_x += data->step_x;
+			data->player.side = 0;
+			// Determinar el lado del impacto
+			/* if (data->step_x > 0) { */
+			/*     data->player.side = EAST; // was 2 */
+			/* } else { */
+			/*     data->player.side = WEST; // was 3 */
+			/* } */
+		}
+		else
+		{
             data->side_y += data->delta_y;
             data->map_y += data->step_y;
             // Determinar el lado del impacto
-            if (data->step_y > 0) {
-                data->player.side = NORTH; // was 0
-            } else {
-                data->player.side = SOUTH; // was 1
-            }
+			data->player.side = 1;
+            /* if (data->step_y > 0) { */
+            /*     data->player.side = NORTH; // was 0 */
+            /* } else { */
+            /*     data->player.side = SOUTH; // was 1 */
+            /* } */
         }
 
-        // Verificar límites del mapa
-        if (data->map_x < 0 || data->map_x >= data->len_cols || data->map_y < 0 || data->map_y >= data->len_rows) {
-            fprintf(stderr, "Error: Out of map bounds\n");
-            break;
-        }
+        /* // Verificar límites del mapa */
+        /* if (data->map_x < 0 || data->map_x >= data->len_cols || data->map_y < 0 || data->map_y >= data->len_rows) { */
+        /*     fprintf(stderr, "Error: Out of map bounds\n"); */
+        /*     break; */
+        /* } */
 
         // Verificar colisión con una pared
         if (data->map_array[data->map_y][data->map_x] == '1') {
