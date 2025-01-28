@@ -129,7 +129,7 @@ void		walls(t_lib1 *data, int i);
 int		check_move(int x, int y, t_lib1 *data);
 double		len_find(t_lib1 *data, double angle);
 void		dda_alg(t_lib1 *data);
-void		find_ray(t_lib1 *cal);
+void		get_step_and_side(t_lib1 *cal);	// formerly find_ray
 
 // Display things on the windows
 mlx_image_t	*make_background(t_lib1 *map_data);

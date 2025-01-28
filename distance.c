@@ -62,7 +62,9 @@ void dda_alg(t_lib1 *data) {
 // side_x = are these intersection coords with the gridlines then?
 // side_y =
 // ...these values are then used in dda_alg()
-void	find_ray(t_lib1 *data)
+// calculates STEP (i.e. direction in each)
+// and SIDE DISTANCEs (i.e. distance to next crossing)
+void	get_step_and_side(t_lib1 *data)
 {
 	if (data->ray_x < 0)
 	{
