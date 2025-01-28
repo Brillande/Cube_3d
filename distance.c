@@ -12,6 +12,10 @@
 // If side_dist_x = 1
 // NOTE That *side* here represents N-S or E-W - better named axis??
 // side_dist_x and y are set in find_ray
+// This should be simple!
+// - Jump to next map square in either x or y direction
+// - Check if the map square is a wall
+// FIXME The x and ys are backwards somewhere...
 void dda_alg(t_lib1 *data)
 {
 	while (data->hit == 0)
@@ -49,11 +53,16 @@ void dda_alg(t_lib1 *data)
         if (data->map_x < 0 || data->map_y < 0 )
 		{
             fprintf(stderr, "Error: Out of map bounds: x %i y %i\n", data->map_x, data->map_y);
-            break;
+			exit(EXIT_FAILURE);
         }
 
         // Verificar colisión con una pared
-        if (data->map_array[data->map_x][data->map_y] == '1') {
+        // FIXED The collision is not detected!
+		ft_printf("Testing map square X: %i\tY: %i\tvalue is: %c\n", data->map_x, data->map_y, data->map_array[data->map_x][data->map_y]);
+//        if (data->map_array[data->map_x][data->map_y] == '1')
+        if (ft_strncmp(&data->map_array[data->map_x][data->map_y], "1", 1) == 0)
+		{
+			ft_printf("Hit wall!\n");
             data->hit = 1;
         }
     }
