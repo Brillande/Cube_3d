@@ -161,6 +161,7 @@ void		get_step_and_side(t_lib1 *cal);	// formerly find_ray
 
 // Display things on the windows
 mlx_image_t	*make_background(t_lib1 *map_data);
+void	solid_walls(t_lib1 *data, int screen_col);
 
 // Debugging files
 void	print_read_from_file(t_lib1 map_data);

@@ -147,7 +147,8 @@ void	draw_3d(t_lib1 *data)
 	{
 		// Recorre un rango de ángulos para dibujar cada rayo
 		data->player.ray = len_find(data, data->player.pa + deg_offset); // FIXME The 2nd parameter never changes
-		walls(data, view_col);
+		solid_walls(data, view_col);	// HACK Solid colour test function
+//		walls(data, view_col);
 		// Incrementa el ángulo y el contador
 //		angle_offset += 0.0006;	// FIXME Remove magic number which was 0.6 / 1000
 		radian_offset += view_step; // FIXME IS view_step in degrees or radians>?

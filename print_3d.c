@@ -57,8 +57,44 @@ void draw_ceiling_and_floor(t_lib1 *data, int i) {
     }
 }
 
+// Draw a wall column in a solid colour
+// - what does the orignal walls() do? It is a mess
+// This is called after we have a correct (ha) height for wall
+// TODO Confirm that the ray height is held in player.ray (another bad variable name)
+// TODO Confirm which direction we are drawing these lines - I think downwards?
+// - Calculate the pixel range that should be floor, ceiling and wall
+// - draw down the screen_column in that colour
+void	solid_walls(t_lib1 *data, int screen_col)
+{
+	int	line_height;	// integer because it corresponds to screen pixels
+	int	midpoint;	// the middle of the screen where floor / ceiling switch;
+	int	start_point;
+	int	end_point;
+	int	i;	// counter for painting the screen.
+
+	line_height = SCREENHEIGHT / data->player.ray;	// implicit conversion to int here
+	midpoint = SCREENHEIGHT / 2;
+	start_point = (-line_height / 2) + midpoint;
+	end_point = (line_height / 2) + midpoint;
+	// Correct for either of these going offscreen (i.e. we are too close to the wall to see its ends)
+	if (start_point < 0)
+		start_point = 0;
+	if (end_point >= SCREENHEIGHT)
+		end_point = SCREENHEIGHT - 1;
+	i = 0;
+	while (i < SCREENHEIGHT)
+	{
+		while (i < start_point)
+			mlx_put_pixel(data->img, screen_col, i++, data->rgb_ceiling);
+		while (i < end_point)
+			mlx_put_pixel(data->img, screen_col, i++, 0x97E641);	// Randomly picked lime green shade
+		mlx_put_pixel(data->img, screen_col, i++, data->rgb_floor);
+	}
+}
+
 // FIXME The EAST and NORTH values here will need to be changed, post-enumeration
 // What was specific about those two that meant the maths would be different?
+// ...in the old version they were 2 and 4. Can't see any value here.
 // NOTE What does player.side represent?
 // NOTE What does player.ray represent?
 // NOTE What is t_info doing?
