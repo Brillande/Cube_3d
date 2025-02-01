@@ -72,6 +72,77 @@ void dda_alg(t_lib1 *data)
     }
 }
 
+// Move a ray across gridlines (x and y) until it hits a wall (represented in map_array)
+// When it finishes, we have the distances travelled for the height calculation
+void	dda_for_one_ray(t_ray *ray, char **map_array)
+{
+	int	hit_wall;
+
+	hit_wall = 0;
+	while (hit_wall == 0)
+	{
+		if (ray->side_dist_x < ray->side_dist_y)
+		{
+			// do this way NO WHAT DOES THAT MEAANNN?
+			ray->side_dist_x += ray->delta_x;
+			ray->map_x += ray->direction_x;
+			ray->axis = 0;
+		}
+		else
+		{
+			ray->side_dist_y += ray->delta_x;
+			ray->map_y += ray->direction_y;
+			ray->axis = 1;
+		}
+		// check for hit
+        if (ft_strncmp(&map_array[ray->map_x][ray->map_y], "1", 1) == 0)
+			hit_wall = 1;
+	}
+}
+
+// LIke get_step_and_side but returns a set-up ray to be used in DDA
+// Which in t_ray change and which remain the same?
+// map_x and map_y are the same for all rays (player start point)
+// axis, different per ray but only 2 options for any player orientation
+// direction_x/y are the same.
+// ray_x and ray_y vary a little for each as we scan across
+// side_dist_x/y and delta_x/y needed once per ray
+// This needs the coords from the player and for the ray
+// TODO Set new_ray.axis - initialise somehow?
+// FIXME HAndle the duplicaet ray_x setup.
+t_ray	setup_ray(t_lib1 *data, double rads)
+{
+	t_ray	new_ray;
+
+	new_ray.ray_x = cos(rads);
+	new_ray.ray_y = sin(rads);
+	new_ray.map_x = data->map_x;
+	new_ray.map_y = data->map_y;
+    new_ray.delta_x = fabs(1 / data->ray_x);
+    new_ray.delta_y = fabs(1 / data->ray_y);
+	if (new_ray.ray_x < 0)
+	{
+		new_ray.direction_x = -1;
+		new_ray.side_dist_x = (data->player.x - new_ray.map_x) * data->delta_x;
+	}
+	else
+	{
+		new_ray.direction_x = 1;
+		new_ray.side_dist_x = (new_ray.map_x + 1.0 - data->player.x) * data->delta_x;
+	}
+	if (new_ray.ray_y < 0)
+	{
+		new_ray.direction_y = -1;
+		new_ray.side_dist_y = (data->player.y - new_ray.map_y) * data->delta_y;
+	}
+	else
+	{
+		new_ray.direction_y = 1;
+		new_ray.side_dist_y = (new_ray.map_y + 1.0 - data->player.y) * data->delta_y;
+	}
+	return (new_ray);
+}
+
 // What does this do? Where were delta_x and delta_y calculated?
 // calculates the initial steps and distances for the (DDA) algorithm,
 // used to determine the intersection of a ray with a grid of pixels or cells.

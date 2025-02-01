@@ -85,7 +85,7 @@ void	solid_walls(t_lib1 *data, int screen_col, mlx_image_t *img)
 	while (i < SCREENHEIGHT)
 	{
 		while (i < start_point)
-			mlx_put_pixel(img, screen_col, i++, data->rgb_ceiling);
+			mlx_put_pixel(img, screen_col, i++, data->rgb_ceiling);	// FIXME Segfualt invalid write
 		while (i < end_point)
 			mlx_put_pixel(img, screen_col, i++, 0xE0CD9F);	// Randomly picked lime green shade
 		mlx_put_pixel(img, screen_col, i++, data->rgb_floor);

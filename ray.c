@@ -129,18 +129,20 @@ void	draw_3d(t_lib1 *data)
 {
 	int		view_col;
 	double	radian_offset;
-	double	deg_offset;
+//	double	deg_offset;
 	double	view_step;
 	mlx_image_t	*new_img;
+	t_ray	test_ray;
 
 	// Inicializa el ángulo de inicio y el contador
 	// NOTE This is a radian value sometimes applied to degrees later! Makes things very small.
 	radian_offset = - 0.3;
-	deg_offset = radians_to_degrees(radian_offset);
+//	deg_offset = radians_to_degrees(radian_offset);
 	view_col = 0;
-	view_step = ((fabs(deg_offset) * 2) / SCREENWIDTH);
+//	view_step = ((fabs(deg_offset) * 2) / SCREENWIDTH);	// FIXME Calculate view_step in RADIANS!!!
+	view_step = ((fabs(radian_offset) * 2) / SCREENWIDTH);
 	// HACK below for debugging, tidy later.
-	printf("Debugging len_find loop. radian_offset: %f\tdegree offset: %f\tview_step: %f\n", radian_offset, deg_offset, view_step);
+//	printf("Debugging len_find loop. radian_offset: %f\tdegree offset: %f\tview_step: %f\n", radian_offset, deg_offset, view_step);
 	printf("Debugging len_find loop. map_x: %i\tmap_y: %i\n", data->map_x, data->map_y);
 	printf("Debugging len_find loop. player.x: %f\tplayer.y: %f\n", data->player.x, data->player.y);
 //	while (angle_offset < 0.3)
@@ -149,7 +151,9 @@ void	draw_3d(t_lib1 *data)
 	while (view_col < SCREENWIDTH)
 	{
 		// Recorre un rango de ángulos para dibujar cada rayo
-		data->player.ray = len_find(data, data->player.pa + deg_offset); // FIXME The 2nd parameter never changes
+		test_ray = setup_ray(data, data->player.pa + radian_offset);
+		dda_for_one_ray(&test_ray, data->map_array);
+//		data->player.ray = len_find(data, data->player.pa + deg_offset); // FIXME The 2nd parameter never changes
 		solid_walls(data, view_col, new_img);	// HACK Solid colour test function
 //		walls(data, view_col);
 		// Incrementa el ángulo y el contador

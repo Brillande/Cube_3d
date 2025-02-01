@@ -45,6 +45,7 @@ typedef struct s_vec
 	double	y;
 } t_vec;
 
+// This holds *only* things to do with the player and their view (ie camera plane)
 typedef struct s_player
 {
     double pa; // Ángulo de orientación del jugador IN DEGREES
@@ -82,6 +83,7 @@ typedef struct	s_ray
     double		side_dist_y; // Length of ray from current position to next y-side
     double delta_x; // Delta x - length of ray from one x side to next x-side
     double delta_y; // Delta y - length of ray from one x side to next x-side
+	int	axis;	// Either north-south or east-west. Determines calculation type.
 }	t_ray;
 
 // Definición de la estructura t_lib1
@@ -159,6 +161,8 @@ double		len_find(t_lib1 *data, double angle);
 void		dda_alg(t_lib1 *data);
 void		get_step_and_side(t_lib1 *cal);	// formerly find_ray
 
+void	dda_for_one_ray(t_ray *ray, char **map_array);
+t_ray	setup_ray(t_lib1 *data, double rads);
 // Display things on the windows
 mlx_image_t	*make_background(t_lib1 *map_data);
 void	solid_walls(t_lib1 *data, int screen_col, mlx_image_t *img);
