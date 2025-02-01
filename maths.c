@@ -48,6 +48,7 @@ double	view_angle_horizontal(double theta)
 // This is a step needed in the loop to scan rays across the screen.
 // Only needs to be calculated once per program run
 // ...assuming no resizing of game window.
+// NOTE Not currently used.
 double	angle_per_pixel_column(void)
 {
    return (90.0 / SCREENWIDTH);
