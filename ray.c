@@ -131,6 +131,7 @@ void	draw_3d(t_lib1 *data)
 	double	radian_offset;
 	double	deg_offset;
 	double	view_step;
+	mlx_image_t	*new_img;
 
 	// Inicializa el ángulo de inicio y el contador
 	// NOTE This is a radian value sometimes applied to degrees later! Makes things very small.
@@ -143,11 +144,13 @@ void	draw_3d(t_lib1 *data)
 	printf("Debugging len_find loop. map_x: %i\tmap_y: %i\n", data->map_x, data->map_y);
 	printf("Debugging len_find loop. player.x: %f\tplayer.y: %f\n", data->player.x, data->player.y);
 //	while (angle_offset < 0.3)
+	// Get a new image to draw on -- this could use make_background() ?
+	new_img = mlx_new_image(data->mlx, SCREENWIDTH, SCREENHEIGHT);
 	while (view_col < SCREENWIDTH)
 	{
 		// Recorre un rango de ángulos para dibujar cada rayo
 		data->player.ray = len_find(data, data->player.pa + deg_offset); // FIXME The 2nd parameter never changes
-		solid_walls(data, view_col);	// HACK Solid colour test function
+		solid_walls(data, view_col, new_img);	// HACK Solid colour test function
 //		walls(data, view_col);
 		// Incrementa el ángulo y el contador
 //		angle_offset += 0.0006;	// FIXME Remove magic number which was 0.6 / 1000
@@ -155,5 +158,9 @@ void	draw_3d(t_lib1 *data)
 		view_col++;
 	}
 	// Muestra la imagen en la ventana
+	new_img->enabled = true;
+	mlx_delete_image(data->mlx, data->img);
+	data->img = new_img;
+//	mlx_image_to_window(data->mlx, new_img, 0, 0);	// HACK May have to replce the data->img pointer!
 	mlx_image_to_window(data->mlx, data->img, 0, 0);	// FIXME Invalid read here
 }

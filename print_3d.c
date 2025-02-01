@@ -64,7 +64,7 @@ void draw_ceiling_and_floor(t_lib1 *data, int i) {
 // TODO Confirm which direction we are drawing these lines - I think downwards?
 // - Calculate the pixel range that should be floor, ceiling and wall
 // - draw down the screen_column in that colour
-void	solid_walls(t_lib1 *data, int screen_col)
+void	solid_walls(t_lib1 *data, int screen_col, mlx_image_t *img)
 {
 	int	line_height;	// integer because it corresponds to screen pixels
 	int	midpoint;	// the middle of the screen where floor / ceiling switch;
@@ -85,10 +85,10 @@ void	solid_walls(t_lib1 *data, int screen_col)
 	while (i < SCREENHEIGHT)
 	{
 		while (i < start_point)
-			mlx_put_pixel(data->img, screen_col, i++, data->rgb_ceiling);
+			mlx_put_pixel(img, screen_col, i++, data->rgb_ceiling);
 		while (i < end_point)
-			mlx_put_pixel(data->img, screen_col, i++, 0x97E641);	// Randomly picked lime green shade
-		mlx_put_pixel(data->img, screen_col, i++, data->rgb_floor);
+			mlx_put_pixel(img, screen_col, i++, 0xE0CD9F);	// Randomly picked lime green shade
+		mlx_put_pixel(img, screen_col, i++, data->rgb_floor);
 	}
 }
 
