@@ -98,9 +98,9 @@ void	setup_player(t_lib1 *map_data)
 	map_data->player.game_speed = 1;
 	map_data->player.wall_x = 0;
 	print_player_info(map_data->player);
-	ft_printf("Player info.\nAngle: %f\nX: %f, Y: %f\n", map_data->player.pa, map_data->player.x,  map_data->player.y);
-	ft_printf("Ray length: %f\twall_x (meaning unknown): %f\n", map_data->player.ray, map_data->player.wall_x);
-	ft_printf("side: %i\tcamera x: %f, y: %f, game_speed: %f\n", map_data->player.side, map_data->player.x_camera, map_data->player.y_camera, map_data->player.game_speed);
+	printf("Player info.\nAngle: %f\nX: %f, Y: %f\n", map_data->player.pa, map_data->player.x,  map_data->player.y);
+	printf("Ray length: %f\twall_x (meaning unknown): %f\n", map_data->player.ray, map_data->player.wall_x);
+	printf("side: %i\tcamera x: %f, y: %f, game_speed: %f\n", map_data->player.side, map_data->player.x_camera, map_data->player.y_camera, map_data->player.game_speed);
 }
 
 // TODO Implement tests for the non-map elements: present and valid

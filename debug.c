@@ -54,18 +54,17 @@ void	print_start_position(t_lib1 *map_data)
 
 void	print_ray_properties(t_ray ray)
 {
-	ft_printf("Ray leaving from coordinates %i, %i\n", ray.map_x, ray.map_y);
-	ft_printf("with vector heading %f, %f", ray.ray_x, ray.ray_y);
-	ft_printf("...direction X: %i, Y: %i and axis: %i\n", ray.direction_x, ray.direction_y, ray.axis);
-	ft_printf("delta_x: %f,\tdelta_y: %f\n", ray.delta_x, ray.delta_y);
-	ft_printf("side_dist_x: %f\tside_dist_y: %f", ray.side_dist_x, ray.side_dist_y);
+	printf("Ray leaving from coordinates %i, %i\n", ray.map_x, ray.map_y);
+	printf("with vector heading %f, %f", ray.ray_x, ray.ray_y);
+	printf("...direction X: %i, Y: %i and axis: %i\n", ray.direction_x, ray.direction_y, ray.axis);
+	printf("delta_x: %f,\tdelta_y: %f\n", ray.delta_x, ray.delta_y);
+	printf("side_dist_x: %f\tside_dist_y: %f", ray.side_dist_x, ray.side_dist_y);
 }
 
 // FIXME I am not getting anything from this.
 void	print_player_info(t_player p)
 {
-	ft_printf("is this all blanks again? %f", p);
-	ft_printf("Player info.\nAngle: %f\nX: %f, Y: %f\n", p.pa, p.x,  p.y);
-	ft_printf("Ray length: %f\twall_x (meaning unknown): %f\n", p.ray, p.wall_x);
-	ft_printf("side: %i\tcamera x: %f, y: %f, game_speed: %f\n", p.side, p.x_camera, p.y_camera, p.game_speed);
+	printf("Player info.\nAngle: %f\nX: %f, Y: %f\n", p.pa, p.x,  p.y);
+	printf("Ray length: %f\twall_x (meaning unknown): %f\n", p.ray, p.wall_x);
+	printf("side: %i\tcamera x: %f, y: %f, game_speed: %f\n", p.side, p.x_camera, p.y_camera, p.game_speed);
 }
