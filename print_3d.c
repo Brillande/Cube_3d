@@ -81,15 +81,13 @@ void	solid_walls(t_lib1 *data, int screen_col, mlx_image_t *img)
 		start_point = 0;
 	if (end_point >= SCREENHEIGHT)
 		end_point = SCREENHEIGHT - 1;
-	i = 0;
-	while (i < SCREENHEIGHT)
-	{
-		while (i < start_point)
-			mlx_put_pixel(img, screen_col, i++, data->rgb_ceiling);	// FIXME Segfualt invalid write
-		while (i < end_point)
-			mlx_put_pixel(img, screen_col, i++, 0xE0CD9F);	// Randomly picked lime green shade
+	i = 1;
+	while (i <= start_point)
+		mlx_put_pixel(img, screen_col, i++, data->rgb_ceiling);	// FIXME Segfualt invalid write
+	while (i <= end_point)
+		mlx_put_pixel(img, screen_col, i++, 0xE0CD9F);	// Randomly picked lime green shade
+	while (i < SCREENHEIGHT - 1)
 		mlx_put_pixel(img, screen_col, i++, data->rgb_floor);
-	}
 }
 
 // FIXME The EAST and NORTH values here will need to be changed, post-enumeration
