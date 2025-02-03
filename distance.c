@@ -113,13 +113,14 @@ t_ray	setup_ray(t_lib1 *data, double rads)
 {
 	t_ray	new_ray;
 
-	ft_printf("Setting up a ray at %f rads\n", rads);
+	printf("Setting up a ray at %f rads\n", rads);
 	new_ray.ray_x = cos(rads);
 	new_ray.ray_y = sin(rads);
-	new_ray.map_x = data->map_x;
-	new_ray.map_y = data->map_y;
+	new_ray.map_x = data->player_coor_x;
+	new_ray.map_y = data->player_coor_y;
     new_ray.delta_x = fabs(1 / data->ray_x);
     new_ray.delta_y = fabs(1 / data->ray_y);
+	new_ray.axis = -1;	// HACK is this an OK initialisation value?
 	if (new_ray.ray_x < 0)
 	{
 		new_ray.direction_x = -1;

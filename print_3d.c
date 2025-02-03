@@ -72,7 +72,11 @@ void	solid_walls(t_lib1 *data, int screen_col, mlx_image_t *img)
 	int	end_point;
 	int	i;	// counter for painting the screen.
 
-	line_height = SCREENHEIGHT / data->player.ray;	// implicit conversion to int here
+	printf("ray value: %f\n", data->player.ray);
+	if (data->player.ray == 0)
+		line_height = SCREENHEIGHT;
+	else
+		line_height = SCREENHEIGHT / data->player.ray;	// implicit conversion to int here
 	midpoint = SCREENHEIGHT / 2;
 	start_point = (-line_height / 2) + midpoint;
 	end_point = (line_height / 2) + midpoint;
@@ -81,6 +85,7 @@ void	solid_walls(t_lib1 *data, int screen_col, mlx_image_t *img)
 		start_point = 0;
 	if (end_point >= SCREENHEIGHT)
 		end_point = SCREENHEIGHT - 1;
+	printf("Drawing a column (%i), start: %i, middle: %i, end: %i, height: %i\n", screen_col, start_point, midpoint, end_point, line_height);
 	i = 1;
 	while (i <= start_point)
 		mlx_put_pixel(img, screen_col, i++, data->rgb_ceiling);	// FIXME Segfualt invalid write

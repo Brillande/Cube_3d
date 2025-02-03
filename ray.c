@@ -154,7 +154,7 @@ void	draw_3d(t_lib1 *data)
 	while (view_col < SCREENWIDTH)
 	{
 		// Recorre un rango de ángulos para dibujar cada rayo
-		ft_printf("About to set up a ray using player angle: %f offset by: %f\n", data->player.pa, radian_offset);
+		printf("About to set up a ray using player angle: %f offset by: %f\n", data->player.pa, radian_offset);
 		test_ray = setup_ray(data, data->player.pa + radian_offset);
 		dda_for_one_ray(&test_ray, data->map_array);
 //		data->player.ray = len_find(data, data->player.pa + deg_offset); // FIXME The 2nd parameter never changes
