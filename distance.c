@@ -83,7 +83,6 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
-			// do this way NO WHAT DOES THAT MEAANNN?
 			ray->side_dist_x += ray->delta_x;
 			ray->map_x += ray->direction_x;
 			ray->axis = 0;
@@ -109,11 +108,12 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 // side_dist_x/y and delta_x/y needed once per ray
 // This needs the coords from the player and for the ray
 // TODO Set new_ray.axis - initialise somehow?
-// FIXME HAndle the duplicaet ray_x setup.
+// FIXME rads comes in as 0 for the first call.
 t_ray	setup_ray(t_lib1 *data, double rads)
 {
 	t_ray	new_ray;
 
+	ft_printf("Setting up a ray at %f rads\n", rads);
 	new_ray.ray_x = cos(rads);
 	new_ray.ray_y = sin(rads);
 	new_ray.map_x = data->map_x;
@@ -140,6 +140,7 @@ t_ray	setup_ray(t_lib1 *data, double rads)
 		new_ray.direction_y = 1;
 		new_ray.side_dist_y = (new_ray.map_y + 1.0 - data->player.y) * data->delta_y;
 	}
+	print_ray_properties(new_ray);
 	return (new_ray);
 }
 

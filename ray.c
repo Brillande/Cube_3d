@@ -125,6 +125,8 @@ double len_find(t_lib1 *data, double angle)
 // ...what does 0.3 represent in degrees?
 // a - the pixel coordinate (x) where the ray will be drawn (in walls)
 // FIXME There is a mix of DEGREES and RADIANS in use here, it is confusing
+// FIXME player.pa and radians_offset are both 0 when we call a ray...
+// ...which is then not set up correctly.
 void	draw_3d(t_lib1 *data)
 {
 	int		view_col;
@@ -145,12 +147,14 @@ void	draw_3d(t_lib1 *data)
 //	printf("Debugging len_find loop. radian_offset: %f\tdegree offset: %f\tview_step: %f\n", radian_offset, deg_offset, view_step);
 	printf("Debugging len_find loop. map_x: %i\tmap_y: %i\n", data->map_x, data->map_y);
 	printf("Debugging len_find loop. player.x: %f\tplayer.y: %f\n", data->player.x, data->player.y);
+	print_player_info(data->player);	// HACK for debugging
 //	while (angle_offset < 0.3)
 	// Get a new image to draw on -- this could use make_background() ?
 	new_img = mlx_new_image(data->mlx, SCREENWIDTH, SCREENHEIGHT);
 	while (view_col < SCREENWIDTH)
 	{
 		// Recorre un rango de ángulos para dibujar cada rayo
+		ft_printf("About to set up a ray using player angle: %f offset by: %f\n", data->player.pa, radian_offset);
 		test_ray = setup_ray(data, data->player.pa + radian_offset);
 		dda_for_one_ray(&test_ray, data->map_array);
 //		data->player.ray = len_find(data, data->player.pa + deg_offset); // FIXME The 2nd parameter never changes

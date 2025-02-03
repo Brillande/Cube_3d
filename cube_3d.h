@@ -151,7 +151,6 @@ void		key_d(t_lib1 *data);
 void		key_a(t_lib1 *data);
 void		key_s(t_lib1 *data);
 void		key_w(t_lib1 *data);
-void		draw_3d(t_lib1 *data);
 void		key_hook(mlx_key_data_t keydata, void *info);
 int		exit_game(t_lib1 *map_data);
 void		draw_3d(t_lib1 *data);
@@ -171,6 +170,8 @@ void	solid_walls(t_lib1 *data, int screen_col, mlx_image_t *img);
 void	print_read_from_file(t_lib1 map_data);
 void	print_map_array(t_lib1 *map_data);
 void	print_start_position(t_lib1 *map_data);
+void	print_ray_properties(t_ray ray);
+void	print_player_info(t_player p);
 
 // Parsing the files
 void		read_map_from_fd(t_lib1 *map_data, int fd);
