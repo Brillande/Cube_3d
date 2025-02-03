@@ -78,14 +78,29 @@ int	basic_wall_test(t_lib1 *map_data)
 	return (1);
 }
 
-// this should not be needed, but it copies the read player start poisiotn
+// this should not be needed, but it copies the read player start position
 // to the player thing that is read later.
-// HACK replace this with a sensible data structure!
-void	copy_start_position(t_lib1 *map_data)
+// FIXME Nothing seems to get set here??
+void	setup_player(t_lib1 *map_data)
 {
-	map_data->player.x = map_data->player_coor_x + 0.5;
-	map_data->player.y = map_data->player_coor_y + 0.5;
-	map_data->player.pa = (double) map_data->player_faces;
+	ft_printf("Setting up player start values\nX: %i, Y: %i\n", map_data->player_coor_x, map_data->player_coor_y);
+	map_data->player.x = (double) (map_data->player_coor_x) + 0.5;
+	map_data->player.y = (double) (map_data->player_coor_y + 0.5);
+	// FIXME Whatever this *should* be, this is not it.
+	map_data->player.pa = degrees_to_radians(map_data->player_faces);
+	// Safe(?) initialisation values
+	map_data->player.ray = 0.0;
+	map_data->player.side = 0;
+	// TODO get good start values for camera plane
+	map_data->player.x_camera = 0;
+	map_data->player.y_camera = 0;
+	// HACK I have no idea what these should be set at.
+	map_data->player.game_speed = 1;
+	map_data->player.wall_x = 0;
+	print_player_info(map_data->player);
+	ft_printf("Player info.\nAngle: %f\nX: %f, Y: %f\n", map_data->player.pa, map_data->player.x,  map_data->player.y);
+	ft_printf("Ray length: %f\twall_x (meaning unknown): %f\n", map_data->player.ray, map_data->player.wall_x);
+	ft_printf("side: %i\tcamera x: %f, y: %f, game_speed: %f\n", map_data->player.side, map_data->player.x_camera, map_data->player.y_camera, map_data->player.game_speed);
 }
 
 // TODO Implement tests for the non-map elements: present and valid
@@ -114,7 +129,7 @@ void	map_is_playable(t_lib1 *map_data)
 	get_start_position(map_data);
 	if (map_data->player_faces == -1)
 		clear_data(map_data);
-	copy_start_position(map_data);	// HACK This makes sure that we start from init'd values.
+	setup_player(map_data);	// HACK This makes sure that we start from init'd values.
 //	print_map_array(map_data);
 	print_start_position(map_data);
 }

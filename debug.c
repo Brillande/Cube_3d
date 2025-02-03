@@ -61,8 +61,10 @@ void	print_ray_properties(t_ray ray)
 	ft_printf("side_dist_x: %f\tside_dist_y: %f", ray.side_dist_x, ray.side_dist_y);
 }
 
+// FIXME I am not getting anything from this.
 void	print_player_info(t_player p)
 {
+	ft_printf("is this all blanks again? %f", p);
 	ft_printf("Player info.\nAngle: %f\nX: %f, Y: %f\n", p.pa, p.x,  p.y);
 	ft_printf("Ray length: %f\twall_x (meaning unknown): %f\n", p.ray, p.wall_x);
 	ft_printf("side: %i\tcamera x: %f, y: %f, game_speed: %f\n", p.side, p.x_camera, p.y_camera, p.game_speed);

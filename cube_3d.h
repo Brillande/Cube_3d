@@ -49,8 +49,8 @@ typedef struct s_vec
 typedef struct s_player
 {
     double pa; // Ángulo de orientación del jugador IN DEGREES
-    double x; // VECTOR Coordenada x del jugador
-    double y; // VECTOR Coordenada y del jugador
+    double x; // CARTESIAN Coordenada x del jugador
+    double y; // CARTESIAN Coordenada y del jugador
     double ray; // Longitud del rayo Length of ray from (player or camera plane) to wall.
     double wall_x; // Coordenada x de la pared	NOTE porque no hay wall_y?? Scanning?
     int side; // Lado del impacto	NOTE Should this then be e_direction?
@@ -184,6 +184,7 @@ int		check_each_square(t_lib1 *map_data);
 int		only_one_player(char *map);
 void		get_start_position(t_lib1 *map_data);
 void		load_wall_textures(t_lib1 *map_data);
+void		setup_player(t_lib1 *map_data);
 
 // file_helpers.c
 char		*find_next_line(int fd);
