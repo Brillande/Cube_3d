@@ -107,8 +107,9 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 // ray_x and ray_y vary a little for each as we scan across
 // side_dist_x/y and delta_x/y needed once per ray
 // This needs the coords from the player and for the ray
-// TODO Set new_ray.axis - initialise somehow?
+// DONE Set new_ray.axis - initialise somehow?
 // FIXME rads comes in as 0 for the first call.
+// FIXED delta_x/y come in as "inf", clearly wrong. compare to _
 t_ray	setup_ray(t_lib1 *data, double rads)
 {
 	t_ray	new_ray;
@@ -118,9 +119,10 @@ t_ray	setup_ray(t_lib1 *data, double rads)
 	new_ray.ray_y = sin(rads);
 	new_ray.map_x = data->player_coor_x;
 	new_ray.map_y = data->player_coor_y;
-    new_ray.delta_x = fabs(1 / data->ray_x);
-    new_ray.delta_y = fabs(1 / data->ray_y);
+    new_ray.delta_x = fabs(1 / new_ray.ray_x);
+    new_ray.delta_y = fabs(1 / new_ray.ray_y);
 	new_ray.axis = -1;	// HACK is this an OK initialisation value?
+	new_ray.length = 0.0;
 	if (new_ray.ray_x < 0)
 	{
 		new_ray.direction_x = -1;
