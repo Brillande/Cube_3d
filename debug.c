@@ -61,7 +61,6 @@ void	print_ray_properties(t_ray ray)
 	printf("side_dist_x: %f\tside_dist_y: %f", ray.side_dist_x, ray.side_dist_y);
 }
 
-// FIXME I am not getting anything from this.
 void	print_player_info(t_player p)
 {
 	printf("Player info.\nAngle: %f\nX: %f, Y: %f\n", p.pa, p.x,  p.y);

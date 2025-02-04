@@ -158,7 +158,9 @@ void	draw_3d(t_lib1 *data)
 		test_ray = setup_ray(data, data->player.pa + radian_offset);
 		dda_for_one_ray(&test_ray, data->map_array);
 //		data->player.ray = len_find(data, data->player.pa + deg_offset); // FIXME The 2nd parameter never changes
-		solid_walls(data, view_col, new_img);	// HACK Solid colour test function
+		test_ray.length = find_distance_ray(&test_ray);	// NOTE does not *have* to be a pointer
+//		data->player.ray = test_ray.length;
+		solid_walls(data, test_ray.length, view_col, new_img);	// HACK Solid colour test function
 //		walls(data, view_col);
 		// Incrementa el ángulo y el contador
 //		angle_offset += 0.0006;	// FIXME Remove magic number which was 0.6 / 1000

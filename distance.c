@@ -72,6 +72,26 @@ void dda_alg(t_lib1 *data)
     }
 }
 
+// NOTE Compared to find_distance, this does less.
+// ...no angle correction, no setting of wall_x.
+// This is because I do not know what wall_x is supposed to do.
+double	find_distance_ray(t_ray *ray)
+{
+	double	perp_dist;
+
+	if (ray->axis == 0)
+		perp_dist = ray->side_dist_x - ray->delta_x;
+	else if (ray->axis == 1)
+		perp_dist = ray->side_dist_y - ray->delta_y;
+	else
+	{
+		printf("Error finding perp_dist of ray: axis not right! %i\n", ray->axis);
+		exit(EXIT_FAILURE);
+	}
+	printf("Ray distance calculated as: %f\n", perp_dist);
+	return (perp_dist);
+}
+
 // Move a ray across gridlines (x and y) until it hits a wall (represented in map_array)
 // When it finishes, we have the distances travelled for the height calculation
 void	dda_for_one_ray(t_ray *ray, char **map_array)
