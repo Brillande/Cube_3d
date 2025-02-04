@@ -94,6 +94,9 @@ double	find_distance_ray(t_ray *ray)
 
 // Move a ray across gridlines (x and y) until it hits a wall (represented in map_array)
 // When it finishes, we have the distances travelled for the height calculation
+// FIXME We need to use these distances! solidwalls reads player.ray, where copy to?
+// ...refer to find_distance
+// FIXME delta_x/y tend to zero and they should be constants
 void	dda_for_one_ray(t_ray *ray, char **map_array)
 {
 	int	hit_wall;
@@ -105,7 +108,7 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 		{
 			ray->side_dist_x += ray->delta_x;
 			ray->map_x += ray->direction_x;
-			ray->axis = 0;
+			ray->axis = 0;	// mark impact type
 		}
 		else
 		{
@@ -117,6 +120,7 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
         if (ft_strncmp(&map_array[ray->map_x][ray->map_y], "1", 1) == 0)
 			hit_wall = 1;
 	}
+	print_ray_properties(*ray);	// HACK debug statement
 }
 
 // LIke get_step_and_side but returns a set-up ray to be used in DDA
@@ -130,6 +134,7 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 // DONE Set new_ray.axis - initialise somehow?
 // FIXME rads comes in as 0 for the first call.
 // FIXED delta_x/y come in as "inf", clearly wrong. compare to _
+// FIXME delta_x/y seem to change - across a screen loop they tend to 0?
 t_ray	setup_ray(t_lib1 *data, double rads)
 {
 	t_ray	new_ray;

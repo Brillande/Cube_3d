@@ -166,7 +166,7 @@ t_ray	setup_ray(t_lib1 *data, double rads);
 double	find_distance_ray(t_ray *ray);
 // Display things on the windows
 mlx_image_t	*make_background(t_lib1 *map_data);
-void	solid_walls(t_lib1 *data, int screen_col, mlx_image_t *img);
+void	solid_walls(t_lib1 *data, double distance, int screen_col, mlx_image_t *img);
 
 // Debugging files
 void	print_read_from_file(t_lib1 map_data);

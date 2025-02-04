@@ -64,7 +64,9 @@ void draw_ceiling_and_floor(t_lib1 *data, int i) {
 // TODO Confirm which direction we are drawing these lines - I think downwards?
 // - Calculate the pixel range that should be floor, ceiling and wall
 // - draw down the screen_column in that colour
-void	solid_walls(t_lib1 *data, int screen_col, mlx_image_t *img)
+// FIXME tring to draw with -ve line_height sometimes
+// FIXME get fisheye distortion sometimes -- lack angle correction?
+void	solid_walls(t_lib1 *data, double distance, int screen_col, mlx_image_t *img)
 {
 	int	line_height;	// integer because it corresponds to screen pixels
 	int	midpoint;	// the middle of the screen where floor / ceiling switch;
@@ -72,11 +74,11 @@ void	solid_walls(t_lib1 *data, int screen_col, mlx_image_t *img)
 	int	end_point;
 	int	i;	// counter for painting the screen.
 
-	printf("ray value: %f\n", data->player.ray);
-	if (data->player.ray == 0)
+	printf("ray value: %f\n", distance);
+	if (distance == 0)
 		line_height = SCREENHEIGHT;
 	else
-		line_height = SCREENHEIGHT / data->player.ray;	// implicit conversion to int here
+		line_height = SCREENHEIGHT / distance;	// implicit conversion to int here
 	midpoint = SCREENHEIGHT / 2;
 	start_point = (-line_height / 2) + midpoint;
 	end_point = (line_height / 2) + midpoint;
