@@ -75,11 +75,6 @@
 // NOTE Compared to find_distance, this does less.
 // ...no angle correction, no setting of wall_x.
 // This is because I do not know what wall_x is supposed to do.
-// FIXED Sometimes returns a negative value, which can't be right.
-// example:
-// side_dist_x: 0.525731 side_dist_y: 0.788597 perp_dist: -0.020420
-// ...this implies delta_y was bigger than side_dist_y, which again SHOULD NOT HAPPEN
-// (it was 0.809017)
 double	find_distance_ray(t_ray *ray)
 {
 	double	perp_dist;
@@ -99,7 +94,6 @@ double	find_distance_ray(t_ray *ray)
 
 // Move a ray across gridlines (x and y) until it hits a wall (represented in map_array)
 // When it finishes, we have the distances travelled for the height calculation
-// FIXED It is possible for delta_y to be greater than side_dist_y. Seems bad.
 void	dda_for_one_ray(t_ray *ray, char **map_array)
 {
 	int	hit_wall;
@@ -126,31 +120,32 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 	print_ray_properties(*ray);	// HACK debug statement
 }
 
-// LIke get_step_and_side but returns a set-up ray to be used in DDA
+// This needs the coords from the player and for the ray
+// camera_x: normalised x-coordinate in camera space
+// Returns a set-up ray to be used in DDA
 // Which in t_ray change and which remain the same?
 // map_x and map_y are the same for all rays (player start point)
 // axis, different per ray but only 2 options for any player orientation
 // direction_x/y are the same.
 // ray_x and ray_y vary a little for each as we scan across
 // side_dist_x/y and delta_x/y needed once per ray
-// This needs the coords from the player and for the ray
 // DONE Set new_ray.axis - initialise somehow?
-// FIXME rads comes in as 0 for the first call.
+// FIXED rads comes in as 0 for the first call.
 // FIXED delta_x/y come in as "inf", clearly wrong. compare to _
-// FIXME delta_x/y seem to change - across a screen loop they tend to 0?
-// FIXME Should not be reading e.g. delta_x from data, it changes for each ray.
+// FIXED delta_x/y seem to change - across a screen loop they tend to 0?
+// FIXED Should not be reading e.g. delta_x from data, it changes for each ray.
 t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
 {
 	t_ray	new_ray;
-//	double	camera_x;	// normalised x-coordinate in camera space
 
-	printf("Setting up a ray at %f rads\n", rads);
-	// Vectorise for the angle passed in (rads)
+	printf("Setting up a ray at %f rads\n", rads);	// HACK for debugging
+	// Convert given angle to a vector
 	new_ray.ray_x = cos(rads);
 	new_ray.ray_y = sin(rads);
-	// Correct (maybe!) for the camera plane
+	// Correction (maybe!) for the camera plane
 	new_ray.ray_x = new_ray.ray_x + (camera_x * data->player.x_camera);
 	new_ray.ray_y = new_ray.ray_y + (camera_x * data->player.y_camera);
+	// Set starting map box based on precise player position
 	new_ray.map_x = (int) data->player.x;
 	new_ray.map_y = (int) data->player.y;
     new_ray.delta_x = fabs(1 / new_ray.ray_x);
@@ -158,12 +153,11 @@ t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
 	new_ray.axis = -1;	// HACK is this an OK initialisation value?
 	new_ray.length = 0.0;
 	get_step_and_side(&new_ray, data->player);
-	print_ray_properties(new_ray);
+	print_ray_properties(new_ray);	// HACK for debugging
 	return (new_ray);
 }
 
-// What does this do? Where were delta_x and delta_y calculated?
-// calculates the initial steps and distances for the (DDA) algorithm,
+// Calculates the initial steps and distances for the (DDA) algorithm,
 // used to determine the intersection of a ray with a grid of pixels or cells.
 // Depending on the direction of ray_x and ray_y (set in WHERE?)
 // We modify step (i.e. direction)
@@ -179,34 +173,27 @@ t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
 // ...these values are then used in dda_alg()
 // calculates STEP (i.e. direction in each)
 // and SIDE DISTANCEs (i.e. distance to next crossing)
-// ray_x/y are a vector representation calculated in len_find from the angle passed into the loop
-// NOTE All the values in this could be in t_ray instead...
 // TODO Try and reverse y as the array goes x > and y down
-void	get_step_and_side(t_ray *data, t_player player)
+void	get_step_and_side(t_ray *ray, t_player player)
 {
-	if (data->ray_x < 0)
+	if (ray->ray_x < 0)
 	{
-		data->direction_x = -1;
-		data->side_dist_x = (player.x - data->map_x) * data->delta_x;
-		// HACK This is the initial position,. only to test a static image
-//		data->side_dist_x = (data->player_coor_x - data->map_x) * data->delta_x;
+		ray->direction_x = -1;
+		ray->side_dist_x = (player.x - ray->map_x) * ray->delta_x;
 	}
 	else
 	{
-		data->direction_x = 1;
-//		data->side_dist_x = (data->map_x + 1.0 - data->player_coor_x) * data->delta_x;
-		data->side_dist_x = (data->map_x + 1.0 - player.x) * data->delta_x;
+		ray->direction_x = 1;
+		ray->side_dist_x = (ray->map_x + 1.0 - player.x) * ray->delta_x;
 	}
-	if (data->ray_y < 0)
+	if (ray->ray_y < 0)
 	{
-		data->direction_y = -1;
-		//data->side_dist_y = (data->player_coor_y - data->map_y) * data->delta_y;
-		data->side_dist_y = (player.y - data->map_y) * data->delta_y;
+		ray->direction_y = -1;
+		ray->side_dist_y = (player.y - ray->map_y) * ray->delta_y;
 	}
 	else
 	{
-		data->direction_y = 1;
-//		data->side_dist_y = (data->map_y + 1.0 - data->player_coor_y) * data->delta_y;
-		data->side_dist_y = (data->map_y + 1.0 - player.y) * data->delta_y;
+		ray->direction_y = 1;
+		ray->side_dist_y = (ray->map_y + 1.0 - player.y) * ray->delta_y;
 	}
 }
