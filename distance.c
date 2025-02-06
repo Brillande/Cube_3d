@@ -94,9 +94,7 @@ double	find_distance_ray(t_ray *ray)
 
 // Move a ray across gridlines (x and y) until it hits a wall (represented in map_array)
 // When it finishes, we have the distances travelled for the height calculation
-// FIXME We need to use these distances! solidwalls reads player.ray, where copy to?
-// ...refer to find_distance
-// FIXME delta_x/y tend to zero and they should be constants
+// FIXED It is possible for delta_y to be greater than side_dist_y. Seems bad.
 void	dda_for_one_ray(t_ray *ray, char **map_array)
 {
 	int	hit_wall;
@@ -112,7 +110,7 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 		}
 		else
 		{
-			ray->side_dist_y += ray->delta_x;
+			ray->side_dist_y += ray->delta_y;
 			ray->map_y += ray->direction_y;
 			ray->axis = 1;
 		}
