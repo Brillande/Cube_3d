@@ -80,18 +80,18 @@ int	basic_wall_test(t_lib1 *map_data)
 
 // this should not be needed, but it copies the read player start position
 // to the player thing that is read later.
-// FIXME Nothing seems to get set here??
+// TODO Perhaps this should read from a t_map and return a t_player?
 void	setup_player(t_lib1 *map_data)
 {
-	ft_printf("Setting up player start values\nX: %i, Y: %i\n", map_data->player_coor_x, map_data->player_coor_y);
+	printf("Setting up player start values\nX: %i, Y: %i\n", map_data->player_coor_x, map_data->player_coor_y);
 	map_data->player.x = (double) (map_data->player_coor_x) + 0.5;
 	map_data->player.y = (double) (map_data->player_coor_y + 0.5);
-	// FIXME Whatever this *should* be, this is not it.
+	// Convert orientation (in degrees) to player angle in radians
 	map_data->player.pa = degrees_to_radians(map_data->player_faces);
 	// Safe(?) initialisation values
 	map_data->player.ray = 0.0;
 	map_data->player.side = 0;
-	// TODO get good start values for camera plane
+	// NOTE Should experiment with values for the camera vector, not clear how it works
 	map_data->player.x_camera = 0;
 	map_data->player.y_camera = 0.66;
 	// HACK I have no idea what these should be set at.
