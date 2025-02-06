@@ -78,6 +78,22 @@ int	basic_wall_test(t_lib1 *map_data)
 	return (1);
 }
 
+// Given the initial player angle, set values of a *perpendicualr* camera vector
+// ...of what size??
+// - first we convert the angle into a direction vector
+// - then we make a perpendicular vector:
+// "To get the 2D vector perpendicular to another 2D vector simply
+// swap the X and Y components, negating the new Y component.
+// So { x, y } becomes { y, -x }.""
+void	setup_camera_plane(double rads, t_player *player)
+{
+	t_vec	direction;
+
+	direction = radians_to_vector(rads);
+	player->x_camera = direction.y;
+	player->y_camera = -1 * direction.x;
+}
+
 // this should not be needed, but it copies the read player start position
 // to the player thing that is read later.
 // TODO Perhaps this should read from a t_map and return a t_player?
@@ -92,8 +108,9 @@ void	setup_player(t_lib1 *map_data)
 	map_data->player.ray = 0.0;
 	map_data->player.side = 0;
 	// NOTE Should experiment with values for the camera vector, not clear how it works
-	map_data->player.x_camera = 0;
-	map_data->player.y_camera = 0.66;
+	setup_camera_plane(map_data->player.pa, &map_data->player);
+	/* map_data->player.x_camera = 0; */
+	/* map_data->player.y_camera = 0.66; */
 	// HACK I have no idea what these should be set at.
 	map_data->player.game_speed = 1;
 	map_data->player.wall_x = 0;

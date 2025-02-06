@@ -180,6 +180,7 @@ int		only_one_player(char *map);
 void		get_start_position(t_lib1 *map_data);
 void		load_wall_textures(t_lib1 *map_data);
 void		setup_player(t_lib1 *map_data);
+void		setup_camera_plane(double rads, t_player *player);
 
 // file_helpers.c
 char		*find_next_line(int fd);
