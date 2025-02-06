@@ -40,80 +40,80 @@ enum e_direction	get_wall_face(double x)
 // What do we use PI for?
 // TODO Do the simple maths version of this.
 // TODO Is angle in DEGREES or RADIANS??
-double	find_distance(t_lib1 *data, double angle)
-{
-//	double	distance;
-	double	ca;
-	double	perp_dist;
+/* double	find_distance(t_lib1 *data, double angle) */
+/* { */
+/* //	double	distance; */
+/* 	double	ca; */
+/* 	double	perp_dist; */
 
-	 // Determina la distancia inicial basada en el lado del jugador
-	 // If this is North-South, we use X, else Y
-	 // NOTE Can use this simple version as we know side and delta are scaled to |ray_dir| or eq.
-	 // THEY ARE. HOW DO I KNOW THAT?
-	if (data->player.side == 0)
-		perp_dist = data->side_dist_x - data->delta_x;
-	else
-		perp_dist = data->side_dist_y - data->delta_y;
-	/* if (data->player.side == 0) */
-	/* 	perp_dist = (data->map_x - data->player_coor_x + (1 - data->direction_x / 2) / data->ray_x) ; */
-	/* else */
-	/* 	perp_dist = (data->map_y - data->player_coor_y + (1 - data->direction_y / 2) / data->ray_y) ; */
-	// Calcula el ángulo corregido
-	ca = data->player.pa - angle;
-	if (ca < 0)
-		ca += 2 * M_PI;
-	else if (ca > 2 * M_PI)
-		ca -= 2 * M_PI;
-	// Calcula la distancia perpendicular usando el coseno del ángulo corregido
-	/* perp_dist = distance * cos(ca); */
-	/* perp_dist = fabs(perp_dist); */
-	// Calcula la posición de la pared en el eje x
-	// TODO Split this to a separate function -- what does it *do*??
-	if (data->player.side == EAST || data->player.side == WEST)
-		data->player.wall_x = data->player.y + data->ray_y * perp_dist;
-	else
-		data->player.wall_x = data->player.x + data->ray_x * perp_dist;
-	// Ajusta la posición de la pared para que esté en el rango [0, 1]
-	data->player.wall_x -= floorf(data->player.wall_x);
-	return (perp_dist);
-}
+/* 	 // Determina la distancia inicial basada en el lado del jugador */
+/* 	 // If this is North-South, we use X, else Y */
+/* 	 // NOTE Can use this simple version as we know side and delta are scaled to |ray_dir| or eq. */
+/* 	 // THEY ARE. HOW DO I KNOW THAT? */
+/* 	if (data->player.side == 0) */
+/* 		perp_dist = data->side_dist_x - data->delta_x; */
+/* 	else */
+/* 		perp_dist = data->side_dist_y - data->delta_y; */
+/* 	/\* if (data->player.side == 0) *\/ */
+/* 	/\* 	perp_dist = (data->map_x - data->player_coor_x + (1 - data->direction_x / 2) / data->ray_x) ; *\/ */
+/* 	/\* else *\/ */
+/* 	/\* 	perp_dist = (data->map_y - data->player_coor_y + (1 - data->direction_y / 2) / data->ray_y) ; *\/ */
+/* 	// Calcula el ángulo corregido */
+/* 	ca = data->player.pa - angle; */
+/* 	if (ca < 0) */
+/* 		ca += 2 * M_PI; */
+/* 	else if (ca > 2 * M_PI) */
+/* 		ca -= 2 * M_PI; */
+/* 	// Calcula la distancia perpendicular usando el coseno del ángulo corregido */
+/* 	/\* perp_dist = distance * cos(ca); *\/ */
+/* 	/\* perp_dist = fabs(perp_dist); *\/ */
+/* 	// Calcula la posición de la pared en el eje x */
+/* 	// TODO Split this to a separate function -- what does it *do*?? */
+/* 	if (data->player.side == EAST || data->player.side == WEST) */
+/* 		data->player.wall_x = data->player.y + data->ray_y * perp_dist; */
+/* 	else */
+/* 		data->player.wall_x = data->player.x + data->ray_x * perp_dist; */
+/* 	// Ajusta la posición de la pared para que esté en el rango [0, 1] */
+/* 	data->player.wall_x -= floorf(data->player.wall_x); */
+/* 	return (perp_dist); */
+/* } */
 
 // Calculate the length of a ray (for one screen column) before it strikes a wall
 // TODO Make sure that ray_x/y are set correctly. Where?
 // - what is it representing?
 // - what format is it mean to be in? For the delta thing it *must* be radians!
 // Get a vector representation of the ray at angle (deg to radian, radian to x and y)
-double len_find(t_lib1 *data, double angle)
-{
-	double	rads;
+/* double len_find(t_lib1 *data, double angle) */
+/* { */
+/* 	double	rads; */
 
-    // Inicializa las coordenadas del rayo
-    // HACK Protect against accidental division by zero. Would this even work?
-	printf("In len_find. angle passed in: %f\n", angle);
-    /* if (data->ray_x == 0) */
-	/* 	data->ray_x = 1e30; */
-    /* if (data->ray_y == 0) */
-	/* 	data->ray_y = 1e30; */
-    // NOTE angle must be in RADIANS for this. Is it?
-    rads = degrees_to_radians(angle);
-	// NOTE These two lines convert the ray representation from radians to vector
-    data->ray_x = cos(rads);
-    data->ray_y = sin(rads);
-    data->delta_x = fabs(1 / data->ray_x);
-    data->delta_y = fabs(1 / data->ray_y);
-    data->hit = 0;
-	data->map_y = (int)data->player.y;
-	data->map_x = (int)data->player.x;
+/*     // Inicializa las coordenadas del rayo */
+/*     // HACK Protect against accidental division by zero. Would this even work? */
+/* 	printf("In len_find. angle passed in: %f\n", angle); */
+/*     /\* if (data->ray_x == 0) *\/ */
+/* 	/\* 	data->ray_x = 1e30; *\/ */
+/*     /\* if (data->ray_y == 0) *\/ */
+/* 	/\* 	data->ray_y = 1e30; *\/ */
+/*     // NOTE angle must be in RADIANS for this. Is it? */
+/*     rads = degrees_to_radians(angle); */
+/* 	// NOTE These two lines convert the ray representation from radians to vector */
+/*     data->ray_x = cos(rads); */
+/*     data->ray_y = sin(rads); */
+/*     data->delta_x = fabs(1 / data->ray_x); */
+/*     data->delta_y = fabs(1 / data->ray_y); */
+/*     data->hit = 0; */
+/* 	data->map_y = (int)data->player.y; */
+/* 	data->map_x = (int)data->player.x; */
 
-    // Encuentra el rayo y ejecuta el algoritmo DDA
-    get_step_and_side(data);	// NOTE Only a ray needed here
-    dda_alg(data);				// NOTE Ray and map needed there.
+/*     // Encuentra el rayo y ejecuta el algoritmo DDA */
+/*     get_step_and_side(data, data->player);	// NOTE Only a ray needed here */
+/*     dda_alg(data);				// NOTE Ray and map needed there. */
 
-    // Calcula y retorna la distancia perpendicular
-    // NOTE Does find_distance work with radians, vectors, or degrees??
-    return find_distance(data, rads);
-//    return find_distance(data, angle);
-}
+/*     // Calcula y retorna la distancia perpendicular */
+/*     // NOTE Does find_distance work with radians, vectors, or degrees?? */
+/*     return find_distance(data, rads); */
+/* //    return find_distance(data, angle); */
+/* } */
 
 // Dibuja la vista 3D del entorno
 // Loop over each ray to be calculated for the view window
@@ -147,7 +147,7 @@ void	draw_3d(t_lib1 *data)
 //	view_step = ((fabs(radian_offset) * 2) / SCREENWIDTH);
 	// HACK below for debugging, tidy later.
 //	printf("Debugging len_find loop. radian_offset: %f\tdegree offset: %f\tview_step: %f\n", radian_offset, deg_offset, view_step);
-	printf("Debugging len_find loop. map_x: %i\tmap_y: %i\n", data->map_x, data->map_y);
+//	printf("Debugging len_find loop. map_x: %i\tmap_y: %i\n", data->map_x, data->map_y);
 	printf("Debugging len_find loop. player.x: %f\tplayer.y: %f\n", data->player.x, data->player.y);
 	print_player_info(data->player);	// HACK for debugging
 //	while (angle_offset < 0.3)

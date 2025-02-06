@@ -18,59 +18,59 @@
 // - Check if the map square is a wall
 // FIXME The x and ys are backwards somewhere...
 // NOTE That x increases going right BUT y *decreases* going up - is this assumption different?
-void dda_alg(t_lib1 *data)
-{
-	while (data->hit == 0)
-	{
-		ft_printf("side_dist_x: %f, side_dist_y: %f\n", data->side_dist_x, data->side_dist_y);
-		// Avanzar en la dirección X o Y
-		if (data->side_dist_x < data->side_dist_y)
-		{
-			data->side_dist_x += data->delta_x;
-			data->map_x += data->direction_x;	// TODO Check that direction_x/y are correctly set!
-			data->player.side = 0;
-			ft_printf("DDA for x. side_dist_x now: %f, applied delta: %f\t", data->side_dist_x, data->delta_x);
-			ft_printf("coords to test X:%i\tY: %i\n", data->map_x, data->map_y);
-			// Determinar el lado del impacto
-			/* if (data->direction_x > 0) { */
-			/*     data->player.side = EAST; // was 2 */
-			/* } else { */
-			/*     data->player.side = WEST; // was 3 */
-			/* } */
-		}
-		else
-		{
-            data->side_dist_y += data->delta_y;
-            data->map_y += data->direction_y;
-            // Determinar el lado del impacto
-			data->player.side = 1;
-			ft_printf("DDA for y. side_dist_y now: %f, applied delta: %f\t", data->side_dist_y, data->delta_y);
-			ft_printf("coords to test X:%i\tY: %i\n", data->map_x, data->map_y);
-            /* if (data->step_y > 0) { */
-            /*     data->player.side = NORTH; // was 0 */
-            /* } else { */
-            /*     data->player.side = SOUTH; // was 1 */
-            /* } */
-        }
+/* void dda_alg(t_lib1 *data) */
+/* { */
+/* 	while (data->hit == 0) */
+/* 	{ */
+/* 		ft_printf("side_dist_x: %f, side_dist_y: %f\n", data->side_dist_x, data->side_dist_y); */
+/* 		// Avanzar en la dirección X o Y */
+/* 		if (data->side_dist_x < data->side_dist_y) */
+/* 		{ */
+/* 			data->side_dist_x += data->delta_x; */
+/* 			data->map_x += data->direction_x;	// TODO Check that direction_x/y are correctly set! */
+/* 			data->player.side = 0; */
+/* 			ft_printf("DDA for x. side_dist_x now: %f, applied delta: %f\t", data->side_dist_x, data->delta_x); */
+/* 			ft_printf("coords to test X:%i\tY: %i\n", data->map_x, data->map_y); */
+/* 			// Determinar el lado del impacto */
+/* 			/\* if (data->direction_x > 0) { *\/ */
+/* 			/\*     data->player.side = EAST; // was 2 *\/ */
+/* 			/\* } else { *\/ */
+/* 			/\*     data->player.side = WEST; // was 3 *\/ */
+/* 			/\* } *\/ */
+/* 		} */
+/* 		else */
+/* 		{ */
+/*             data->side_dist_y += data->delta_y; */
+/*             data->map_y += data->direction_y; */
+/*             // Determinar el lado del impacto */
+/* 			data->player.side = 1; */
+/* 			ft_printf("DDA for y. side_dist_y now: %f, applied delta: %f\t", data->side_dist_y, data->delta_y); */
+/* 			ft_printf("coords to test X:%i\tY: %i\n", data->map_x, data->map_y); */
+/*             /\* if (data->step_y > 0) { *\/ */
+/*             /\*     data->player.side = NORTH; // was 0 *\/ */
+/*             /\* } else { *\/ */
+/*             /\*     data->player.side = SOUTH; // was 1 *\/ */
+/*             /\* } *\/ */
+/*         } */
 
-        // Verificar límites del mapa
-        if (data->map_x < 0 || data->map_y < 0 )
-		{
-            fprintf(stderr, "Error: Out of map bounds: x %i y %i\n", data->map_x, data->map_y);
-			exit(EXIT_FAILURE);
-        }
+/*         // Verificar límites del mapa */
+/*         if (data->map_x < 0 || data->map_y < 0 ) */
+/* 		{ */
+/*             fprintf(stderr, "Error: Out of map bounds: x %i y %i\n", data->map_x, data->map_y); */
+/* 			exit(EXIT_FAILURE); */
+/*         } */
 
-        // Verificar colisión con una pared
-        // FIXED The collision is not detected!
-		ft_printf("Testing map square X: %i\tY: %i\tvalue is: %c\n", data->map_x, data->map_y, data->map_array[data->map_x][data->map_y]);
-//        if (data->map_array[data->map_x][data->map_y] == '1')
-        if (ft_strncmp(&data->map_array[data->map_x][data->map_y], "1", 1) == 0)
-		{
-			ft_printf("Hit wall!\n");
-            data->hit = 1;
-        }
-    }
-}
+/*         // Verificar colisión con una pared */
+/*         // FIXED The collision is not detected! */
+/* 		ft_printf("Testing map square X: %i\tY: %i\tvalue is: %c\n", data->map_x, data->map_y, data->map_array[data->map_x][data->map_y]); */
+/* //        if (data->map_array[data->map_x][data->map_y] == '1') */
+/*         if (ft_strncmp(&data->map_array[data->map_x][data->map_y], "1", 1) == 0) */
+/* 		{ */
+/* 			ft_printf("Hit wall!\n"); */
+/*             data->hit = 1; */
+/*         } */
+/*     } */
+/* } */
 
 // NOTE Compared to find_distance, this does less.
 // ...no angle correction, no setting of wall_x.
@@ -138,6 +138,7 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 // FIXME rads comes in as 0 for the first call.
 // FIXED delta_x/y come in as "inf", clearly wrong. compare to _
 // FIXME delta_x/y seem to change - across a screen loop they tend to 0?
+// FIXME Should not be reading e.g. delta_x from data, it changes for each ray.
 t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
 {
 	t_ray	new_ray;
@@ -150,33 +151,13 @@ t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
 	// Correct (maybe!) for the camera plane
 	new_ray.ray_x = new_ray.ray_x + (camera_x * data->player.x_camera);
 	new_ray.ray_y = new_ray.ray_y + (camera_x * data->player.y_camera);
-	// FIXED This will be obsolete once a player moves
 	new_ray.map_x = (int) data->player.x;
 	new_ray.map_y = (int) data->player.y;
     new_ray.delta_x = fabs(1 / new_ray.ray_x);
     new_ray.delta_y = fabs(1 / new_ray.ray_y);
 	new_ray.axis = -1;	// HACK is this an OK initialisation value?
 	new_ray.length = 0.0;
-	if (new_ray.ray_x < 0)
-	{
-		new_ray.direction_x = -1;
-		new_ray.side_dist_x = (data->player.x - new_ray.map_x) * data->delta_x;
-	}
-	else
-	{
-		new_ray.direction_x = 1;
-		new_ray.side_dist_x = (new_ray.map_x + 1.0 - data->player.x) * data->delta_x;
-	}
-	if (new_ray.ray_y < 0)
-	{
-		new_ray.direction_y = -1;
-		new_ray.side_dist_y = (data->player.y - new_ray.map_y) * data->delta_y;
-	}
-	else
-	{
-		new_ray.direction_y = 1;
-		new_ray.side_dist_y = (new_ray.map_y + 1.0 - data->player.y) * data->delta_y;
-	}
+	get_step_and_side(&new_ray, data->player);
 	print_ray_properties(new_ray);
 	return (new_ray);
 }
@@ -201,12 +182,12 @@ t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
 // ray_x/y are a vector representation calculated in len_find from the angle passed into the loop
 // NOTE All the values in this could be in t_ray instead...
 // TODO Try and reverse y as the array goes x > and y down
-void	get_step_and_side(t_lib1 *data)
+void	get_step_and_side(t_ray *data, t_player player)
 {
 	if (data->ray_x < 0)
 	{
 		data->direction_x = -1;
-		data->side_dist_x = (data->player.x - data->map_x) * data->delta_x;
+		data->side_dist_x = (player.x - data->map_x) * data->delta_x;
 		// HACK This is the initial position,. only to test a static image
 //		data->side_dist_x = (data->player_coor_x - data->map_x) * data->delta_x;
 	}
@@ -214,18 +195,18 @@ void	get_step_and_side(t_lib1 *data)
 	{
 		data->direction_x = 1;
 //		data->side_dist_x = (data->map_x + 1.0 - data->player_coor_x) * data->delta_x;
-		data->side_dist_x = (data->map_x + 1.0 - data->player.x) * data->delta_x;
+		data->side_dist_x = (data->map_x + 1.0 - player.x) * data->delta_x;
 	}
 	if (data->ray_y < 0)
 	{
 		data->direction_y = -1;
 		//data->side_dist_y = (data->player_coor_y - data->map_y) * data->delta_y;
-		data->side_dist_y = (data->player.y - data->map_y) * data->delta_y;
+		data->side_dist_y = (player.y - data->map_y) * data->delta_y;
 	}
 	else
 	{
 		data->direction_y = 1;
 //		data->side_dist_y = (data->map_y + 1.0 - data->player_coor_y) * data->delta_y;
-		data->side_dist_y = (data->map_y + 1.0 - data->player.y) * data->delta_y;
+		data->side_dist_y = (data->map_y + 1.0 - player.y) * data->delta_y;
 	}
 }

@@ -96,16 +96,6 @@ typedef struct	s_ray
 typedef struct s_lib1 {
     t_player player;
     int		hit;	// Indicador de impacto de un rayo con el pared
-    double		side_dist_x; // Length of ray from current position to next x-side
-    double		side_dist_y; // Length of ray from current position to next y-side
-    double delta_x; // Delta x - length of ray from one x side to next x-side
-    double delta_y; // Delta y - length of ray from one x side to next x-side
-    int map_x; // Coordenada x del mapa POR EL RAY
-    int map_y; // Coordenada y del mapa POR EL RAY
-    int	direction_x; // +/- 1 for the x direction of a ray
-    int	direction_y; // +/- 1 for the y direction of a ray
-    double ray_x; // Coordenada x del rayo - I guess when it crosses some gridline?
-    double ray_y; // Coordenada y del rayo - beause the ray *angle* is a bearing.
     void *img; // Imagen
     int	rgb_ceiling; // Color del techo
     int	rgb_floor; // Color del suelo
@@ -160,7 +150,8 @@ void		walls(t_lib1 *data, int i);
 int		check_move(int x, int y, t_lib1 *data);
 double		len_find(t_lib1 *data, double angle);
 void		dda_alg(t_lib1 *data);
-void		get_step_and_side(t_lib1 *cal);	// formerly find_ray
+//void		get_step_and_side(t_lib1 *cal);	// formerly find_ray
+void	get_step_and_side(t_ray *data, t_player player);
 
 void	dda_for_one_ray(t_ray *ray, char **map_array);
 //t_ray	setup_ray(t_lib1 *data, double rads);
