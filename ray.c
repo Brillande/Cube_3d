@@ -127,6 +127,7 @@ double len_find(t_lib1 *data, double angle)
 // FIXME There is a mix of DEGREES and RADIANS in use here, it is confusing
 // FIXME player.pa and radians_offset are both 0 when we call a ray...
 // ...which is then not set up correctly.
+// FIXME This seems to draw "fisheye" style - correct angle or use camera plane
 void	draw_3d(t_lib1 *data)
 {
 	int		view_col;
@@ -173,4 +174,14 @@ void	draw_3d(t_lib1 *data)
 	data->img = new_img;
 //	mlx_image_to_window(data->mlx, new_img, 0, 0);	// HACK May have to replce the data->img pointer!
 	mlx_image_to_window(data->mlx, data->img, 0, 0);	// FIXME Invalid read here
+}
+
+// Return the x-coordinate on the camera plane for the ray in screen_col
+// Result is normalised to a range of -1 (left) to 1 (right edge)
+double	get_camera_x(int screen_col)
+{
+	double	camera_x;
+
+	camera_x = (2 * screen_col) / (double) SCREENWIDTH - 1;
+	return (camera_x);
 }

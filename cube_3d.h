@@ -26,7 +26,7 @@
 
 # define SCREENWIDTH 640
 # define SCREENHEIGHT 480
-# define FIELDOFVIEW 60
+# define FIELDOFVIEW 60	// TODO Consider removing this, or define as radians not degrees not properly used.
 
 // NOTE This is of use for texture arrays but *not* player.side!
 enum e_direction
@@ -51,6 +51,7 @@ typedef struct s_player
     double pa; // Ángulo de orientación del jugador IN DEGREES
     double x; // CARTESIAN Coordenada x del jugador
     double y; // CARTESIAN Coordenada y del jugador
+	// NOTE I think ray and wall_x are more accurately properties of a RAY not the player.
     double ray; // Longitud del rayo Length of ray from (player or camera plane) to wall.
     double wall_x; // Coordenada x de la pared	NOTE porque no hay wall_y?? Scanning?
     int side; // Lado del impacto	NOTE Should this then be e_direction?
@@ -202,6 +203,7 @@ double	view_angle_horizontal(double theta);
 double	degrees_to_radians(double bearing);
 t_vec	radians_to_vector(double angle);
 double	radians_to_degrees(double rads);
+double	get_camera_x(int screen_col);
 
 // exit routines
 void	clear_data(t_lib1 *map_data);
