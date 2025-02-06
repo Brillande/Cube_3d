@@ -136,6 +136,7 @@ void	draw_3d(t_lib1 *data)
 	double	view_step;
 	mlx_image_t	*new_img;
 	t_ray	test_ray;
+	double	camera_x;
 
 	// Inicializa el ángulo de inicio y el contador
 	// NOTE This is a radian value sometimes applied to degrees later! Makes things very small.
@@ -155,8 +156,10 @@ void	draw_3d(t_lib1 *data)
 	while (view_col < SCREENWIDTH)
 	{
 		// Recorre un rango de ángulos para dibujar cada rayo
+		camera_x = get_camera_x((view_col));
 		printf("About to set up a ray using player angle: %f offset by: %f\n", data->player.pa, radian_offset);
-		test_ray = setup_ray(data, data->player.pa + radian_offset);
+//		test_ray = setup_ray(data, data->player.pa + radian_offset);
+		test_ray = setup_ray(data, data->player.pa + radian_offset, camera_x);
 		dda_for_one_ray(&test_ray, data->map_array);
 //		data->player.ray = len_find(data, data->player.pa + deg_offset); // FIXME The 2nd parameter never changes
 		test_ray.length = find_distance_ray(&test_ray);	// NOTE does not *have* to be a pointer

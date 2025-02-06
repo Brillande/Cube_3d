@@ -163,7 +163,8 @@ void		dda_alg(t_lib1 *data);
 void		get_step_and_side(t_lib1 *cal);	// formerly find_ray
 
 void	dda_for_one_ray(t_ray *ray, char **map_array);
-t_ray	setup_ray(t_lib1 *data, double rads);
+//t_ray	setup_ray(t_lib1 *data, double rads);
+t_ray	setup_ray(t_lib1 *data, double rads, double camera_x);
 double	find_distance_ray(t_ray *ray);
 // Display things on the windows
 mlx_image_t	*make_background(t_lib1 *map_data);

@@ -135,13 +135,19 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 // FIXME rads comes in as 0 for the first call.
 // FIXED delta_x/y come in as "inf", clearly wrong. compare to _
 // FIXME delta_x/y seem to change - across a screen loop they tend to 0?
-t_ray	setup_ray(t_lib1 *data, double rads)
+t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
 {
 	t_ray	new_ray;
+//	double	camera_x;	// normalised x-coordinate in camera space
 
 	printf("Setting up a ray at %f rads\n", rads);
+	// Vectorise for the angle passed in (rads)
 	new_ray.ray_x = cos(rads);
 	new_ray.ray_y = sin(rads);
+	// Correct (maybe!) for the camera plane
+	new_ray.ray_x = new_ray.ray_x + (camera_x * data->player.x_camera);
+	new_ray.ray_y = new_ray.ray_y + (camera_x * data->player.y_camera);
+	// FIXME This will be obsolete once a player moves
 	new_ray.map_x = data->player_coor_x;
 	new_ray.map_y = data->player_coor_y;
     new_ray.delta_x = fabs(1 / new_ray.ray_x);
