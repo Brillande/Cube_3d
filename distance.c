@@ -75,6 +75,11 @@ void dda_alg(t_lib1 *data)
 // NOTE Compared to find_distance, this does less.
 // ...no angle correction, no setting of wall_x.
 // This is because I do not know what wall_x is supposed to do.
+// FIXED Sometimes returns a negative value, which can't be right.
+// example:
+// side_dist_x: 0.525731 side_dist_y: 0.788597 perp_dist: -0.020420
+// ...this implies delta_y was bigger than side_dist_y, which again SHOULD NOT HAPPEN
+// (it was 0.809017)
 double	find_distance_ray(t_ray *ray)
 {
 	double	perp_dist;

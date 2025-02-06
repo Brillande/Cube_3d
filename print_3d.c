@@ -66,6 +66,8 @@ void draw_ceiling_and_floor(t_lib1 *data, int i) {
 // - draw down the screen_column in that colour
 // FIXME tring to draw with -ve line_height sometimes
 // FIXME get fisheye distortion sometimes -- lack angle correction?
+// FIXED It is possible to haave start_point far above the height
+// ...caused by receiving a -ve distance? Distance should always be +ve, no?
 void	solid_walls(t_lib1 *data, double distance, int screen_col, mlx_image_t *img)
 {
 	int	line_height;	// integer because it corresponds to screen pixels

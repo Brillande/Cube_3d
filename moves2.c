@@ -19,6 +19,8 @@ void	key_w(t_lib1 *data)
 
 // Función para verificar si el movimiento es válido
 // FIXME len_cols and len_rows are not populated - map is not a rectangle
+// (although we need a way to make sure the map_array check is in bounds)
+// TODO Confirm that this receives the correct player location to check against
 int check_move(int x, int y, t_lib1 *data) {
     // Verifica si las nuevas coordenadas están dentro de los límites del mapa
     if (data->len_cols > x && data->len_rows > y && x > 0 && y > 0) {
