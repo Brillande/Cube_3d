@@ -150,9 +150,9 @@ t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
 	// Correct (maybe!) for the camera plane
 	new_ray.ray_x = new_ray.ray_x + (camera_x * data->player.x_camera);
 	new_ray.ray_y = new_ray.ray_y + (camera_x * data->player.y_camera);
-	// FIXME This will be obsolete once a player moves
-	new_ray.map_x = data->player_coor_x;
-	new_ray.map_y = data->player_coor_y;
+	// FIXED This will be obsolete once a player moves
+	new_ray.map_x = (int) data->player.x;
+	new_ray.map_y = (int) data->player.y;
     new_ray.delta_x = fabs(1 / new_ray.ray_x);
     new_ray.delta_y = fabs(1 / new_ray.ray_y);
 	new_ray.axis = -1;	// HACK is this an OK initialisation value?
