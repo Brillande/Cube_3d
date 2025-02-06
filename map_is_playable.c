@@ -93,7 +93,7 @@ void	setup_player(t_lib1 *map_data)
 	map_data->player.side = 0;
 	// TODO get good start values for camera plane
 	map_data->player.x_camera = 0;
-	map_data->player.y_camera = 0;
+	map_data->player.y_camera = 0.66;
 	// HACK I have no idea what these should be set at.
 	map_data->player.game_speed = 1;
 	map_data->player.wall_x = 0;
