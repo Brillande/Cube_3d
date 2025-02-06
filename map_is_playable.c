@@ -109,7 +109,6 @@ void	setup_player(t_lib1 *map_data)
 // - Check that map_content only has allowed characters and a single player
 // - turn the raw content into map_array using ft_split
 // - check to make sure the map is surrounded
-// FIXME map7_complexshape_W.cub ends with nothing displayed. Other orientations are OK.
 void	map_is_playable(t_lib1 *map_data)
 {
 	if ((!only_legal_char(map_data->map_content))

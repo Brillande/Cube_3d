@@ -62,7 +62,7 @@ int	get_orientation(char c)
 		return (90);
 	if (c == 'S')
 		return (180);
-	if (c == 'N')
+	if (c == 'W')
 		return (270);
 	else
 		return (-1);
