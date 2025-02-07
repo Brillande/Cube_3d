@@ -13,12 +13,16 @@
 // Such non-standard orientations are rarely used in mathematics but
 // are common in 2D computer graphics, which often have the origin in the
 // top left corner and the y-axis down the screen or page"
+// TODO Confirm that the angle correction is correctly calculated and applied here.
 void	rotate_left(t_player *p)
 {
 	double	theta;	// the angle we will rotate by
 
 	theta = 0.05 * M_PI;	// HACK Just because it's the value in key_left
 	p->pa += theta;		// Change the player angle SEE NOTE ABOVE!
+	// Ajusta el ángulo si es mayor que 2 * PI
+	if (p->pa > 2 * M_PI)
+		p->pa -= 2 * M_PI;
 	rotate_vector(&p->x_camera, &p->y_camera, theta);
 }
 
@@ -28,6 +32,9 @@ void	rotate_right(t_player *p)
 
 	theta = -0.05 * M_PI;	// HACK Just because it's the value in key_right
 	p->pa += theta;		// Change the player angle
+	// Ajusta el ángulo si es menor que 0
+	if (p->pa < 0)
+		p->pa += 2 * M_PI;
 	rotate_vector(&p->x_camera, &p->y_camera, theta);
 }
 
