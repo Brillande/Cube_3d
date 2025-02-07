@@ -59,6 +59,7 @@ void	print_ray_properties(t_ray ray)
 	printf("...direction X: %i, Y: %i and axis: %i\n", ray.direction_x, ray.direction_y, ray.axis);
 	printf("delta_x: %f,\tdelta_y: %f\n", ray.delta_x, ray.delta_y);
 	printf("side_dist_x: %f\tside_dist_y: %f", ray.side_dist_x, ray.side_dist_y);
+	printf("\twall strike point: %f\n", ray.wall_strike);
 }
 
 void	print_player_info(t_player p)

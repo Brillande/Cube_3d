@@ -153,6 +153,7 @@ t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
 	new_ray.axis = -1;	// HACK is this an OK initialisation value?
 	new_ray.length = 0.0;
 	get_step_and_side(&new_ray, data->player);
+	new_ray.wall_strike = -1.0;
 	print_ray_properties(new_ray);	// HACK for debugging
 	return (new_ray);
 }
