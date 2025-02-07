@@ -163,12 +163,11 @@ void	draw_3d(t_lib1 *data)
 		dda_for_one_ray(&test_ray, data->map_array);
 //		data->player.ray = len_find(data, data->player.pa + deg_offset); // FIXME The 2nd parameter never changes
 		test_ray.length = find_distance_ray(&test_ray);	// NOTE does not *have* to be a pointer
+		test_ray.wall_strike = find_strike_point(&test_ray, data->player.x, data->player.y);
+//		printf("I said Strike point is: %f\n", test_ray.wall_strike);
 //		data->player.ray = test_ray.length;
 		solid_walls(data, test_ray.length, view_col, new_img);	// HACK Solid colour test function
 //		walls(data, view_col);
-		// Incrementa el ángulo y el contador
-//		angle_offset += 0.0006;	// FIXME Remove magic number which was 0.6 / 1000
-	//	radian_offset += view_step; // FIXME IS view_step in degrees or radians>?
 		view_col++;
 	}
 	// Muestra la imagen en la ventana
@@ -195,14 +194,20 @@ double	get_camera_x(int screen_col)
 //   if (side == 0) wallX = posY + perpWallDist * rayDirY;
 //      else           wallX = posX + perpWallDist * rayDirX;
 //      wallX -= floor((wallX));
-void	find_strike_point(t_ray *r, double x_origin, double y_origin)
+double	find_strike_point(t_ray *r, double x_origin, double y_origin)
 {
+	double	hit_me;
+
+	printf("Finding strike point with X: %f, Y: %f, length: %f\tdirection X: %f, Y: %f", x_origin,
+		   y_origin, r->length, r->ray_x, r->ray_y);
 	if (r->axis == 0)
-		r->wall_strike = y_origin + (r->ray_y * r->length);
+		hit_me = y_origin + (r->ray_y * r->length);
 	else if (r->axis == 1)
-		r->wall_strike = x_origin + (r->ray_x * r->length);
+		hit_me = x_origin + (r->ray_x * r->length);
 	else
 		printf("This should not happen! Trying to find strike point with an invalid axis!\n");
 	// Ajusta la posición de la pared para que esté en el rango [0, 1]
-	r->wall_strike -= floorf(r->wall_strike);
+	hit_me -= floorf(hit_me);
+	printf("\nStrike point is: %f\n", hit_me);
+	return (hit_me);
 }

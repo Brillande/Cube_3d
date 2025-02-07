@@ -165,7 +165,8 @@ double	find_distance_ray(t_ray *ray);
 // Display things on the windows
 mlx_image_t	*make_background(t_lib1 *map_data);
 void	solid_walls(t_lib1 *data, double distance, int screen_col, mlx_image_t *img);
-void	find_strike_point(t_ray *r, double x_origin, double y_origin);
+//void	find_strike_point(t_ray *r, double x_origin, double y_origin);
+double	find_strike_point(t_ray *r, double x_origin, double y_origin);
 
 // Debugging files
 void	print_read_from_file(t_lib1 map_data);
