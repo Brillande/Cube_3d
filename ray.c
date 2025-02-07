@@ -166,7 +166,7 @@ void	draw_3d(t_lib1 *data)
 		test_ray.wall_strike = find_strike_point(&test_ray, data->player.x, data->player.y);
 //		printf("I said Strike point is: %f\n", test_ray.wall_strike);
 //		data->player.ray = test_ray.length;
-		solid_walls(data, test_ray.length, view_col, new_img);	// HACK Solid colour test function
+//		solid_walls(data, test_ray.length, view_col, new_img);	// HACK Solid colour test function
 		// HACK hardcoded texture below!
 		textured_walls(data, view_col, new_img, test_ray.wall_strike, data->texture[NORTH], test_ray.length);
 //		walls(data, view_col);
