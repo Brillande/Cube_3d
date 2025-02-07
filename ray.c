@@ -127,7 +127,7 @@ enum e_direction	get_wall_face(double x)
 // FIXME There is a mix of DEGREES and RADIANS in use here, it is confusing
 // FIXME player.pa and radians_offset are both 0 when we call a ray...
 // ...which is then not set up correctly.
-// FIXME This seems to draw "fisheye" style - correct angle or use camera plane
+// TODO Identify texture to be used.
 void	draw_3d(t_lib1 *data)
 {
 	int		view_col;
@@ -167,6 +167,8 @@ void	draw_3d(t_lib1 *data)
 //		printf("I said Strike point is: %f\n", test_ray.wall_strike);
 //		data->player.ray = test_ray.length;
 		solid_walls(data, test_ray.length, view_col, new_img);	// HACK Solid colour test function
+		// HACK hardcoded texture below!
+		textured_walls(data, view_col, new_img, test_ray.wall_strike, data->texture[NORTH], test_ray.length);
 //		walls(data, view_col);
 		view_col++;
 	}

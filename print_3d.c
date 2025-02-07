@@ -64,10 +64,9 @@ void draw_ceiling_and_floor(t_lib1 *data, int i) {
 // TODO Confirm which direction we are drawing these lines - I think downwards?
 // - Calculate the pixel range that should be floor, ceiling and wall
 // - draw down the screen_column in that colour
-// FIXME tring to draw with -ve line_height sometimes
-// FIXME get fisheye distortion sometimes -- lack angle correction?
 // FIXED It is possible to haave start_point far above the height
 // ...caused by receiving a -ve distance? Distance should always be +ve, no?
+// FIXME Too slow! Is there a better way than directly pixel_put?
 void	solid_walls(t_lib1 *data, double distance, int screen_col, mlx_image_t *img)
 {
 	int	line_height;	// integer because it corresponds to screen pixels
@@ -97,6 +96,58 @@ void	solid_walls(t_lib1 *data, double distance, int screen_col, mlx_image_t *img
 		mlx_put_pixel(img, screen_col, i++, 0xE0CD9F);	// Randomly picked lime green shade
 	while (i < SCREENHEIGHT - 1)
 		mlx_put_pixel(img, screen_col, i++, data->rgb_floor);
+}
+
+// find the x-coord of the texture corresponding to wall_strike
+// define a step size for us to move up through the texture column
+// Drawing the floor and ceiling is the same as solid_walls() but...
+//
+// TODO SPlit this oh lord its a mess
+void	textured_walls(t_lib1 *data, int screen_col, mlx_image_t *img, double strike_pt, mlx_texture_t *tex, double distance)
+{
+	int	tex_x;
+	int	tex_y;
+	int	tex_step;
+	int	line_height;	// integer because it corresponds to screen pixels
+	int	midpoint;	// the middle of the screen where floor / ceiling switch;
+	int	start_point;
+	int	end_point;
+	int	i;	// counter for painting the screen.
+	double	tex_pos;
+	int	colour;
+
+	  if (distance == 0)
+		  line_height = SCREENHEIGHT;
+	  else
+		  line_height = SCREENHEIGHT / distance;	// implicit conversion to int here
+	  tex_x = (int)(strike_pt * (double) tex->width);
+	  tex_step = 1.0 * tex->height / line_height;
+	  midpoint = SCREENHEIGHT / 2;
+	  start_point = (-line_height / 2) + midpoint;
+	  end_point = (line_height / 2) + midpoint;
+	  // Correct for either of these going offscreen (i.e. we are too close to the wall to see its ends)
+	  if (start_point < 0)
+		  start_point = 0;
+	  if (end_point >= SCREENHEIGHT)
+		  end_point = SCREENHEIGHT - 1;
+	  tex_pos = start_point * tex_step;
+	  printf("Drawing a column (%i), start: %i, middle: %i, end: %i, height: %i\n", screen_col, start_point, midpoint, end_point, line_height);
+	  i = 1;
+	  while (i <= start_point)
+		mlx_put_pixel(img, screen_col, i++, data->rgb_ceiling);	// FIXME Segfualt invalid write
+	  // TODO This is the good bit!
+	  while (i <= end_point)
+	  {
+		  tex_y = (int)tex_pos & (tex->height - 1);	// The & is a weird trick to avoid overflow...
+		  tex_pos += tex_step;
+		  // FIXME How do I get the colour from this?
+//		  colour = &tex[(tex->height * tex_y) + tex_x];
+		  colour = get_rgba(tex, tex_x, tex_y);
+		mlx_put_pixel(img, screen_col, i, colour);	// FIXME Segfualt invalid write
+		i++;
+	  }
+	  while (i < SCREENHEIGHT - 1)
+		  mlx_put_pixel(img, screen_col, i++, data->rgb_floor);
 }
 
 // FIXME The EAST and NORTH values here will need to be changed, post-enumeration
