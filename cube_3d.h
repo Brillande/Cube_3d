@@ -201,6 +201,7 @@ double	degrees_to_radians(double bearing);
 t_vec	radians_to_vector(double angle);
 double	radians_to_degrees(double rads);
 double	get_camera_x(int screen_col);
+void	rotate_vector(double *x, double *y, double rads);
 
 // exit routines
 void	clear_data(t_lib1 *map_data);

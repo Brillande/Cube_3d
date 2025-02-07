@@ -116,3 +116,13 @@ t_vec	radians_to_vector(double angle)
 	v.y = sin(angle);
 	return(v);
 }
+
+// Transform vector coords x & y by rotating per angle
+void	rotate_vector(double *x, double *y, double rads)
+{
+	double	temp_x;
+
+	temp_x = *x;
+	*x = *x * cos(rads) - *y * sin(rads);
+	*y = temp_x * sin(rads) + *y * cos(rads);
+}

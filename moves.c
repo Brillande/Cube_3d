@@ -16,26 +16,19 @@
 void	rotate_left(t_player *p)
 {
 	double	theta;	// the angle we will rotate by
-	double	temp;	// store the pre-transformed x coord
 
 	theta = 0.05 * M_PI;	// HACK Just because it's the value in key_left
 	p->pa += theta;		// Change the player angle SEE NOTE ABOVE!
-//	setup_camera_plane(degrees_to_radians(p->pa), p);	// Can I just reuse this? Feels like cheating...
-	temp = p->x_camera;
-	p->x_camera = p->x_camera * cos(theta) - p->y_camera * sin(theta);
-	p->y_camera = temp * sin(theta) + p->y_camera * cos(theta);
+	rotate_vector(&p->x_camera, &p->y_camera, theta);
 }
+
 void	rotate_right(t_player *p)
 {
 	double	theta;	// the angle we will rotate by
-	double	temp;	// store the pre-transformed x coord
 
-	theta = 0.05 * M_PI;	// HACK Just because it's the value in key_right
-	p->pa -= theta;		// Change the player angle
-//	setup_camera_plane(degrees_to_radians(p->pa), p);	// Can I just reuse this? Feels like cheating...
-	temp = p->x_camera;
-	p->x_camera = p->x_camera * cos(theta) - p->y_camera * sin(theta);
-	p->y_camera = temp * sin(theta) + p->y_camera * cos(theta);
+	theta = -0.05 * M_PI;	// HACK Just because it's the value in key_right
+	p->pa += theta;		// Change the player angle
+	rotate_vector(&p->x_camera, &p->y_camera, theta);
 }
 
 // Función para mover la cámara hacia la izquierda
