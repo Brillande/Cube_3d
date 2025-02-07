@@ -86,6 +86,7 @@ typedef struct	s_ray
     double delta_y; // Delta y - length of ray from one x side to next x-side
 	int	axis;	// Either north-south or east-west. Determines calculation type.
 	double	length;	// the key result! How far has our ray travelled before striking a wall?
+	double	wall_strike;	// AKA wall_x, the point on the wall struck by the ray
 }	t_ray;
 
 // Definición de la estructura t_lib1
@@ -164,6 +165,7 @@ double	find_distance_ray(t_ray *ray);
 // Display things on the windows
 mlx_image_t	*make_background(t_lib1 *map_data);
 void	solid_walls(t_lib1 *data, double distance, int screen_col, mlx_image_t *img);
+void	find_strike_point(t_ray *r, double x_origin, double y_origin);
 
 // Debugging files
 void	print_read_from_file(t_lib1 map_data);

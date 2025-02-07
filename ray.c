@@ -188,3 +188,21 @@ double	get_camera_x(int screen_col)
 	camera_x = (2 * screen_col) / (double) SCREENWIDTH - 1;
 	return (camera_x);
 }
+
+// Find the point of the wall where the ray struck it.
+// NB The point is normalised to a 0-1 range
+// Formula based on this:
+//   if (side == 0) wallX = posY + perpWallDist * rayDirY;
+//      else           wallX = posX + perpWallDist * rayDirX;
+//      wallX -= floor((wallX));
+void	find_strike_point(t_ray *r, double x_origin, double y_origin)
+{
+	if (r->axis == 0)
+		r->wall_strike = y_origin + (r->ray_y * r->length);
+	else if (r->axis == 1)
+		r->wall_strike = x_origin + (r->ray_x * r->length);
+	else
+		printf("This should not happen! Trying to find strike point with an invalid axis!\n");
+	// Ajusta la posición de la pared para que esté en el rango [0, 1]
+	r->wall_strike -= floorf(r->wall_strike);
+}
