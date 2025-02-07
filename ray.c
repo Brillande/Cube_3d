@@ -168,7 +168,7 @@ void	draw_3d(t_lib1 *data)
 //		data->player.ray = test_ray.length;
 //		solid_walls(data, test_ray.length, view_col, new_img);	// HACK Solid colour test function
 		// HACK hardcoded texture below!
-		textured_walls(data, view_col, new_img, test_ray.wall_strike, data->texture[NORTH], test_ray.length);
+		textured_walls(data, view_col, new_img, test_ray.wall_strike, data->texture[test_ray.impact_side], test_ray.length);
 //		walls(data, view_col);
 		view_col++;
 	}

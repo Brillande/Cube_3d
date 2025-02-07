@@ -107,11 +107,13 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 		{
 			ray->side_dist_x += ray->delta_x;
 			ray->map_x += ray->direction_x;
+			ray->axis = 0;	// mark impact type
 		}
 		else
 		{
 			ray->side_dist_y += ray->delta_y;
 			ray->map_y += ray->direction_y;
+			ray->axis = 1;
 		}
 		// check for hit
         if (ft_strncmp(&map_array[ray->map_x][ray->map_y], "1", 1) == 0)
@@ -127,7 +129,6 @@ void	set_impact_side(t_ray *ray)
 {
 	if (ray->side_dist_x < ray->side_dist_y)
 	{
-		ray->axis = 0;	// mark impact type
 		if (ray->direction_x > 0)
 			ray->impact_side = EAST;
 		else
@@ -135,7 +136,6 @@ void	set_impact_side(t_ray *ray)
 	}
 	else
 	{
-		ray->axis = 1;
 		if (ray->direction_y > 0)
 			ray->impact_side = NORTH;
 		else
