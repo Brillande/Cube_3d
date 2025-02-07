@@ -36,13 +36,15 @@ int check_move(int x, int y, t_lib1 *data) {
 void move(t_lib1 *data) {
     // Verifica si se presionó la tecla correspondiente y llama a la función de movimiento adecuada
     if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-        key_left(data);
+		rotate_left(&data->player);
+//        key_left(data);
     if (mlx_is_key_down(data->mlx, MLX_KEY_A))
         key_a(data);
     if (mlx_is_key_down(data->mlx, MLX_KEY_D))
         key_d(data);
     if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-        key_right(data);
+		rotate_right(&data->player);
+//        key_right(data);
     if (mlx_is_key_down(data->mlx, MLX_KEY_S))
         key_s(data);
     if (mlx_is_key_down(data->mlx, MLX_KEY_W))

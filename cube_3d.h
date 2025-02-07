@@ -137,12 +137,16 @@ void		init_game(t_lib1 *map_data);
 void		open_window(t_lib1 *map_data);
 int		print_img(t_lib1 *map_data);
 void		move(t_lib1 *data);
-void		key_left(t_lib1 *data);
-void		key_right(t_lib1 *data);
+/* void		key_left(t_lib1 *data); */
+/* void		key_right(t_lib1 *data); */
 void		key_d(t_lib1 *data);
 void		key_a(t_lib1 *data);
 void		key_s(t_lib1 *data);
 void		key_w(t_lib1 *data);
+// moves
+void	rotate_left(t_player *p);
+void	rotate_right(t_player *p);
+
 void		key_hook(mlx_key_data_t keydata, void *info);
 int		exit_game(t_lib1 *map_data);
 void		draw_3d(t_lib1 *data);

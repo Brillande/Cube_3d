@@ -1,5 +1,43 @@
 #include "cube_3d.h"
 
+// Rotate the player's view and the camera plane
+// "To rotate a vector, multiply it with the rotation matrix
+// [ cos(a) -sin(a) ]
+// [ sin(a)  cos(a) ]"
+// player.pa is in *degrees* so needs converted wl fr
+// "The direction of vector rotation is
+// - anticlockwise if θ is positive (e.g. 90°),
+// - and clockwise if θ is negative "
+// but note.... "f a left-handed Cartesian coordinate system is used,
+// with x directed to the right but y directed down, R(θ) is clockwise.
+// Such non-standard orientations are rarely used in mathematics but
+// are common in 2D computer graphics, which often have the origin in the
+// top left corner and the y-axis down the screen or page"
+void	rotate_left(t_player *p)
+{
+	double	theta;	// the angle we will rotate by
+	double	temp;	// store the pre-transformed x coord
+
+	theta = 0.05 * M_PI;	// HACK Just because it's the value in key_left
+	p->pa += theta;		// Change the player angle SEE NOTE ABOVE!
+//	setup_camera_plane(degrees_to_radians(p->pa), p);	// Can I just reuse this? Feels like cheating...
+	temp = p->x_camera;
+	p->x_camera = p->x_camera * cos(theta) - p->y_camera * sin(theta);
+	p->y_camera = temp * sin(theta) + p->y_camera * cos(theta);
+}
+void	rotate_right(t_player *p)
+{
+	double	theta;	// the angle we will rotate by
+	double	temp;	// store the pre-transformed x coord
+
+	theta = 0.05 * M_PI;	// HACK Just because it's the value in key_right
+	p->pa -= theta;		// Change the player angle
+//	setup_camera_plane(degrees_to_radians(p->pa), p);	// Can I just reuse this? Feels like cheating...
+	temp = p->x_camera;
+	p->x_camera = p->x_camera * cos(theta) - p->y_camera * sin(theta);
+	p->y_camera = temp * sin(theta) + p->y_camera * cos(theta);
+}
+
 // Función para mover la cámara hacia la izquierda
 void	key_left(t_lib1 *data)
 {
