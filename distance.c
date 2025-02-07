@@ -94,6 +94,8 @@ double	find_distance_ray(t_ray *ray)
 
 // Move a ray across gridlines (x and y) until it hits a wall (represented in map_array)
 // When it finishes, we have the distances travelled for the height calculation
+// TODO Fix the axis / side problem: we need to know what side of a wall is hit.
+// TODO Seems we can set axis on the way *out* of the loop, not during.
 void	dda_for_one_ray(t_ray *ray, char **map_array)
 {
 	int	hit_wall;
@@ -105,19 +107,40 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 		{
 			ray->side_dist_x += ray->delta_x;
 			ray->map_x += ray->direction_x;
-			ray->axis = 0;	// mark impact type
 		}
 		else
 		{
 			ray->side_dist_y += ray->delta_y;
 			ray->map_y += ray->direction_y;
-			ray->axis = 1;
 		}
 		// check for hit
         if (ft_strncmp(&map_array[ray->map_x][ray->map_y], "1", 1) == 0)
 			hit_wall = 1;
 	}
+	set_impact_side(ray);
 	print_ray_properties(*ray);	// HACK debug statement
+}
+
+// TODO Explain clearly the logic in these choices
+//
+void	set_impact_side(t_ray *ray)
+{
+	if (ray->side_dist_x < ray->side_dist_y)
+	{
+		ray->axis = 0;	// mark impact type
+		if (ray->direction_x > 0)
+			ray->impact_side = EAST;
+		else
+			ray->impact_side = WEST;
+	}
+	else
+	{
+		ray->axis = 1;
+		if (ray->direction_y > 0)
+			ray->impact_side = NORTH;
+		else
+			ray->impact_side = SOUTH;
+	}
 }
 
 // This needs the coords from the player and for the ray

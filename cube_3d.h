@@ -72,6 +72,7 @@ typedef struct s_info {
 } t_info;
 
 // What do we *actually need* in these things? So much duplication!
+// TODO Reconcile axis with player.side and use them to select correct texture
 typedef struct	s_ray
 {
     double ray_x; // Coordenada x del rayo - must be a VECTOR
@@ -87,6 +88,7 @@ typedef struct	s_ray
 	int	axis;	// Either north-south or east-west. Determines calculation type.
 	double	length;	// the key result! How far has our ray travelled before striking a wall?
 	double	wall_strike;	// AKA wall_x, the point on the wall struck by the ray
+	enum e_direction	impact_side;	// What side of the wall did we strike?
 }	t_ray;
 
 // Definición de la estructura t_lib1
@@ -168,6 +170,7 @@ void	solid_walls(t_lib1 *data, double distance, int screen_col, mlx_image_t *img
 //void	find_strike_point(t_ray *r, double x_origin, double y_origin);
 double	find_strike_point(t_ray *r, double x_origin, double y_origin);
 void	textured_walls(t_lib1 *data, int screen_col, mlx_image_t *img, double strike_pt, mlx_texture_t *tex, double distance);
+void	set_impact_side(t_ray *ray);
 
 // Debugging files
 void	print_read_from_file(t_lib1 map_data);
