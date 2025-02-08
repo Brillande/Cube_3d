@@ -74,7 +74,7 @@
 
 // NOTE Compared to find_distance, this does less.
 // ...no angle correction, no setting of wall_x.
-// This is because I do not know what wall_x is supposed to do.
+// (wall_x aka wall_strike is set now in find_strike_point())
 double	find_distance_ray(t_ray *ray)
 {
 	double	perp_dist;
@@ -123,23 +123,46 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 	print_ray_properties(*ray);	// HACK debug statement
 }
 
-// TODO Explain clearly the logic in these choices
-//
+// direction_y = 1 means it *cannot* strike south
+// direction_x = 1 means it *cannot* strike east
+// direction_y = -1 means it *cannot* strike north
+// direction_x = -1 means it *cannot* strike west
+// axis determines N-S or E-W
 void	set_impact_side(t_ray *ray)
 {
-	if (ray->side_dist_x < ray->side_dist_y)
+	printf("Looking for impact side\n");
+	print_ray_properties(*ray);
+	if ((ray->direction_x == 1) && (ray->direction_y == 1))
 	{
-		if (ray->direction_x > 0)
-			ray->impact_side = EAST;
-		else
-			ray->impact_side = WEST;
-	}
-	else
-	{
-		if (ray->direction_y > 0)
+		if (ray->axis == 0)
 			ray->impact_side = NORTH;
 		else
+			ray->impact_side = WEST;
+		// North or west
+	}
+	if ((ray->direction_x == 1) && (ray->direction_y == -1))
+	{
+		if (ray->axis == 0)
 			ray->impact_side = SOUTH;
+		else
+			ray->impact_side = WEST;
+		// south or west
+	}
+	if ((ray->direction_x == -1) && (ray->direction_y == 1))
+	{
+		if (ray->axis == 0)
+			ray->impact_side = NORTH;
+		else
+			ray->impact_side = EAST;
+		// north or east
+	}
+	if ((ray->direction_x == -1) && (ray->direction_y == -1))
+	{
+		if (ray->axis == 0)
+			ray->impact_side = SOUTH;
+		else
+			ray->impact_side = EAST;
+		// south or east
 	}
 }
 

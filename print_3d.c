@@ -58,14 +58,9 @@ void draw_ceiling_and_floor(t_lib1 *data, int i) {
 }
 
 // Draw a wall column in a solid colour
-// - what does the orignal walls() do? It is a mess
 // This is called after we have a correct (ha) height for wall
-// TODO Confirm that the ray height is held in player.ray (another bad variable name)
-// TODO Confirm which direction we are drawing these lines - I think downwards?
 // - Calculate the pixel range that should be floor, ceiling and wall
 // - draw down the screen_column in that colour
-// FIXED It is possible to haave start_point far above the height
-// ...caused by receiving a -ve distance? Distance should always be +ve, no?
 // FIXME Too slow! Is there a better way than directly pixel_put?
 void	solid_walls(t_lib1 *data, double distance, int screen_col, mlx_image_t *img)
 {
@@ -102,7 +97,7 @@ void	solid_walls(t_lib1 *data, double distance, int screen_col, mlx_image_t *img
 // define a step size for us to move up through the texture column
 // Drawing the floor and ceiling is the same as solid_walls() but...
 //
-// TODO SPlit this oh lord its a mess
+// TODO Split this oh lord its a mess
 void	textured_walls(t_lib1 *data, int screen_col, mlx_image_t *img, double strike_pt, mlx_texture_t *tex, double distance)
 {
 	int	tex_x;

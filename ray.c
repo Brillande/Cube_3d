@@ -127,7 +127,7 @@ enum e_direction	get_wall_face(double x)
 // FIXME There is a mix of DEGREES and RADIANS in use here, it is confusing
 // FIXME player.pa and radians_offset are both 0 when we call a ray...
 // ...which is then not set up correctly.
-// TODO Identify texture to be used.
+// DONE Identify texture to be used. in set_impact_side()
 void	draw_3d(t_lib1 *data)
 {
 	int		view_col;
@@ -163,6 +163,7 @@ void	draw_3d(t_lib1 *data)
 		dda_for_one_ray(&test_ray, data->map_array);
 //		data->player.ray = len_find(data, data->player.pa + deg_offset); // FIXME The 2nd parameter never changes
 		test_ray.length = find_distance_ray(&test_ray);	// NOTE does not *have* to be a pointer
+		// TODO Are the player.x/y locations the correct ones for this? We only have texture in the middle of the screen....
 		test_ray.wall_strike = find_strike_point(&test_ray, data->player.x, data->player.y);
 //		printf("I said Strike point is: %f\n", test_ray.wall_strike);
 //		data->player.ray = test_ray.length;
@@ -200,7 +201,7 @@ double	find_strike_point(t_ray *r, double x_origin, double y_origin)
 {
 	double	hit_me;
 
-	printf("Finding strike point with X: %f, Y: %f, length: %f\tdirection X: %f, Y: %f", x_origin,
+	printf("Finding wall strike point with X: %f, Y: %f, length: %f\tdirection X: %f, Y: %f", x_origin,
 		   y_origin, r->length, r->ray_x, r->ray_y);
 	if (r->axis == 0)
 		hit_me = y_origin + (r->ray_y * r->length);
