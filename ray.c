@@ -211,6 +211,8 @@ double	find_strike_point(t_ray *r, double x_origin, double y_origin)
 		printf("This should not happen! Trying to find strike point with an invalid axis!\n");
 	// Ajusta la posición de la pared para que esté en el rango [0, 1]
 	hit_me -= floorf(hit_me);
+	if ((hit_me > 1) || (hit_me < 0))
+		printf("***** Strike point calculation is bad! ");
 	printf("\nStrike point is: %f\n", hit_me);
 	return (hit_me);
 }

@@ -93,9 +93,14 @@ double	find_distance_ray(t_ray *ray)
 }
 
 // Move a ray across gridlines (x and y) until it hits a wall (represented in map_array)
+// As we go we increment side_dist_x/y, measuring the distance travelled in each axis
 // When it finishes, we have the distances travelled for the height calculation
 // TODO Fix the axis / side problem: we need to know what side of a wall is hit.
-// TODO Seems we can set axis on the way *out* of the loop, not during.
+// NOTE Seemed possible to set axis on the way *out* of the loop, not during...
+// ....but that did not work?
+// - side_dist_x/y: ...?
+// - delta_x/y: .....?
+// - axis: Are we going N-S (0, more up than down) or E-W (1, more sideways)
 void	dda_for_one_ray(t_ray *ray, char **map_array)
 {
 	int	hit_wall;

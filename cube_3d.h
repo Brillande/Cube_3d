@@ -85,7 +85,7 @@ typedef struct	s_ray
     double		side_dist_y; // Length of ray from current position to next y-side
     double delta_x; // Delta x - length of ray from one x side to next x-side
     double delta_y; // Delta y - length of ray from one x side to next x-side
-	int	axis;	// Either north-south or east-west. Determines calculation type.
+	int	axis;	// Either north-south (0) or east-west (1). Determines calculation type and impact side
 	double	length;	// the key result! How far has our ray travelled before striking a wall?
 	double	wall_strike;	// AKA wall_x, the point on the wall struck by the ray
 	enum e_direction	impact_side;	// What side of the wall did we strike?
