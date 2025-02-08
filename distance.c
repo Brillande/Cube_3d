@@ -157,6 +157,8 @@ void	set_impact_side(t_ray *ray)
 // FIXED delta_x/y come in as "inf", clearly wrong. compare to _
 // FIXED delta_x/y seem to change - across a screen loop they tend to 0?
 // FIXED Should not be reading e.g. delta_x from data, it changes for each ray.
+// FIXED? If the player angle has no offset (i.e. dead in the middle), delta_x goes off to infinity
+// DONE Protect against ray_x/y values of 0 -- they wreck the 1 / ray calculation for delta x
 t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
 {
 	t_ray	new_ray;
@@ -171,13 +173,17 @@ t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
 	// Set starting map box based on precise player position
 	new_ray.map_x = (int) data->player.x;
 	new_ray.map_y = (int) data->player.y;
+	if (new_ray.ray_x == 0)
+		new_ray.ray_x = 0.0000000000000000000001;
+	if (new_ray.ray_y == 0)
+		new_ray.ray_y = 0.0000000000000000000001;
     new_ray.delta_x = fabs(1 / new_ray.ray_x);
     new_ray.delta_y = fabs(1 / new_ray.ray_y);
 	new_ray.axis = -1;	// HACK is this an OK initialisation value?
 	new_ray.length = 0.0;
 	get_step_and_side(&new_ray, data->player);
 	new_ray.wall_strike = -1.0;
-	print_ray_properties(new_ray);	// HACK for debugging
+//	print_ray_properties(new_ray);	// HACK for debugging
 	return (new_ray);
 }
 
