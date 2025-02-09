@@ -98,6 +98,9 @@ void	solid_walls(t_lib1 *data, double distance, int screen_col, mlx_image_t *img
 // Drawing the floor and ceiling is the same as solid_walls() but...
 //
 // TODO Split this oh lord its a mess
+// FIXME Current issues: directly ahead we lose the bottom (grey) and top (cut off) - skewed?
+// FIXME Mirror effect in map.cub simple case - when the ray crosses halfway, RHS is wrong (> player angle)
+// TODO Far too slow - build a column that we write directly?
 void	textured_walls(t_lib1 *data, int screen_col, mlx_image_t *img, double strike_pt, mlx_texture_t *tex, double distance)
 {
 	int	tex_x;
@@ -135,8 +138,9 @@ void	textured_walls(t_lib1 *data, int screen_col, mlx_image_t *img, double strik
 		//tex_y = (int)tex_pos & (tex->height - 1);	// The & is a weird trick to avoid overflow...
 		tex_y = (int)tex_pos; // HACK do we need that trick?
 		tex_pos += tex_step;
+//		colour = tex->pixels[tex_x + (tex_y * tex->height)];	 // NOTE this direct approach amkes all grey
 		colour = get_rgba(tex, tex_x, tex_y);
-		printf("tex_x: %i, tex_Y %i tex_pos: %f tex_step: %f\tcolour:%x\n", tex_x, tex_y, tex_pos, tex_step, colour);
+//		printf("tex_x: %i, tex_Y %i tex_pos: %f tex_step: %f\tcolour:%x\n", tex_x, tex_y, tex_pos, tex_step, colour);
 		mlx_put_pixel(img, screen_col, i, colour);
 		i++;
 	}

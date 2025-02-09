@@ -95,7 +95,7 @@ double	find_distance_ray(t_ray *ray)
 // Move a ray across gridlines (x and y) until it hits a wall (represented in map_array)
 // As we go we increment side_dist_x/y, measuring the distance travelled in each axis
 // When it finishes, we have the distances travelled for the height calculation
-// TODO Fix the axis / side problem: we need to know what side of a wall is hit.
+// DONE Fix the axis / side problem: we need to know what side of a wall is hit.
 // NOTE Seemed possible to set axis on the way *out* of the loop, not during...
 // ....but that did not work?
 // - side_dist_x/y: ...?
@@ -120,7 +120,7 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 			ray->map_y += ray->direction_y;
 			ray->axis = 1;
 		}
-		// check for hit
+		// TODO Could this check for hit be faster? strncmp seems a bit much
         if (ft_strncmp(&map_array[ray->map_x][ray->map_y], "1", 1) == 0)
 			hit_wall = 1;
 	}
