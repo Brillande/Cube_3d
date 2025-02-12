@@ -124,21 +124,26 @@ void	textured_walls(t_lib1 *data, int screen_col, mlx_image_t *img, double strik
 	start_point = (-line_height / 2) + midpoint;
 	end_point = (line_height / 2) + midpoint;
 	// Correct for either of these going offscreen (i.e. we are too close to the wall to see its ends)
+	// tema zoom cuando estamos cerca de la pared y manejar numeros negativo de techo y suelo falta por programar
 	if (start_point < 0)
 		start_point = 0;
 	if (end_point >= SCREENHEIGHT)
 		end_point = SCREENHEIGHT - 1;
 	tex_pos = start_point * tex_step;
-	printf("Drawing a column (%i), start: %i, middle: %i, end: %i, height: %i\n", screen_col, start_point, midpoint, end_point, line_height);
+	//printf("Drawing a column (%i), start: %i, middle: %i, end: %i, height: %i\n", screen_col, start_point, midpoint, end_point, line_height);
 	i = 1;
 	while (i <= start_point)
 		mlx_put_pixel(img, screen_col, i++, data->rgb_ceiling);
+	int temp = i - 1;
 	while (i <= end_point)
 	{
 		//tex_y = (int)tex_pos & (tex->height - 1);	// The & is a weird trick to avoid overflow...
-		tex_y = (int)tex_pos; // HACK do we need that trick?
-		tex_pos += tex_step;
+		tex_y = ((i - temp) * line_height * tex->height / line_height) / (end_point - temp);
+
+		tex_pos += tex_step;	// HACK this is a hack to avoid rounding errors
 //		colour = tex->pixels[tex_x + (tex_y * tex->height)];	 // NOTE this direct approach amkes all grey
+			// The & is a weird trick to avoid overflow...
+		//tex_y = (int)tex_pos & (tex->height - 1);	// The & is a weird trick to avoid overflow...
 		colour = get_rgba(tex, tex_x, tex_y);
 //		printf("tex_x: %i, tex_Y %i tex_pos: %f tex_step: %f\tcolour:%x\n", tex_x, tex_y, tex_pos, tex_step, colour);
 		mlx_put_pixel(img, screen_col, i, colour);

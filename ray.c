@@ -134,6 +134,7 @@ void	draw_3d(t_lib1 *data)
 //	double	radian_offset;
 //	double	deg_offset;
 //	double	view_step;
+	
 	mlx_image_t	*new_img;
 	t_ray	test_ray;
 	double	camera_x;
@@ -149,6 +150,7 @@ void	draw_3d(t_lib1 *data)
 //	printf("Debugging len_find loop. radian_offset: %f\tdegree offset: %f\tview_step: %f\n", radian_offset, deg_offset, view_step);
 //	printf("Debugging len_find loop. map_x: %i\tmap_y: %i\n", data->map_x, data->map_y);
 	printf("Debugging len_find loop. player.x: %f\tplayer.y: %f\n", data->player.x, data->player.y);
+	
 	print_player_info(data->player);	// HACK for debugging
 //	while (angle_offset < 0.3)
 	// Get a new image to draw on -- this could use make_background() ?
@@ -169,7 +171,9 @@ void	draw_3d(t_lib1 *data)
 //		data->player.ray = test_ray.length;
 //		solid_walls(data, test_ray.length, view_col, new_img);	// HACK Solid colour test function
 		// HACK hardcoded texture below!
-		textured_walls(data, view_col, new_img, test_ray.wall_strike, data->texture[test_ray.impact_side], test_ray.length);
+		// En la función draw_3d:
+		mlx_texture_t *selected_texture = data->texture[test_ray.impact_side];
+		textured_walls(data, view_col, new_img, test_ray.wall_strike, selected_texture, test_ray.length);
 //		walls(data, view_col);
 		view_col++;
 	}
@@ -203,14 +207,16 @@ double	find_strike_point(t_ray *r, double x_origin, double y_origin)
 
 	printf("Finding wall strike point with X: %f, Y: %f, length: %f\tdirection X: %f, Y: %f", x_origin,
 		   y_origin, r->length, r->ray_x, r->ray_y);
-	if (r->axis == 0)
-		hit_me = y_origin + (r->ray_y * r->length);
-	else if (r->axis == 1)
-		hit_me = x_origin + (r->ray_x * r->length);
-	else
-		printf("This should not happen! Trying to find strike point with an invalid axis!\n");
+	  if (r->axis == 0) { // Pared vertical
+        hit_me = y_origin + r->length * r->ray_y;
+    } else { // Pared horizontal
+        hit_me = x_origin + r->length * r->ray_x;
+    }
 	// Ajusta la posición de la pared para que esté en el rango [0, 1]
 	hit_me -= floorf(hit_me);
+	if ((r->impact_side == EAST || r->impact_side == SOUTH)) {
+        hit_me = 1 - hit_me;
+    }
 	if ((hit_me > 1) || (hit_me < 0))
 		printf("***** Strike point calculation is bad! ");
 	printf("\nStrike point is: %f\n", hit_me);

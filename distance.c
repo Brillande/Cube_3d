@@ -135,40 +135,17 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 // axis determines N-S or E-W
 void	set_impact_side(t_ray *ray)
 {
-	printf("Looking for impact side\n");
-	print_ray_properties(*ray);
-	if ((ray->direction_x == 1) && (ray->direction_y == 1))
-	{
-		if (ray->axis == 0)
-			ray->impact_side = NORTH;
-		else
-			ray->impact_side = WEST;
-		// North or west
-	}
-	if ((ray->direction_x == 1) && (ray->direction_y == -1))
-	{
-		if (ray->axis == 0)
-			ray->impact_side = SOUTH;
-		else
-			ray->impact_side = WEST;
-		// south or west
-	}
-	if ((ray->direction_x == -1) && (ray->direction_y == 1))
-	{
-		if (ray->axis == 0)
-			ray->impact_side = NORTH;
-		else
-			ray->impact_side = EAST;
-		// north or east
-	}
-	if ((ray->direction_x == -1) && (ray->direction_y == -1))
-	{
-		if (ray->axis == 0)
-			ray->impact_side = SOUTH;
-		else
-			ray->impact_side = EAST;
-		// south or east
-	}
+    if (ray->axis == 0) { // Impacto en el eje X (pared vertical)
+        if (ray->direction_x > 0)
+            ray->impact_side = WEST; // Golpea el lado oeste de la celda
+        else
+            ray->impact_side = EAST; // Golpea el lado este de la celda
+    } else { // Impacto en el eje Y (pared horizontal)
+        if (ray->direction_y > 0)
+            ray->impact_side = NORTH; // Golpea el lado norte de la celda
+        else
+            ray->impact_side = SOUTH; // Golpea el lado sur de la celda
+    }
 }
 
 // This needs the coords from the player and for the ray
@@ -198,6 +175,7 @@ t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
 	// Correction (maybe!) for the camera plane
 	new_ray.ray_x = new_ray.ray_x + (camera_x * data->player.x_camera);
 	new_ray.ray_y = new_ray.ray_y + (camera_x * data->player.y_camera);
+	
 	// Set starting map box based on precise player position
 	new_ray.map_x = (int) data->player.x;
 	new_ray.map_y = (int) data->player.y;
