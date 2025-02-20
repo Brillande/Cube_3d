@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:36:29 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/20 19:17:33 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/20 19:22:53 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ void	solid_walls(t_lib1 *data, double distance, int screen_col, mlx_image_t *img
 
 // Función para dibujar paredes texturizadas
 void textured_walls(t_lib1 *data, int screen_col, mlx_image_t *img, double strike_pt, mlx_texture_t *tex, double distance) {
-    int tex_x, tex_y;
+    int tex_x;
+	int	tex_y;
     double tex_step;
     int line_height;
     int midpoint;
