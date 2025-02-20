@@ -5,7 +5,6 @@ void	key_w(t_lib1 *data)
 {
     double	move_x;
     double	move_y;
-
     // Calcula las nuevas coordenadas del jugador
     move_x = data->player.x + data->player.game_speed * cos(data->player.pa);
     move_y = data->player.y + data->player.game_speed * sin(data->player.pa);
@@ -23,13 +22,9 @@ void	key_w(t_lib1 *data)
 // TODO Confirm that this receives the correct player location to check against
 int check_move(int x, int y, t_lib1 *data) {
     // Verifica si las nuevas coordenadas están dentro de los límites del mapa
-    if (data->len_cols > x && data->len_rows > y && x > 0 && y > 0) {
-        // Verifica si la posición en el mapa no es una pared ('1')
-        if (data->map_array[y][x] == '1')
+    if (data->map_array[x][y] == '1')
             return (false);
         return (true);
-    }
-    return (false);
 }
 
 // Función para manejar el movimiento del jugador

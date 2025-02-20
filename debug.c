@@ -15,8 +15,6 @@
 // HACK This is for debugging, remove later.
 void	print_read_from_file(t_lib1 map_data)
 {
-	(void) map_data;
-	/*
 	ft_printf("Have read file\n");
 	ft_printf("North texture: %s\n", map_data.texture_paths[NORTH]);
 	ft_printf("South texture: %s\n", map_data.texture_paths[SOUTH]);
@@ -27,7 +25,7 @@ void	print_read_from_file(t_lib1 map_data)
 	ft_printf("Map data read:\n%s", map_data.map_content);
 	ft_printf("Sizes:\nX: %i\tY: %i\n", map_data.how_many_colums,
 		map_data.how_many_lines);
-	*/
+	
 }
 
 // HACK for debugging, remove later
