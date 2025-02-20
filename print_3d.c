@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:36:29 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/20 19:47:35 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/20 20:10:44 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,32 +144,29 @@ void textured_walls(t_lib1 *data, int screen_col, mlx_image_t *img, double strik
 // NOTE What does player.ray represent?
 // NOTE What is t_info doing?
 // Esta función dibuja las paredes en la pantalla
-void walls(t_lib1 *data, int i)
+void	walls(t_lib1 *data, int i)
 {
-    double height;
-    int x;
-    t_info info;
-    // Calcula la altura de la pared en la pantalla
-    height = SCREENHEIGHT / data->player.ray;
-    x = 0;
-     // Llena la estructura info con los datos necesarios para dibujar la pared
-    fill_info(&info, data, height);
-    // Dibuja el techo y el suelo
-    draw_ceiling_and_floor(data, i);
-     // Dibuja la pared píxel por píxel
-    while (x < info.bottom - info.top) {
-        if (data->player.side == EAST || data->player.side == NORTH)
-            info.color = get_rgba(info.tex,
-                                  ((unsigned int)((1.0 - data->player.wall_x)
-                                                  * info.tex->width)),
-                                  ((unsigned int)(info.text_start + x * info.step)));
-        else
-            info.color = get_rgba(info.tex,
-                                  ((unsigned int)((data->player.wall_x) * info.tex->width)),
-                                  ((unsigned int)(info.text_start + x * info.step)));
-        // Coloca el píxel en la imagen
-        mlx_put_pixel(data->img, i, x + info.top, info.color);
-        x++;
-    }
-    i++;
+	double	height;
+	int		x;
+	t_info	info;
+
+	height = SCREENHEIGHT / data->player.ray;
+	x = 0;
+	fill_info(&info, data, height);
+	draw_ceiling_and_floor(data, i);
+	while (x < info.bottom - info.top)
+	{
+		if (data->player.side == EAST || data->player.side == NORTH)
+			info.color = get_rgba(info.tex,
+					((unsigned int)((1.0 - data->player.wall_x)
+							* info.tex->width)),
+					((unsigned int)(info.text_start + x * info.step)));
+		else
+			info.color = get_rgba(info.tex,
+					((unsigned int)((data->player.wall_x) * info.tex->width)),
+					((unsigned int)(info.text_start + x * info.step)));
+		mlx_put_pixel(data->img, i, x + info.top, info.color);
+		x++;
+	}
+	i++;
 }
