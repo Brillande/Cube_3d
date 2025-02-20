@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:36:29 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/20 17:36:30 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/20 19:17:33 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,56 +113,55 @@ void	solid_walls(t_lib1 *data, double distance, int screen_col, mlx_image_t *img
 // FIXME Current issues: directly ahead we lose the bottom (grey) and top (cut off) - skewed?
 // FIXME Mirror effect in map.cub simple case - when the ray crosses halfway, RHS is wrong (> player angle)
 // TODO Far too slow - build a column that we write directly?
-void	textured_walls(t_lib1 *data, int screen_col, mlx_image_t *img, double strike_pt, mlx_texture_t *tex, double distance)
-{
-	int	tex_x;
-	int	tex_y;
-	double	tex_step;
-	int	line_height;	// integer because it corresponds to screen pixels
-	int	midpoint;	// the middle of the screen where floor / ceiling switch;
-	int	start_point;
-	int	end_point;
-	int	i;	// counter for painting the screen.
-	double	tex_pos;
-	int	colour;
+#include "cube_3d.h"
 
-	if (distance == 0)
-		line_height = SCREENHEIGHT;
-	else
-		line_height = SCREENHEIGHT / distance;	// implicit conversion to int here
-	tex_x = (int)(strike_pt * (double) tex->width);
-	tex_step = 1.0 * tex->height / line_height;
-	midpoint = SCREENHEIGHT / 2;
-	start_point = (-line_height / 2) + midpoint;
-	end_point = (line_height / 2) + midpoint;
-	// Correct for either of these going offscreen (i.e. we are too close to the wall to see its ends)
-	// tema zoom cuando estamos cerca de la pared y manejar numeros negativo de techo y suelo falta por programar
-	if (start_point < 0)
-		start_point = 0;
-	if (end_point >= SCREENHEIGHT)
-		end_point = SCREENHEIGHT - 1;
-	tex_pos = start_point * tex_step;
-	//printf("Drawing a column (%i), start: %i, middle: %i, end: %i, height: %i\n", screen_col, start_point, midpoint, end_point, line_height);
-	i = 1;
-	while (i <= start_point)
-		mlx_put_pixel(img, screen_col, i++, data->rgb_ceiling);
-	int temp = i - 1;
-	while (i <= end_point)
-	{
-		//tex_y = (int)tex_pos & (tex->height - 1);	// The & is a weird trick to avoid overflow...
-		tex_y = ((i - temp) * line_height * tex->height / line_height) / (end_point - temp);
+// Función para dibujar paredes texturizadas
+void textured_walls(t_lib1 *data, int screen_col, mlx_image_t *img, double strike_pt, mlx_texture_t *tex, double distance) {
+    int tex_x, tex_y;
+    double tex_step;
+    int line_height;
+    int midpoint;
+    int start_point;
+    int end_point;
+    int i;
+    double tex_pos;
+    int colour;
 
-		tex_pos += tex_step;	// HACK this is a hack to avoid rounding errors
-//		colour = tex->pixels[tex_x + (tex_y * tex->height)];	 // NOTE this direct approach amkes all grey
-			// The & is a weird trick to avoid overflow...
-		//tex_y = (int)tex_pos & (tex->height - 1);	// The & is a weird trick to avoid overflow...
-		colour = get_rgba(tex, tex_x, tex_y);
-//		printf("tex_x: %i, tex_Y %i tex_pos: %f tex_step: %f\tcolour:%x\n", tex_x, tex_y, tex_pos, tex_step, colour);
-		mlx_put_pixel(img, screen_col, i, colour);
-		i++;
-	}
-	while (i < SCREENHEIGHT - 1)
-		mlx_put_pixel(img, screen_col, i++, data->rgb_floor);
+    if (distance == 0)
+        line_height = SCREENHEIGHT;
+    else
+        line_height = SCREENHEIGHT / distance;
+
+    tex_x = (int)(strike_pt * (double)tex->width);
+    tex_step = 1.0 * tex->height / line_height;
+    midpoint = SCREENHEIGHT / 2;
+    start_point = (-line_height / 2) + midpoint;
+    end_point = (line_height / 2) + midpoint;
+
+    // Ajustar start_point y end_point para manejar el zoom al acercarse a una pared
+    if (start_point < 0) {
+        tex_pos = -start_point * tex_step;
+        start_point = 0;
+    } else {
+        tex_pos = 0;
+    }
+
+    if (end_point >= SCREENHEIGHT)
+        end_point = SCREENHEIGHT - 1;
+
+    i = 0;
+    while (i < start_point)
+        mlx_put_pixel(img, screen_col, i++, data->rgb_ceiling);
+
+    while (i <= end_point) {
+        tex_y = (int)tex_pos & (tex->height - 1);
+        tex_pos += tex_step;
+        colour = get_rgba(tex, tex_x, tex_y);
+        mlx_put_pixel(img, screen_col, i++, colour);
+    }
+
+    while (i < SCREENHEIGHT)
+        mlx_put_pixel(img, screen_col, i++, data->rgb_floor);
 }
 
 // FIXME The EAST and NORTH values here will need to be changed, post-enumeration

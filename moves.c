@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:00:34 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/20 17:03:40 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/20 18:11:50 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,9 @@ void	key_a(t_lib1 *data)
 	double	move_y;
 
 	move_x = data->player.x + data->player.game_speed
-		* cos(data->player.pa - 0.5 * M_PI);
+		* cos(data->player.pa + 0.5 * M_PI);
 	move_y = data->player.y + data->player.game_speed
-		* sin(data->player.pa - 0.5 * M_PI);
+		* sin(data->player.pa + 0.5 * M_PI);
 	if (check_move(move_x, move_y, data))
 	{
 		data->player.y = move_y;
