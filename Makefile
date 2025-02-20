@@ -31,7 +31,8 @@ SRCS        :=      main.c \
 													boundary_test.c \
 													file_helpers.c \
 													maths.c \
-													debug.c
+													debug.c \
+							moves3.c
 
 OBJS        := $(SRCS:.c=.o)
 

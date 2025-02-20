@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:20:40 by emedina-          #+#    #+#             */
-/*   Updated: 2024/11/27 17:32:17 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:24:41 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	init_game(t_lib1 *map_data)
 // Defines some key hooks (which?)
 // Loads the wall textures
 // Generates the background
-// Draws the first walls
+// Draws the first wall_s
 // Enters the loop
 // FIXED The window sizes are based on a 2d map, we need fixed viewport size
 // (Could use SCREENWIDTH and SCREENHEIGHT)
@@ -89,7 +89,7 @@ void	open_window(t_lib1 *map_data)
 	load_wall_textures(map_data);
 	map_data->img = make_background(map_data);
 	mlx_image_to_window(map_data->mlx, map_data->img, 0, 0);
-	// This is the one that draws (or calculates at least) walls
+	// This is the one that draws (or calculates at least) wall_s
 	draw_3d(map_data);
 	mlx_key_hook(map_data->mlx, &key_hook, map_data);
 	mlx_loop(map_data->mlx);
@@ -107,30 +107,30 @@ void	open_window(t_lib1 *map_data)
 void load_wall_textures(t_lib1 *map_data)
 {
     // Cargar las texturas
-    mlx_texture_t	*wallE_texture;
-    mlx_texture_t	*wallN_texture;
-    mlx_texture_t	*wallS_texture;
-    mlx_texture_t	*wallW_texture;
+    mlx_texture_t	*wall_e_texture;
+    mlx_texture_t	*wall_n_texture;
+    mlx_texture_t	*wall_s_texture;
+    mlx_texture_t	*wall_w_texture;
 
-	wallE_texture = mlx_load_png(map_data->texture_paths[EAST]);
-	wallN_texture = mlx_load_png(map_data->texture_paths[NORTH]);
-	wallS_texture = mlx_load_png(map_data->texture_paths[SOUTH]);
-	wallW_texture = mlx_load_png(map_data->texture_paths[WEST]);
+	wall_e_texture = mlx_load_png(map_data->texture_paths[EAST]);
+	wall_n_texture = mlx_load_png(map_data->texture_paths[NORTH]);
+	wall_s_texture = mlx_load_png(map_data->texture_paths[SOUTH]);
+	wall_w_texture = mlx_load_png(map_data->texture_paths[WEST]);
     // Verificar que las texturas se cargaron correctamente
-    if (!wallE_texture || !wallN_texture || !wallS_texture || !wallW_texture) {
+    if (!wall_e_texture || !wall_n_texture || !wall_s_texture || !wall_w_texture) {
         fprintf(stderr, "Error loading textures\n");
 		clear_data(map_data);
         exit(EXIT_FAILURE);
     }
 
     // Convertir las texturas en imágenes
-    map_data->wallE = mlx_texture_to_image(map_data->mlx, wallE_texture);
-    map_data->wallN = mlx_texture_to_image(map_data->mlx, wallN_texture);
-    map_data->wallS = mlx_texture_to_image(map_data->mlx, wallS_texture);
-    map_data->wallW = mlx_texture_to_image(map_data->mlx, wallW_texture);
+    map_data->wall_e = mlx_texture_to_image(map_data->mlx, wall_e_texture);
+    map_data->wall_n = mlx_texture_to_image(map_data->mlx, wall_n_texture);
+    map_data->wall_s = mlx_texture_to_image(map_data->mlx, wall_s_texture);
+    map_data->wall_w = mlx_texture_to_image(map_data->mlx, wall_w_texture);
 
     // Verificar que las imágenes se crearon correctamente
-    if (!map_data->wallE || !map_data->wallN || !map_data->wallS || !map_data->wallW) {
+    if (!map_data->wall_e || !map_data->wall_n || !map_data->wall_s || !map_data->wall_w) {
         fprintf(stderr, "Error converting textures to images\n");
 		clear_data(map_data);
         exit(EXIT_FAILURE);

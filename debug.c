@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   debug.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaikney <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:12:10 by chaikney          #+#    #+#             */
-/*   Updated: 2025/01/17 14:12:15 by chaikney         ###   ########.fr       */
+/*   Updated: 2025/02/20 17:34:45 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	print_read_from_file(t_lib1 map_data)
 	ft_printf("Map data read:\n%s", map_data.map_content);
 	ft_printf("Sizes:\nX: %i\tY: %i\n", map_data.how_many_colums,
 		map_data.how_many_lines);
-	
 }
 
 // HACK for debugging, remove later
