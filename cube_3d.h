@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 13:23:09 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/20 17:33:38 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/24 18:17:01 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ void		rotate_left(t_player *p);
 void		rotate_right(t_player *p);
 
 void		key_hook(mlx_key_data_t keydata, void *info);
-int			exit_game(t_lib1 *map_data);
+void		exit_game(t_lib1 *map_data);
 void		draw_3d(t_lib1 *data);
 void		walls(t_lib1 *data, int i);
 int			check_move(int x, int y, t_lib1 *data);
