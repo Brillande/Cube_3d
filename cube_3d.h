@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 13:23:09 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/20 17:33:38 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/25 18:55:28 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,8 @@ typedef struct s_lib1
 	void		*wall_n;
 	void		*wall_s;
 	void		*wall_w;
+	int			view_col;
+	
 }	t_lib1;
 
 int			main(int argc, char **argv);
@@ -176,8 +178,8 @@ void		solid_walls(t_lib1 *data, double distance,
 				int screen_col, mlx_image_t *img);
 //void	find_strike_point(t_ray *r, double x_origin, double y_origin);
 double		find_strike_point(t_ray *r, double x_origin, double y_origin);
-void		textured_walls(t_lib1 *data, int screen_col, mlx_image_t *img,
-				double strike_pt, mlx_texture_t *tex, double distance);
+void		textured_walls(t_lib1 *data, mlx_image_t *img,
+				mlx_texture_t *tex, t_ray ray);
 void		set_impact_side(t_ray *ray);
 
 // Debugging files

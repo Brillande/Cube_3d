@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:36:29 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/20 20:10:44 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/25 18:42:16 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	draw_ceiling_and_floor(t_lib1 *data, int i)
 
 
 // Función para dibujar paredes texturizadas
-void textured_walls(t_lib1 *data, int screen_col, mlx_image_t *img, double strike_pt, mlx_texture_t *tex, double distance) {
+void textured_walls(t_lib1 *data, mlx_image_t *img, mlx_texture_t *tex, t_ray ray) {
     int tex_x;
 	int	tex_y;
     double tex_step;
@@ -100,12 +100,12 @@ void textured_walls(t_lib1 *data, int screen_col, mlx_image_t *img, double strik
     double tex_pos;
     int colour;
 
-    if (distance == 0)
+    if (ray.length == 0)
         line_height = SCREENHEIGHT;
     else
-        line_height = SCREENHEIGHT / distance;
+        line_height = SCREENHEIGHT / ray.length;
 
-    tex_x = (int)(strike_pt * (double)tex->width);
+    tex_x = (int)(ray.wall_strike * (double)tex->width);
     tex_step = 1.0 * tex->height / line_height;
     midpoint = SCREENHEIGHT / 2;
     start_point = (-line_height / 2) + midpoint;
@@ -124,17 +124,17 @@ void textured_walls(t_lib1 *data, int screen_col, mlx_image_t *img, double strik
 
     i = 0;
     while (i < start_point)
-        mlx_put_pixel(img, screen_col, i++, data->rgb_ceiling);
+        mlx_put_pixel(img, data->view_col, i++, data->rgb_ceiling);
 
     while (i <= end_point) {
         tex_y = (int)tex_pos & (tex->height - 1);
         tex_pos += tex_step;
         colour = get_rgba(tex, tex_x, tex_y);
-        mlx_put_pixel(img, screen_col, i++, colour);
+        mlx_put_pixel(img, data->view_col, i++, colour);
     }
 
     while (i < SCREENHEIGHT)
-        mlx_put_pixel(img, screen_col, i++, data->rgb_floor);
+        mlx_put_pixel(img, data->view_col, i++, data->rgb_floor);
 }
 
 // FIXME The EAST and NORTH values here will need to be changed, post-enumeration

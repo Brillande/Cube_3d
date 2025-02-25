@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 13:23:01 by emedina-          #+#    #+#             */
-/*   Updated: 2024/11/27 17:38:47 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/25 17:43:59 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ void	read_map_from_fd(t_lib1 *map_data, int fd)
 	map_data->how_many_lines = 0;
 	line = find_next_line(fd);
 	if (!line)
-		exit (EXIT_FAILURE);	// HACK should free things not just exit
+		exit (EXIT_FAILURE);
 	map_data->how_many_lines++;
 	map_data->how_many_colums = ft_strlen(line) - 1;
-	map_data->map_content = line;	// NOTE This is to put *something* there before strjoin call, but may mess up the map...
-//	free (line);
+	map_data->map_content = line;
 	line = get_next_line(fd);
 	while ((line) && (line_is_blank(line) == 0))
 	{
