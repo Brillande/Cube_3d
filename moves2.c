@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:57:33 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/24 18:27:42 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:28:04 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	click_button(mlx_key_data_t keydata, void *info)
 
 	data = (t_lib1 *)info;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		mlx_close_window(data->mlx);
+		exit_game(data);
 	move(data);
 }
 

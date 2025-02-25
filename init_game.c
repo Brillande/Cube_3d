@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/12 12:20:40 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/24 18:27:15 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/25 15:27:10 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,36 +103,43 @@ void	open_window(t_lib1 *map_data)
 // TODO Understand whether we need *images* at this stage or are textures enough?
 // NOTE Later we refer to parts of these to get hold of the things-we-need-draw
 // But right now I don't know how that works. Images or textures??
-// TODO Convert the multiple variables to an array like texture[i]
+// TODO Convert the multiple variables to an array like texture[i]ras de las paredes
 void load_wall_textures(t_lib1 *map_data)
 {
-    // Cargar las texturas
-    mlx_texture_t	*wall_e_texture;
-    mlx_texture_t	*wall_n_texture;
-    mlx_texture_t	*wall_s_texture;
-    mlx_texture_t	*wall_w_texture;
+    mlx_texture_t *wall_e_tex;
+    mlx_texture_t *wall_n_tex;
+    mlx_texture_t *wall_s_tex;
+    mlx_texture_t *wall_w_tex;
 
-	wall_e_texture = mlx_load_png(map_data->texture_paths[EAST]);
-	wall_n_texture = mlx_load_png(map_data->texture_paths[NORTH]);
-	wall_s_texture = mlx_load_png(map_data->texture_paths[SOUTH]);
-	wall_w_texture = mlx_load_png(map_data->texture_paths[WEST]);
+    wall_e_tex = mlx_load_png(map_data->texture_paths[EAST]);
+    wall_n_tex = mlx_load_png(map_data->texture_paths[NORTH]);
+    wall_s_tex = mlx_load_png(map_data->texture_paths[SOUTH]);
+    wall_w_tex = mlx_load_png(map_data->texture_paths[WEST]);
+
     // Verificar que las texturas se cargaron correctamente
-    if (!wall_e_texture || !wall_n_texture || !wall_s_texture || !wall_w_texture) {
+    if (!wall_e_tex || !wall_n_tex || !wall_s_tex || !wall_w_tex) 
+{
         fprintf(stderr, "Error loading textures\n");
-		clear_data(map_data);
+        clear_data(map_data);
         exit(EXIT_FAILURE);
     }
 
     // Convertir las texturas en imágenes
-    map_data->wall_e = mlx_texture_to_image(map_data->mlx, wall_e_texture);
-    map_data->wall_n = mlx_texture_to_image(map_data->mlx, wall_n_texture);
-    map_data->wall_s = mlx_texture_to_image(map_data->mlx, wall_s_texture);
-    map_data->wall_w = mlx_texture_to_image(map_data->mlx, wall_w_texture);
+    map_data->wall_e = mlx_texture_to_image(map_data->mlx, wall_e_tex);
+    map_data->wall_n = mlx_texture_to_image(map_data->mlx, wall_n_tex);
+    map_data->wall_s = mlx_texture_to_image(map_data->mlx, wall_s_tex);
+    map_data->wall_w = mlx_texture_to_image(map_data->mlx, wall_w_tex);
 
     // Verificar que las imágenes se crearon correctamente
     if (!map_data->wall_e || !map_data->wall_n || !map_data->wall_s || !map_data->wall_w) {
         fprintf(stderr, "Error converting textures to images\n");
-		clear_data(map_data);
+        clear_data(map_data);
         exit(EXIT_FAILURE);
     }
+
+    // Liberar los recursos de textura
+    mlx_delete_texture(wall_e_tex);
+    mlx_delete_texture(wall_n_tex);
+    mlx_delete_texture(wall_s_tex);
+    mlx_delete_texture(wall_w_tex);
 }
