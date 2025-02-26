@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:36:13 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/20 17:36:14 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:48:40 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 // TODO How does this relate to find_distance in ray.c ?
 double	player_view_distance(double delta_x, double delta_y, double beta)
 {
-    double	pvd;
+	double	pvd;
 
-    pvd = (delta_x * cos(beta)) + (delta_y * sin(beta));
-    return (pvd);
+	pvd = (delta_x * cos(beta)) + (delta_y * sin(beta));
+	return (pvd);
 }
 
 // Calculate beta, the player's view angle expressed as
@@ -41,18 +41,17 @@ double	player_view_distance(double delta_x, double delta_y, double beta)
 // theta = player's view angle, must be 0-360.
 double	view_angle_horizontal(double theta)
 {
-    double	beta;
+	double	beta;
 
-    if ((theta < 0) || (theta >= 360))
-        return (-1);
-    if (theta < 90)
-    {
-        // simplest case
-        beta = (theta - 90);
-    }
-    else
-        beta = 0;
-    return (beta);
+	if ((theta < 0) || (theta >= 360))
+		return (-1);
+	if (theta < 90)
+	{
+		beta = (theta - 90);
+	}
+	else
+		beta = 0;
+	return (beta);
 }
 
 // Given a view angle (assume 90 for now) and SCREENWIDTH,
@@ -63,7 +62,7 @@ double	view_angle_horizontal(double theta)
 // NOTE Not currently used.
 double	angle_per_pixel_column(void)
 {
-   return (90.0 / SCREENWIDTH);
+	return (90.0 / SCREENWIDTH);
 }
 
 // player_x, player_y - fractional player position coordinates
@@ -72,69 +71,27 @@ double	angle_per_pixel_column(void)
 // NOTE This might not be needed, done in len_find function.
 double	get_delta_x(double player_x, double player_y, double ray_angle)
 {
-	// HACK for compilation
 	(void) player_x;
 	(void) player_y;
 	(void) ray_angle;
-    return (0.0);
+	return (0.0);
 }
 
 // NOTE Assuming that x and y are valid!!
-// Also starting with the assumption that we're looking at an uncomplicated angle
+// Also starting with the assumption that we're 
+//looking at an uncomplicated angle
 // I need to find the intersection coordinates
 // ray_angle = bearing of the ray we are testing
 // NOTE May not be needed, handled in dda_alg
 void	get_wall_intersection(t_lib1 *map_data, double ray_angle)
 {
-    double	check_x;
-    double	check_y;
+	double	check_x;
+	double	check_y;
 
-    check_x = map_data->player.x;
-    check_y = map_data->player.y;
+	check_x = map_data->player.x;
+	check_y = map_data->player.y;
 	(void) check_x;
-	(void) check_y;	// HACK for compilation
-    ray_angle = 60.0;	// HACK for testing, remove later
-	(void) ray_angle;	// HACK for compilation
-}
-
-// Convert an angle in dgress (like a compass bearing)
-// to Radians (for use in making a vector)
-double	degrees_to_radians(double bearing)
-{
-	double	rads;
-
-	if (bearing >= 360)
-		ft_printf("Warning! bearing out of range: %f", bearing);
-	rads = bearing * (M_PI / 180);
-	return (rads);
-};
-
-double	radians_to_degrees(double rads)
-{
-	double	degrees;
-
-	if (rads > (2 * M_PI))
-		ft_printf("Warning! radians out of range: %f", rads);
-	degrees = rads * (180 / M_PI);
-	return (degrees);
-}
-
-// Convert an angle in radians to a t_vec
-t_vec	radians_to_vector(double angle)
-{
-	t_vec	v;
-
-	v.x = cos(angle);
-	v.y = sin(angle);
-	return(v);
-}
-
-// Transform vector coords x & y by rotating per angle
-void	rotate_vector(double *x, double *y, double rads)
-{
-	double	temp_x;
-
-	temp_x = *x;
-	*x = *x * cos(rads) - *y * sin(rads);
-	*y = temp_x * sin(rads) + *y * cos(rads);
+	(void) check_y;
+	ray_angle = 60.0;
+	(void) ray_angle;
 }

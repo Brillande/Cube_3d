@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:36:29 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/25 18:42:16 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:54:51 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 // NOTE Is this is a general function we could use elsewhere?
 //Esta función obtiene el valor RGBA de un píxel en una textura dada
 
-static int	get_rgba(mlx_texture_t *texture, int x, int y)
+int	get_rgba(mlx_texture_t *texture, int x, int y)
 {
 	int	r;
 	int	g;
@@ -86,87 +86,49 @@ void	draw_ceiling_and_floor(t_lib1 *data, int i)
 // FIXME Mirror effect in map.cub simple case
 // - when the ray crosses halfway, RHS is wrong (> player angle)
 
-
 // Función para dibujar paredes texturizadas
-void textured_walls(t_lib1 *data, mlx_image_t *img, mlx_texture_t *tex, t_ray ray) {
-    int tex_x;
-	int	tex_y;
-    double tex_step;
-    int line_height;
-    int midpoint;
-    int start_point;
-    int end_point;
-    int i;
-    double tex_pos;
-    int colour;
+void	textured_walls(t_lib1 *data, mlx_image_t *img,
+						mlx_texture_t *tex, t_ray ray)
+{
+	int		line_height;
+	int		midpoint;
 
-    if (ray.length == 0)
-        line_height = SCREENHEIGHT;
-    else
-        line_height = SCREENHEIGHT / ray.length;
-
-    tex_x = (int)(ray.wall_strike * (double)tex->width);
-    tex_step = 1.0 * tex->height / line_height;
-    midpoint = SCREENHEIGHT / 2;
-    start_point = (-line_height / 2) + midpoint;
-    end_point = (line_height / 2) + midpoint;
-
-    // Ajustar start_point y end_point para manejar el zoom al acercarse a una pared
-    if (start_point < 0) {
-        tex_pos = -start_point * tex_step;
-        start_point = 0;
-    } else {
-        tex_pos = 0;
-    }
-
-    if (end_point >= SCREENHEIGHT)
-        end_point = SCREENHEIGHT - 1;
-
-    i = 0;
-    while (i < start_point)
-        mlx_put_pixel(img, data->view_col, i++, data->rgb_ceiling);
-
-    while (i <= end_point) {
-        tex_y = (int)tex_pos & (tex->height - 1);
-        tex_pos += tex_step;
-        colour = get_rgba(tex, tex_x, tex_y);
-        mlx_put_pixel(img, data->view_col, i++, colour);
-    }
-
-    while (i < SCREENHEIGHT)
-        mlx_put_pixel(img, data->view_col, i++, data->rgb_floor);
+	if (ray.length == 0)
+		line_height = SCREENHEIGHT;
+	else
+		line_height = SCREENHEIGHT / ray.length;
+	data->tex_x = (int)(ray.wall_strike * (double)tex->width);
+	data->tex_step = 1.0 * tex->height / line_height;
+	midpoint = SCREENHEIGHT / 2;
+	data->start_point = (-line_height / 2) + midpoint;
+	data->end_point = (line_height / 2) + midpoint;
+	textured_walls2(data, img, tex);
 }
 
-// FIXME The EAST and NORTH values here will need to be changed, post-enumeration
-// What was specific about those two that meant the maths would be different?
-// ...in the old version they were 2 and 4. Can't see any value here.
-// NOTE What does player.side represent?
-// NOTE What does player.ray represent?
-// NOTE What is t_info doing?
-// Esta función dibuja las paredes en la pantalla
-void	walls(t_lib1 *data, int i)
+void	textured_walls2(t_lib1 *data, mlx_image_t *img,
+						mlx_texture_t *tex)
 {
-	double	height;
-	int		x;
-	t_info	info;
-
-	height = SCREENHEIGHT / data->player.ray;
-	x = 0;
-	fill_info(&info, data, height);
-	draw_ceiling_and_floor(data, i);
-	while (x < info.bottom - info.top)
+	if (data->start_point < 0)
 	{
-		if (data->player.side == EAST || data->player.side == NORTH)
-			info.color = get_rgba(info.tex,
-					((unsigned int)((1.0 - data->player.wall_x)
-							* info.tex->width)),
-					((unsigned int)(info.text_start + x * info.step)));
-		else
-			info.color = get_rgba(info.tex,
-					((unsigned int)((data->player.wall_x) * info.tex->width)),
-					((unsigned int)(info.text_start + x * info.step)));
-		mlx_put_pixel(data->img, i, x + info.top, info.color);
-		x++;
+		data->tex_pos = -data->start_point * data->tex_step;
+		data->start_point = 0;
 	}
-	i++;
+	else
+	{
+		data->tex_pos = 0;
+	}
+	if (data->end_point >= SCREENHEIGHT)
+		data->end_point = SCREENHEIGHT - 1;
+	data->i = 0;
+	while (data->i < data->start_point)
+		mlx_put_pixel(img, data->view_col, data->i++, data->rgb_ceiling);
+	while (data->i <= data->end_point)
+	{
+		data->tex_y = (int)data->tex_pos & (tex->height - 1);
+		data->tex_pos += data->tex_step;
+		data->colour = get_rgba(tex, data->tex_x, data->tex_y);
+		mlx_put_pixel(img, data->view_col, data->i++, data->colour);
+	}
+	while (data->i < SCREENHEIGHT)
+		mlx_put_pixel(img, data->view_col, data->i++, data->rgb_floor);
 }

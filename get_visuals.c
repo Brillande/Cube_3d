@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_visuals.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaikney <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:14:36 by chaikney          #+#    #+#             */
-/*   Updated: 2025/01/17 14:14:53 by chaikney         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:09:55 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,6 @@ static int	get_colours(int fd, char key)
 	free(tmp);
 	g = ft_atoi(parts[1]);
 	b = ft_atoi(parts[2]);
-//	ft_printf("Colour read\t%i\t%i\t%i\n", r, g, b);	// HACK for debugging
-	// FIXME This frees evertything but is so FRAGILE
 	free(parts[0]);
 	free(parts[1]);
 	free(parts[2]);

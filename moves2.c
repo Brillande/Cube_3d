@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 16:57:33 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/20 17:43:13 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/26 18:42:30 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ void	key_w(t_lib1 *data)
 // TODO Confirm that this receives the correct player location to check against
 int	check_move(int x, int y, t_lib1 *data)
 {
-	if(x < 0 || y < 0 || x >= data->len_cols || y >= data->len_rows)
-{
-	if (data->map_array[x][y] == '1')
-		return (false);
-	return (true);
-}
-return (false);
+	if (x < 0 || y < 0 || x >= data->len_cols || y >= data->len_rows)
+	{
+		if (data->map_array[x][y] == '1')
+			return (false);
+		return (true);
+	}
+	return (false);
 }
 
 // Función para manejar el movimiento del jugador

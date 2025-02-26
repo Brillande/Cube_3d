@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 13:23:09 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/25 18:55:28 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:04:35 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,14 @@ typedef struct s_lib1
 	void		*wall_s;
 	void		*wall_w;
 	int			view_col;
-	
+	int			start_point;
+	int			end_point;
+	int			i;
+	double		tex_pos;
+	int			colour;
+	double		tex_step;
+	int			tex_x;
+	int			tex_y;
 }	t_lib1;
 
 int			main(int argc, char **argv);
@@ -167,7 +174,7 @@ double		len_find(t_lib1 *data, double angle);
 void		dda_alg(t_lib1 *data);
 //void		get_step_and_side(t_lib1 *cal);	// formerly find_ray
 void		get_step_and_side(t_ray *data, t_player player);
-
+int			get_rgba(mlx_texture_t *texture, int x, int y);
 void		dda_for_one_ray(t_ray *ray, char **map_array);
 //t_ray	setup_ray(t_lib1 *data, double rads);
 t_ray		setup_ray(t_lib1 *data, double rads, double camera_x);
@@ -180,6 +187,9 @@ void		solid_walls(t_lib1 *data, double distance,
 double		find_strike_point(t_ray *r, double x_origin, double y_origin);
 void		textured_walls(t_lib1 *data, mlx_image_t *img,
 				mlx_texture_t *tex, t_ray ray);
+void		textured_walls2(t_lib1 *data, mlx_image_t *img,
+				mlx_texture_t *tex);
+
 void		set_impact_side(t_ray *ray);
 
 // Debugging files
@@ -222,6 +232,12 @@ void		rotate_vector(double *x, double *y, double rads);
 
 // exit routines
 void		clear_data(t_lib1 *map_data);
-void		player (void *param);
+void		player(void *param);
 int			create_trgb(int t, int r, int g, int b);
+
+void		fill_info(t_info *info, t_lib1 *data, double height);
+void		draw_ceiling_and_floor(t_lib1 *data, int i);
+
+int			basic_wall_test(t_lib1 *map_data);
+
 #endif

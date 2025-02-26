@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tests_to_knows_if_is_playable.c                    :+:      :+:    :+:   */
+/*   map_is_playable.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 13:29:35 by emedina-          #+#    #+#             */
-/*   Updated: 2024/11/27 17:39:36 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/26 19:01:14 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ int	count_walls(char *map_line)
 			n++;
 		j++;
 	}
-//	ft_printf("Counted %i walls\n", n);	// HACK for debugging
 	return (n);
 }
 
@@ -99,83 +98,13 @@ void	setup_camera_plane(double rads, t_player *player)
 // TODO Perhaps this should read from a t_map and return a t_player?
 void	setup_player(t_lib1 *map_data)
 {
-	printf("Setting up player start values\nX: %i, Y: %i\n", map_data->player_coor_x, map_data->player_coor_y);
-	map_data->player.x = (double) (map_data->player_coor_x) + 0.5;
-	map_data->player.y = (double) (map_data->player_coor_y + 0.5);
-	// Convert orientation (in degrees) to player angle in radians
+	map_data->player.x = (double)(map_data->player_coor_x) + 0.5;
+	map_data->player.y = (double)(map_data->player_coor_y + 0.5);
 	map_data->player.pa = degrees_to_radians(map_data->player_faces);
-	// Safe(?) initialisation values
 	map_data->player.ray = 0.0;
 	map_data->player.side = 0;
-	// NOTE Should experiment with values for the camera vector, not clear how it works
 	setup_camera_plane(map_data->player.pa, &map_data->player);
-	/* map_data->player.x_camera = 0; */
-	/* map_data->player.y_camera = 0.66; */
-	// HACK I have no idea what these should be set at.
 	map_data->player.game_speed = 1;
 	map_data->player.wall_x = 0;
 	print_player_info(map_data->player);
-	printf("Player info.\nAngle: %f\nX: %f, Y: %f\n", map_data->player.pa, map_data->player.x,  map_data->player.y);
-	printf("Ray length: %f\twall_x (meaning unknown): %f\n", map_data->player.ray, map_data->player.wall_x);
-	printf("side: %i\tcamera x: %f, y: %f, game_speed: %f\n", map_data->player.side, map_data->player.x_camera, map_data->player.y_camera, map_data->player.game_speed);
-}
-
-// TODO Implement tests for the non-map elements: present and valid
-// NOTE Why are we storing two copies of the map_content in the struct??
-// NOTE how_many_lines and how_many_columns was counted in read_map_from_fd
-// - Check that map_content only has allowed characters and a single player
-// - turn the raw content into map_array using ft_split
-// - check to make sure the map is surrounded
-void	map_is_playable(t_lib1 *map_data)
-{
-	if ((!only_legal_char(map_data->map_content))
-		|| (!only_one_player(map_data->map_content)))
-		clear_data(map_data);
-	map_data->map_array = ft_split(map_data->map_content, '\n');
-//	print_map_array(map_data);	// HACK for debugging
-	if (!basic_wall_test(map_data))
-	{
-		ft_printf("Wall count error\n");
-		clear_data(map_data);
-	}
-	if (!check_each_square(map_data))
-	{
-		ft_printf("Map bounding error\n");
-		clear_data(map_data);
-	}
-	get_start_position(map_data);
-	if (map_data->player_faces == -1)
-		clear_data(map_data);
-	setup_player(map_data);	// HACK This makes sure that we start from init'd values.
-//	print_map_array(map_data);
-	print_start_position(map_data);
-}
-
-// NOTE Spaces are OK, but may need different handling.
-// Reads the map part of the file (in form of string)
-// and complains if an odd character is found.
-// Returns 0 if the map cannot be played.
-// Returns 1 is the map is acceptable.
-int	only_legal_char(char *map_content)
-{
-	int	i;
-
-	i = 0;
-	if (map_content)
-	{
-		while (map_content[i] != '\0')
-		{
-			if (map_content[i] != '1' && map_content[i] != '0'
-				&& map_content[i] != 'N' && map_content[i] != 'E'
-				&& map_content[i] != 'W' && map_content[i] != 'S'
-				&& map_content[i] != ' ' && map_content[i] != '\n')
-			{
-				perror("Illegal character in map\n");
-				return (0);
-			}
-			i++;
-		}
-		return (1);
-	}
-	return (0);
 }

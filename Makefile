@@ -32,7 +32,10 @@ SRCS        :=      main.c \
 													file_helpers.c \
 													maths.c \
 													debug.c \
-							moves3.c
+							print_3d2.c \
+							moves3.c	\
+							maths2.c	\
+							map_is_playable2.c
 
 OBJS        := $(SRCS:.c=.o)
 
