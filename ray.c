@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:22:32 by chaikney          #+#    #+#             */
-/*   Updated: 2025/02/25 18:43:13 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:56:49 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,5 @@ double	find_strike_point(t_ray *r, double x_origin, double y_origin)
 	hit_me -= floorf(hit_me);
 	if ((r->impact_side == EAST || r->impact_side == SOUTH))
 		hit_me = 1 - hit_me;
-	if ((hit_me > 1) || (hit_me < 0))
-		printf("***** Strike point calculation is bad! ");
 	return (hit_me);
 }

@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 19:01:27 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/26 19:02:32 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:56:20 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	map_is_playable(t_lib1 *map_data)
 	if (map_data->player_faces == -1)
 		clear_data(map_data);
 	setup_player(map_data);
-	print_start_position(map_data);
 }
 
 // NOTE Spaces are OK, but may need different handling.

@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:14:36 by chaikney          #+#    #+#             */
-/*   Updated: 2025/02/26 19:09:55 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:50:51 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,26 @@ static char	*get_texture(char *side, int fd)
 	return (path);
 }
 
+int	get_colours2(char **parts)
+{
+	int		r;
+	int		g;
+	int		b;
+	char	*tmp;
+	int		i;
+
+	tmp = ft_substr(parts[0], 2, ft_strlen(parts[0]) - 2);
+	r = ft_atoi(tmp);
+	free(tmp);
+	g = ft_atoi(parts[1]);
+	b = ft_atoi(parts[2]);
+	i = 0;
+	while (parts[i])
+		free(parts[i++]);
+	free(parts);
+	return (create_trgb(0, r, g, b));
+}
+
 // Process a floor / colour line
 // Make sure it has the F / C key
 // (return NULL if not present)
@@ -64,10 +84,6 @@ static int	get_colours(int fd, char key)
 	int		i;
 	char	*line;
 	char	**parts;
-	int		r;
-	int		g;
-	int		b;
-	char	*tmp;
 
 	i = 0;
 	line = find_next_line(fd);
@@ -78,17 +94,7 @@ static int	get_colours(int fd, char key)
 		if (parts[0][i++] == '\0')
 			return (-1);
 	}
-	tmp = ft_substr(parts[0], 2, ft_strlen(parts[0]) - 2);
-	r = ft_atoi(tmp);
-	free(tmp);
-	g = ft_atoi(parts[1]);
-	b = ft_atoi(parts[2]);
-	free(parts[0]);
-	free(parts[1]);
-	free(parts[2]);
-	free(parts[3]);
-	free(parts);
-	return (create_trgb(0, r, g, b));
+	return (get_colours2(parts));
 }
 
 // read each line from a file (fd?) and make sure it fits the

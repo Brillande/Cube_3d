@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:12:10 by chaikney          #+#    #+#             */
-/*   Updated: 2025/02/20 17:34:45 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:24:32 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,18 @@ void	print_ray_properties(t_ray ray)
 {
 	printf("Ray leaving from coordinates %i, %i\n", ray.map_x, ray.map_y);
 	printf("with vector heading %f, %f", ray.ray_x, ray.ray_y);
-	printf("...direction X: %i, Y: %i and axis: %i\n", ray.direction_x, ray.direction_y, ray.axis);
+	printf("...direction X: %i, Y: %i and axis: %i\n",
+		ray.direction_x, ray.direction_y, ray.axis);
 	printf("delta_x: %f,\tdelta_y: %f\n", ray.delta_x, ray.delta_y);
-	printf("side_dist_x: %f\tside_dist_y: %f", ray.side_dist_x, ray.side_dist_y);
+	printf("side_dist_x: %f\tside_dist_y: %f",
+		ray.side_dist_x, ray.side_dist_y);
 	printf("\twall strike point: %f\n", ray.wall_strike);
 }
 
 void	print_player_info(t_player p)
 {
-	printf("Player info.\nAngle: %f\nX: %f, Y: %f\n", p.pa, p.x,  p.y);
+	printf("Player info.\nAngle: %f\nX: %f, Y: %f\n", p.pa, p.x, p.y);
 	printf("Ray length: %f\twall_x (meaning unknown): %f\n", p.ray, p.wall_x);
-	printf("side: %i\tcamera x: %f, y: %f, game_speed: %f\n", p.side, p.x_camera, p.y_camera, p.game_speed);
+	printf("side: %i\tcamera x: %f, y: %f, game_speed: %f\n", p.side,
+		p.x_camera, p.y_camera, p.game_speed);
 }

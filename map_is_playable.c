@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/30 13:29:35 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/26 19:01:14 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:44:57 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,4 @@ void	setup_player(t_lib1 *map_data)
 	setup_camera_plane(map_data->player.pa, &map_data->player);
 	map_data->player.game_speed = 1;
 	map_data->player.wall_x = 0;
-	print_player_info(map_data->player);
 }

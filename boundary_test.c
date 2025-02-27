@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   boundary_test.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaikney <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:13:04 by chaikney          #+#    #+#             */
-/*   Updated: 2025/01/17 14:13:08 by chaikney         ###   ########.fr       */
+/*   Updated: 2025/02/27 16:52:34 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,21 @@ int	walls_horizontal(int x, char *mapline, int max_x)
 	return (0);
 }
 
+int	walls_vertical2(int test_y, int max_y, int column, char **map_array)
+{
+	while (test_y <= max_y)
+	{
+		if (!map_array[test_y][column])
+			return (1);
+		else if (map_array[test_y][column] == '1')
+			break ;
+		test_y++;
+	}
+	if (test_y > max_y)
+		return (1);
+	return (0);
+}
+
 // return 1 if either end has no wall
 // Return 0 if both directions reach a wall or startpoint is invalid
 // we are testing a column; so x shoulld not change
@@ -85,16 +100,7 @@ int	walls_vertical(int start_line, char **map_array, int max_y, int column)
 		if (test_y < 0)
 			return (1);
 		test_y = start_line;
-		while (test_y <= max_y)
-		{
-			if (!map_array[test_y][column])
-				return (1);
-			else if (map_array[test_y][column] == '1')
-				break ;
-			test_y++;
-		}
-		if (test_y > max_y)
-			return (1);
+		return (walls_vertical2(test_y, max_y, column, map_array));
 	}
 	return (0);
 }
@@ -123,21 +129,12 @@ int	check_each_square(t_lib1 *map_data)
 		test_line_len = (int) ft_strlen(map_data->map_array[test_line]) - 1;
 		while (test_col < test_line_len)
 		{
-//			ft_printf("col: %i, line:%i\n", test_col, test_line);	// HACK debugging only
 			if (walls_horizontal(test_col, map_data->map_array[test_line],
 					test_line_len) == 1)
-			{
-				// HACK for debugging remove later
-				ft_printf("Map failed horizontal test! %c \n", map_data->map_array[test_line][test_col]);
 				return (0);
-			}
 			if (walls_vertical(test_line, map_data->map_array,
 					map_data->how_many_lines, test_col) == 1)
-			{
-				// HACK for debugging remove later
-				ft_printf("Map failed vertical test! %c \n", map_data->map_array[test_line][test_col]);
 				return (0);
-			}
 			test_col++;
 		}
 		test_col = 0;
