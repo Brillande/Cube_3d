@@ -183,7 +183,6 @@ double		find_distance_ray(t_ray *ray);
 mlx_image_t	*make_background(t_lib1 *map_data);
 void		solid_walls(t_lib1 *data, double distance,
 				int screen_col, mlx_image_t *img);
-//void	find_strike_point(t_ray *r, double x_origin, double y_origin);
 double		find_strike_point(t_ray *r, double x_origin, double y_origin);
 void		textured_walls(t_lib1 *data, mlx_image_t *img,
 				mlx_texture_t *tex, t_ray ray);

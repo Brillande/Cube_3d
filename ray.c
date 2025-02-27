@@ -16,6 +16,7 @@
 // TODO Implement and test get_wall_face
 // Add protection against zero and negative numbers
 // TODO How to handle numbers that go above 360 afer adding 45?
+// TODO Consider removing this I don't think we use it.
 enum e_direction	get_wall_face(double x)
 {
 	if ((x < 0) || (x >= 360))
@@ -28,17 +29,10 @@ enum e_direction	get_wall_face(double x)
 
 // Dibuja la vista 3D del entorno
 // Loop over each ray to be calculated for the view window
-// NOTE Unclear why these values. They give a range of 1000 steps.
-// The ray calculation should be based on the width of the window
-// and some other parameter, not magic numbers.
-// i.e. SCREENWIDTH is the number of rays / x-columns we need to calculate.
 // TODO Use FIELDOFVIEW to calculate the angle_offset
 // ...what does 0.3 represent in degrees?
 // a - the pixel coordinate (x) where the ray will be drawn (in walls)
 // FIXME There is a mix of DEGREES and RADIANS in use here, it is confusing
-// FIXME player.pa and radians_offset are both 0 when we call a ray...
-// ...which is then not set up correctly.
-// DONE Identify texture to be used. in set_impact_side()
 void	draw_3d(t_lib1 *data)
 {
 	mlx_texture_t	*selected_texture;
@@ -65,9 +59,9 @@ void	draw_3d(t_lib1 *data)
 	data->img = new_img;
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 }
+
 // Return the x-coordinate on the camera plane for the ray in screen_col
 // Result is normalised to a range of -1 (left) to 1 (right edge)
-
 double	get_camera_x(int screen_col)
 {
 	double	camera_x;

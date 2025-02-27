@@ -48,7 +48,9 @@ static char	*get_texture(char *side, int fd)
 	return (path);
 }
 
-int	get_colours2(char **parts)
+// Receive a string array of 3 integers representing red green and blue
+// Return a single integer composed of those values.
+static int	get_colours_from_array(char **parts)
 {
 	int		r;
 	int		g;
@@ -76,8 +78,6 @@ int	get_colours2(char **parts)
 // Does atoi skip over the intitial letters? Can we make it?
 // HACK THere is no allocation of memory for colours, does that break it?
 // FIXME Must free the parts array before returning.
-// FIXME This will be too long for norm
-// FIXME Too many variables
 // TODO Will need to harden this against bad input.
 static int	get_colours(int fd, char key)
 {
@@ -94,13 +94,16 @@ static int	get_colours(int fd, char key)
 		if (parts[0][i++] == '\0')
 			return (-1);
 	}
-	return (get_colours2(parts));
+	return (get_colours_from_array(parts));
 }
 
-// read each line from a file (fd?) and make sure it fits the
-// order given in spec
-// NOTE see what join_the_full_path does / returns
-// TODO get_texture does not use the paths returned, or attempt to load them.
+// Read lines from a file (fd) and store the interesting part.
+// Must all fit the order given in spec:
+// - 4 textures
+// - floor colour
+// - ceiling colour
+// If any of the retrieved paths are inaccessible, complain and exit.
+// NOTE if the colours are invalid, they are still stored. This is a weakness!
 void	get_visuals(t_lib1 *map_data, int fd)
 {
 	int	i;
