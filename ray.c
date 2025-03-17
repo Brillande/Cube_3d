@@ -91,7 +91,7 @@ double	find_strike_point(t_ray *r, double x_origin, double y_origin)
 		hit_me = x_origin + r->length * r->ray_x;
 	}
 	hit_me -= floorf(hit_me);
-	if ((r->impact_side == EAST || r->impact_side == SOUTH))
+	if ((r->impact_side == WEST) || (r->impact_side == SOUTH))
 		hit_me = 1 - hit_me;
 	return (hit_me);
 }
