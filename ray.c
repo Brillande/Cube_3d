@@ -16,7 +16,7 @@
 // TODO Implement and test get_wall_face
 // Add protection against zero and negative numbers
 // TODO How to handle numbers that go above 360 afer adding 45?
-// TODO Consider removing this I don't think we use it.
+// FIXME Consider removing this I don't think we use it.
 enum e_direction	get_wall_face(double x)
 {
 	if ((x < 0) || (x >= 360))
@@ -76,6 +76,8 @@ double	get_camera_x(int screen_col)
 //   if (side == 0) wallX = posY + perpWallDist * rayDirY;
 //      else           wallX = posX + perpWallDist * rayDirX;
 //      wallX -= floor((wallX));
+// TODO Ensure that there is no "mirroring" effect introduced here
+// ...to the "left" of the screen/view the sum may differ from the right
 double	find_strike_point(t_ray *r, double x_origin, double y_origin)
 {
 	double	hit_me;

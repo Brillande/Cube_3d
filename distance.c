@@ -13,27 +13,6 @@
 #include "cube_3d.h"
 #include <stdlib.h>
 
-// TODO Use e_directions instead of cryptic numbers here
-// Old versions:angle
-// #define EAST 2
-// #define WEST 3
-// #define NORTH 4
-// ...and we had true and false taking up 0 and 1...
-// FIXED Constantly throws "out of bounds" errrors
-// FIXME x goes below 0 (-321) because we add -1 (step) 
-//- so collision not detected in time.
-// FIXME Side_dist_x and side_dist_y are 
-//doubles but we have defined them as 1 or -1.
-// If side_dist_x = 1
-// NOTE That *side* here represents N-S or E-W - better named axis??
-// side_dist_x and y are set in find_ray
-// This should be simple!
-// - Jump to next map square in either x or y direction
-// - Check if the map square is a wall
-// FIXME The x and ys are backwards somewhere...
-// NOTE That x increases going right BUT y 
-//*decreases* going up - is this assumption different?
-
 // NOTE Compared to find_distance, this does less.
 // ...no angle correction, no setting of wall_x.
 // (wall_x aka wall_strike is set now in find_strike_point())
@@ -94,7 +73,8 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 // direction_x = 1 means it *cannot* strike east
 // direction_y = -1 means it *cannot* strike north
 // direction_x = -1 means it *cannot* strike west
-// axis determines N-S or E-W
+// axis determines N-S (0) or E-W (1)
+// FIXME This is selecting wrongly. Is it the direction or the axis?
 void	set_impact_side(t_ray *ray)
 {
 	if (ray->axis == 0)
