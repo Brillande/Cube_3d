@@ -70,10 +70,9 @@ void	draw_ceiling_and_floor(t_lib1 *data, int i)
 	}
 }
 
-// Draw // find the x-coord of the texture corresponding to wall_strike
+// find the x-coord of the texture corresponding to wall_strike
 // define a step size for us to move up through the texture column
 // Drawing the floor and ceiling is the same as solid_walls() but...
-//
 // FIXME Mirror effect in map.cub simple case
 // - when the ray crosses halfway, RHS is wrong (> player angle)
 // Función para dibujar paredes texturizadas

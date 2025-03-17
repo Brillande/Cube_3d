@@ -133,12 +133,6 @@ typedef struct s_lib1
 	int			endian;
 	int			color;
 	void		*win;
-	int			width;
-	int			heigth;	// FIXME This is not used and can be removed; check width above too.
-	void		*wall_e;	// TODO Resolve the duplication between this and texture[4]
-	void		*wall_n;
-	void		*wall_s;
-	void		*wall_w;
 	int			view_col;
 	// FIXME Why do we have ray-specific things in the general struct?
 	int			start_point;
@@ -168,7 +162,6 @@ void		rotate_right(t_player *p);
 void		key_hook(mlx_key_data_t keydata, void *info);
 int			exit_game(t_lib1 *map_data);
 void		draw_3d(t_lib1 *data);
-void		walls(t_lib1 *data, int i);
 int			check_move(int x, int y, t_lib1 *data);
 double		len_find(t_lib1 *data, double angle);
 void		dda_alg(t_lib1 *data);
@@ -208,7 +201,6 @@ char		*check_name(char *map_name);
 int			check_each_square(t_lib1 *map_data);
 int			only_one_player(char *map);
 void		get_start_position(t_lib1 *map_data);
-void		load_wall_textures(t_lib1 *map_data);
 void		setup_player(t_lib1 *map_data);
 void		setup_camera_plane(double rads, t_player *player);
 
