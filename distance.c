@@ -44,6 +44,7 @@ double	find_distance_ray(t_ray *ray)
 // - side_dist_x/y: ...?
 // - delta_x/y: .....?
 // - axis: Are we going N-S (0, more up than down) or E-W (1, more sideways)
+// ...think of it as "hits an X side" or "hits a Y side"
 void	dda_for_one_ray(t_ray *ray, char **map_array)
 {
 	int	hit_wall;

@@ -70,22 +70,12 @@ void	draw_ceiling_and_floor(t_lib1 *data, int i)
 	}
 }
 
-// Draw a wall column in a solid colour
-// This is called after we have a correct (ha) height for wall
-// - Calculate the pixel range that should be floor, ceiling and wall
-// - draw down the screen_column in that colour
-// FIXME Too slow! Is there a better way than directly pixel_put?
-
-// find the x-coord of the texture corresponding to wall_strike
+// Draw // find the x-coord of the texture corresponding to wall_strike
 // define a step size for us to move up through the texture column
 // Drawing the floor and ceiling is the same as solid_walls() but...
 //
-// TODO Split this oh lord its a mess
-// FIXME Current issues: directly ahead we lose 
-//the bottom (grey) and top (cut off) - skewed?
 // FIXME Mirror effect in map.cub simple case
 // - when the ray crosses halfway, RHS is wrong (> player angle)
-
 // Función para dibujar paredes texturizadas
 void	textured_walls(t_lib1 *data, mlx_image_t *img,
 						mlx_texture_t *tex, t_ray ray)
@@ -93,6 +83,7 @@ void	textured_walls(t_lib1 *data, mlx_image_t *img,
 	int		line_height;
 	int		midpoint;
 
+	// TODO Document the reasons for these settings
 	if (ray.length == 0)
 		line_height = SCREENHEIGHT;
 	else
@@ -105,6 +96,22 @@ void	textured_walls(t_lib1 *data, mlx_image_t *img,
 	textured_walls2(data, img, tex);
 }
 
+// TODO Give this a useful name, not textured_walls2
+// - Correct for line start point being above the screen (i.e. < 0)
+// -- we calculate the texture position based on wall's real height
+// -- then set the draw point to the safe start point of 0
+// - Set end point to one less than SCREENHEIGHT (for coords from 0?)
+// - Draw ceiling colour onto the image
+// - Draw the textured pixels:
+// -- Find y-coord of the texture by casting tex_pos to int.
+// -- NOTE We can't explain the efect of & (tex->height - 1) !
+// -- Get the colour from the texture coords and put it to the image
+// -- Move the texture position forward by the step value.
+// - Draw floor colour onto the image
+// FIXED? Make sure that data->i is not needed outside of this loop
+// TODO colour is a one-use value with no business being in the big struct
+// TODO Could we go faster by checking if the colour to use has changed?
+// i - loop counter tracks the vertical (y) column of the screen to draw on
 void	textured_walls2(t_lib1 *data, mlx_image_t *img,
 						mlx_texture_t *tex)
 {

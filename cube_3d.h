@@ -134,12 +134,13 @@ typedef struct s_lib1
 	int			color;
 	void		*win;
 	int			width;
-	int			heigth;
-	void		*wall_e;
+	int			heigth;	// FIXME This is not used and can be removed; check width above too.
+	void		*wall_e;	// TODO Resolve the duplication between this and texture[4]
 	void		*wall_n;
 	void		*wall_s;
 	void		*wall_w;
 	int			view_col;
+	// FIXME Why do we have ray-specific things in the general struct?
 	int			start_point;
 	int			end_point;
 	double		tex_pos;
