@@ -12,8 +12,12 @@
 
 #include "cube_3d.h"
 
-// Convert an angle in dgress (like a compass bearing)
+// Convert an angle in degrees (like a compass bearing)
 // to Radians (for use in making a vector)
+// TODO Consider if further correction is needed, considering S in the map has
+// y increasing...where would this matter?
+// NOTE Some sources say that a heading vector converts in the range -PI to +PI
+// (A circle has 2 PI radians)
 double	degrees_to_radians(double bearing)
 {
 	double	rads;
@@ -24,6 +28,7 @@ double	degrees_to_radians(double bearing)
 	return (rads);
 }
 
+// NOTE This is unused and could be removed
 double	radians_to_degrees(double rads)
 {
 	double	degrees;

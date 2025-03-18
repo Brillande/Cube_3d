@@ -24,8 +24,8 @@
 # include <math.h>
 # include <stdint.h>
 
-# define SCREENWIDTH 640
-# define SCREENHEIGHT 480
+# define SCREENWIDTH 1280
+# define SCREENHEIGHT 960
 # define FIELDOFVIEW 60		// FIXME Nothing uses this we can remove it.
 
 // NOTE This is of use for texture arrays but *not* player.side!
@@ -49,17 +49,17 @@ typedef struct s_vec
 //the player and their view (ie camera plane)
 typedef struct s_player
 {
-	double	pa;
-	double	x;
+	double	pa;	// This is the angle facing by the player, right? in what unit?
+	double	x;	// NOTE This is a *position vector*, right?
 	double	y;
 	// NOTE I think ray and wall_x 
 	//are more accurately properties of a RAY not the player.
-	double	ray;
-	double	wall_x;
-	int		side;
+	double	ray;	// FIXME Pretty sure this is never used, player.ray
+	double	wall_x;	// FIXME This is only intialised and never used, remove it.
+	int		side;	// TODO Document what side does, maybe give it a better name
 //	t_vec	camera;	// vector of the camera plane
-	double	x_camera;
-	double	y_camera;
+	double	x_camera;	// x-value on the camera plane
+	double	y_camera;	// the y-value of the camera plane
 	double	game_speed;
 }	t_player;
 
@@ -76,6 +76,7 @@ typedef struct s_info
 
 // What do we *actually need* in these things? So much duplication!
 // TODO Reconcile axis with player.side and use them to select correct texture
+// TODO Rename axis to impact_axis for clarity?
 typedef struct s_ray
 {
 	double				ray_x;
@@ -90,7 +91,7 @@ typedef struct s_ray
 	double				delta_y;
 	int					axis;
 	double				length;
-	double				wall_strike;
+	double				wall_strike;	// TODO determine why wall_strike is double not int
 	enum e_direction	impact_side;
 }	t_ray;
 
@@ -133,8 +134,8 @@ typedef struct s_lib1
 	int			endian;
 	int			color;
 	void		*win;
-	int			view_col;
 	// FIXME Why do we have ray-specific things in the general struct?
+	int			view_col;
 	int			start_point;
 	int			end_point;
 	double		tex_pos;

@@ -33,6 +33,7 @@ enum e_direction	get_wall_face(double x)
 // ...what does 0.3 represent in degrees?
 // a - the pixel coordinate (x) where the ray will be drawn (in walls)
 // FIXME There is a mix of DEGREES and RADIANS in use here, it is confusing
+// TODO data->view_col seems like it should not be part of the big t_lib
 void	draw_3d(t_lib1 *data)
 {
 	mlx_texture_t	*selected_texture;
@@ -62,6 +63,7 @@ void	draw_3d(t_lib1 *data)
 
 // Return the x-coordinate on the camera plane for the ray in screen_col
 // Result is normalised to a range of -1 (left) to 1 (right edge)
+// NOTE I am unsure about the brackets here -- relying on processing order :(
 double	get_camera_x(int screen_col)
 {
 	double	camera_x;
@@ -76,8 +78,16 @@ double	get_camera_x(int screen_col)
 //   if (side == 0) wallX = posY + perpWallDist * rayDirY;
 //      else           wallX = posX + perpWallDist * rayDirX;
 //      wallX -= floor((wallX));
+// x/y_origin: exact player coords passed into function
+// r: our ray of interest
+// r->length: I guess this is the perpWallDist
+// r->ray_x/y: vector of direction of the ray. Has it been camera-plane corrected correctly?
+// TODO Check the place where this is set!!
 // TODO Ensure that there is no "mirroring" effect introduced here
 // ...to the "left" of the screen/view the sum may differ from the right
+// - Find an impact point depending on ray direction:
+// -- N-S / 0 use the Y values (why?)
+// -- E-W / 1 use the X values (again, why?)
 double	find_strike_point(t_ray *r, double x_origin, double y_origin)
 {
 	double	hit_me;
@@ -90,7 +100,7 @@ double	find_strike_point(t_ray *r, double x_origin, double y_origin)
 	{
 		hit_me = x_origin + r->length * r->ray_x;
 	}
-	hit_me -= floorf(hit_me);
+	hit_me -= floorf(hit_me);	// NOTE this is like rounding. Remove th
 	if ((r->impact_side == WEST) || (r->impact_side == SOUTH))
 		hit_me = 1 - hit_me;
 	return (hit_me);

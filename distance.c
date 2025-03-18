@@ -74,7 +74,7 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 // direction_x = 1 means it *cannot* strike east
 // direction_y = -1 means it *cannot* strike north
 // direction_x = -1 means it *cannot* strike west
-// axis determines N-S (0) or E-W (1)
+// NOTE axis determines N-S (0) or E-W (1) impact, and is set in the dda function
 // FIXME This is selecting wrongly. Is it the direction or the axis?
 void	set_impact_side(t_ray *ray)
 {
@@ -103,15 +103,17 @@ void	set_impact_side(t_ray *ray)
 // direction_x/y are the same.
 // ray_x and ray_y vary a little for each as we scan across
 // side_dist_x/y and delta_x/y needed once per ray
-// DONE Set new_ray.axis - initialise somehow?
-// FIXED rads comes in as 0 for the first call.
-// FIXED delta_x/y come in as "inf", clearly wrong. compare to _
-// FIXED delta_x/y seem to change - across a screen loop they tend to 0?
 // FIXED Should not be reading e.g. delta_x from data, it changes for each ray.
 // FIXED? If the player angle has no offset (i.e. dead in the middle),
 // delta_x goes off to infinity
-// DONE Protect against ray_x/y values of 0 -- they wreck the 1
-// / ray calculation for delta x
+// NOTE We protect against ray_x/y = 0 -- wrecks 1/ray calculation for delta x
+// ray_x/y: the 2 parts of the ray's direction vector.
+// - Calculated from player angle in radians passed in the loop
+// map_x/y: square where the ray begins
+// delta_x/y: distance in that axis from ray start point to next (first?) map grid crossing
+// axis:	will determine if it struck N-S or E-W (in dda algorithm)
+// length:	will hold the perpendicular distance travelled before wall strike
+// wall_strike:	flag for use in dda loop, set to unused value here
 t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
 {
 	t_ray	new_ray;
@@ -137,12 +139,13 @@ t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
 
 // Calculates the initial steps and distances for the (DDA) algorithm,
 // used to determine the intersection of a ray with a grid of pixels or cells.
-// Depending on the direction of ray_x and ray_y (set in WHERE?)
-// We modify step (i.e. direction)
-// and calculate side_ based on delta_x (FROM WHERE)
-// and the fractional part of the player's location
-// (i.e. the difference between their real coords 
-//and the map square they are within).
+// Depending on the direction of ray_x and ray_y (set in WHERE?):
+//  - We set step / direction in that axis
+//  - and calculate side_dist_x/y based on:
+//  -- delta_x/y (FROM WHERE) and
+//  -- the fractional part of the player's location
+//  -- (i.e. the difference between their real coords
+//  -- and the map square they are within).
 // ------------------------------
 // At the end of this function we have updated:
 // direction_x = whether the calculations go forward or back in the x_axis

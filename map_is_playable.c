@@ -96,6 +96,12 @@ void	setup_camera_plane(double rads, t_player *player)
 // this should not be needed, but it copies the read player start position
 // to the player thing that is read later.
 // TODO Perhaps this should read from a t_map and return a t_player?
+// x/y:		precise location of the player on the map (centre of initial coords)
+// pa:		RADIANS representation of the player's orientation, conversion of player_faces
+// ray:		TODO remove this I think
+// side:	unknown
+// game_speed:	unknown
+// wall_x:	unknown
 void	setup_player(t_lib1 *map_data)
 {
 	map_data->player.x = (double)(map_data->player_coor_x) + 0.5;
