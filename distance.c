@@ -124,8 +124,8 @@ t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
 
 	new_ray.ray_x = cos(rads);
 	new_ray.ray_y = sin(rads);
-	new_ray.ray_x = new_ray.ray_x + (camera_x * data->player.x_camera);
-	new_ray.ray_y = new_ray.ray_y + (camera_x * data->player.y_camera);
+	new_ray.ray_x = new_ray.ray_x + data->player.x_camera * camera_x;
+	new_ray.ray_y = new_ray.ray_y + data->player.y_camera * camera_x;
 	new_ray.map_x = (int) data->player.x;
 	new_ray.map_y = (int) data->player.y;
 	if (new_ray.ray_x == 0)
