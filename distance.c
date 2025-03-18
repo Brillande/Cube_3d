@@ -76,16 +76,20 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 // direction_x = -1 means it *cannot* strike west
 // NOTE axis determines N-S (0) or E-W (1) impact, and is set in the dda function
 // FIXME This is selecting wrongly. Is it the direction or the axis?
+// It *changes* when you go from the left to the right
+// R side is correct texture, but mirrored
+// Left side is choosing the wrong texture (N not S in map.cub)
+// Also, the texture of the wall seems to change based on player position. BAD
 void	set_impact_side(t_ray *ray)
 {
-	if (ray->axis == 0)
+	if (ray->axis == 1)
 	{
 		if (ray->direction_x > 0)
 			ray->impact_side = WEST;
 		else
 			ray->impact_side = EAST;
 	}
-	else
+	else if (ray->axis == 0)
 	{
 		if (ray->direction_y > 0)
 			ray->impact_side = NORTH;
