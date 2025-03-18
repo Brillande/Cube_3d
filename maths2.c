@@ -22,9 +22,10 @@ double	degrees_to_radians(double bearing)
 {
 	double	rads;
 
-	if (bearing >= 360)
+	if ((bearing >= 360) || (bearing < 0))
 		ft_printf("Warning! bearing out of range: %f", bearing);
 	rads = bearing * (M_PI / 180);
+//	rads -= M_PI;	// HACK Correction to place us in the +/- PI range
 	return (rads);
 }
 
