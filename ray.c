@@ -29,7 +29,6 @@ enum e_direction	get_wall_face(double x)
 
 // Dibuja la vista 3D del entorno
 // Loop over each ray to be calculated for the view window
-// TODO Use FIELDOFVIEW to calculate the angle_offset
 // ...what does 0.3 represent in degrees?
 // a - the pixel coordinate (x) where the ray will be drawn (in walls)
 // FIXME There is a mix of DEGREES and RADIANS in use here, it is confusing

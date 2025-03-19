@@ -25,7 +25,6 @@
 
 # define SCREENWIDTH 640
 # define SCREENHEIGHT 480
-# define FIELDOFVIEW 60
 
 // NOTE This is of use for texture arrays but *not* player.side!
 enum e_direction
