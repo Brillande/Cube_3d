@@ -14,7 +14,6 @@
 
 // NOTE Is this is a general function we could use elsewhere?
 //Esta función obtiene el valor RGBA de un píxel en una textura dada
-
 int	get_rgba(mlx_texture_t *texture, int x, int y)
 {
 	int	r;
@@ -27,26 +26,6 @@ int	get_rgba(mlx_texture_t *texture, int x, int y)
 	b = texture->pixels[y * texture->width * 4 + (x * 4) + 2];
 	a = texture->pixels[y * texture->width * 4 + (x * 4) + 3];
 	return (r << 24 | g << 16 | b << 8 | a);
-}
-
-// TODO Give this function a useful name and description
-void	fill_info(t_info *info, t_lib1 *data, double height)
-{
-	info->tex = data->texture[data->player.side];
-	if (height >= SCREENHEIGHT)
-	{
-		info->top = 0;
-		info->bottom = SCREENHEIGHT - 1;
-		info->text_start = ((height - SCREENHEIGHT) / 2.0)
-			* info->tex->height / height;
-	}
-	else
-	{
-		info->top = (SCREENHEIGHT - height) / 2;
-		info->bottom = (SCREENHEIGHT + height) / 2;
-		info->text_start = 0.0;
-	}
-	info->step = info->tex->height / height;
 }
 
 // TODO Work out how this relates to the get_background function

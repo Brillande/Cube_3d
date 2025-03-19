@@ -61,17 +61,6 @@ typedef struct s_player
 	double	game_speed;
 }	t_player;
 
-// Badly-named sruct to hold info for texture drawing (?)
-typedef struct s_info
-{
-	mlx_texture_t	*tex;
-	double			top;
-	double			bottom;
-	double			text_start;
-	double			step;
-	int				color;
-}	t_info;
-
 // What do we *actually need* in these things? So much duplication!
 // TODO Reconcile axis with player.side and use them to select correct texture
 typedef struct s_ray
@@ -208,7 +197,6 @@ void		clear_data(t_lib1 *map_data);
 void		player(void *param);
 int			create_trgb(int t, int r, int g, int b);
 
-void		fill_info(t_info *info, t_lib1 *data, double height);
 void		draw_ceiling_and_floor(t_lib1 *data, int i);
 
 int			basic_wall_test(t_lib1 *map_data);
