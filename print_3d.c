@@ -28,43 +28,6 @@ int	get_rgba(mlx_texture_t *texture, int x, int y)
 	return (r << 24 | g << 16 | b << 8 | a);
 }
 
-// TODO Work out how this relates to the get_background function
-//esta función dibuja el techo y el suelo
-void	draw_ceiling_and_floor(t_lib1 *data, int i)
-{
-	int	start;
-	int	half;
-
-	start = 0;
-	half = SCREENHEIGHT / 2;
-	while (start < half)
-	{
-		mlx_put_pixel(data->img, i, start, data->rgb_ceiling);
-		start++;
-	}
-	while (start < SCREENHEIGHT)
-	{
-		mlx_put_pixel(data->img, i, start, data->rgb_floor);
-		start++;
-	}
-}
-
-// Draw a wall column in a solid colour
-// This is called after we have a correct (ha) height for wall
-// - Calculate the pixel range that should be floor, ceiling and wall
-// - draw down the screen_column in that colour
-// FIXME Too slow! Is there a better way than directly pixel_put?
-
-// find the x-coord of the texture corresponding to wall_strike
-// define a step size for us to move up through the texture column
-// Drawing the floor and ceiling is the same as solid_walls() but...
-//
-// TODO Split this oh lord its a mess
-// FIXME Current issues: directly ahead we lose 
-//the bottom (grey) and top (cut off) - skewed?
-// FIXME Mirror effect in map.cub simple case
-// - when the ray crosses halfway, RHS is wrong (> player angle)
-
 // Función para dibujar paredes texturizadas
 void	textured_walls(t_lib1 *data, mlx_image_t *img,
 						mlx_texture_t *tex, t_ray ray)

@@ -197,8 +197,6 @@ void		clear_data(t_lib1 *map_data);
 void		player(void *param);
 int			create_trgb(int t, int r, int g, int b);
 
-void		draw_ceiling_and_floor(t_lib1 *data, int i);
-
 int			basic_wall_test(t_lib1 *map_data);
 
 #endif
