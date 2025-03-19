@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:35:44 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/27 16:44:01 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:46:59 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,16 +100,16 @@ void	set_impact_side(t_ray *ray)
 	if (ray->axis == 0)
 	{
 		if (ray->direction_x > 0)
-			ray->impact_side = WEST;
+			ray->impact_side = SOUTH;
 		else
-			ray->impact_side = EAST;
+			ray->impact_side = NORTH;
 	}
 	else
 	{
 		if (ray->direction_y > 0)
-			ray->impact_side = NORTH;
+			ray->impact_side = WEST;
 		else
-			ray->impact_side = SOUTH;
+			ray->impact_side = EAST;
 	}
 }
 
