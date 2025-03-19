@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:36:29 by emedina-          #+#    #+#             */
-/*   Updated: 2025/03/19 12:25:33 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/03/19 17:07:58 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	get_rgba(mlx_texture_t *texture, int x, int y)
 	int	g;
 	int	b;
 	int	a;
-
+	
 	r = texture->pixels[y * texture->width * 4 + (x * 4)];
 	g = texture->pixels[y * texture->width * 4 + (x * 4) + 1];
 	b = texture->pixels[y * texture->width * 4 + (x * 4) + 2];
