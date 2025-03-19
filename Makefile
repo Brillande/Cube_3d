@@ -23,9 +23,6 @@ SRCS        :=      main.c \
                           exit_game.c \
                           distance.c \
                           moves2.c \
-                          ft_printf/utils.c \
-                          ft_printf/libftprintf.c \
-                          ft_printf/utils1.c \
 													get_visuals.c \
                           ray.c \
 													boundary_test.c \
