@@ -30,7 +30,7 @@ int	get_rgba(mlx_texture_t *texture, int x, int y)
 
 // Función para dibujar paredes texturizadas
 void	textured_walls(t_lib1 *data, mlx_image_t *img,
-						mlx_texture_t *tex, t_ray ray)
+						mlx_texture_t *tex, t_ray ray, int draw_col)
 {
 	int		line_height;
 	int		midpoint;
@@ -47,11 +47,11 @@ void	textured_walls(t_lib1 *data, mlx_image_t *img,
 	midpoint = SCREENHEIGHT / 2;
 	data->start_point = (-line_height / 2) + midpoint;
 	data->end_point = (line_height / 2) + midpoint;
-	textured_walls2(data, img, tex);
+	textured_walls2(data, img, tex, draw_col);
 }
 
 void	textured_walls2(t_lib1 *data, mlx_image_t *img,
-						mlx_texture_t *tex)
+						mlx_texture_t *tex, int draw_col)
 {
 	int	i;
 
@@ -68,14 +68,14 @@ void	textured_walls2(t_lib1 *data, mlx_image_t *img,
 		data->end_point = SCREENHEIGHT - 1;
 	i = 0;
 	while (i < data->start_point)
-		mlx_put_pixel(img, data->view_col, i++, data->rgb_ceiling);
+		mlx_put_pixel(img, draw_col, i++, data->rgb_ceiling);
 	while (i <= data->end_point)
 	{
 		data->tex_y = (int)data->tex_pos & (tex->height - 1);
 		data->tex_pos += data->tex_step;
 		data->colour = get_rgba(tex, data->tex_x, data->tex_y);
-		mlx_put_pixel(img, data->view_col, i++, data->colour);
+		mlx_put_pixel(img, draw_col, i++, data->colour);
 	}
 	while (i < SCREENHEIGHT)
-		mlx_put_pixel(img, data->view_col, i++, data->rgb_floor);
+		mlx_put_pixel(img, draw_col, i++, data->rgb_floor);
 }

@@ -110,7 +110,6 @@ typedef struct s_lib1
 	char		*fullpath;
 	char		*map_content;
 	// FIXME This below is ray stuff not game stuff
-	int			view_col;
 	int			start_point;
 	int			end_point;
 	double		tex_pos;
@@ -151,9 +150,9 @@ void		solid_walls(t_lib1 *data, double distance,
 				int screen_col, mlx_image_t *img);
 double		find_strike_point(t_ray *r, double x_origin, double y_origin);
 void		textured_walls(t_lib1 *data, mlx_image_t *img,
-				mlx_texture_t *tex, t_ray ray);
+				mlx_texture_t *tex, t_ray ray, int draw_col);
 void		textured_walls2(t_lib1 *data, mlx_image_t *img,
-				mlx_texture_t *tex);
+				mlx_texture_t *tex, int draw_col);
 
 void		set_impact_side(t_ray *ray);
 
