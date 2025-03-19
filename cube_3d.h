@@ -98,7 +98,6 @@ typedef struct s_ray
 // ...another sensible split could
 // be things that change on movement v things that don't?
 // TODO How do we change "number of columns" - the map is not a rectangle.
-
 typedef struct s_lib1
 {
 	t_player	player;
@@ -117,13 +116,13 @@ typedef struct s_lib1
 	// NOTE This below should / could be turned into a vector?
 	int			player_faces;
 	int			how_many_lines;
-	int			how_many_colums;
 	int			map_length;		// NOTE IS this needed?
 	int			x;
 	int			y;
 	int			count;			// NOTE count of what??
 	char		*fullpath;
 	char		*map_content;
+	// FIXME This below is ray stuff not game stuff
 	int			view_col;
 	int			start_point;
 	int			end_point;

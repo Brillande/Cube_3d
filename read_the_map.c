@@ -31,14 +31,11 @@ void	read_map_from_fd(t_lib1 *map_data, int fd)
 	if (!line)
 		exit (EXIT_FAILURE);
 	map_data->how_many_lines++;
-	map_data->how_many_colums = ft_strlen(line) - 1;
 	map_data->map_content = line;
 	line = get_next_line(fd);
 	while ((line) && (line_is_blank(line) == 0))
 	{
 		map_data->how_many_lines++;
-		if (((int) ft_strlen(line) - 1) > map_data->how_many_colums)
-			map_data->how_many_colums = (ft_strlen(line) - 1);
 		newcontent = ft_strjoin(map_data->map_content, line);
 		free(line);
 		free(map_data->map_content);
