@@ -126,7 +126,6 @@ typedef struct s_lib1
 	int			view_col;
 	int			start_point;
 	int			end_point;
-	int			i;
 	double		tex_pos;
 	int			colour;
 	double		tex_step;

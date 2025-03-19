@@ -111,6 +111,8 @@ void	textured_walls(t_lib1 *data, mlx_image_t *img,
 void	textured_walls2(t_lib1 *data, mlx_image_t *img,
 						mlx_texture_t *tex)
 {
+	int	i;
+
 	if (data->start_point < 0)
 	{
 		data->tex_pos = -data->start_point * data->tex_step;
@@ -122,16 +124,16 @@ void	textured_walls2(t_lib1 *data, mlx_image_t *img,
 	}
 	if (data->end_point >= SCREENHEIGHT)
 		data->end_point = SCREENHEIGHT - 1;
-	data->i = 0;
-	while (data->i < data->start_point)
-		mlx_put_pixel(img, data->view_col, data->i++, data->rgb_ceiling);
-	while (data->i <= data->end_point)
+	i = 0;
+	while (i < data->start_point)
+		mlx_put_pixel(img, data->view_col, i++, data->rgb_ceiling);
+	while (i <= data->end_point)
 	{
 		data->tex_y = (int)data->tex_pos & (tex->height - 1);
 		data->tex_pos += data->tex_step;
 		data->colour = get_rgba(tex, data->tex_x, data->tex_y);
-		mlx_put_pixel(img, data->view_col, data->i++, data->colour);
+		mlx_put_pixel(img, data->view_col, i++, data->colour);
 	}
-	while (data->i < SCREENHEIGHT)
-		mlx_put_pixel(img, data->view_col, data->i++, data->rgb_floor);
+	while (i < SCREENHEIGHT)
+		mlx_put_pixel(img, data->view_col, i++, data->rgb_floor);
 }
