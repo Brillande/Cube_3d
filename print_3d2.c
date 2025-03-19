@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print3d2.c                                         :+:      :+:    :+:   */
+/*   print_3d2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/26 18:39:56 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/26 18:41:28 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/03/19 10:23:24 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,7 @@ void	walls(t_lib1 *data, int i)
 	{
 		if (data->player.side == EAST || data->player.side == NORTH)
 			info.color = get_rgba(info.tex,
-					((unsigned int)((1.0 - data->player.wall_x)
-							* info.tex->width)),
+					((unsigned int)(data->player.wall_x) * info.tex->width),
 					((unsigned int)(info.text_start + x * info.step)));
 		else
 			info.color = get_rgba(info.tex,
