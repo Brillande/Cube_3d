@@ -187,13 +187,6 @@ void		textured_walls2(t_lib1 *data, mlx_image_t *img,
 
 void		set_impact_side(t_ray *ray);
 
-// Debugging files
-void		print_read_from_file(t_lib1 map_data);
-void		print_map_array(t_lib1 *map_data);
-void		print_start_position(t_lib1 *map_data);
-void		print_ray_properties(t_ray ray);
-void		print_player_info(t_player p);
-
 // Parsing the files
 void		read_map_from_fd(t_lib1 *map_data, int fd);
 void		get_visuals(t_lib1 *map_data, int fd);
