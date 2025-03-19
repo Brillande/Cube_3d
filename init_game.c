@@ -126,4 +126,8 @@ void	load_wall_textures(t_lib1 *map_data)
 	map_data->wall_n = mlx_texture_to_image(map_data->mlx, wall_n_texture);
 	map_data->wall_s = mlx_texture_to_image(map_data->mlx, wall_s_texture);
 	map_data->wall_w = mlx_texture_to_image(map_data->mlx, wall_w_texture);
+	mlx_delete_texture(wall_e_texture);
+	mlx_delete_texture(wall_n_texture);
+	mlx_delete_texture(wall_s_texture);
+	mlx_delete_texture(wall_w_texture);
 }
