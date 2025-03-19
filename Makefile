@@ -28,7 +28,6 @@ SRCS        :=      main.c \
 													boundary_test.c \
 													file_helpers.c \
 													maths.c \
-							print_3d2.c \
 							moves3.c	\
 							maths2.c	\
 							map_is_playable2.c

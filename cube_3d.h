@@ -151,7 +151,6 @@ void		rotate_right(t_player *p);
 void		key_hook(mlx_key_data_t keydata, void *info);
 int			exit_game(t_lib1 *map_data);
 void		draw_3d(t_lib1 *data);
-void		walls(t_lib1 *data, int i);
 int			check_move(int x, int y, t_lib1 *data);
 double		len_find(t_lib1 *data, double angle);
 void		dda_alg(t_lib1 *data);
