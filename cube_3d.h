@@ -135,10 +135,6 @@ typedef struct s_lib1
 	void		*win;
 	int			width;
 	int			heigth;
-	void		*wall_e;
-	void		*wall_n;
-	void		*wall_s;
-	void		*wall_w;
 	int			view_col;
 	int			start_point;
 	int			end_point;
@@ -208,7 +204,6 @@ char		*check_name(char *map_name);
 int			check_each_square(t_lib1 *map_data);
 int			only_one_player(char *map);
 void		get_start_position(t_lib1 *map_data);
-void		load_wall_textures(t_lib1 *map_data);
 void		setup_player(t_lib1 *map_data);
 void		setup_camera_plane(double rads, t_player *player);
 

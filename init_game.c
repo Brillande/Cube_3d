@@ -87,47 +87,8 @@ void	open_window(t_lib1 *map_data)
 		fprintf(stderr, "Error initializing MLX\n");
 		clear_data(map_data);
 	}
-	load_wall_textures(map_data);
 	map_data->img = make_background(map_data);
 	draw_3d(map_data);
 	mlx_key_hook(map_data->mlx, &key_hook, map_data);
 	mlx_loop(map_data->mlx);
-}
-
-// Translate textures to images / an image to put to the window
-// - Load textures from texture_paths
-// - Verify image loading
-// - Convert to images
-// - Verify conversion
-// TODO Understand whether we need *
-//images* at this stage or are textures enough?
-// NOTE Later we refer to parts of these to get hold of the things-we-need-draw
-// But right now I don't know how that works. Images or textures??
-// TODO Convert the multiple variables to an array like texture[i]
-void	load_wall_textures(t_lib1 *map_data)
-{
-	mlx_texture_t	*wall_e_texture;
-	mlx_texture_t	*wall_n_texture;
-	mlx_texture_t	*wall_s_texture;
-	mlx_texture_t	*wall_w_texture;
-
-	wall_e_texture = mlx_load_png(map_data->texture_paths[EAST]);
-	wall_n_texture = mlx_load_png(map_data->texture_paths[NORTH]);
-	wall_s_texture = mlx_load_png(map_data->texture_paths[SOUTH]);
-	wall_w_texture = mlx_load_png(map_data->texture_paths[WEST]);
-	if (!wall_e_texture || !wall_n_texture
-		|| !wall_s_texture || !wall_w_texture)
-	{
-		fprintf(stderr, "Error loading textures\n");
-		clear_data(map_data);
-		exit(EXIT_FAILURE);
-	}
-	map_data->wall_e = mlx_texture_to_image(map_data->mlx, wall_e_texture);
-	map_data->wall_n = mlx_texture_to_image(map_data->mlx, wall_n_texture);
-	map_data->wall_s = mlx_texture_to_image(map_data->mlx, wall_s_texture);
-	map_data->wall_w = mlx_texture_to_image(map_data->mlx, wall_w_texture);
-	mlx_delete_texture(wall_e_texture);
-	mlx_delete_texture(wall_n_texture);
-	mlx_delete_texture(wall_s_texture);
-	mlx_delete_texture(wall_w_texture);
 }
