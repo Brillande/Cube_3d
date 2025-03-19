@@ -16,11 +16,15 @@
 //Esta función obtiene el valor RGBA de un píxel en una textura dada
 int	get_rgba(mlx_texture_t *texture, int x, int y)
 {
-	int	r;
-	int	g;
-	int	b;
-	int	a;
-	
+	unsigned int	r;
+	unsigned int	g;
+	unsigned int	b;
+	unsigned int	a;
+	unsigned int	in;
+
+	in = y * texture->width * 4 + (x * 4);
+	if (in + 3 >= texture->width * texture->height * 4)
+		return (0);
 	r = texture->pixels[y * texture->width * 4 + (x * 4)];
 	g = texture->pixels[y * texture->width * 4 + (x * 4) + 1];
 	b = texture->pixels[y * texture->width * 4 + (x * 4) + 2];
