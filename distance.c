@@ -11,28 +11,6 @@
 /* ************************************************************************** */
 
 #include "cube_3d.h"
-#include <stdlib.h>
-
-// TODO Use e_directions instead of cryptic numbers here
-// Old versions:angle
-// #define EAST 2
-// #define WEST 3
-// #define NORTH 4
-// ...and we had true and false taking up 0 and 1...
-// FIXED Constantly throws "out of bounds" errrors
-// FIXME x goes below 0 (-321) because we add -1 (step) 
-//- so collision not detected in time.
-// FIXME Side_dist_x and side_dist_y are 
-//doubles but we have defined them as 1 or -1.
-// If side_dist_x = 1
-// NOTE That *side* here represents N-S or E-W - better named axis??
-// side_dist_x and y are set in find_ray
-// This should be simple!
-// - Jump to next map square in either x or y direction
-// - Check if the map square is a wall
-// FIXME The x and ys are backwards somewhere...
-// NOTE That x increases going right BUT y 
-//*decreases* going up - is this assumption different?
 
 // NOTE Compared to find_distance, this does less.
 // ...no angle correction, no setting of wall_x.
@@ -54,12 +32,10 @@ double	find_distance_ray(t_ray *ray)
 	return (perp_dist);
 }
 
-// Move a ray across gridlines (x and y)
-// until it hits a wall (represented in map_array)
-// As we go we increment side_dist_x/y,
-// measuring the distance travelled in each axis
-// When it finishes, we have the distances travelled for the height calculation
-// DONE Fix the axis / side problem: we need to know what side of a wall is hit.
+// - Move a ray across gridlines (x and y) until it hits a wall
+// - As we go we increment side_dist_x/y,
+// -- measuring distance travelled in each axis
+// - When loop finishes, we have distances travelled for the height calculation
 // NOTE Seemed possible to set axis on the way *out* of the loop, not during...
 // ....but that did not work?
 // - side_dist_x/y: ...?
@@ -122,14 +98,6 @@ void	set_impact_side(t_ray *ray)
 // direction_x/y are the same.
 // ray_x and ray_y vary a little for each as we scan across
 // side_dist_x/y and delta_x/y needed once per ray
-// DONE Set new_ray.axis - initialise somehow?
-// FIXED rads comes in as 0 for the first call.
-// FIXED delta_x/y come in as "inf", clearly wrong. compare to _
-// FIXED delta_x/y seem to change - across a screen loop they tend to 0?
-// FIXED Should not be reading e.g. delta_x from data, it changes for each ray.
-// FIXED? If the player angle has no offset (i.e. dead in the middle),
-// delta_x goes off to infinity
-// DONE Protect against ray_x/y values of 0 -- they wreck the 1
 // / ray calculation for delta x
 t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
 {
