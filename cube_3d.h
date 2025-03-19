@@ -122,17 +122,8 @@ typedef struct s_lib1
 	int			x;
 	int			y;
 	int			count;			// NOTE count of what??
-	int			wind;
 	char		*fullpath;
 	char		*map_content;
-	char		*addr;
-	int			bits_per_pixel;
-	int			line_length;
-	int			endian;
-	int			color;
-	void		*win;
-	int			width;
-	int			heigth;
 	int			view_col;
 	int			start_point;
 	int			end_point;
