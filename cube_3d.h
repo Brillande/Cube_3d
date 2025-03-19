@@ -90,7 +90,6 @@ typedef struct s_ray
 typedef struct s_lib1
 {
 	t_player	player;
-	int			hit;	// Indicador de impacto de un rayo con el pared
 	void		*img; // Imagen
 	int			rgb_ceiling; // Color del techo
 	int			rgb_floor; // Color del suelo
@@ -108,7 +107,6 @@ typedef struct s_lib1
 	int			map_length;		// NOTE IS this needed?
 	int			x;
 	int			y;
-	int			count;			// NOTE count of what??
 	char		*fullpath;
 	char		*map_content;
 	// FIXME This below is ray stuff not game stuff
