@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/20 17:36:29 by emedina-          #+#    #+#             */
-/*   Updated: 2025/03/19 11:14:45 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/03/19 11:20:57 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,9 +97,7 @@ void	textured_walls(t_lib1 *data, mlx_image_t *img,
 		line_height = SCREENHEIGHT;
 	else
 		line_height = SCREENHEIGHT / ray.length;
-	// Invertir coordenada horizontal solo para paredes E y W.
-	// Ajusta "impact.side" y las condiciones según tu implementación.
-	if (ray.impact_side == 1 /* condición para E/W */)
+	if (ray.impact_side == 1)
 		data->tex_x = tex->width - (int)(ray.wall_strike * (double)tex->width);
 	else
 		data->tex_x = (int)(ray.wall_strike * (double)tex->width);
