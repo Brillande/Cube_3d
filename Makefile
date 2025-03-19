@@ -20,7 +20,7 @@ SRCS        :=      main.c \
                          read_the_map.c \
                           print_3d.c \
                           moves.c \
-                          init_game2.c \
+                          exit_game.c \
                           distance.c \
                           moves2.c \
                           ft_printf/utils.c \
