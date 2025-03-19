@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 16:47:02 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/26 19:04:18 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/03/19 14:29:36 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,5 +58,6 @@ int	main(int argc, char **argv)
 		read_map_from_fd(&map_data, fd);
 		map_is_playable(&map_data);
 		init_game(&map_data);
+		exit_game(&map_data);
 	}
 }
