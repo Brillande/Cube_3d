@@ -141,15 +141,12 @@ void		key_hook(mlx_key_data_t keydata, void *info);
 int			exit_game(t_lib1 *map_data);
 void		draw_3d(t_lib1 *data);
 int			check_move(int x, int y, t_lib1 *data);
-double		len_find(t_lib1 *data, double angle);
-void		dda_alg(t_lib1 *data);
-//void		get_step_and_side(t_lib1 *cal);	// formerly find_ray
 void		get_step_and_side(t_ray *data, t_player player);
 int			get_rgba(mlx_texture_t *texture, int x, int y);
 void		dda_for_one_ray(t_ray *ray, char **map_array);
-//t_ray	setup_ray(t_lib1 *data, double rads);
 t_ray		setup_ray(t_lib1 *data, double rads, double camera_x);
 double		find_distance_ray(t_ray *ray);
+
 // Display things on the windows
 mlx_image_t	*make_background(t_lib1 *map_data);
 void		solid_walls(t_lib1 *data, double distance,
