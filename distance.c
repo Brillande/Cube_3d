@@ -60,6 +60,7 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 			ray->map_y += ray->direction_y;
 			ray->axis = 1;
 		}
+		// FIXME Segfault here with map8_biggest.cub. Failed for this.
 		if (ft_strncmp(&map_array[ray->map_x][ray->map_y], "1", 1) == 0)
 			hit_wall = 1;
 	}
