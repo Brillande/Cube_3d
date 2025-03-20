@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_3d.h"
+#include "cub3D.h"
 
 // Return the wall face that a ray of angle x intersects with
 // TODO Implement and test get_wall_face

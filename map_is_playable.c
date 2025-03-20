@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_3d.h"
+#include "cub3D.h"
 
 // FIXME There are too many functions in map_is_playable.c
 

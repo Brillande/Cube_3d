@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_3d.h"
+#include "cub3D.h"
 #include <fcntl.h>
 #include <sys/stat.h>
 

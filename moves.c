@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_3d.h"
+#include "cub3D.h"
 
 // Rotate the player's view and the camera plane
 // "To rotate a vector, multiply it with the rotation matrix

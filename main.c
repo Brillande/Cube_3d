@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_3d.h"
-#include <stdlib.h>
+#include "cub3D.h"
 
 // Free memory reserved for map_data t_lib and exit
 // TODO later split this so it can be called at end of game, too.

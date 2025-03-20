@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_3d.h"
-
-// TODO Add 42 header
+#include "cub3D.h"
 
 // Maths functions from the very useful Wolfenstein video
 // Source: https://www.youtube.com/watch?v=eOCQfxRQ2pY
@@ -24,6 +22,7 @@
 // NOTE This represents a correction from the obvious "distance to intersection"
 // which avoids a "fisheye" distortion effect.
 // TODO How does this relate to find_distance in ray.c ?
+// FIXME This function is unused and can be removed
 double	player_view_distance(double delta_x, double delta_y, double beta)
 {
 	double	pvd;

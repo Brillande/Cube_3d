@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_3d.h"
+#include "cub3D.h"
 
 // return the position of the first character in a map line
 // This is simply the first non-space character

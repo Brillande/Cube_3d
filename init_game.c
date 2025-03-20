@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_3d.h"
+#include "cub3D.h"
 
 // Defines a hook whereby ESCAPE quites the game
 // TODO Free memory before quitting -- call exit_game? Where is the t_lib?

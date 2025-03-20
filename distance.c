@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_3d.h"
+#include "cub3D.h"
 
 // NOTE Compared to find_distance, this does less.
 // ...no angle correction, no setting of wall_x.

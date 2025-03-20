@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_3d.h"
+#include "cub3D.h"
 
 // TODO Implement tests for the non-map elements: present and valid
 // NOTE Why are we storing two copies of the map_content in the struct??

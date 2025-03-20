@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube_3d.h                                          :+:      :+:    :+:   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaikney <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/30 13:23:09 by emedina-          #+#    #+#             */
-/*   Updated: 2025/02/26 19:04:35 by emedina-         ###   ########.fr       */
+/*   Created: 2025/03/20 15:35:01 by chaikney          #+#    #+#             */
+/*   Updated: 2025/03/20 15:35:04 by chaikney         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 // TODO Ensure all these includes are permitted / needed
-#ifndef CUBE_3D_H
-# define CUBE_3D_H
+#ifndef CUB3D_H
+# define CUB3D_H
 # include "./libft/libft.h"
 # include "MLX42/include/MLX42/MLX42.h"
 # include <fcntl.h>

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_3d.h"
+#include "cub3D.h"
 
 // NOTE Is this is a general function we could use elsewhere?
 //Esta función obtiene el valor RGBA de un píxel en una textura dada

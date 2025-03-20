@@ -3,4 +3,4 @@ cub3d
 /*.o
 /ft_printf/*.o
 /CMakeFiles/
-/cube3d
+/cub3D

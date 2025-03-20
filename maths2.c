@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_3d.h"
+#include "cub3D.h"
 
 // Convert an angle in dgress (like a compass bearing)
 // to Radians (for use in making a vector)

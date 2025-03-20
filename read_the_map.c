@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_3d.h"
+#include "cub3D.h"
 
 // Read the map data from an already-open file to the BIG STRUCT
 // Is it a blank line? carry on until we get something.

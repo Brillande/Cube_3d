@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_3d.h"
+#include "cub3D.h"
 
-// FIXME This function is never called and is incomplete
+// FIXME Should we call mlx_terminate() on exit?
 int	exit_game(t_lib1 *map_data)
 {
 	int	i;

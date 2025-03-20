@@ -10,8 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "MLX42/include/MLX42/MLX42.h"
-#include "cube_3d.h"
+#include "cub3D.h"
 
 // Lifted from the documentation
 // https://harm-smits.github.io/42docs/libs/minilibx/colors.html

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube_3d.h"
+#include "cub3D.h"
 
 // Función para mover al jugador hacia la derecha
 void	key_d(t_lib1 *data)
