@@ -70,12 +70,13 @@ $(LIBFT):
 	make -C $(FTDIR)
 
 # NOTE Specify source and build location, else we overwrite our own Makefile!
-libmlx:
+$(LIBMLX):
+	@echo "making MLX42"
 	cmake -S $(MLXDIR) -B $(MLXDIR)
 	make -C $(MLXDIR)
 
 ifeq ($(UNAME), Linux)
-$(NAME): ${OBJS} $(LIBFT) libmlx
+$(NAME): ${OBJS} $(LIBFT) $(LIBMLX)
 			@echo "$(GREEN)Linux compilation ${CLR_RMV}of ${YELLOW}$(NAME) ${CLR_RMV}..."
 			$(CC) $(OBJS) $(HEADERS) $(FTLIB) $(MLXLIBS) -o $(NAME)
 			@echo "$(GREEN)$(NAME) created[0m ✔️"
