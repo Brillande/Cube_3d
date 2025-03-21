@@ -137,7 +137,6 @@ void		rotate_right(t_player *p);
 
 int			exit_game(t_lib1 *map_data);
 void		draw_3d(t_lib1 *data);
-int			check_move(int x, int y, t_lib1 *data);
 void		get_step_and_side(t_ray *data, t_player player);
 int			get_rgba(mlx_texture_t *texture, int x, int y);
 void		dda_for_one_ray(t_ray *ray, char **map_array);

@@ -12,6 +12,27 @@
 
 #include "cub3D.h"
 
+// Función para manejar el movimiento del jugador
+// Define the movement keys.
+// TODO do we need draw_3d here or should it be elsewhere in the loop?
+// ...or if nothing has changed, why even call it?
+void	movement_hooks(t_lib1 *data)
+{
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+		rotate_left(&data->player);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+		move_left(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+		move_right(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+		rotate_right(&data->player);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+		move_backward(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+		move_forward(data);
+	draw_3d(data);
+}
+
 // Rotate the player's view and the camera plane
 // "To rotate a vector, multiply it with the rotation matrix
 // [ cos(a) -sin(a) ]
@@ -38,6 +59,7 @@ void	rotate_left(t_player *p)
 	rotate_vector(&p->x_camera, &p->y_camera, theta);
 }
 
+// This changes the player's view, (and camera plane) not her position.
 void	rotate_right(t_player *p)
 {
 	double	theta;
@@ -47,22 +69,4 @@ void	rotate_right(t_player *p)
 	if (p->pa < 0)
 		p->pa += 2 * M_PI;
 	rotate_vector(&p->x_camera, &p->y_camera, theta);
-}
-
-// Función para mover al jugador hacia la izquierda
-// "Strafe" to the left. Position changes, view angle stays the same.
-void	move_left(t_lib1 *data)
-{
-	double	move_x;
-	double	move_y;
-
-	move_x = data->player.x + data->player.game_speed
-		* cos(data->player.pa + 0.5 * M_PI);
-	move_y = data->player.y + data->player.game_speed
-		* sin(data->player.pa + 0.5 * M_PI);
-	if (check_move(move_x, move_y, data))
-	{
-		data->player.y = move_y;
-		data->player.x = move_x;
-	}
 }
