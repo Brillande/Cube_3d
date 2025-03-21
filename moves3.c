@@ -14,7 +14,7 @@
 
 // Función para mover al jugador hacia la derecha
 // "Strafe" to the right. Position changes, view angle stays the same.
-void	key_d(t_lib1 *data)
+void	move_right(t_lib1 *data)
 {
 	double	move_x;
 	double	move_y;
@@ -32,7 +32,7 @@ void	key_d(t_lib1 *data)
 
 // Función para mover al jugador hacia atrás
 // Move player backwards, if not into a wall
-void	key_s(t_lib1 *data)
+void	move_backward(t_lib1 *data)
 {
 	double	move_x;
 	double	move_y;

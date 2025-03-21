@@ -14,7 +14,7 @@
 
 // Función para mover al jugador hacia adelante
 // Move player forward, if not into a wall.
-void	key_w(t_lib1 *data)
+void	move_forward(t_lib1 *data)
 {
 	double	move_x;
 	double	move_y;
@@ -52,14 +52,14 @@ void	move(t_lib1 *data)
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 		rotate_left(&data->player);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		key_a(data);
+		move_left(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-		key_d(data);
+		move_right(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
 		rotate_right(&data->player);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-		key_s(data);
+		move_backward(data);
 	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
-		key_w(data);
+		move_forward(data);
 	draw_3d(data);
 }

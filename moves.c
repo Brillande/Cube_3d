@@ -51,7 +51,7 @@ void	rotate_right(t_player *p)
 
 // Función para mover al jugador hacia la izquierda
 // "Strafe" to the left. Position changes, view angle stays the same.
-void	key_a(t_lib1 *data)
+void	move_left(t_lib1 *data)
 {
 	double	move_x;
 	double	move_y;

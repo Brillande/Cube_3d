@@ -125,11 +125,11 @@ void		init_game(t_lib1 *map_data);
 void		open_window(t_lib1 *map_data);
 int			print_img(t_lib1 *map_data);
 void		move(t_lib1 *data);
-void		key_d(t_lib1 *data);
-void		key_a(t_lib1 *data);
-void		key_s(t_lib1 *data);
-void		key_w(t_lib1 *data);
-// moves
+// Player move key hook functions
+void		move_right(t_lib1 *data);
+void		move_left(t_lib1 *data);
+void		move_backward(t_lib1 *data);
+void		move_forward(t_lib1 *data);
 void		rotate_left(t_player *p);
 void		rotate_right(t_player *p);
 
