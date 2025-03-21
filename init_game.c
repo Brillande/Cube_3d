@@ -61,18 +61,13 @@ mlx_image_t	*make_background(t_lib1 *map_data)
 	return (bg);
 }
 
-// Entry point to the game after the map data has been read.
-void	init_game(t_lib1 *map_data)
-{
-	open_window(map_data);
-}
-
 // opens the main game window
 // Generates the background
 // Defines the key hooks
 // Draws the first wall_s
 // Enters the loop
-void	open_window(t_lib1 *map_data)
+// TODO Make a function for the MLX failure case
+void	init_game(t_lib1 *map_data)
 {
 	map_data->mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT,
 			"cub3d with DEFINEd sizes", 1);

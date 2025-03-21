@@ -122,7 +122,8 @@ typedef struct s_lib1
 
 int			main(int argc, char **argv);
 void		init_game(t_lib1 *map_data);
-void		open_window(t_lib1 *map_data);
+
+// TODO Is this still used?
 int			print_img(t_lib1 *map_data);
 // Functions to define hooks
 void		key_hooks(mlx_key_data_t keydata, void *info);
