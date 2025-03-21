@@ -15,7 +15,6 @@
 // Defines a hook whereby ESCAPE quites the game
 // Also defines the move keys
 // TODO Free memory before quitting -- call exit_game? Where is the t_lib?
-// FIXME There are 2 other functions that do the same as this. Highlander mode!
 void	key_hooks(mlx_key_data_t keydata, void *info)
 {
 	t_lib1	*data;
@@ -23,8 +22,7 @@ void	key_hooks(mlx_key_data_t keydata, void *info)
 	data = (t_lib1 *) info;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
 	{
-		mlx_close_window(data->mlx);
-		exit(0);
+		exit_game(info);
 	}
 	movement_hooks(data);
 }
@@ -63,7 +61,6 @@ mlx_image_t	*make_background(t_lib1 *map_data)
 	return (bg);
 }
 
-// NOTE I don't think returning the map_data is needed here.
 // Entry point to the game after the map data has been read.
 void	init_game(t_lib1 *map_data)
 {
@@ -71,13 +68,10 @@ void	init_game(t_lib1 *map_data)
 }
 
 // opens the main game window
-// Defines some key hooks (which?)
-// Loads the wall textures
 // Generates the background
+// Defines the key hooks
 // Draws the first wall_s
 // Enters the loop
-// FIXED The window sizes are based on a 2d map, we need fixed viewport size
-// (Could use SCREENWIDTH and SCREENHEIGHT)
 void	open_window(t_lib1 *map_data)
 {
 	map_data->mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT,
@@ -85,7 +79,9 @@ void	open_window(t_lib1 *map_data)
 	if (!map_data->mlx)
 	{
 		fprintf(stderr, "Error initializing MLX\n");
-		clear_data(map_data);
+		clear_map(map_data);
+		clear_textures(map_data);
+		exit(EXIT_FAILURE);
 	}
 	map_data->img = make_background(map_data);
 	draw_3d(map_data);

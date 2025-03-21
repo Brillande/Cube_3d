@@ -135,7 +135,6 @@ void		move_forward(t_lib1 *data);
 void		rotate_left(t_player *p);
 void		rotate_right(t_player *p);
 
-int			exit_game(t_lib1 *map_data);
 void		draw_3d(t_lib1 *data);
 void		get_step_and_side(t_ray *data, t_player player);
 int			get_rgba(mlx_texture_t *texture, int x, int y);
@@ -186,7 +185,11 @@ double		get_camera_x(int screen_col);
 void		rotate_vector(double *x, double *y, double rads);
 
 // exit routines
-void		clear_data(t_lib1 *map_data);
+//void		clear_data(t_lib1 *map_data);
+
+void	exit_game(t_lib1 *game_data);
+void	clear_textures(t_lib1 *tex_data);
+void	clear_map(t_lib1 *map_data);
 void		player(void *param);
 int			create_trgb(int t, int r, int g, int b);
 
