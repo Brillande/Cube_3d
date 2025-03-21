@@ -12,9 +12,18 @@
 
 #include "cub3D.h"
 
-// Defines a hook whereby ESCAPE quites the game
-// Also defines the move keys
-// TODO Free memory before quitting -- call exit_game? Where is the t_lib?
+// If the MLX set up fails, we clear the map and textures then exit.
+// NOTE Not sure how to test this :)
+static void	bad_mlx(t_lib1 *game_data, char *error_msg)
+{
+	ft_printf("%s", error_msg);
+	clear_map(game_data);
+	clear_textures(game_data);
+	exit(EXIT_FAILURE);
+}
+
+// Defines a hook whereby ESCAPE quits the game
+// Also calls out to define the move keys
 void	key_hooks(mlx_key_data_t keydata, void *info)
 {
 	t_lib1	*data;
@@ -72,12 +81,7 @@ void	init_game(t_lib1 *map_data)
 	map_data->mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT,
 			"cub3d with DEFINEd sizes", 1);
 	if (!map_data->mlx)
-	{
-		fprintf(stderr, "Error initializing MLX\n");
-		clear_map(map_data);
-		clear_textures(map_data);
-		exit(EXIT_FAILURE);
-	}
+		bad_mlx(map_data, "Error initializing MLX\n");
 	map_data->img = make_background(map_data);
 	draw_3d(map_data);
 	mlx_key_hook(map_data->mlx, &key_hooks, map_data);
