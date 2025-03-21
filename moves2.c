@@ -63,25 +63,3 @@ void	move(t_lib1 *data)
 		key_w(data);
 	draw_3d(data);
 }
-
-// Función para manejar los eventos de teclas
-// TODO Both of click_button and close_clik should call exit_game
-// FIXME it appears that nothing calls this function!
-void	click_button(mlx_key_data_t keydata, void *info)
-{
-	t_lib1	*data;
-
-	data = (t_lib1 *)info;
-	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-		mlx_close_window(data->mlx);
-	move(data);
-}
-
-// FIXME This ending method leaks memory - should be the same as ESC
-// Función para manejar el evento de cerrar la ventana
-// FIXME it appears that nothing calls this function!
-int	close_clik(t_lib1 *data)
-{
-	mlx_close_window(data->mlx);
-	exit(0);
-}

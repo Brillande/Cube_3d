@@ -125,8 +125,6 @@ void		init_game(t_lib1 *map_data);
 void		open_window(t_lib1 *map_data);
 int			print_img(t_lib1 *map_data);
 void		move(t_lib1 *data);
-/* void		key_left(t_lib1 *data); */
-/* void		key_right(t_lib1 *data); */
 void		key_d(t_lib1 *data);
 void		key_a(t_lib1 *data);
 void		key_s(t_lib1 *data);
