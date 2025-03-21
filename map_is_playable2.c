@@ -29,7 +29,7 @@ void	map_is_playable(t_lib1 *map_data)
 {
 	if ((!only_legal_char(map_data->map_content))
 		|| (!only_one_player(map_data->map_content)))
-		clear_map(map_data);
+		bad_map(map_data, "Illegal char in map");
 	map_data->map_array = ft_split(map_data->map_content, '\n');
 	if (!basic_wall_test(map_data))
 		bad_map(map_data, "Wall count error\n");
@@ -59,10 +59,7 @@ int	only_legal_char(char *map_content)
 				&& map_content[i] != 'N' && map_content[i] != 'E'
 				&& map_content[i] != 'W' && map_content[i] != 'S'
 				&& map_content[i] != ' ' && map_content[i] != '\n')
-			{
-				perror("Illegal character in map\n");
 				return (0);
-			}
 			i++;
 		}
 		return (1);
