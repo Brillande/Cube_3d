@@ -123,8 +123,6 @@ typedef struct s_lib1
 int			main(int argc, char **argv);
 void		init_game(t_lib1 *map_data);
 
-// TODO Is this still used?
-int			print_img(t_lib1 *map_data);
 // Functions to define hooks
 void		key_hooks(mlx_key_data_t keydata, void *info);
 void		movement_hooks(t_lib1 *data);
@@ -145,8 +143,6 @@ double		find_distance_ray(t_ray *ray);
 
 // Display things on the windows
 mlx_image_t	*make_background(t_lib1 *map_data);
-void		solid_walls(t_lib1 *data, double distance,
-				int screen_col, mlx_image_t *img);
 double		find_strike_point(t_ray *r, double x_origin, double y_origin);
 void		textured_walls(t_lib1 *data, mlx_image_t *img,
 				mlx_texture_t *tex, t_ray ray);
