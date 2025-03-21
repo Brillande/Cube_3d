@@ -13,8 +13,9 @@
 #include "cub3D.h"
 
 // Defines a hook whereby ESCAPE quites the game
+// Also defines the move keys
 // TODO Free memory before quitting -- call exit_game? Where is the t_lib?
-// TODO Add other key hooks here? How does it relate to moves.c?
+// FIXME There are 2 other functions that do the same as this. Highlander mode!
 void	key_hook(mlx_key_data_t keydata, void *info)
 {
 	t_lib1	*data;
@@ -33,7 +34,6 @@ void	key_hook(mlx_key_data_t keydata, void *info)
 // Set the pixels in the top half to rgb_ceiling
 // and those in the bottom to rgb_floor
 // (Later, experiment with fading to black to simulate darkness / distance)
-// FIXED Find the correct location for to write to
 mlx_image_t	*make_background(t_lib1 *map_data)
 {
 	int			x;

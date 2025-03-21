@@ -13,6 +13,7 @@
 #include "cub3D.h"
 
 // Función para mover al jugador hacia adelante
+// Move player forward, if not into a wall.
 void	key_w(t_lib1 *data)
 {
 	double	move_x;
@@ -43,6 +44,9 @@ int	check_move(int x, int y, t_lib1 *data)
 }
 
 // Función para manejar el movimiento del jugador
+// Define the movement keys.
+// TODO do we need draw_3d here or should it be elsewhere in the loop?
+// ...or if nothing has changed, why even call it?
 void	move(t_lib1 *data)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
@@ -61,6 +65,8 @@ void	move(t_lib1 *data)
 }
 
 // Función para manejar los eventos de teclas
+// TODO Both of click_button and close_clik should call exit_game
+// FIXME it appears that nothing calls this function!
 void	click_button(mlx_key_data_t keydata, void *info)
 {
 	t_lib1	*data;
@@ -73,6 +79,7 @@ void	click_button(mlx_key_data_t keydata, void *info)
 
 // FIXME This ending method leaks memory - should be the same as ESC
 // Función para manejar el evento de cerrar la ventana
+// FIXME it appears that nothing calls this function!
 int	close_clik(t_lib1 *data)
 {
 	mlx_close_window(data->mlx);

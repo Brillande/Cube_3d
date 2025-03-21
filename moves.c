@@ -50,6 +50,7 @@ void	rotate_right(t_player *p)
 }
 
 // Función para mover la cámara hacia la izquierda
+// FIXME it appears that nothing calls this function!
 void	key_left(t_lib1 *data)
 {
 	data->player.pa -= 0.05 * M_PI;
@@ -60,6 +61,7 @@ void	key_left(t_lib1 *data)
 }
 
 // Función para mover la cámara hacia la derecha
+// FIXME this function is not in use!
 void	key_right(t_lib1 *data)
 {
 	data->player.pa += 0.05 * M_PI;
@@ -70,6 +72,7 @@ void	key_right(t_lib1 *data)
 }
 
 // Función para mover al jugador hacia la izquierda
+// "Strafe" to the left. Position changes, view angle stays the same.
 void	key_a(t_lib1 *data)
 {
 	double	move_x;

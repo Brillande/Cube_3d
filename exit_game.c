@@ -13,6 +13,7 @@
 #include "cub3D.h"
 
 // FIXME Should we call mlx_terminate() on exit?
+// FIXME Nothing calls this function :|
 int	exit_game(t_lib1 *map_data)
 {
 	int	i;
