@@ -22,18 +22,31 @@ static void	bad_mlx(t_lib1 *game_data, char *error_msg)
 	exit(EXIT_FAILURE);
 }
 
-// Defines a hook whereby ESCAPE quits the game
-// Also calls out to define the move keys
+// Define all keyhooks
+// - ESCAPE quits the game
+// - WASD and left / right arrow move camera and/or player
+// TODO do we need draw_3d here or should it be elsewhere in the loop?
+// ...or if nothing has changed, why even call it?
 void	key_hooks(mlx_key_data_t keydata, void *info)
 {
 	t_lib1	*data;
 
 	data = (t_lib1 *) info;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-	{
 		exit_game(info);
-	}
-	movement_hooks(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+		rotate_left(&data->player);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+		move_left(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+		move_right(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+		rotate_right(&data->player);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+		move_backward(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+		move_forward(data);
+	draw_3d(data);
 }
 
 // Create and return the background of floor / ceiling colours

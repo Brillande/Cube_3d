@@ -12,27 +12,6 @@
 
 #include "cub3D.h"
 
-// Función para manejar el movimiento del jugador
-// Define the movement keys.
-// TODO do we need draw_3d here or should it be elsewhere in the loop?
-// ...or if nothing has changed, why even call it?
-void	movement_hooks(t_lib1 *data)
-{
-	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
-		rotate_left(&data->player);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-		move_left(data);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-		move_right(data);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
-		rotate_right(&data->player);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-		move_backward(data);
-	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
-		move_forward(data);
-	draw_3d(data);
-}
-
 // Rotate the player's view and the camera plane
 // "To rotate a vector, multiply it with the rotation matrix
 // [ cos(a) -sin(a) ]

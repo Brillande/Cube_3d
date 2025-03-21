@@ -125,7 +125,6 @@ void		init_game(t_lib1 *map_data);
 
 // Functions to define hooks
 void		key_hooks(mlx_key_data_t keydata, void *info);
-void		movement_hooks(t_lib1 *data);
 // Player move functions, called by various key hooks
 void		move_right(t_lib1 *data);
 void		move_left(t_lib1 *data);
