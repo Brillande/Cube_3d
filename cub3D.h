@@ -124,8 +124,10 @@ int			main(int argc, char **argv);
 void		init_game(t_lib1 *map_data);
 void		open_window(t_lib1 *map_data);
 int			print_img(t_lib1 *map_data);
-void		move(t_lib1 *data);
-// Player move key hook functions
+// Functions to define hooks
+void		key_hooks(mlx_key_data_t keydata, void *info);
+void		movement_hooks(t_lib1 *data);
+// Player move functions, called by various key hooks
 void		move_right(t_lib1 *data);
 void		move_left(t_lib1 *data);
 void		move_backward(t_lib1 *data);
@@ -133,7 +135,6 @@ void		move_forward(t_lib1 *data);
 void		rotate_left(t_player *p);
 void		rotate_right(t_player *p);
 
-void		key_hook(mlx_key_data_t keydata, void *info);
 int			exit_game(t_lib1 *map_data);
 void		draw_3d(t_lib1 *data);
 int			check_move(int x, int y, t_lib1 *data);

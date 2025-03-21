@@ -47,7 +47,7 @@ int	check_move(int x, int y, t_lib1 *data)
 // Define the movement keys.
 // TODO do we need draw_3d here or should it be elsewhere in the loop?
 // ...or if nothing has changed, why even call it?
-void	move(t_lib1 *data)
+void	movement_hooks(t_lib1 *data)
 {
 	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
 		rotate_left(&data->player);

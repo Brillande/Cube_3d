@@ -16,7 +16,7 @@
 // Also defines the move keys
 // TODO Free memory before quitting -- call exit_game? Where is the t_lib?
 // FIXME There are 2 other functions that do the same as this. Highlander mode!
-void	key_hook(mlx_key_data_t keydata, void *info)
+void	key_hooks(mlx_key_data_t keydata, void *info)
 {
 	t_lib1	*data;
 
@@ -26,7 +26,7 @@ void	key_hook(mlx_key_data_t keydata, void *info)
 		mlx_close_window(data->mlx);
 		exit(0);
 	}
-	move(data);
+	movement_hooks(data);
 }
 
 // Create and return the background of floor / ceiling colours
@@ -89,6 +89,6 @@ void	open_window(t_lib1 *map_data)
 	}
 	map_data->img = make_background(map_data);
 	draw_3d(map_data);
-	mlx_key_hook(map_data->mlx, &key_hook, map_data);
+	mlx_key_hook(map_data->mlx, &key_hooks, map_data);
 	mlx_loop(map_data->mlx);
 }
