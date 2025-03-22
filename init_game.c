@@ -12,21 +12,41 @@
 
 #include "cub3D.h"
 
-// Defines a hook whereby ESCAPE quites the game
-// Also defines the move keys
-// TODO Free memory before quitting -- call exit_game? Where is the t_lib?
-// FIXME There are 2 other functions that do the same as this. Highlander mode!
+// If the MLX set up fails, we clear the map and textures then exit.
+// NOTE Not sure how to test this :)
+static void	bad_mlx(t_lib1 *game_data, char *error_msg)
+{
+	ft_printf("%s", error_msg);
+	clear_map(game_data);
+	clear_textures(game_data);
+	exit(EXIT_FAILURE);
+}
+
+// Define all keyhooks
+// - ESCAPE quits the game
+// - WASD and left / right arrow move camera and/or player
+// TODO do we need draw_3d here or should it be elsewhere in the loop?
+// ...or if nothing has changed, why even call it?
 void	key_hooks(mlx_key_data_t keydata, void *info)
 {
 	t_lib1	*data;
 
 	data = (t_lib1 *) info;
 	if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
-	{
-		mlx_close_window(data->mlx);
-		exit(0);
-	}
-	movement_hooks(data);
+		exit_game(info);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_LEFT))
+		rotate_left(&data->player);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
+		move_left(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_D))
+		move_right(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_RIGHT))
+		rotate_right(&data->player);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_S))
+		move_backward(data);
+	if (mlx_is_key_down(data->mlx, MLX_KEY_W))
+		move_forward(data);
+	draw_3d(data);
 }
 
 // Create and return the background of floor / ceiling colours
@@ -63,30 +83,17 @@ mlx_image_t	*make_background(t_lib1 *map_data)
 	return (bg);
 }
 
-// NOTE I don't think returning the map_data is needed here.
-// Entry point to the game after the map data has been read.
-void	init_game(t_lib1 *map_data)
-{
-	open_window(map_data);
-}
-
 // opens the main game window
-// Defines some key hooks (which?)
-// Loads the wall textures
 // Generates the background
+// Defines the key hooks
 // Draws the first wall_s
 // Enters the loop
-// FIXED The window sizes are based on a 2d map, we need fixed viewport size
-// (Could use SCREENWIDTH and SCREENHEIGHT)
-void	open_window(t_lib1 *map_data)
+void	init_game(t_lib1 *map_data)
 {
 	map_data->mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT,
 			"cub3d with DEFINEd sizes", 1);
 	if (!map_data->mlx)
-	{
-		fprintf(stderr, "Error initializing MLX\n");
-		clear_data(map_data);
-	}
+		bad_mlx(map_data, "Error initializing MLX\n");
 	map_data->img = make_background(map_data);
 	draw_3d(map_data);
 	mlx_key_hook(map_data->mlx, &key_hooks, map_data);

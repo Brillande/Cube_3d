@@ -122,11 +122,9 @@ typedef struct s_lib1
 
 int			main(int argc, char **argv);
 void		init_game(t_lib1 *map_data);
-void		open_window(t_lib1 *map_data);
-int			print_img(t_lib1 *map_data);
+
 // Functions to define hooks
 void		key_hooks(mlx_key_data_t keydata, void *info);
-void		movement_hooks(t_lib1 *data);
 // Player move functions, called by various key hooks
 void		move_right(t_lib1 *data);
 void		move_left(t_lib1 *data);
@@ -135,7 +133,6 @@ void		move_forward(t_lib1 *data);
 void		rotate_left(t_player *p);
 void		rotate_right(t_player *p);
 
-int			exit_game(t_lib1 *map_data);
 void		draw_3d(t_lib1 *data);
 void		get_step_and_side(t_ray *data, t_player player);
 int			get_rgba(mlx_texture_t *texture, int x, int y);
@@ -145,8 +142,6 @@ double		find_distance_ray(t_ray *ray);
 
 // Display things on the windows
 mlx_image_t	*make_background(t_lib1 *map_data);
-void		solid_walls(t_lib1 *data, double distance,
-				int screen_col, mlx_image_t *img);
 double		find_strike_point(t_ray *r, double x_origin, double y_origin);
 void		textured_walls(t_lib1 *data, mlx_image_t *img,
 				mlx_texture_t *tex, t_ray ray);
@@ -186,7 +181,11 @@ double		get_camera_x(int screen_col);
 void		rotate_vector(double *x, double *y, double rads);
 
 // exit routines
-void		clear_data(t_lib1 *map_data);
+//void		clear_data(t_lib1 *map_data);
+
+void	exit_game(t_lib1 *game_data);
+void	clear_textures(t_lib1 *tex_data);
+void	clear_map(t_lib1 *map_data);
 void		player(void *param);
 int			create_trgb(int t, int r, int g, int b);
 
