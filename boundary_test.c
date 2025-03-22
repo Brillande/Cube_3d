@@ -24,6 +24,7 @@ int	find_top_left(char *str)
 	return (i);
 }
 
+// Confirm the sqaure is bounded horizontally.
 // return 1 if either side has no wall
 // Return 0 if both directions reach a wall or startpoint is invalid
 // refuse to test walls or newlines
@@ -57,8 +58,18 @@ int	walls_horizontal(int x, char *mapline, int max_x)
 	return (0);
 }
 
-int	walls_vertical2(int test_y, int max_y, int column, char **map_array)
+// Perform column check in upwards direction
+// return 1 if end has no wall
+// Return 0 if reach a wall or startpoint is invalid
+// start_line = coord to check from
+// column = same, other axis. Does not change.
+// map_array = the map
+// max_y = the number of lines in the map, where to stop the downward check.
+int	walls_downwards(int start_line, char **map_array, int max_y, int column)
 {
+	int	test_y;
+
+	test_y = start_line;
 	while (test_y <= max_y)
 	{
 		if (!map_array[test_y][column])
@@ -74,17 +85,14 @@ int	walls_vertical2(int test_y, int max_y, int column, char **map_array)
 	return (0);
 }
 
-// return 1 if either end has no wall
-// Return 0 if both directions reach a wall or startpoint is invalid
-// we are testing a column; so x shoulld not change
-// FIXED Does not correctly reject not_bounded.cub
+// Perform column check in upwards direction
+// return 1 if end has no wall
+// Return 0 if reach a wall or startpoint is invalid
 // Treat a mising value as a fail, i.e. A gap before reaching a 1.
-// start_line = coord to cheeck from
-// column = same, other axis
+// start_line = coord to check from
+// column = same, other axis. Does not change
 // map_array = the map
-// max_y = the number of lines in the map, where to stop the downward check.
-// FIXED walls_vertical fails to catch map8_broken
-int	walls_vertical(int start_line, char **map_array, int max_y, int column)
+int	walls_upwards(int start_line, char **map_array, int column)
 {
 	int	test_y;
 
@@ -103,8 +111,6 @@ int	walls_vertical(int start_line, char **map_array, int max_y, int column)
 		}
 		if (test_y < 0)
 			return (1);
-		test_y = start_line;
-		return (walls_vertical2(test_y, max_y, column, map_array));
 	}
 	return (0);
 }
@@ -135,7 +141,9 @@ int	check_each_square(t_lib1 *map_data)
 			if (walls_horizontal(test_col, map_data->map_array[test_line],
 					test_line_len) == 1)
 				return (0);
-			if (walls_vertical(test_line, map_data->map_array,
+			if (walls_upwards(test_line, map_data->map_array, test_col) == 1)
+				return (0);
+			if (walls_downwards(test_line, map_data->map_array,
 					map_data->how_many_lines, test_col) == 1)
 				return (0);
 			test_col++;
