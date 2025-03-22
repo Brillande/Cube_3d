@@ -169,7 +169,7 @@ int			test_path(char *path);
 char		*check_extension(char *map_extension);
 void		join_the_fullpath(t_lib1 *map_data, char *map_name);
 int			line_is_blank(char *line);
-void		bad_file(t_lib1 *data, char* error_message);
+void		bad_file(t_lib1 *data, char *error_message);
 
 // maths functions
 double		player_view_distance(double delta_x, double delta_y, double beta);
@@ -181,15 +181,11 @@ double		radians_to_degrees(double rads);
 double		get_camera_x(int screen_col);
 void		rotate_vector(double *x, double *y, double rads);
 
-// exit routines
-//void		clear_data(t_lib1 *map_data);
-
-void	exit_game(t_lib1 *game_data);
-void	clear_textures(t_lib1 *tex_data);
-void	clear_map(t_lib1 *map_data);
+void		exit_game(t_lib1 *game_data);
+void		clear_textures(t_lib1 *tex_data);
+void		clear_map(t_lib1 *map_data);
 void		player(void *param);
 int			create_trgb(int t, int r, int g, int b);
 
 int			basic_wall_test(t_lib1 *map_data);
-
 #endif
