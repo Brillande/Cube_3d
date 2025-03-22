@@ -12,6 +12,8 @@
 
 #include "cub3D.h"
 
+// TODO Correct the 42 header for exit_games.c
+
 // Clear the texture paths and the texture files
 // TODO Call this when textures have failed to load
 void	clear_textures(t_lib1 *tex_data)

@@ -88,7 +88,6 @@ mlx_image_t	*make_background(t_lib1 *map_data)
 // Defines the key hooks
 // Draws the first wall_s
 // Enters the loop
-// TODO Make a function for the MLX failure case
 void	init_game(t_lib1 *map_data)
 {
 	map_data->mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT,

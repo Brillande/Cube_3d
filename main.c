@@ -36,5 +36,6 @@ int	main(int argc, char **argv)
 		read_map_from_fd(&map_data, fd);
 		map_is_playable(&map_data);
 		init_game(&map_data);
+		exit_game(&map_data);
 	}
 }
