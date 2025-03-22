@@ -63,6 +63,8 @@ int	walls_vertical2(int test_y, int max_y, int column, char **map_array)
 	{
 		if (!map_array[test_y][column])
 			return (1);
+		else if (map_array[test_y][column] == ' ')
+			return (1);
 		else if (map_array[test_y][column] == '1')
 			break ;
 		test_y++;
@@ -81,7 +83,7 @@ int	walls_vertical2(int test_y, int max_y, int column, char **map_array)
 // column = same, other axis
 // map_array = the map
 // max_y = the number of lines in the map, where to stop the downward check.
-// FIXME there are too many lines in walls_vertical
+// FIXED walls_vertical fails to catch map8_broken
 int	walls_vertical(int start_line, char **map_array, int max_y, int column)
 {
 	int	test_y;
@@ -92,6 +94,8 @@ int	walls_vertical(int start_line, char **map_array, int max_y, int column)
 		while (test_y >= 0)
 		{
 			if (!map_array[test_y][column])
+				return (1);
+			else if (map_array[test_y][column] == ' ')
 				return (1);
 			else if (map_array[test_y][column] == '1')
 				break ;
@@ -112,9 +116,8 @@ int	walls_vertical(int start_line, char **map_array, int max_y, int column)
 // ...they must be getting mixed up!
 // Return 0 if the map cannot be played
 // Return 1 if the map can be played.
-// FIXED check_each_square fails to allow not_rectangle.cub
-// FIXED check_each_square fails to allow not_rectangle_left.cub
 // NOTE If our square is 1, space or newline we do not need to check it.
+// TODO BUT! a space counts as a gap if it is inside the body of the map...
 // TODO Check that the how_many_lines thing works.
 int	check_each_square(t_lib1 *map_data)
 {
