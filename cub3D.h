@@ -169,6 +169,7 @@ int			test_path(char *path);
 char		*check_extension(char *map_extension);
 void		join_the_fullpath(t_lib1 *map_data, char *map_name);
 int			line_is_blank(char *line);
+void		bad_file(t_lib1 *data, char* error_message);
 
 // maths functions
 double		player_view_distance(double delta_x, double delta_y, double beta);

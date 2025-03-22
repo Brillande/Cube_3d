@@ -12,6 +12,15 @@
 
 #include "cub3D.h"
 
+// Clear and exit if there is a problem with the provided path.
+void	bad_file(t_lib1 *data, char* error_message)
+{
+	ft_printf("%s", error_message);
+	if (data->fullpath)
+		free (data->fullpath);
+	exit (EXIT_FAILURE);
+}
+
 // Initialises a map data object
 // Get a filepath from the args, do some checking, add it to map data
 // reads the path into a buffer -- we don't want to do that any more
@@ -31,7 +40,7 @@ int	main(int argc, char **argv)
 		join_the_fullpath(&map_data, argv[1]);
 		fd = open(map_data.fullpath, O_RDONLY);
 		if ((!fd) || (fd == -1))
-			exit(EXIT_FAILURE);
+			bad_file(&map_data, "Could not open file, or it is empty\n");
 		get_visuals(&map_data, fd);
 		read_map_from_fd(&map_data, fd);
 		map_is_playable(&map_data);

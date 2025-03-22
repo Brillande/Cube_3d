@@ -62,23 +62,25 @@ int	test_path(char *path)
 // Takes the value from argv[1], checks it's valid and...
 // Adds the full (relative) path for the map to the data struct->fullpath
 // TODO Remove hardcoding of maps_directory (move to .h or something)
-// NOTE Fullpath gets freed in the clear_data function on failure.
+// NOTE Fullpath gets freed in the clear_map function on failure.
+// ...although that is not triggered if the given parameter doesn't exist.
 void	join_the_fullpath(t_lib1 *map_data, char *map_name)
 {
 	char	*map_name_with_extension;
 	char	*maps_directory;
 
 	map_name_with_extension = check_extension(map_name);
-	if (map_name_with_extension != NULL)
+	if (map_name_with_extension == NULL)
+		bad_file(map_data, "Error La extension no es .cub\n");
+	else
 	{
 		maps_directory = "maps/";
 		map_data->fullpath = ft_strjoin(maps_directory,
 				map_name_with_extension);
 		if (map_data->fullpath == NULL)
-		{
-			perror("Error\n al asignar memoria\n");
-			exit(EXIT_FAILURE);
-		}
+			bad_file(map_data, "Error al asignar memoria\n");
+		if (test_path(map_data->fullpath) == 0)
+			bad_file(map_data, "File cannot be read, check location\n");
 	}
 }
 
@@ -96,8 +98,5 @@ char	*check_extension(char *map_extension)
 		return (map_extension);
 	}
 	else
-	{
-		perror("Error\nLa extension no es .cub\n");
-		exit(EXIT_FAILURE);
-	}
+		return (NULL);
 }
