@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "cub3D.h"
+#include <stdlib.h>
 
 // NOTE Compared to find_distance, this does less.
 // ...no angle correction, no setting of wall_x.
@@ -41,6 +42,12 @@ double	find_distance_ray(t_ray *ray)
 // - side_dist_x/y: ...?
 // - delta_x/y: .....?
 // - axis: Are we going N-S (0, more up than down) or E-W (1, more sideways)
+// TODO add a check for the horizontal / line length not to be exceeded.
+// The outer squares are all walls. The segfault is triggered in the map array.
+// It is possible that the ray jumps beyond the walls in some odd configurations?
+// I think the segfault is when we look at a part of map_array that does not exist.
+// TODO Or, we could fill the map with spaces to a rectangular shape....
+// ...but that may have too many implications for the validation, etc.
 void	dda_for_one_ray(t_ray *ray, char **map_array)
 {
 	int	hit_wall;
@@ -61,7 +68,14 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 			ray->axis = 1;
 		}
 		// FIXME Segfault here with map8_biggest.cub. Failed for this.
-		if (ft_strncmp(&map_array[ray->map_x][ray->map_y], "1", 1) == 0)
+//		if (ft_strncmp(&map_array[ray->map_x][ray->map_y], "1", 1) == 0)
+		if ((ray->map_y < 0 ) || (ray->map_x < 0))
+		{
+			ft_printf("Jumped out the map: %i, %i", ray->map_x, ray->map_y);
+			exit (EXIT_FAILURE);
+		}
+		else if ((map_array[ray->map_x][ray->map_y]) &&
+			map_array[ray->map_x][ray->map_y] == '1')
 			hit_wall = 1;
 	}
 	set_impact_side(ray);
