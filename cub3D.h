@@ -117,7 +117,6 @@ typedef struct s_lib1
 	double		tex_pos;
 	double		tex_step;
 	int			tex_x;
-	int			tex_y;
 }	t_lib1;
 
 int			main(int argc, char **argv);

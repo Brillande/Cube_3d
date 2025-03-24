@@ -71,16 +71,17 @@ void	textured_walls2(t_lib1 *data, mlx_image_t *img,
 						mlx_texture_t *tex, t_ray *ray)
 {
 	int	i;
+	int	tex_y;
 
 	i = 0;
 	while (i < ray->start_point)
 		mlx_put_pixel(img, data->view_col, i++, data->rgb_ceiling);
 	while (i <= ray->end_point)
 	{
-		data->tex_y = (int)data->tex_pos & (tex->height - 1);
+		tex_y = (int)data->tex_pos & (tex->height - 1);
 		data->tex_pos += data->tex_step;
 		mlx_put_pixel(img, data->view_col, i++,
-			rgba_from_texture(tex, data->tex_x, data->tex_y));
+			rgba_from_texture(tex, data->tex_x, tex_y));
 	}
 	while (i < SCREENHEIGHT)
 		mlx_put_pixel(img, data->view_col, i++, data->rgb_floor);
