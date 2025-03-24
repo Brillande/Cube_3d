@@ -79,6 +79,9 @@ typedef struct s_ray
 	double				length;
 	double				wall_strike;
 	enum e_direction	impact_side;
+	// NOTE These are more strictly "draw column" properties, we could further refactor.
+	int			start_point;
+	int			end_point;
 }	t_ray;
 
 // Definición de la estructura t_lib1
@@ -111,8 +114,6 @@ typedef struct s_lib1
 	char		*map_content;
 	// FIXME This below is ray stuff not game stuff
 	int			view_col;
-	int			start_point;
-	int			end_point;
 	double		tex_pos;
 	double		tex_step;
 	int			tex_x;
@@ -143,9 +144,9 @@ double		find_distance_ray(t_ray *ray);
 mlx_image_t	*make_background(t_lib1 *map_data);
 double		find_strike_point(t_ray *r, double x_origin, double y_origin);
 void		textured_walls(t_lib1 *data, mlx_image_t *img,
-				mlx_texture_t *tex, t_ray ray);
+				mlx_texture_t *tex, t_ray *ray);
 void		textured_walls2(t_lib1 *data, mlx_image_t *img,
-				mlx_texture_t *tex);
+				mlx_texture_t *tex, t_ray *ray);
 
 void		set_impact_side(t_ray *ray);
 

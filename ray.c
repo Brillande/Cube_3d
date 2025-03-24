@@ -50,7 +50,7 @@ void	draw_3d(t_lib1 *data)
 		test_ray.wall_strike = find_strike_point(&test_ray,
 				data->player.x, data->player.y);
 		selected_texture = data->texture[test_ray.impact_side];
-		textured_walls(data, new_img, selected_texture, test_ray);
+		textured_walls(data, new_img, selected_texture, &test_ray);
 		data->view_col++;
 	}
 	new_img->enabled = true;
