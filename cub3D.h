@@ -79,11 +79,13 @@ typedef struct s_ray
 	double				length;
 	double				wall_strike;
 	enum e_direction	impact_side;
-	// NOTE These are more strictly "draw column" properties, we could further refactor.
-	int			start_point;
-	int			end_point;
-	double		tex_pos;
-	double		tex_step;
+	// NOTE These are more strictly "draw column" properties,
+	// ....we could further refactor.
+	int					view_col;
+	int					start_point;
+	int					end_point;
+	double				tex_pos;
+	double				tex_step;
 }	t_ray;
 
 // Definición de la estructura t_lib1
@@ -114,8 +116,6 @@ typedef struct s_lib1
 	int			y;
 	char		*fullpath;
 	char		*map_content;
-	// FIXME This below is ray stuff not game stuff
-	int			view_col;
 }	t_lib1;
 
 int			main(int argc, char **argv);
