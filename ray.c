@@ -12,21 +12,6 @@
 
 #include "cub3D.h"
 
-// Return the wall face that a ray of angle x intersects with
-// TODO Implement and test get_wall_face
-// Add protection against zero and negative numbers
-// TODO How to handle numbers that go above 360 afer adding 45?
-// TODO Consider removing this I don't think we use it.
-enum e_direction	get_wall_face(double x)
-{
-	if ((x < 0) || (x >= 360))
-		return (-1);
-	x += 45.0;
-	if (x == 0)
-		return (NORTH);
-	return ((x / 90.0));
-}
-
 // Dibuja la vista 3D del entorno
 // Loop over each ray to be calculated for the view window
 // ...what does 0.3 represent in degrees?
