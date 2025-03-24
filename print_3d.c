@@ -12,9 +12,9 @@
 
 #include "cub3D.h"
 
-// NOTE Is this is a general function we could use elsewhere?
-//Esta función obtiene el valor RGBA de un píxel en una textura dada
-int	get_rgba(mlx_texture_t *texture, int x, int y)
+// Esta función obtiene el valor RGBA de un píxel en una textura dada
+// Safely extract an RGBA colour from x, y coords of given texture
+int	rgba_from_texture(mlx_texture_t *texture, int x, int y)
 {
 	unsigned int	r;
 	unsigned int	g;
@@ -75,7 +75,7 @@ void	textured_walls2(t_lib1 *data, mlx_image_t *img,
 		data->tex_y = (int)data->tex_pos & (tex->height - 1);
 		data->tex_pos += data->tex_step;
 		mlx_put_pixel(img, data->view_col, i++,
-			get_rgba(tex, data->tex_x, data->tex_y));
+			rgba_from_texture(tex, data->tex_x, data->tex_y));
 	}
 	while (i < SCREENHEIGHT)
 		mlx_put_pixel(img, data->view_col, i++, data->rgb_floor);

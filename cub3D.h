@@ -114,7 +114,6 @@ typedef struct s_lib1
 	int			start_point;
 	int			end_point;
 	double		tex_pos;
-//	int			colour;
 	double		tex_step;
 	int			tex_x;
 	int			tex_y;
@@ -135,7 +134,7 @@ void		rotate_right(t_player *p);
 
 void		draw_3d(t_lib1 *data);
 void		get_step_and_side(t_ray *data, t_player player);
-int			get_rgba(mlx_texture_t *texture, int x, int y);
+int			rgba_from_texture(mlx_texture_t *texture, int x, int y);
 void		dda_for_one_ray(t_ray *ray, char **map_array);
 t_ray		setup_ray(t_lib1 *data, double rads, double camera_x);
 double		find_distance_ray(t_ray *ray);
