@@ -54,7 +54,6 @@ void	textured_walls(t_lib1 *data, mlx_image_t *img,
 	ray->end_point = (line_height / 2) + midpoint;
 	if (ray->end_point >= SCREENHEIGHT)
 		ray->end_point = SCREENHEIGHT - 1;
-	data->tex_x = (int)(ray->wall_strike * (double)tex->width);
 	data->tex_step = 1.0 * tex->height / line_height;
 	if (ray->start_point < 0)
 	{
@@ -67,13 +66,20 @@ void	textured_walls(t_lib1 *data, mlx_image_t *img,
 }
 
 // TODO Transfer view_col to t_ray from t_lib1, it is a ray property!
+// Draw a column onto the image, working down from the top.
+// - First the ceiling colours
+// - Then the wall textures
+// -- TODO Explain that more.
+// - Finally the floor colour, stopping at the bottom of the screen.
 void	textured_walls2(t_lib1 *data, mlx_image_t *img,
 						mlx_texture_t *tex, t_ray *ray)
 {
 	int	i;
 	int	tex_y;
+	int	tex_x;
 
 	i = 0;
+	tex_x = (int)(ray->wall_strike * (double)tex->width);
 	while (i < ray->start_point)
 		mlx_put_pixel(img, data->view_col, i++, data->rgb_ceiling);
 	while (i <= ray->end_point)
@@ -81,7 +87,7 @@ void	textured_walls2(t_lib1 *data, mlx_image_t *img,
 		tex_y = (int)data->tex_pos & (tex->height - 1);
 		data->tex_pos += data->tex_step;
 		mlx_put_pixel(img, data->view_col, i++,
-			rgba_from_texture(tex, data->tex_x, tex_y));
+			rgba_from_texture(tex, tex_x, tex_y));
 	}
 	while (i < SCREENHEIGHT)
 		mlx_put_pixel(img, data->view_col, i++, data->rgb_floor);

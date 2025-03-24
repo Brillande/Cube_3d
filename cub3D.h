@@ -116,7 +116,6 @@ typedef struct s_lib1
 	int			view_col;
 	double		tex_pos;
 	double		tex_step;
-	int			tex_x;
 }	t_lib1;
 
 int			main(int argc, char **argv);
