@@ -114,7 +114,7 @@ typedef struct s_lib1
 	int			start_point;
 	int			end_point;
 	double		tex_pos;
-	int			colour;
+//	int			colour;
 	double		tex_step;
 	int			tex_x;
 	int			tex_y;

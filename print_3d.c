@@ -74,8 +74,8 @@ void	textured_walls2(t_lib1 *data, mlx_image_t *img,
 	{
 		data->tex_y = (int)data->tex_pos & (tex->height - 1);
 		data->tex_pos += data->tex_step;
-		data->colour = get_rgba(tex, data->tex_x, data->tex_y);
-		mlx_put_pixel(img, data->view_col, i++, data->colour);
+		mlx_put_pixel(img, data->view_col, i++,
+			get_rgba(tex, data->tex_x, data->tex_y));
 	}
 	while (i < SCREENHEIGHT)
 		mlx_put_pixel(img, data->view_col, i++, data->rgb_floor);
