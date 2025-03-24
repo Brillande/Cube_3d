@@ -42,12 +42,6 @@ double	find_distance_ray(t_ray *ray)
 // - side_dist_x/y: ...?
 // - delta_x/y: .....?
 // - axis: Are we going N-S (0, more up than down) or E-W (1, more sideways)
-// TODO add a check for the horizontal / line length not to be exceeded.
-// The outer squares are all walls. The segfault is triggered in the map array.
-// It is possible that the ray jumps beyond the walls in some odd configurations?
-// I think the segfault is when we look at a part of map_array that does not exist.
-// TODO Or, we could fill the map with spaces to a rectangular shape....
-// ...but that may have too many implications for the validation, etc.
 void	dda_for_one_ray(t_ray *ray, char **map_array)
 {
 	int	hit_wall;
@@ -67,13 +61,8 @@ void	dda_for_one_ray(t_ray *ray, char **map_array)
 			ray->map_y += ray->direction_y;
 			ray->axis = 1;
 		}
-		// FIXME Segfault here with map8_biggest.cub. Failed for this.
-//		if (ft_strncmp(&map_array[ray->map_x][ray->map_y], "1", 1) == 0)
-		if ((ray->map_y < 0 ) || (ray->map_x < 0))
-		{
-			ft_printf("Jumped out the map: %i, %i", ray->map_x, ray->map_y);
+		if ((ray->map_y < 0) || (ray->map_x < 0))
 			exit (EXIT_FAILURE);
-		}
 		else if ((map_array[ray->map_x][ray->map_y]) &&
 			map_array[ray->map_x][ray->map_y] == '1')
 			hit_wall = 1;
@@ -113,11 +102,13 @@ void	set_impact_side(t_ray *ray)
 // direction_x/y are the same.
 // ray_x and ray_y vary a little for each as we scan across
 // side_dist_x/y and delta_x/y needed once per ray
-// / ray calculation for delta x
-t_ray	setup_ray(t_lib1 *data, double rads, double camera_x)
+t_ray	setup_ray(t_lib1 *data, double rads, int col)
 {
 	t_ray	new_ray;
+	double	camera_x;
 
+	new_ray.view_col = col;
+	camera_x = get_camera_x(col);
 	new_ray.ray_x = cos(rads);
 	new_ray.ray_y = sin(rads);
 	new_ray.ray_x = new_ray.ray_x + (camera_x * data->player.x_camera);

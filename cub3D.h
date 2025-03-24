@@ -135,7 +135,7 @@ void		draw_3d(t_lib1 *data);
 void		get_step_and_side(t_ray *data, t_player player);
 int			rgba_from_texture(mlx_texture_t *texture, int x, int y);
 void		dda_for_one_ray(t_ray *ray, char **map_array);
-t_ray		setup_ray(t_lib1 *data, double rads, double camera_x);
+t_ray		setup_ray(t_lib1 *data, double rads, int view_col);
 double		find_distance_ray(t_ray *ray);
 
 // Display things on the windows

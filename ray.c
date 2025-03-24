@@ -31,7 +31,6 @@ enum e_direction	get_wall_face(double x)
 // Loop over each ray to be calculated for the view window
 // ...what does 0.3 represent in degrees?
 // a - the pixel coordinate (x) where the ray will be drawn (in walls)
-// FIXME There is a mix of DEGREES and RADIANS in use here, it is confusing
 void	draw_3d(t_lib1 *data)
 {
 	mlx_texture_t	*selected_texture;
@@ -43,8 +42,7 @@ void	draw_3d(t_lib1 *data)
 	new_img = mlx_new_image(data->mlx, SCREENWIDTH, SCREENHEIGHT);
 	while (view_col < SCREENWIDTH)
 	{
-		test_ray = setup_ray(data, data->player.pa, get_camera_x(view_col));
-		test_ray.view_col = view_col;
+		test_ray = setup_ray(data, data->player.pa, view_col);
 		dda_for_one_ray(&test_ray, data->map_array);
 		test_ray.length = find_distance_ray(&test_ray);
 		test_ray.wall_strike = find_strike_point(&test_ray,
