@@ -38,9 +38,8 @@ int	rgba_from_texture(mlx_texture_t *texture, int x, int y)
 // - tex_step
 // - start_point
 // - end_point
-// NOTE view_col is also needed but is set elsewhere (for now)
-void	textured_walls(t_lib1 *data, mlx_image_t *img,
-						mlx_texture_t *tex, t_ray *ray)
+// view_col is also needed but is set in the outer loop
+void	setup_wall_drawing(mlx_texture_t *tex, t_ray *ray)
 {
 	int		line_height;
 	int		midpoint;
@@ -62,7 +61,6 @@ void	textured_walls(t_lib1 *data, mlx_image_t *img,
 	}
 	else
 		ray->tex_pos = 0;
-	textured_walls2(data, img, tex, ray);
 }
 
 // Draw a column onto the image, working down from the top.
@@ -70,7 +68,7 @@ void	textured_walls(t_lib1 *data, mlx_image_t *img,
 // - Then the wall textures
 // -- TODO Explain that more.
 // - Finally the floor colour, stopping at the bottom of the screen.
-void	textured_walls2(t_lib1 *data, mlx_image_t *img,
+void	draw_textured_walls(t_lib1 *data, mlx_image_t *img,
 						mlx_texture_t *tex, t_ray *ray)
 {
 	int	i;

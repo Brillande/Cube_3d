@@ -141,9 +141,8 @@ double		find_distance_ray(t_ray *ray);
 // Display things on the windows
 mlx_image_t	*make_background(t_lib1 *map_data);
 double		find_strike_point(t_ray *r, double x_origin, double y_origin);
-void		textured_walls(t_lib1 *data, mlx_image_t *img,
-				mlx_texture_t *tex, t_ray *ray);
-void		textured_walls2(t_lib1 *data, mlx_image_t *img,
+void		setup_wall_drawing(mlx_texture_t *tex, t_ray *ray);
+void		draw_textured_walls(t_lib1 *data, mlx_image_t *img,
 				mlx_texture_t *tex, t_ray *ray);
 
 void		set_impact_side(t_ray *ray);
