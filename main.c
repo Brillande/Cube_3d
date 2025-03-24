@@ -13,7 +13,7 @@
 #include "cub3D.h"
 
 // Clear and exit if there is a problem with the provided path.
-void	bad_file(t_lib1 *data, char* error_message)
+void	bad_file(t_lib1 *data, char *error_message)
 {
 	ft_printf("%s", error_message);
 	if (data->fullpath)
