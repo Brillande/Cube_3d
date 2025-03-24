@@ -35,21 +35,21 @@ void	draw_3d(t_lib1 *data)
 {
 	mlx_texture_t	*selected_texture;
 	mlx_image_t		*new_img;
-	t_ray			test_ray;
+	t_ray			ray;
 	int				view_col;
 
 	view_col = 0;
 	new_img = mlx_new_image(data->mlx, SCREENWIDTH, SCREENHEIGHT);
 	while (view_col < SCREENWIDTH)
 	{
-		test_ray = setup_ray(data, data->player.pa, view_col);
-		dda_for_one_ray(&test_ray, data->map_array);
-		test_ray.length = find_distance_ray(&test_ray);
-		test_ray.wall_strike = find_strike_point(&test_ray,
+		ray = setup_ray(data, data->player.pa, view_col);
+		dda_for_one_ray(&ray, data->map_array);
+		ray.length = find_distance_ray(&ray);
+		ray.wall_strike = find_strike_point(&ray,
 				data->player.x, data->player.y);
-		selected_texture = data->texture[test_ray.impact_side];
-		setup_wall_drawing(selected_texture, &test_ray);
-		draw_textured_walls(data, new_img, selected_texture, &test_ray);
+		selected_texture = data->texture[ray.impact_side];
+		setup_wall_drawing(selected_texture, &ray);
+		draw_textured_walls(data, new_img, selected_texture, &ray);
 		view_col++;
 	}
 	new_img->enabled = true;
