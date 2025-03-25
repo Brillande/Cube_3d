@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_game2.c                                       :+:      :+:    :+:   */
+/*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: chaikney <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 11:58:09 by emedina-          #+#    #+#             */
-/*   Updated: 2025/03/19 14:29:57 by emedina-         ###   ########.fr       */
+/*   Created: 2025/03/25 10:07:29 by chaikney          #+#    #+#             */
+/*   Updated: 2025/03/25 10:07:35 by chaikney         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
 
-// TODO Correct the 42 header for exit_games.c
+// Clear and exit if there is a problem with the provided path.
+void	bad_file(t_lib1 *data, char *error_message)
+{
+	ft_printf("%s", error_message);
+	if (data->fullpath)
+		free (data->fullpath);
+	exit (EXIT_FAILURE);
+}
 
 // Clear the texture paths and the texture files
 // TODO Call this when textures have failed to load
@@ -53,7 +60,6 @@ void	clear_map(t_lib1 *map_data)
 // - Clear the textures we loaded.
 // - Terminate the MLX session
 // - Exit the game.
-// TODO Makes no sense to return an int, this exits
 void	exit_game(t_lib1 *game_data)
 {
 	clear_map(game_data);
