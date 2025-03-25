@@ -101,21 +101,13 @@ int	get_colours_from_array(char **parts)
 	while (parts[i])
 		free(parts[i++]);
 	free(parts);
-	return (create_trgb(0, r, g, b));
+	return (0 << 24 | r << 16 | g << 8 | b);
 }
 
-// Lifted from the documentation
-// https://harm-smits.github.io/42docs/libs/minilibx/colors.html
-// "Since each byte contains 2^8 = 256 values (1 byte = 8 bits),
-// and RGB values range from 0 to 255, we can perfectly fit
-// a integer (as an int is 4 bytes).
-// In order to set the values programatically we use bitshifting."
-int	create_trgb(int t, int r, int g, int b)
 // Wrapper function for safely collecting the 2 colours from an open fd.
 // FIXME Catch ALL colour-reading failures.
 void	read_colours(t_lib1 *data, int fd)
 {
-	return (t << 24 | r << 16 | g << 8 | b);
 	data->rgb_floor = get_colours(fd, 'F');
 	data->rgb_ceiling = get_colours(fd, 'C');
 	if ((data->rgb_floor == -1) || (data->rgb_ceiling == -1))
