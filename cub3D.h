@@ -121,8 +121,9 @@ typedef struct s_lib1
 int			main(int argc, char **argv);
 void		init_game(t_lib1 *map_data);
 
-// Functions to define hooks
+// Function to define hooks
 void		key_hooks(mlx_key_data_t keydata, void *info);
+
 // Player move functions, called by various key hooks
 void		move_right(t_lib1 *data);
 void		move_left(t_lib1 *data);
@@ -131,34 +132,37 @@ void		move_forward(t_lib1 *data);
 void		rotate_left(t_player *p);
 void		rotate_right(t_player *p);
 
+// Display things on the windows
 void		draw_3d(t_lib1 *data);
+mlx_image_t	*make_background(t_lib1 *map_data);
+void		setup_wall_drawing(mlx_texture_t *tex, t_ray *ray);
+void		draw_textured_walls(t_lib1 *data, mlx_image_t *img,
+				mlx_texture_t *tex, t_ray *ray);
+
+// Raycasting functions
+void		set_impact_side(t_ray *ray);
+double		find_strike_point(t_ray *r, double x_origin, double y_origin);
 void		get_step_and_side(t_ray *data, t_player player);
 int			rgba_from_texture(mlx_texture_t *texture, int x, int y);
 void		dda_for_one_ray(t_ray *ray, char **map_array);
 t_ray		setup_ray(t_lib1 *data, double rads, int view_col);
 double		find_distance_ray(t_ray *ray);
 
-// Display things on the windows
-mlx_image_t	*make_background(t_lib1 *map_data);
-double		find_strike_point(t_ray *r, double x_origin, double y_origin);
-void		setup_wall_drawing(mlx_texture_t *tex, t_ray *ray);
-void		draw_textured_walls(t_lib1 *data, mlx_image_t *img,
-				mlx_texture_t *tex, t_ray *ray);
-
-void		set_impact_side(t_ray *ray);
-
 // Parsing the files
 void		read_map_from_fd(t_lib1 *map_data, int fd);
 void		get_visuals(t_lib1 *map_data, int fd);
 int			get_orientation(char c);
-void		map_is_playable(t_lib1 *map_data);
-int			only_legal_char(char *map_content);
 char		*check_name(char *map_name);
-int			check_each_square(t_lib1 *map_data);
-int			only_one_player(char *map);
 void		get_start_position(t_lib1 *map_data);
 void		setup_player(t_lib1 *map_data);
 void		setup_camera_plane(double rads, t_player *player);
+
+// Map validation
+int			basic_wall_test(t_lib1 *map_data);
+void		map_is_playable(t_lib1 *map_data);
+int			check_each_square(t_lib1 *map_data);
+int			only_one_player(char *map);
+int			only_legal_char(char *map_content);
 
 // errors
 void		bad_map(t_lib1 *map_data, char *error_msg);
@@ -186,6 +190,4 @@ t_vec		radians_to_vector(double angle);
 double		radians_to_degrees(double rads);
 double		get_camera_x(int screen_col);
 void		rotate_vector(double *x, double *y, double rads);
-
-int			basic_wall_test(t_lib1 *map_data);
 #endif

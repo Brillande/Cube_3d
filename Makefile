@@ -7,30 +7,30 @@
 #                                     CONFIG                                   #
 ################################################################################
 
-NAME        := cub3D
-CC        := gcc
-FLAGS    := -Wall -Wextra -Werror -g3
+NAME	:= cub3D
+CC		:= gcc
+FLAGS   := -Wall -Wextra -Werror -g3
 ################################################################################
 #                                 PROGRAM'S SRCS                               #
 ################################################################################
 
-SRCS        :=      main.c \
-                          map_is_playable.c \
-                          init_game.c \
-                         read_the_map.c \
-                          print_3d.c \
-                          moves.c \
-                          exit_game.c \
-                          distance.c \
-                          moves2.c \
-						get_visuals.c \
-						get_colours.c \
-						errors.c \
-                          ray.c \
-													boundary_test.c \
-													file_helpers.c \
-													maths.c \
-							map_is_playable2.c
+SRCS	:=	main.c \
+			map_is_playable.c \
+			init_game.c \
+			read_the_map.c \
+			print_3d.c \
+			moves.c \
+			exit_game.c \
+			distance.c \
+			moves2.c \
+			get_visuals.c \
+			get_colours.c \
+			errors.c \
+			ray.c \
+			boundary_test.c \
+			file_helpers.c \
+			maths.c \
+			map_is_playable2.c
 
 OBJS        := $(SRCS:.c=.o)
 

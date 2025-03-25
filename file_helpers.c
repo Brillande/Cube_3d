@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "cub3D.h"
-#include <fcntl.h>
 #include <sys/stat.h>
 
 // Skip forward over the blank lines and return the next with content.
