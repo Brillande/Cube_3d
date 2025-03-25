@@ -22,12 +22,13 @@ void	bad_file(t_lib1 *data, char *error_message)
 }
 
 // Error handling for failures to load the textures.
-void	bad_visuals(t_lib1 *data, char *error_message, char *path)
+void	bad_visuals(t_lib1 *data, char *error_message, char *path, int fd)
 {
 	ft_printf("%s: %s\n", error_message, path);
 	if (data->fullpath)
 		free(data->fullpath);
 	clear_textures(data);
+	close (fd);
 	exit (EXIT_FAILURE);
 }
 

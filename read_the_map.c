@@ -45,6 +45,7 @@ void	read_map_from_fd(t_lib1 *map_data, int fd)
 	}
 	if (line)
 		free(line);
+	close(fd);
 }
 
 // Read the passed character and return its orientation

@@ -12,8 +12,6 @@
 
 #include "cub3D.h"
 
-// FIXME There are too many functions in map_is_playable.c
-
 // The player should only be generated in one place in the map.
 // Return 1 if the map has one player exactly
 // Return 0 if there are 0 or more than 1 players.

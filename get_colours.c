@@ -96,5 +96,5 @@ void	read_colours(t_lib1 *data, int fd)
 	data->rgb_floor = get_colour_array(fd, 'F');
 	data->rgb_ceiling = get_colour_array(fd, 'C');
 	if ((data->rgb_floor == -1) || (data->rgb_ceiling == -1))
-		bad_visuals(data, "Colour failure", "");
+		bad_visuals(data, "Colour failure", "", fd);
 }

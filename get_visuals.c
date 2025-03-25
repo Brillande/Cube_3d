@@ -58,13 +58,13 @@ void	get_visuals(t_lib1 *map_data, int fd)
 		if (!test_path(map_data->texture_paths[i]))
 		{
 			bad_visuals(map_data, "Inaccessible path",
-				map_data->texture_paths[i]);
+				map_data->texture_paths[i], fd);
 		}
 		map_data->texture[i] = mlx_load_png(map_data->texture_paths[i]);
 		if (!map_data->texture[i])
 		{
 			bad_visuals(map_data, "Texture not in PNG format",
-				map_data->texture_paths[i]);
+				map_data->texture_paths[i], fd);
 		}
 		i++;
 	}
