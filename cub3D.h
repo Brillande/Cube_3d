@@ -161,7 +161,6 @@ void		setup_player(t_lib1 *map_data);
 void		setup_camera_plane(double rads, t_player *player);
 
 // get_colours.c
-int			get_colours(int fd, char key);
 void		read_colours(t_lib1 *data, int fd);
 
 // file_helpers.c

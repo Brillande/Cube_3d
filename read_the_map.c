@@ -21,6 +21,7 @@
 // NOTE Do not free line it becomes the base of map_content
 // TODO Norm fixes and tidying needed here.
 // TODO Work out what needs to be freed if find_next_line fails
+// TODO Close the file descriptor after this, we're done with it
 void	read_map_from_fd(t_lib1 *map_data, int fd)
 {
 	char	*line;

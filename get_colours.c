@@ -40,8 +40,8 @@ static void	clear_array(char **arr)
 // Receive a string array of 3 integers representing red green and blue
 // Return a single integer composed of those values.
 // NOTE Array size has already been checked, but the values have not.
-// TODO harden this against atoi returns something that is not a (valid) number?
-static int	get_colours_from_array(char **parts)
+// NOTE If any part is not a number,  atoi returns 0 and we can safely use it
+static int	read_colour_from_array(char **parts)
 {
 	int		r;
 	int		g;
@@ -64,8 +64,7 @@ static int	get_colours_from_array(char **parts)
 // - If found, send the array to be turned into colours.
 // - If NOT found, free the split array and return -1
 // NOTE In happy case, parts array is freed in return function.
-// DONE Check we have parts array with 3(?) members
-int	get_colours(int fd, char key)
+static int	get_colour_array(int fd, char key)
 {
 	int		i;
 	char	*line;
@@ -88,15 +87,14 @@ int	get_colours(int fd, char key)
 			return (-1);
 		}
 	}
-	return (get_colours_from_array(parts));
+	return (read_colour_from_array(parts));
 }
 
 // Wrapper function for safely collecting the 2 colours from an open fd.
-// FIXME Catch ALL colour-reading failures.
 void	read_colours(t_lib1 *data, int fd)
 {
-	data->rgb_floor = get_colours(fd, 'F');
-	data->rgb_ceiling = get_colours(fd, 'C');
+	data->rgb_floor = get_colour_array(fd, 'F');
+	data->rgb_ceiling = get_colour_array(fd, 'C');
 	if ((data->rgb_floor == -1) || (data->rgb_ceiling == -1))
 		bad_visuals(data, "Colour failure", "");
 }
