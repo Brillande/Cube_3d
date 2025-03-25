@@ -75,6 +75,13 @@ int	get_colours_from_array(char **parts)
 // a integer (as an int is 4 bytes).
 // In order to set the values programatically we use bitshifting."
 int	create_trgb(int t, int r, int g, int b)
+// Wrapper function for safely collecting the 2 colours from an open fd.
+// FIXME Catch ALL colour-reading failures.
+void	read_colours(t_lib1 *data, int fd)
 {
 	return (t << 24 | r << 16 | g << 8 | b);
+	data->rgb_floor = get_colours(fd, 'F');
+	data->rgb_ceiling = get_colours(fd, 'C');
+	if ((data->rgb_floor == -1) || (data->rgb_ceiling == -1))
+		bad_visuals(data, "Colour failure", "");
 }

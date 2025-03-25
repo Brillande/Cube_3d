@@ -164,6 +164,7 @@ void		setup_camera_plane(double rads, t_player *player);
 int			get_colours(int fd, char key);
 int			get_colours_from_array(char **parts);
 int			create_trgb(int t, int r, int g, int b);
+void		read_colours(t_lib1 *data, int fd);
 
 // file_helpers.c
 char		*find_next_line(int fd);

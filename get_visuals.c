@@ -43,8 +43,7 @@ static char	*get_texture(char *side, int fd)
 // - ceiling colour
 // If any of the retrieved paths are inaccessible, complain and exit.
 // NOTE if the colours are invalid, they are still stored. This is a weakness!
-// FIXME Catch colour-reading failures.
-// FIXME Too many lines in get_visuals()
+// TODO Consider calling read_colours() in the outer function.
 void	get_visuals(t_lib1 *map_data, int fd)
 {
 	int	i;
@@ -69,8 +68,5 @@ void	get_visuals(t_lib1 *map_data, int fd)
 		}
 		i++;
 	}
-	map_data->rgb_floor = get_colours(fd, 'F');
-	map_data->rgb_ceiling = get_colours(fd, 'C');
-	if ((map_data->rgb_floor == -1) || (map_data->rgb_ceiling == -1))
-		bad_visuals(map_data, "Colour failure", "");
+	read_colours(map_data, fd);
 }
