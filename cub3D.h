@@ -181,16 +181,11 @@ void		join_the_fullpath(t_lib1 *map_data, char *map_name);
 int			line_is_blank(char *line);
 
 // maths functions
-double		player_view_distance(double delta_x, double delta_y, double beta);
-double		angle_per_pixel_column(void);
-double		view_angle_horizontal(double theta);
 double		degrees_to_radians(double bearing);
 t_vec		radians_to_vector(double angle);
 double		radians_to_degrees(double rads);
 double		get_camera_x(int screen_col);
 void		rotate_vector(double *x, double *y, double rads);
-
-void		player(void *param);
 
 int			basic_wall_test(t_lib1 *map_data);
 #endif

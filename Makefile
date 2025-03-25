@@ -30,7 +30,6 @@ SRCS        :=      main.c \
 													boundary_test.c \
 													file_helpers.c \
 													maths.c \
-							maths2.c	\
 							map_is_playable2.c
 
 OBJS        := $(SRCS:.c=.o)
