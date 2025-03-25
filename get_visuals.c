@@ -103,7 +103,6 @@ static int	get_colours(int fd, char key)
 // - ceiling colour
 // If any of the retrieved paths are inaccessible, complain and exit.
 // NOTE if the colours are invalid, they are still stored. This is a weakness!
-// FIXED If a path is inaccessible the program must exit!
 void	get_visuals(t_lib1 *map_data, int fd)
 {
 	int	i;
@@ -117,11 +116,15 @@ void	get_visuals(t_lib1 *map_data, int fd)
 	{
 		if (!test_path(map_data->texture_paths[i]))
 		{
-			ft_printf("Inaccessible path: %s\n", map_data->texture_paths[i]);
-			clear_textures(map_data);
-			exit(EXIT_FAILURE);
+			bad_visuals(map_data, "Inaccessible path",
+				map_data->texture_paths[i]);
 		}
 		map_data->texture[i] = mlx_load_png(map_data->texture_paths[i]);
+		if (!map_data->texture[i])
+		{
+			bad_visuals(map_data, "Texture not in PNG format",
+				map_data->texture_paths[i]);
+		}
 		i++;
 	}
 	map_data->rgb_floor = get_colours(fd, 'F');
