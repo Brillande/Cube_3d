@@ -12,15 +12,6 @@
 
 #include "cub3D.h"
 
-// Wraps the clear up needed in case of the map failing validation
-void	bad_map(t_lib1 *map_data, char *error_msg)
-{
-	ft_printf("%s\n", error_msg);
-	clear_map(map_data);
-	clear_textures(map_data);
-	exit(EXIT_FAILURE);
-}
-
 // - Check that map_content only has allowed characters and a single player
 // - turn the raw content into map_array using ft_split
 // - check to make sure the map is surrounded

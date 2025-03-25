@@ -160,6 +160,16 @@ void		get_start_position(t_lib1 *map_data);
 void		setup_player(t_lib1 *map_data);
 void		setup_camera_plane(double rads, t_player *player);
 
+// errors
+void		bad_map(t_lib1 *map_data, char *error_msg);
+void		bad_file(t_lib1 *data, char *error_message);
+void		bad_visuals(t_lib1 *data, char *error_message, char *path, int fd);
+
+// exit and clear up
+void		exit_game(t_lib1 *game_data);
+void		clear_textures(t_lib1 *tex_data);
+void		clear_map(t_lib1 *map_data);
+
 // get_colours.c
 void		read_colours(t_lib1 *data, int fd);
 
@@ -169,8 +179,6 @@ int			test_path(char *path);
 char		*check_extension(char *map_extension);
 void		join_the_fullpath(t_lib1 *map_data, char *map_name);
 int			line_is_blank(char *line);
-void		bad_file(t_lib1 *data, char *error_message);
-void		bad_visuals(t_lib1 *data, char *error_message, char *path, int fd);
 
 // maths functions
 double		player_view_distance(double delta_x, double delta_y, double beta);
@@ -182,9 +190,6 @@ double		radians_to_degrees(double rads);
 double		get_camera_x(int screen_col);
 void		rotate_vector(double *x, double *y, double rads);
 
-void		exit_game(t_lib1 *game_data);
-void		clear_textures(t_lib1 *tex_data);
-void		clear_map(t_lib1 *map_data);
 void		player(void *param);
 
 int			basic_wall_test(t_lib1 *map_data);

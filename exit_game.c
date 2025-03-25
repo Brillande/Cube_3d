@@ -12,26 +12,6 @@
 
 #include "cub3D.h"
 
-// Clear and exit if there is a problem with the provided path.
-void	bad_file(t_lib1 *data, char *error_message)
-{
-	ft_printf("%s", error_message);
-	if (data->fullpath)
-		free (data->fullpath);
-	exit (EXIT_FAILURE);
-}
-
-// Error handling for failures to load the textures.
-void	bad_visuals(t_lib1 *data, char *error_message, char *path, int fd)
-{
-	ft_printf("%s: %s\n", error_message, path);
-	if (data->fullpath)
-		free(data->fullpath);
-	clear_textures(data);
-	close (fd);
-	exit (EXIT_FAILURE);
-}
-
 // Clear the texture paths and the texture files
 void	clear_textures(t_lib1 *tex_data)
 {
