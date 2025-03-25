@@ -1,0 +1,12 @@
+NO img/WallN.png
+SO img/wall.xpm
+WE img/WallW.png
+EA img/WallE.png
+
+F 220,126, 62
+C 62,120, 220
+
+
+11111111
+10E00001
+11111111
