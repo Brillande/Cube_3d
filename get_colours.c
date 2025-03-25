@@ -1,4 +1,40 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_colours.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: chaikney <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/25 13:03:27 by chaikney          #+#    #+#             */
+/*   Updated: 2025/03/25 13:03:29 by chaikney         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "cub3D.h"
+
+// Take an array of character and return the number of (non-NULL)
+// members it has.
+static int	count_parts(char **arr)
+{
+	int	n;
+
+	n = 0;
+	if (!arr)
+		return (-1);
+	while (arr[n] != (void *) 0)
+		n++;
+	return (n);
+}
+
+static void	clear_array(char **arr)
+{
+	int	j;
+
+	j = 0;
+	while (arr[j] != (void *)0)
+		free (arr[j++]);
+	free (arr);
+}
 
 // Reads lines from file descriptor fd.
 // - when the next (non-blank) line is found, split it at commas
