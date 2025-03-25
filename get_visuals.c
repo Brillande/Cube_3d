@@ -49,6 +49,9 @@ static char	*get_texture(char *side, int fd)
 
 // Receive a string array of 3 integers representing red green and blue
 // Return a single integer composed of those values.
+// TODO Will need to harden this against bad input.
+// - less than 2 parts?
+// - atoi returns something that is not a (valid) number?
 static int	get_colours_from_array(char **parts)
 {
 	int		r;
@@ -69,18 +72,19 @@ static int	get_colours_from_array(char **parts)
 	return (create_trgb(0, r, g, b));
 }
 
-// Process a floor / colour line
-// Make sure it has the F / C key
-// (return NULL if not present)
-// split the rest on commas?
-// Then, atoi them
+// Reads lines from file descriptor fd.
+// - when the next (non-blank) line is found, split it at commas
+// - Look for the key char (i.e. F or C)
+// -- we will skip over / allow leading spaces
+// - If found, send the array to be turned into colours.
+// - If NOT found, free the split array and return -1
 // Does atoi skip over the intitial letters? Can we make it?
-// HACK THere is no allocation of memory for colours, does that break it?
-// FIXME Must free the parts array before returning.
-// TODO Will need to harden this against bad input.
+// NOTE In happy case, parts array is freed in return function.
+// TODO A valid parts array would have _ members?
 static int	get_colours(int fd, char key)
 {
 	int		i;
+	int		j;
 	char	*line;
 	char	**parts;
 
@@ -91,7 +95,13 @@ static int	get_colours(int fd, char key)
 	while (parts[0][i] != key)
 	{
 		if (parts[0][i++] == '\0')
+		{
+			j = 0;
+			while (parts[j] != (void *)0)
+				free (parts[j++]);
+			free (parts);
 			return (-1);
+		}
 	}
 	return (get_colours_from_array(parts));
 }
@@ -103,6 +113,8 @@ static int	get_colours(int fd, char key)
 // - ceiling colour
 // If any of the retrieved paths are inaccessible, complain and exit.
 // NOTE if the colours are invalid, they are still stored. This is a weakness!
+// FIXME Catch colour-reading failures.
+// FIXME Too many lines in get_visuals()
 void	get_visuals(t_lib1 *map_data, int fd)
 {
 	int	i;
@@ -129,4 +141,6 @@ void	get_visuals(t_lib1 *map_data, int fd)
 	}
 	map_data->rgb_floor = get_colours(fd, 'F');
 	map_data->rgb_ceiling = get_colours(fd, 'C');
+	if ((map_data->rgb_floor == -1) || (map_data->rgb_ceiling == -1))
+		bad_visuals(map_data, "Colour failure", "");
 }
