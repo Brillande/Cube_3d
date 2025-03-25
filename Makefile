@@ -23,7 +23,8 @@ SRCS        :=      main.c \
                           exit_game.c \
                           distance.c \
                           moves2.c \
-													get_visuals.c \
+						get_visuals.c \
+						get_colours.c \
                           ray.c \
 													boundary_test.c \
 													file_helpers.c \

@@ -160,6 +160,11 @@ void		get_start_position(t_lib1 *map_data);
 void		setup_player(t_lib1 *map_data);
 void		setup_camera_plane(double rads, t_player *player);
 
+// get_colours.c
+int			get_colours(int fd, char key);
+int			get_colours_from_array(char **parts);
+int			create_trgb(int t, int r, int g, int b);
+
 // file_helpers.c
 char		*find_next_line(int fd);
 int			test_path(char *path);
@@ -183,7 +188,6 @@ void		exit_game(t_lib1 *game_data);
 void		clear_textures(t_lib1 *tex_data);
 void		clear_map(t_lib1 *map_data);
 void		player(void *param);
-int			create_trgb(int t, int r, int g, int b);
 
 int			basic_wall_test(t_lib1 *map_data);
 #endif
