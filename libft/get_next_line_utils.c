@@ -3,49 +3,88 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaikney <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emedina- <emedina-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 14:02:05 by chaikney          #+#    #+#             */
-/*   Updated: 2023/08/21 14:02:27 by chaikney         ###   ########.fr       */
+/*   Created: 2023/05/23 15:01:49 by emedina-          #+#    #+#             */
+/*   Updated: 2023/05/30 18:24:28 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line.h"
 
-// Returns a new string from 2 NT'd strings
-// Returns NULL on allocation error
-// Frees the first string given.
-//NOTE compared with ft_strjoin:
-// This creates a new str and frees the old one.
-// The syntax is more concise
-// if s1 does not exist, it creates it
-// if alloc fails, it destroys s1
-// does not use const (what does that mean)
-// ==> the semantics are slightly different, keep 2 versions for now.
-char	*gnl_strjoin(char *s1, char *s2)
+size_t	ft_strlen(char *s)
 {
-	char	*newstr;
-	int		i;
-	int		j;
+	size_t	i;
 
-	i = -1;
-	j = 0;
+	i = 0;
+	if (!s)
+		return (0);
+	while (s[i] != '\0')
+	{
+		i++;
+	}
+	return (i);
+}
+
+char	*ft_strchr(char *s, int c)
+{
+	if (!s)
+		return (0);
+	while (*s)
+	{
+		if (*s != (char)c)
+		{
+			s++;
+		}
+		else
+		{
+			return ((char *)s);
+		}
+	}
+	if (*s == (char)c)
+		return ((char *)s);
+	return (NULL);
+}
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	size_t	len1;
+	size_t	len2;
+	char	*str;
+
 	if (!s1)
 	{
-		s1 = malloc(sizeof(char));
-		if (!s1)
-			return (NULL);
-		else
-			s1[0] = '\0';
+		s1 = (char *)malloc(1 * sizeof(char));
+		s1[0] = '\0';
 	}
-	newstr = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
-	if (newstr == NULL)
-		return (free (s1), NULL);
-	while (s1[++i] != '\0')
-		newstr[i] = s1[i];
-	while (s2[j] != '\0')
-		newstr[i++] = s2[j++];
-	newstr[i] = '\0';
+	if (!s1 || !s2)
+		return (NULL);
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	str = malloc(len1 + len2 + 1);
+	if (!str)
+		return (NULL);
+	ft_memcpy(str, s1, len1);
+	ft_memcpy(str + len1, s2, len2 + 1);
 	free(s1);
-	return (newstr);
+	return (str);
+}
+
+void	*ft_memcpy(void *dst, void *src, size_t n)
+{
+	unsigned const char	*str;
+	unsigned char		*dest;
+	size_t				i;
+
+	str = src;
+	dest = dst;
+	i = 0;
+	if (dst == 0 && src == 0)
+		return (0);
+	while (i < n)
+	{
+		dest[i] = str[i];
+		i++;
+	}
+	return (dest);
 }

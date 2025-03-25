@@ -3,122 +3,119 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaikney <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emedina- <emedina-@student.42urduliz.co    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/08/21 14:01:27 by chaikney          #+#    #+#             */
-/*   Updated: 2023/08/21 14:01:51 by chaikney         ###   ########.fr       */
+/*   Created: 2023/05/23 14:44:55 by emedina-          #+#    #+#             */
+/*   Updated: 2023/05/31 12:13:40 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line.h"
 
-// returns a NT'd string that contains a newline if there are any in the file
-// returns NULL on allocation or read failure.
-static char	*run_to_nextline(int fd, char *remains)
+char	*ft_get_line(char *txt)
 {
-	char		*buffer;
-	int			bytesread;
-
-	bytesread = 1;
-	buffer = malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!buffer)
-		return (NULL);
-	while ((ft_hasnewline(remains) == 0) && (bytesread != 0))
-	{
-		bytesread = read(fd, buffer, BUFFER_SIZE);
-		if (bytesread == -1)
-			return (free (remains), free(buffer), NULL);
-		buffer[bytesread] = '\0';
-		remains = gnl_strjoin(remains, buffer);
-	}
-	free (buffer);
-	return (remains);
-}
-
-// Work out the space needed for bring_me_the_head
-static char	*fill_the_head(char *skull)
-{
+	char	*line;
 	int		i;
-	char	*brain;
 
 	i = 0;
-	while (skull[i] && (skull[i] != '\n'))
-		i++;
-	if (skull[i] != '\n')
-		brain = (char *) malloc(sizeof(char) * (i + 1));
-	else
-		brain = (char *) malloc(sizeof(char) * (i + 2));
-	return (brain);
-}
-
-// Takes a string and returns a copy of it up to
-// (and including) the first newline.
-static char	*bring_me_the_head(char *alfredo)
-{
-	int		i;
-	char	*head;
-
-	if (!alfredo[0])
+	if (!txt[i])
 		return (NULL);
-	head = fill_the_head(alfredo);
-	if (!head)
+	while (txt[i] && txt[i] != '\n')
+		i++;
+	line = (char *)malloc(sizeof(char) * (i + 2));
+	if (!line)
 		return (NULL);
 	i = 0;
-	while (alfredo[i] && (alfredo[i] != '\n'))
+	while (txt[i] && txt[i] != '\n')
 	{
-		head[i] = alfredo[i];
+		line[i] = txt[i];
 		i++;
 	}
-	if (alfredo[i] == '\n')
+	if (txt[i] == '\n')
 	{
-		head[i] = alfredo[i];
+		line[i] = txt[i];
 		i++;
 	}
-	head[i] = '\0';
-	return (head);
+	line[i] = '\0';
+	return (line);
 }
 
-// Take string, return anything that it contains after
-// the first newline. NULL if the NL is at the end.
-// Free the string we were given, as the return replaces it
-static char	*bring_me_the_rest(char *alfredo)
+char	*ft_delete_first_line(char *txt)
 {
 	int		i;
+	char	*str;
 	int		j;
-	char	*garcia;
 
 	i = 0;
-	while (alfredo[i] && alfredo[i] != '\n')
+	while (txt[i] && txt[i] != '\n')
 		i++;
-	if (!alfredo[i])
-		return (free (alfredo), NULL);
-	garcia = malloc((ft_strlen(alfredo) - i + 1) * sizeof(char));
-	if (!garcia)
+	if (!txt[i])
+	{
+		free(txt);
+		return (NULL);
+	}
+	str = (char *)malloc(sizeof(char) * (ft_strlen(txt) - i + 1));
+	if (!str)
 		return (NULL);
 	i++;
 	j = 0;
-	while (alfredo[i] != '\0')
-		garcia[j++] = alfredo[i++];
-	garcia[j] = '\0';
-	free (alfredo);
-	return (garcia);
+	while (txt[i])
+		str[j++] = txt[i++];
+	str[j] = '\0';
+	free(txt);
+	return (str);
 }
 
-// Return a line read from file descriptor fd
-// (NULL if error, or nothing else to read)
+char	*ft_read_txt(int fd, char *left_str)
+{
+	char	*buff;
+	int		rd_bytes;
+
+	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buff)
+		return (NULL);
+	rd_bytes = 1;
+	while (!ft_strchr(left_str, '\n') && rd_bytes != 0)
+	{
+		rd_bytes = read(fd, buff, BUFFER_SIZE);
+		if (rd_bytes == -1)
+		{
+			free(buff);
+			free(left_str);
+			return (NULL);
+		}
+		buff[rd_bytes] = '\0';
+		left_str = ft_strjoin(left_str, buff);
+	}
+	free(buff);
+	return (left_str);
+}
+
 char	*get_next_line(int fd)
 {
-	static char	*remains[2048];
+	static char	*str;
 	char		*line;
 
-	if ((fd < 0) || (BUFFER_SIZE <= 0))
+	if (fd < 0 || BUFFER_SIZE <= 0)
+	{
 		return (NULL);
-	remains[fd] = run_to_nextline(fd, remains[fd]);
-	if (!remains[fd])
+	}
+	str = ft_read_txt(fd, str);
+	if (!str)
 		return (NULL);
-	line = bring_me_the_head(remains[fd]);
-	remains[fd] = bring_me_the_rest(remains[fd]);
-	if (!line)
-		free (remains[fd]);
+	line = ft_get_line(str);
+	str = ft_delete_first_line(str);
 	return (line);
 }
+/* int	main(void)
+{
+	int		fd;
+	char	*line;
+
+	fd = open("prueba.txt", O_RDONLY);
+	line = get_next_line(fd);
+	printf("%s\n", line);
+	line = get_next_line(fd);
+	printf("%s\n", line);
+	line = get_next_line(fd);
+}  */
