@@ -26,6 +26,7 @@ static int	count_parts(char **arr)
 	return (n);
 }
 
+// Free each string in an array, then the pointer to that array.
 static void	clear_array(char **arr)
 {
 	int	j;
@@ -36,6 +37,26 @@ static void	clear_array(char **arr)
 	free (arr);
 }
 
+// Receive a string array of 3 integers representing red green and blue
+// Return a single integer composed of those values.
+// NOTE Array size has already been checked, but the values have not.
+// TODO harden this against atoi returns something that is not a (valid) number?
+static int	get_colours_from_array(char **parts)
+{
+	int		r;
+	int		g;
+	int		b;
+	char	*tmp;
+
+	tmp = ft_substr(parts[0], 2, ft_strlen(parts[0]) - 2);
+	r = ft_atoi(tmp);
+	free(tmp);
+	g = ft_atoi(parts[1]);
+	b = ft_atoi(parts[2]);
+	clear_array(parts);
+	return (0 << 24 | r << 16 | g << 8 | b);
+}
+
 // Reads lines from file descriptor fd.
 // - when the next (non-blank) line is found, split it at commas
 // - Look for the key char (i.e. F or C)
@@ -43,11 +64,10 @@ static void	clear_array(char **arr)
 // - If found, send the array to be turned into colours.
 // - If NOT found, free the split array and return -1
 // NOTE In happy case, parts array is freed in return function.
-// TODO Check we have parts array with 3(?) members
+// DONE Check we have parts array with 3(?) members
 int	get_colours(int fd, char key)
 {
 	int		i;
-	int		j;
 	char	*line;
 	char	**parts;
 
@@ -55,53 +75,20 @@ int	get_colours(int fd, char key)
 	line = find_next_line(fd);
 	parts = ft_split(line, ',');
 	free (line);
+	if (count_parts(parts) != 3)
+	{
+		clear_array(parts);
+		return (-1);
+	}
 	while (parts[0][i] != key)
 	{
 		if (parts[0][i++] == '\0')
 		{
-			j = 0;
-			while (parts[j] != (void *)0)
-				free (parts[j++]);
-			free (parts);
+			clear_array(parts);
 			return (-1);
 		}
 	}
 	return (get_colours_from_array(parts));
-}
-
-// Receive a string array of 3 integers representing red green and blue
-// Return a single integer composed of those values.
-// TODO Will need to harden this against bad input.
-// - less than 2 parts?
-// - atoi returns something that is not a (valid) number?
-// Does atoi skip over the intitial letters? Can we make it?
-// FIXME Segfaults with less than 3 parts to the array.
-int	get_colours_from_array(char **parts)
-{
-	int		r;
-	int		g;
-	int		b;
-	char	*tmp;
-	int		i;
-
-	i = 0;
-	if (parts[3] != (void *) 0)
-	{
-		printf("this line is not in the correct format\n");
-		while (parts[i])
-			free(parts[i++]);
-		free (parts);
-		return (-1);
-	}
-	tmp = ft_substr(parts[0], 2, ft_strlen(parts[0]) - 2);
-	r = ft_atoi(tmp);
-	free(tmp);
-	g = ft_atoi(parts[1]);
-	b = ft_atoi(parts[2]);
-	while (parts[i])
-		free(parts[i++]);
-	free(parts);
-	return (0 << 24 | r << 16 | g << 8 | b);
 }
 
 // Wrapper function for safely collecting the 2 colours from an open fd.
