@@ -70,6 +70,7 @@ int	get_orientation(char c)
 // NOTE The first coordinate in each case is 0!!
 // NOTE Careful about X and Y!
 // NOTE We intialise player_faces to -1 as 0 is a valid direction
+// TODO If the player is outside a wall (but touching) this is not detected.
 void	get_start_position(t_lib1 *map_data)
 {
 	int	i;

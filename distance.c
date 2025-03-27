@@ -42,6 +42,8 @@ double	find_distance_ray(t_ray *ray)
 // - side_dist_x/y: ...?
 // - delta_x/y: .....?
 // - axis: Are we going N-S (0, more up than down) or E-W (1, more sideways)
+// NOTE This segafaults in the else if statement when payer is outside the zone
+// (But that is not the problem, the player should not be outside!)
 void	dda_for_one_ray(t_ray *ray, char **map_array)
 {
 	int	hit_wall;
