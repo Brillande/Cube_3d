@@ -30,6 +30,7 @@ int	find_top_left(char *str)
 // refuse to test walls or newlines
 // Move left through the array until a 1 is hit.
 // Move right through the array (until the max) or a 1 is hit.
+// FIXME The RHS detection failure is here I think.
 int	walls_horizontal(int x, char *mapline, int max_x)
 {
 	int	test_x;
@@ -125,6 +126,8 @@ int	walls_upwards(int start_line, char **map_array, int column)
 // NOTE If our square is 1, space or newline we do not need to check it.
 // TODO BUT! a space counts as a gap if it is inside the body of the map...
 // TODO Check that the how_many_lines thing works.
+// FIXME This fails to catch a player outside the walls (but touching them)
+// NOTE the failure is *only* if it is attached to the right hand side of the wall
 int	check_each_square(t_lib1 *map_data)
 {
 	int	test_col;
@@ -135,7 +138,7 @@ int	check_each_square(t_lib1 *map_data)
 	while (test_line < (map_data->how_many_lines))
 	{
 		test_col = find_top_left(map_data->map_array[test_line]);
-		test_line_len = (int) ft_strlen(map_data->map_array[test_line]) - 1;
+		test_line_len = (int) ft_strlen(map_data->map_array[test_line]);
 		while (test_col < test_line_len)
 		{
 			if (walls_horizontal(test_col, map_data->map_array[test_line],
