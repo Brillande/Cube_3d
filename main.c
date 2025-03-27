@@ -15,6 +15,7 @@
 // Initialises a map data object
 // Get a filepath from the args, do some checking, add it to map data
 // reads the path into a buffer -- we don't want to do that any more
+// FIXME Segfaults with ./cub3D map8_missingline.cub
 int	main(int argc, char **argv)
 {
 	t_lib1	map_data;
