@@ -31,12 +31,21 @@ void	bad_file(t_lib1 *data, char *error_message)
 }
 
 // Error handling for failures to load the textures.
+// NOTE find_next_line reads the remainder of the file so we know it has been
+// fully freed.
 void	bad_visuals(t_lib1 *data, char *error_message, char *path, int fd)
 {
+	char	*siphon;
 	ft_printf("%s: %s\n", error_message, path);
 	if (data->fullpath)
 		free(data->fullpath);
 	clear_textures(data);
+	siphon = find_next_line(fd);
+	while (siphon)
+	{
+		free(siphon);
+		siphon = find_next_line(fd);
+	}
 	close (fd);
 	exit (EXIT_FAILURE);
 }
