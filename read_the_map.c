@@ -17,8 +17,8 @@
 // After first good line, add the lines until the end of the file,
 // or next blank line
 // ...put it all in map_data->map_content
-// NOTE Do not free line it becomes the base of map_content
-// TODO Instead of just closing the fd, we should flush through it to clear pointers
+// NOTE Do not free line before adding it to newcontent
+// Instead of just closing the fd, we should flush through it to clear pointers
 void	read_map_from_fd(t_lib1 *map_data, int fd)
 {
 	char	*line;
@@ -42,7 +42,7 @@ void	read_map_from_fd(t_lib1 *map_data, int fd)
 	}
 	if (line)
 		free(line);
-	close(fd);
+	flush_file(fd);
 }
 
 // Read the passed character and return its orientation

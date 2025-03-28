@@ -12,6 +12,23 @@
 
 #include "cub3D.h"
 
+// Read all the way to the end of the file and then close it.
+// This means that that there are no "still reachable" leaks from
+// get_next_line's static variable store.
+// This should be called in all cases where we will no longer need the file.
+void	flush_file(int fd)
+{
+	char	*siphon;
+
+	siphon = find_next_line(fd);
+	while (siphon)
+	{
+		free(siphon);
+		siphon = find_next_line(fd);
+	}
+	close (fd);
+}
+
 // Wraps the clear up needed in case of the map failing validation
 void	bad_map(t_lib1 *map_data, char *error_msg)
 {
@@ -35,18 +52,10 @@ void	bad_file(t_lib1 *data, char *error_message)
 // fully freed.
 void	bad_visuals(t_lib1 *data, char *error_message, char *path, int fd)
 {
-	char	*siphon;
-
 	ft_printf("%s: %s\n", error_message, path);
 	if (data->fullpath)
 		free(data->fullpath);
 	clear_textures(data);
-	siphon = find_next_line(fd);
-	while (siphon)
-	{
-		free(siphon);
-		siphon = find_next_line(fd);
-	}
-	close (fd);
+	flush_file(fd);
 	exit (EXIT_FAILURE);
 }

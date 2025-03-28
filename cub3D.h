@@ -168,6 +168,7 @@ int			only_legal_char(char *map_content);
 void		bad_map(t_lib1 *map_data, char *error_msg);
 void		bad_file(t_lib1 *data, char *error_message);
 void		bad_visuals(t_lib1 *data, char *error_message, char *path, int fd);
+void		flush_file(int fd);
 
 // exit and clear up
 void		exit_game(t_lib1 *game_data);
