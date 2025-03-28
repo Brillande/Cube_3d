@@ -17,11 +17,8 @@
 // After first good line, add the lines until the end of the file,
 // or next blank line
 // ...put it all in map_data->map_content
-// NOTE the -1 is to remove a newline that later goes away
 // NOTE Do not free line it becomes the base of map_content
-// TODO Norm fixes and tidying needed here.
-// TODO Work out what needs to be freed if find_next_line fails
-// TODO Close the file descriptor after this, we're done with it
+// TODO Instead of just closing the fd, we should flush through it to clear pointers
 void	read_map_from_fd(t_lib1 *map_data, int fd)
 {
 	char	*line;

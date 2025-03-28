@@ -71,9 +71,12 @@ int	walls_downwards(int start_line, char **map_array, int max_y, int column)
 	int	test_y;
 
 	test_y = start_line;
-	while (test_y <= max_y)
+	while (test_y < max_y)
 	{
-		if (!map_array[test_y][column])
+//		printf("col: %i, row: %i\t", column, test_y);	// HACK remove later
+		if (map_array[test_y][0] == '\n')
+			return (1);
+		else if (!map_array[test_y][column])
 			return (1);
 		else if (map_array[test_y][column] == ' ')
 			return (1);
@@ -81,7 +84,7 @@ int	walls_downwards(int start_line, char **map_array, int max_y, int column)
 			break ;
 		test_y++;
 	}
-	if (test_y > max_y)
+	if (test_y >= max_y)
 		return (1);
 	return (0);
 }
