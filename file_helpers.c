@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_helpers.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaikney <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:14:24 by chaikney          #+#    #+#             */
-/*   Updated: 2025/01/17 14:14:28 by chaikney         ###   ########.fr       */
+/*   Updated: 2025/03/28 15:22:14 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,14 +70,14 @@ void	join_the_fullpath(t_lib1 *map_data, char *map_name)
 
 	map_name_with_extension = check_extension(map_name);
 	if (map_name_with_extension == NULL)
-		bad_file(map_data, "Error La extension no es .cub\n");
+		bad_file(map_data, "Error extension its not .cub\n");
 	else
 	{
 		maps_directory = "maps/";
 		map_data->fullpath = ft_strjoin(maps_directory,
 				map_name_with_extension);
 		if (map_data->fullpath == NULL)
-			bad_file(map_data, "Error al asignar memoria\n");
+			bad_file(map_data, "Error allocating memory\n");
 		if (test_path(map_data->fullpath) == 0)
 			bad_file(map_data, "File cannot be read, check location\n");
 	}
