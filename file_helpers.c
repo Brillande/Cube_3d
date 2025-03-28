@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:14:24 by chaikney          #+#    #+#             */
-/*   Updated: 2025/03/28 15:22:14 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/03/28 16:05:05 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	join_the_fullpath(t_lib1 *map_data, char *map_name)
 
 	map_name_with_extension = check_extension(map_name);
 	if (map_name_with_extension == NULL)
-		bad_file(map_data, "Error extension its not .cub\n");
+		bad_file(map_data, "Error extension its not.cub\n");
 	else
 	{
 		maps_directory = "maps/";

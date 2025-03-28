@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:14:36 by chaikney          #+#    #+#             */
-/*   Updated: 2025/03/19 14:06:32 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/03/28 15:54:18 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,9 @@ static char	*get_texture(char *side, int fd)
 void	get_visuals(t_lib1 *map_data, int fd)
 {
 	int	i;
-
+	
 	i = 0;
+	
 	map_data->texture_paths[NORTH] = get_texture("NO", fd);
 	map_data->texture_paths[SOUTH] = get_texture("SO", fd);
 	map_data->texture_paths[WEST] = get_texture("WE", fd);

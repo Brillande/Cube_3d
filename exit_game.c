@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit_game.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaikney <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 10:07:29 by chaikney          #+#    #+#             */
-/*   Updated: 2025/03/25 10:07:35 by chaikney         ###   ########.fr       */
+/*   Updated: 2025/03/28 16:02:13 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	clear_textures(t_lib1 *tex_data)
 	i = 0;
 	while (i < 4)
 	{
-		if (tex_data->texture_paths[i])
-			free(tex_data->texture_paths[i]);
 		if (tex_data->texture[i])
 			mlx_delete_texture(tex_data->texture[i]);
 		i++;

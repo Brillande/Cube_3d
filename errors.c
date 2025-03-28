@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaikney <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 14:22:34 by chaikney          #+#    #+#             */
-/*   Updated: 2025/03/25 14:22:35 by chaikney         ###   ########.fr       */
+/*   Updated: 2025/03/28 16:01:10 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ void	bad_file(t_lib1 *data, char *error_message)
 // fully freed.
 void	bad_visuals(t_lib1 *data, char *error_message, char *path, int fd)
 {
-	ft_printf("%s: %s\n", error_message, path);
+	(void)path;
+	ft_printf("%s:\n", error_message);
 	if (data->fullpath)
 		free(data->fullpath);
 	clear_textures(data);
