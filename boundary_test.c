@@ -73,7 +73,6 @@ int	walls_downwards(int start_line, char **map_array, int max_y, int column)
 	test_y = start_line;
 	while (test_y < max_y)
 	{
-//		printf("col: %i, row: %i\t", column, test_y);	// HACK remove later
 		if (map_array[test_y][0] == '\n')
 			return (1);
 		else if (!map_array[test_y][column])
@@ -128,9 +127,6 @@ int	walls_upwards(int start_line, char **map_array, int column)
 // Return 1 if the map can be played.
 // NOTE If our square is 1, space or newline we do not need to check it.
 // TODO BUT! a space counts as a gap if it is inside the body of the map...
-// TODO Check that the how_many_lines thing works.
-// FIXME This fails to catch a player outside the walls (but touching them)
-// NOTE the failure is *only* if it is attached to the right hand side of the wall
 int	check_each_square(t_lib1 *map_data)
 {
 	int	test_col;

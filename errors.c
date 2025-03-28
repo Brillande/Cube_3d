@@ -36,6 +36,7 @@ void	bad_file(t_lib1 *data, char *error_message)
 void	bad_visuals(t_lib1 *data, char *error_message, char *path, int fd)
 {
 	char	*siphon;
+
 	ft_printf("%s: %s\n", error_message, path);
 	if (data->fullpath)
 		free(data->fullpath);

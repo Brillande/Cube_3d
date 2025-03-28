@@ -15,10 +15,10 @@
 // Initialises a map data object
 // Get a filepath from the args, do some checking, add it to map data
 // reads the path into a buffer -- we don't want to do that any more
-// FIXME Segfaults with ./cub3D map8_missingline.cub
+// FIXED Segfaults with ./cub3D map8_missingline.cub
 // FIXME Segfaults with a repeated texture in a map file: repeat_texture.cub
-// FIXME Segfaults when the player is outside the map: map4_playeroutside.cub
-// FIXME There is a leak in GNL use, e.g. with missing_colour.cub or map6_badpath.cub
+// FIXED Segfaults when the player is outside the map: map4_playeroutside.cub
+// FIXED leak in GNL use, e.g. with missing_colour.cub or map6_badpath.cub
 int	main(int argc, char **argv)
 {
 	t_lib1	map_data;
