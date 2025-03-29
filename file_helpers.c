@@ -49,6 +49,8 @@ int	test_path(char *path)
 {
 	struct stat	pstat;
 
+	if (!path)
+		return (0);
 	if (stat(path, &pstat) == -1)
 		return (0);
 	if ((access(path, R_OK) == 0)

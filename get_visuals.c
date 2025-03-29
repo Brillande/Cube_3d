@@ -29,10 +29,15 @@ static char	*get_texture(char *side, int fd)
 	if (ft_strncmp(side, line, 2) == 0)
 	{
 		tmppath = ft_substr(line, 2, ft_strlen(line) - 3);
+		free(line);
 		path = ft_strtrim(tmppath, "\n \t");
 		free(tmppath);
 	}
-	free (line);
+	else
+	{
+		free (line);
+		return (NULL);
+	}
 	return (path);
 }
 
