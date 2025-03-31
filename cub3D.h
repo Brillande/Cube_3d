@@ -23,8 +23,8 @@
 # include <math.h>
 # include <stdint.h>
 
-# define SCREENWIDTH 640
-# define SCREENHEIGHT 480
+# define SCREENWIDTH 1280
+# define SCREENHEIGHT 960
 
 // NOTE This is of use for texture arrays but *not* player.side!
 enum e_direction

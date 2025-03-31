@@ -91,7 +91,7 @@ mlx_image_t	*make_background(t_lib1 *map_data)
 void	init_game(t_lib1 *map_data)
 {
 	map_data->mlx = mlx_init(SCREENWIDTH, SCREENHEIGHT,
-			"cub3d with DEFINEd sizes", 1);
+			"cub3D by chaikney and emedina-", 1);
 	if (!map_data->mlx)
 		bad_mlx(map_data, "Error initializing MLX\n");
 	map_data->img = make_background(map_data);
