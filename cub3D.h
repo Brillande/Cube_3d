@@ -177,10 +177,13 @@ void		exit_game(t_lib1 *game_data);
 void		clear_textures(t_lib1 *tex_data);
 void		clear_map(t_lib1 *map_data);
 
-// get_colours.c
+// colours and visuals
 void		read_colours(t_lib1 *data, int fd);
-void	read_colours_from_line(t_lib1 *data, int fd, char *line);
-int	get_colour_array_from_line(int fd, char key, char *line);
+int			get_colour_array_from_line(int fd, char key, char *line);
+void		load_textures(t_lib1 *map_data, int fd);
+int			count_parts(char **arr);
+void		clear_array(char **arr);
+int			read_colour_from_array(char **parts);
 
 // file_helpers.c
 char		*find_next_line(int fd);

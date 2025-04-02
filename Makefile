@@ -25,6 +25,7 @@ SRCS	:=	main.c \
 			moves2.c \
 			get_visuals.c \
 			get_colours.c \
+			get_visuals_and_colours2.c \
 			errors.c \
 			ray.c \
 			boundary_test.c \
