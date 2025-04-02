@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:14:36 by chaikney          #+#    #+#             */
-/*   Updated: 2025/04/02 17:20:55 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:41:21 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,8 @@ void	get_visuals(t_lib1 *map_data, int fd)
 		i++;
 		if (line)
 			free(line);
+		if(tmp)
+			free(tmp);
 	}
 	i = 0;
 	while (i < 4)
