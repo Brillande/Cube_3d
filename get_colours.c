@@ -70,10 +70,10 @@ static int	read_colour_from_array(char **parts)
 // - If found, send the array to be turned into colours.
 // - If NOT found, free the split array and return -1
 // NOTE In happy case, parts array is freed in return function.
-static int	get_colour_array(int fd, char key)
+// FIXME This needs to work on a line instead
+static int	get_colour_array(int fd, char key, char *line)
 {
 	int		i;
-	char	*line;
 	char	**parts;
 
 	i = 0;
@@ -97,12 +97,36 @@ static int	get_colour_array(int fd, char key)
 }
 
 // Wrapper function for safely collecting the 2 colours from an open fd.
-void	read_colours(t_lib1 *data, int fd)
+void	read_colours_from_line(t_lib1 *data, int fd, char *line)
 {
-	data->rgb_floor = get_colour_array(fd, 'F');
+	data->rgb_floor = get_colour_array(fd, 'F', line);
 	if (data->rgb_floor == -1)
 		bad_visuals(data, "Colour failure", "floor", fd);
-	data->rgb_ceiling = get_colour_array(fd, 'C');
+	data->rgb_ceiling = get_colour_array(fd, 'C', line);
 	if (data->rgb_ceiling == -1)
 		bad_visuals(data, "Colour failure", "ceiling", fd);
+}
+
+int	get_colour_array_from_line(int fd, char key, char *line)
+{
+	int		i;
+	char	**parts;
+
+	i = 0;
+	(void) fd;	// HACK remove later
+	parts = ft_split(line, ',');
+	if (count_parts(parts) != 3)
+	{
+		clear_array(parts);
+		return (-1);
+	}
+	while (parts[0][i] != key)
+	{
+		if (parts[0][i++] == '\0')
+		{
+			clear_array(parts);
+			return (-1);
+		}
+	}
+	return (read_colour_from_array(parts));
 }

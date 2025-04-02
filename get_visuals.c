@@ -19,23 +19,43 @@
 // Check path is valid.
 // return NULL if not
 // NOTE In substr: -2 for the starting code, -1 to remove the newline
-static char	*get_texture(char *side, int fd)
+/* static char	*get_texture(char *side, int fd) */
+/* { */
+/* 	char	*path; */
+/* 	char	*tmppath; */
+/* 	char	*line; */
+
+/* 	line = find_next_line(fd); */
+/* 	if (ft_strncmp(side, line, 2) == 0) */
+/* 	{ */
+/* 		tmppath = ft_substr(line, 2, ft_strlen(line) - 3); */
+/* 		free(line); */
+/* 		path = ft_strtrim(tmppath, "\n \t"); */
+/* 		free(tmppath); */
+/* 	} */
+/* 	else */
+/* 	{ */
+/* 		free (line); */
+/* 		return (NULL); */
+/* 	} */
+/* 	return (path); */
+/* } */
+
+static char	*get_texture_from_line(char *side, char *line)
 {
 	char	*path;
 	char	*tmppath;
-	char	*line;
 
-	line = find_next_line(fd);
 	if (ft_strncmp(side, line, 2) == 0)
 	{
 		tmppath = ft_substr(line, 2, ft_strlen(line) - 3);
-		free(line);
+	//	free(line);
 		path = ft_strtrim(tmppath, "\n \t");
 		free(tmppath);
 	}
 	else
 	{
-		free (line);
+//		free (line);
 		return (NULL);
 	}
 	return (path);
@@ -49,15 +69,34 @@ static char	*get_texture(char *side, int fd)
 // If any of the retrieved paths are inaccessible, complain and exit.
 // NOTE if the colours are invalid, they are still stored. This is a weakness!
 // TODO Consider calling read_colours() in the outer function.
+// FIXME We must be able to read these 6 parts in any order
 void	get_visuals(t_lib1 *map_data, int fd)
 {
 	int	i;
+	char	*line;
 
 	i = 0;
-	map_data->texture_paths[NORTH] = get_texture("NO", fd);
-	map_data->texture_paths[SOUTH] = get_texture("SO", fd);
-	map_data->texture_paths[WEST] = get_texture("WE", fd);
-	map_data->texture_paths[EAST] = get_texture("EA", fd);
+	line = find_next_line(fd);
+	while ((line) && (i <  6))
+	{
+		if (ft_strncmp(line, "NO", 2) == 0)
+			map_data->texture_paths[NORTH] = get_texture_from_line("NO", line);
+		else if (ft_strncmp(line, "SO", 2) == 0)
+			map_data->texture_paths[SOUTH] = get_texture_from_line("SO", line);
+		else if (ft_strncmp(line, "WE", 2) == 0)
+			map_data->texture_paths[WEST] = get_texture_from_line("WE", line);
+		else if (ft_strncmp(line, "EA", 2) == 0)
+			map_data->texture_paths[EAST] = get_texture_from_line("EA", line);
+		else if (ft_strncmp(line, "F", 1) == 0)
+			map_data->rgb_floor = get_colour_array_from_line(fd, 'F', line);
+		else if (ft_strncmp(line, "C", 1) == 0)
+			map_data->rgb_floor = get_colour_array_from_line(fd, 'C', line);
+		i++;
+		if (line)
+			free(line);
+		line = find_next_line(fd);
+	}
+	i = 0;
 	while (i < 4)
 	{
 		if (!test_path(map_data->texture_paths[i]))
@@ -73,5 +112,7 @@ void	get_visuals(t_lib1 *map_data, int fd)
 		}
 		i++;
 	}
-	read_colours(map_data, fd);
+	if ((map_data->rgb_ceiling == -1) || (map_data->rgb_floor == -1))
+		bad_visuals(map_data, "Colour failure", "", fd);
+//	read_colours_from_line(map_data, fd);
 }

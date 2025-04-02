@@ -179,6 +179,8 @@ void		clear_map(t_lib1 *map_data);
 
 // get_colours.c
 void		read_colours(t_lib1 *data, int fd);
+void	read_colours_from_line(t_lib1 *data, int fd, char *line);
+int	get_colour_array_from_line(int fd, char key, char *line);
 
 // file_helpers.c
 char		*find_next_line(int fd);
