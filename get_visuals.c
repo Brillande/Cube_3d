@@ -90,7 +90,7 @@ void	get_visuals(t_lib1 *map_data, int fd)
 		else if (ft_strncmp(line, "F", 1) == 0)
 			map_data->rgb_floor = get_colour_array_from_line(fd, 'F', line);
 		else if (ft_strncmp(line, "C", 1) == 0)
-			map_data->rgb_floor = get_colour_array_from_line(fd, 'C', line);
+			map_data->rgb_ceiling = get_colour_array_from_line(fd, 'C', line);
 		i++;
 		if (line)
 			free(line);

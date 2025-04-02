@@ -49,10 +49,12 @@ static int	read_colour_from_array(char **parts)
 	char	*tmp;
 
 	tmp = ft_substr(parts[0], 2, ft_strlen(parts[0]) - 2);
+	printf("R: %s, G: %s, B: %s\n", tmp, parts[1], parts[2]);	// HACK remove later
 	r = ft_atoi(tmp);
 	free(tmp);
 	g = ft_atoi(parts[1]);
 	b = ft_atoi(parts[2]);
+	printf("R: %i, G: %i, B: %i\n", r, g, b);	// HACK remove later
 	clear_array(parts);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 	{
@@ -107,6 +109,7 @@ void	read_colours_from_line(t_lib1 *data, int fd, char *line)
 		bad_visuals(data, "Colour failure", "ceiling", fd);
 }
 
+// FIXME This is not giving correct colours
 int	get_colour_array_from_line(int fd, char key, char *line)
 {
 	int		i;
