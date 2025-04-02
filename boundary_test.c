@@ -14,7 +14,7 @@
 
 // return the position of the first character in a map line
 // This is simply the first non-space character
-int	find_top_left(char *str)
+static int	find_column_start(char *str)
 {
 	int	i;
 
@@ -136,7 +136,7 @@ int	check_each_square(t_lib1 *map_data)
 	test_line = 0;
 	while (test_line < (map_data->how_many_lines))
 	{
-		test_col = find_top_left(map_data->map_array[test_line]);
+		test_col = find_column_start(map_data->map_array[test_line]);
 		test_line_len = (int) ft_strlen(map_data->map_array[test_line]);
 		while (test_col < test_line_len)
 		{
