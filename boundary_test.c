@@ -30,7 +30,6 @@ static int	find_column_start(char *str)
 // refuse to test walls or newlines
 // Move left through the array until a 1 is hit.
 // Move right through the array (until the max) or a 1 is hit.
-// FIXME The RHS detection failure is here I think.
 int	walls_horizontal(int x, char *mapline, int max_x)
 {
 	int	test_x;
@@ -77,8 +76,8 @@ int	walls_downwards(int start_line, char **map_array, int max_y, int column)
 			return (1);
 		else if (!map_array[test_y][column])
 			return (1);
-		else if (map_array[test_y][column] == ' ')
-			return (1);
+		/* else if (map_array[test_y][column] == ' ') */
+		/* 	return (1); */
 		else if (map_array[test_y][column] == '1')
 			break ;
 		test_y++;
@@ -95,6 +94,7 @@ int	walls_downwards(int start_line, char **map_array, int max_y, int column)
 // start_line = coord to check from
 // column = same, other axis. Does not change
 // map_array = the map
+// FIXME fails the valid hole case wrongly
 int	walls_upwards(int start_line, char **map_array, int column)
 {
 	int	test_y;
@@ -106,8 +106,8 @@ int	walls_upwards(int start_line, char **map_array, int column)
 		{
 			if (!map_array[test_y][column])
 				return (1);
-			else if (map_array[test_y][column] == ' ')
-				return (1);
+			/* else if (map_array[test_y][column] == ' ') */
+			/* 	return (1); */
 			else if (map_array[test_y][column] == '1')
 				break ;
 			test_y--;
@@ -125,8 +125,11 @@ int	walls_upwards(int start_line, char **map_array, int column)
 // ...they must be getting mixed up!
 // Return 0 if the map cannot be played
 // Return 1 if the map can be played.
-// NOTE If our square is 1, space or newline we do not need to check it.
+// NOTE If our square is 1, space or newline we do not need to check it?
+// ...but a space needs to be bounded...
+// INitial and trailing spaces= bad (or ignore?), others test as normal
 // TODO BUT! a space counts as a gap if it is inside the body of the map...
+// FIXME map8_valid_with_hole fails this validation test
 int	check_each_square(t_lib1 *map_data)
 {
 	int	test_col;
@@ -142,12 +145,24 @@ int	check_each_square(t_lib1 *map_data)
 		{
 			if (walls_horizontal(test_col, map_data->map_array[test_line],
 					test_line_len) == 1)
+			{
+				printf("Horizontal failure at %i,%i: %c\n", test_line, test_col,
+					   map_data->map_array[test_line][test_col]);
 				return (0);
+			}
 			if (walls_upwards(test_line, map_data->map_array, test_col) == 1)
+			{
+				printf("Upwards failure at %i,%i: %c\n", test_line, test_col,
+					   map_data->map_array[test_line][test_col]);
 				return (0);
+			}
 			if (walls_downwards(test_line, map_data->map_array,
 					map_data->how_many_lines, test_col) == 1)
+			{
+				printf("Downwards failure at %i,%i: %c\n", test_line, test_col,
+					   map_data->map_array[test_line][test_col]);
 				return (0);
+			}
 			test_col++;
 		}
 		test_col = 0;
