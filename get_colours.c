@@ -99,6 +99,7 @@ static int	get_colour_array(int fd, char key, char *line)
 }
 
 // Wrapper function for safely collecting the 2 colours from an open fd.
+// FIXME Can remove this as un-needed I think
 void	read_colours_from_line(t_lib1 *data, int fd, char *line)
 {
 	data->rgb_floor = get_colour_array(fd, 'F', line);
@@ -109,7 +110,7 @@ void	read_colours_from_line(t_lib1 *data, int fd, char *line)
 		bad_visuals(data, "Colour failure", "ceiling", fd);
 }
 
-// FIXME This is not giving correct colours
+// FIXME This is not giving correct colours? Or is it? High numbers are ...
 int	get_colour_array_from_line(int fd, char key, char *line)
 {
 	int		i;

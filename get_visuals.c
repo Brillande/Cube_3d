@@ -70,12 +70,15 @@ static char	*get_texture_from_line(char *side, char *line)
 // NOTE if the colours are invalid, they are still stored. This is a weakness!
 // TODO Consider calling read_colours() in the outer function.
 // FIXME We must be able to read these 6 parts in any order
+// TODO Make this NORMed
 void	get_visuals(t_lib1 *map_data, int fd)
 {
 	int	i;
 	char	*line;
 
 	i = 0;
+	map_data->rgb_ceiling = -1;
+	map_data->rgb_floor = -1;
 	while ((i <  6))
 	{
 		line = find_next_line(fd);
