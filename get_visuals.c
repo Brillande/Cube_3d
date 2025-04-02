@@ -76,9 +76,9 @@ void	get_visuals(t_lib1 *map_data, int fd)
 	char	*line;
 
 	i = 0;
-	line = find_next_line(fd);
-	while ((line) && (i <  6))
+	while ((i <  6))
 	{
+		line = find_next_line(fd);
 		if (ft_strncmp(line, "NO", 2) == 0)
 			map_data->texture_paths[NORTH] = get_texture_from_line("NO", line);
 		else if (ft_strncmp(line, "SO", 2) == 0)
@@ -94,7 +94,6 @@ void	get_visuals(t_lib1 *map_data, int fd)
 		i++;
 		if (line)
 			free(line);
-		line = find_next_line(fd);
 	}
 	i = 0;
 	while (i < 4)
