@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/17 14:14:36 by chaikney          #+#    #+#             */
-/*   Updated: 2025/03/19 14:06:32 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/04/02 17:20:55 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,15 +73,22 @@ static char	*get_texture_from_line(char *side, char *line)
 // TODO Make this NORMed
 void	get_visuals(t_lib1 *map_data, int fd)
 {
-	int	i;
+	int		i;
 	char	*line;
-
+	char	*tmp;
 	i = 0;
 	map_data->rgb_ceiling = -1;
 	map_data->rgb_floor = -1;
-	while ((i <  6))
+	while ((i < 6))
 	{
-		line = find_next_line(fd);
+		tmp = find_next_line(fd);
+		line = ft_strtrim(tmp, " ");
+		if (!line || line[0] == '1')
+		{
+			if (line)
+				free(line);
+			bad_visuals(map_data, "the map its not under textures,ceiling and floor", "", fd);
+		}
 		if (ft_strncmp(line, "NO", 2) == 0)
 			map_data->texture_paths[NORTH] = get_texture_from_line("NO", line);
 		else if (ft_strncmp(line, "SO", 2) == 0)
