@@ -6,7 +6,7 @@
 /*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 13:03:27 by chaikney          #+#    #+#             */
-/*   Updated: 2025/04/02 11:57:27 by emedina-         ###   ########.fr       */
+/*   Updated: 2025/04/02 18:39:35 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // Take an array of character and return the number of (non-NULL)
 // members it has.
-static int	count_parts(char **arr)
+int	count_parts(char **arr)
 {
 	int	n;
 
@@ -27,7 +27,7 @@ static int	count_parts(char **arr)
 }
 
 // Free each string in an array, then the pointer to that array.
-static void	clear_array(char **arr)
+void	clear_array(char **arr)
 {
 	int	j;
 
@@ -41,7 +41,7 @@ static void	clear_array(char **arr)
 // Return a single integer composed of those values.
 // NOTE Array size has already been checked, but the values have not.
 // NOTE If any part is not a number,  atoi returns 0 and we can safely use it
-static int	read_colour_from_array(char **parts)
+int	read_colour_from_array(char **parts)
 {
 	int		r;
 	int		g;
@@ -49,12 +49,10 @@ static int	read_colour_from_array(char **parts)
 	char	*tmp;
 
 	tmp = ft_substr(parts[0], 2, ft_strlen(parts[0]) - 2);
-	printf("R: %s, G: %s, B: %s\n", tmp, parts[1], parts[2]);	// HACK remove later
 	r = ft_atoi(tmp);
 	free(tmp);
 	g = ft_atoi(parts[1]);
 	b = ft_atoi(parts[2]);
-	printf("R: %i, G: %i, B: %i\n", r, g, b);	// HACK remove later
 	clear_array(parts);
 	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
 	{
@@ -111,26 +109,3 @@ void	read_colours_from_line(t_lib1 *data, int fd, char *line)
 }
 
 // FIXME This is not giving correct colours? Or is it? High numbers are ...
-int	get_colour_array_from_line(int fd, char key, char *line)
-{
-	int		i;
-	char	**parts;
-
-	i = 0;
-	(void) fd;	// HACK remove later
-	parts = ft_split(line, ',');
-	if (count_parts(parts) != 3)
-	{
-		clear_array(parts);
-		return (-1);
-	}
-	while (parts[0][i] != key)
-	{
-		if (parts[0][i++] == '\0')
-		{
-			clear_array(parts);
-			return (-1);
-		}
-	}
-	return (read_colour_from_array(parts));
-}
