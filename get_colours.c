@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_colours.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: chaikney <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: emedina- <emedina-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/25 13:03:27 by chaikney          #+#    #+#             */
-/*   Updated: 2025/03/25 13:03:29 by chaikney         ###   ########.fr       */
+/*   Updated: 2025/04/02 11:57:27 by emedina-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,12 @@ static int	read_colour_from_array(char **parts)
 	g = ft_atoi(parts[1]);
 	b = ft_atoi(parts[2]);
 	clear_array(parts);
+	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+	{
+		ft_printf("Error\n", 2);
+		ft_printf("RGB values must be between 0 and 255\n", 2);
+		return (-1);
+	}
 	return (0 << 24 | r << 16 | g << 8 | b);
 }
 
