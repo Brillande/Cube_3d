@@ -30,17 +30,22 @@ static int	find_column_start(char *str)
 // refuse to test walls or newlines
 // Move left through the array until a 1 is hit.
 // Move right through the array (until the max) or a 1 is hit.
+// FIXED Fails to catch a 0 next to a space
 int	walls_horizontal(int x, char *mapline, int max_x)
 {
 	int	test_x;
+	char	test_char;
 
-	if ((mapline[x] != '1') && (mapline[x] != '\n'))
+	test_char = mapline[x];
+	if ((test_char != '1') && (test_char != '\n'))
 	{
 		test_x = x;
 		while (test_x >= 0)
 		{
 			if (mapline[test_x] == '1')
 				break ;
+			if ((test_char == ' ') && (mapline[test_x] != ' '))
+				return (1);
 			test_x--;
 		}
 		if (test_x < 0)
@@ -50,6 +55,8 @@ int	walls_horizontal(int x, char *mapline, int max_x)
 		{
 			if (mapline[test_x] == '1')
 				break ;
+			if ((test_char == ' ') && (mapline[test_x] != ' '))
+				return (1);
 			test_x++;
 		}
 		if (test_x > max_x)
@@ -68,7 +75,10 @@ int	walls_horizontal(int x, char *mapline, int max_x)
 int	walls_downwards(int start_line, char **map_array, int max_y, int column)
 {
 	int	test_y;
+	char	testing;
 
+	if (map_array)
+		testing = map_array[start_line][column];
 	test_y = start_line;
 	while (test_y < max_y)
 	{
@@ -78,6 +88,8 @@ int	walls_downwards(int start_line, char **map_array, int max_y, int column)
 			return (1);
 		/* else if (map_array[test_y][column] == ' ') */
 		/* 	return (1); */
+		else if ((map_array[test_y][column] == ' ') && (testing != ' '))
+			return (1);
 		else if (map_array[test_y][column] == '1')
 			break ;
 		test_y++;
@@ -97,17 +109,20 @@ int	walls_downwards(int start_line, char **map_array, int max_y, int column)
 // FIXME fails the valid hole case wrongly
 int	walls_upwards(int start_line, char **map_array, int column)
 {
-	int	test_y;
+	int		test_y;
+	char	testing;
 
-	if ((map_array) && (map_array[start_line][column] != '1'))
+	if (map_array)
+		testing = map_array[start_line][column];
+	if (testing != '1')
 	{
 		test_y = start_line;
 		while (test_y >= 0)
 		{
 			if (!map_array[test_y][column])
 				return (1);
-			/* else if (map_array[test_y][column] == ' ') */
-			/* 	return (1); */
+			else if ((map_array[test_y][column] == ' ') && (testing != ' '))
+				return (1);
 			else if (map_array[test_y][column] == '1')
 				break ;
 			test_y--;
@@ -125,11 +140,10 @@ int	walls_upwards(int start_line, char **map_array, int column)
 // ...they must be getting mixed up!
 // Return 0 if the map cannot be played
 // Return 1 if the map can be played.
-// NOTE If our square is 1, space or newline we do not need to check it?
-// ...but a space needs to be bounded...
-// INitial and trailing spaces= bad (or ignore?), others test as normal
+// Initial and trailing spaces= bad (or ignore?), others to be tested as normal
 // TODO BUT! a space counts as a gap if it is inside the body of the map...
 // FIXME map8_valid_with_hole fails this validation test
+// TODO Fixing the hole case requires that a 0 next to a space is an issue.
 int	check_each_square(t_lib1 *map_data)
 {
 	int	test_col;
