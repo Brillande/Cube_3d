@@ -14,7 +14,7 @@
 
 // return the position of the first character in a map line
 // This is simply the first non-space character
-int	find_top_left(char *str)
+static int	find_column_start(char *str)
 {
 	int	i;
 
@@ -22,41 +22,6 @@ int	find_top_left(char *str)
 	while ((str[i] != '\0') && (str[i] == ' '))
 		i++;
 	return (i);
-}
-
-// Confirm the sqaure is bounded horizontally.
-// return 1 if either side has no wall
-// Return 0 if both directions reach a wall or startpoint is invalid
-// refuse to test walls or newlines
-// Move left through the array until a 1 is hit.
-// Move right through the array (until the max) or a 1 is hit.
-// FIXME The RHS detection failure is here I think.
-int	walls_horizontal(int x, char *mapline, int max_x)
-{
-	int	test_x;
-
-	if ((mapline[x] != '1') && (mapline[x] != '\n'))
-	{
-		test_x = x;
-		while (test_x >= 0)
-		{
-			if (mapline[test_x] == '1')
-				break ;
-			test_x--;
-		}
-		if (test_x < 0)
-			return (1);
-		test_x = x;
-		while (test_x <= max_x)
-		{
-			if (mapline[test_x] == '1')
-				break ;
-			test_x++;
-		}
-		if (test_x > max_x)
-			return (1);
-	}
-	return (0);
 }
 
 // Perform column check in upwards direction
@@ -68,8 +33,11 @@ int	walls_horizontal(int x, char *mapline, int max_x)
 // max_y = the number of lines in the map, where to stop the downward check.
 int	walls_downwards(int start_line, char **map_array, int max_y, int column)
 {
-	int	test_y;
+	int		test_y;
+	char	testing;
 
+	if (map_array)
+		testing = map_array[start_line][column];
 	test_y = start_line;
 	while (test_y < max_y)
 	{
@@ -77,7 +45,7 @@ int	walls_downwards(int start_line, char **map_array, int max_y, int column)
 			return (1);
 		else if (!map_array[test_y][column])
 			return (1);
-		else if (map_array[test_y][column] == ' ')
+		else if ((map_array[test_y][column] == ' ') && (testing != ' '))
 			return (1);
 		else if (map_array[test_y][column] == '1')
 			break ;
@@ -97,16 +65,19 @@ int	walls_downwards(int start_line, char **map_array, int max_y, int column)
 // map_array = the map
 int	walls_upwards(int start_line, char **map_array, int column)
 {
-	int	test_y;
+	int		test_y;
+	char	testing;
 
-	if ((map_array) && (map_array[start_line][column] != '1'))
+	if (map_array)
+		testing = map_array[start_line][column];
+	if (testing != '1')
 	{
 		test_y = start_line;
 		while (test_y >= 0)
 		{
 			if (!map_array[test_y][column])
 				return (1);
-			else if (map_array[test_y][column] == ' ')
+			else if ((map_array[test_y][column] == ' ') && (testing != ' '))
 				return (1);
 			else if (map_array[test_y][column] == '1')
 				break ;
@@ -125,33 +96,32 @@ int	walls_upwards(int start_line, char **map_array, int column)
 // ...they must be getting mixed up!
 // Return 0 if the map cannot be played
 // Return 1 if the map can be played.
-// NOTE If our square is 1, space or newline we do not need to check it.
-// TODO BUT! a space counts as a gap if it is inside the body of the map...
-int	check_each_square(t_lib1 *map_data)
+// Initial and trailing spaces= bad (or ignore?), others to be tested as normal
+int	check_each_square(t_lib1 *map)
 {
-	int	test_col;
-	int	test_line;
-	int	test_line_len;
+	int	t_col;
+	int	t_line;
+	int	t_len;
 
-	test_line = 0;
-	while (test_line < (map_data->how_many_lines))
+	t_line = 0;
+	while (t_line < (map->how_many_lines))
 	{
-		test_col = find_top_left(map_data->map_array[test_line]);
-		test_line_len = (int) ft_strlen(map_data->map_array[test_line]);
-		while (test_col < test_line_len)
+		t_col = find_column_start(map->map_array[t_line]);
+		t_len = (int) ft_strlen(map->map_array[t_line]);
+		while (t_col < t_len)
 		{
-			if (walls_horizontal(test_col, map_data->map_array[test_line],
-					test_line_len) == 1)
+			if (walls_left(t_col, map->map_array[t_line]) == 1
+				|| walls_right(t_col, map->map_array[t_line], t_len) == 1)
 				return (0);
-			if (walls_upwards(test_line, map_data->map_array, test_col) == 1)
+			if (walls_upwards(t_line, map->map_array, t_col) == 1)
 				return (0);
-			if (walls_downwards(test_line, map_data->map_array,
-					map_data->how_many_lines, test_col) == 1)
+			if (walls_downwards(t_line, map->map_array,
+					map->how_many_lines, t_col) == 1)
 				return (0);
-			test_col++;
+			t_col++;
 		}
-		test_col = 0;
-		test_line++;
+		t_col = 0;
+		t_line++;
 	}
 	return (1);
 }

@@ -163,6 +163,8 @@ void		map_is_playable(t_lib1 *map_data);
 int			check_each_square(t_lib1 *map_data);
 int			only_one_player(char *map);
 int			only_legal_char(char *map_content);
+int			walls_left(int x, char *mapline);
+int			walls_right(int x, char *mapline, int max_x);
 
 // errors
 void		bad_map(t_lib1 *map_data, char *error_msg);
