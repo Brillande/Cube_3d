@@ -28,6 +28,7 @@ SRCS	:=	main.c \
 			errors.c \
 			ray.c \
 			boundary_test.c \
+			boundary_horizontal.c \
 			file_helpers.c \
 			maths.c \
 			map_is_playable2.c
