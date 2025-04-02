@@ -3,7 +3,7 @@ SO img/WallS.png
 WE img/WallW.png
 EA img/WallE.png
 
-F 220,126, 62
+F 256,126, 62
 C 62,120, 220
 
 11111111111111
