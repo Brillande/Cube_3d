@@ -45,8 +45,8 @@ int	walls_downwards(int start_line, char **map_array, int max_y, int column)
 			return (1);
 		else if (!map_array[test_y][column])
 			return (1);
-		// what we need is to ignore any spaces in the last line
-		else if ((test_y == max_y - 1) && (map_array[test_y][column] == ' '))
+		// what we need is to not be testing any spaces in the last line
+		else if ((test_y == max_y - 1) && (testing == ' '))
 			return (0);
 		else if ((map_array[test_y][column] == ' ') && (testing != ' '))
 			return (1);
