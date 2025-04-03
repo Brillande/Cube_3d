@@ -57,6 +57,7 @@ void	parse_visuals(t_lib1 *map_data, int fd)
 	{
 		tmp = find_next_line(fd);
 		line = ft_strtrim(tmp, " ");
+		printf("Reading line:%s\ttrimmed to:%s\n", tmp, line);	// HACK remove later
 		if (!tmp || tmp[0] == '1')
 		{
 			if (tmp)

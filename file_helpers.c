@@ -14,13 +14,16 @@
 #include <sys/stat.h>
 
 // Skip forward over the blank lines and return the next with content.
+// FIXME Detect blank line better
 char	*find_next_line(int fd)
 {
 	char	*line;
 
+	line = NULL;
 	line = get_next_line(fd);
-	while ((line) && (line_is_blank(line) == 1))
+	while ((*line) && (line_is_blank(line) == 1))
 	{
+		printf("I don't like this line I am asking for a new one\n");
 		free (line);
 		line = get_next_line(fd);
 	}
@@ -34,7 +37,9 @@ int	line_is_blank(char *line)
 	int	i;
 
 	i = 0;
-	while ((line) && (line[i] != '\0'))
+	if (!line)
+		return (-1);
+	while ((line[i] != '\0') || (line[i] != '\n'))
 	{
 		if (ft_isprint(line[i++]))
 			return (0);
