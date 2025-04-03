@@ -22,7 +22,6 @@ char	*find_next_line(int fd)
 	line = get_next_line(fd);
 	while ((line) && (line_is_blank(line) == 1))
 	{
-		printf("I don't like this line I am asking for a new one\n");
 		free (line);
 		line = get_next_line(fd);
 	}
