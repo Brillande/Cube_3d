@@ -46,6 +46,7 @@ static void	process_line(t_lib1 *map_data, int fd, char *line)
 		map_data->rgb_ceiling = get_colour_array_from_line(fd, 'C', line);
 }
 
+// NOTE This count *only* works if we are guaranteed to receive a non-blank line!
 void	parse_visuals(t_lib1 *map_data, int fd)
 {
 	int		i;
