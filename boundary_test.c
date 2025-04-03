@@ -45,6 +45,9 @@ int	walls_downwards(int start_line, char **map_array, int max_y, int column)
 			return (1);
 		else if (!map_array[test_y][column])
 			return (1);
+		// what we need is to ignore any spaces in the last line
+		else if ((test_y == max_y - 1) && (map_array[test_y][column] == ' '))
+			return (0);
 		else if ((map_array[test_y][column] == ' ') && (testing != ' '))
 			return (1);
 		else if (map_array[test_y][column] == '1')
@@ -112,12 +115,22 @@ int	check_each_square(t_lib1 *map)
 		{
 			if (walls_left(t_col, map->map_array[t_line]) == 1
 				|| walls_right(t_col, map->map_array[t_line], t_len) == 1)
+			{
+				printf("left or right boundinfail\n");
 				return (0);
+			}
 			if (walls_upwards(t_line, map->map_array, t_col) == 1)
+			{
+				printf("upward boundinfail\n");
 				return (0);
+			}
 			if (walls_downwards(t_line, map->map_array,
 					map->how_many_lines, t_col) == 1)
+			{
+				printf("%i, %i\t", t_col, t_line);
+				printf("downward boundinfail\n");
 				return (0);
+			}
 			t_col++;
 		}
 		t_col = 0;
