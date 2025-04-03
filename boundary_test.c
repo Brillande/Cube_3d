@@ -31,6 +31,7 @@ static int	find_column_start(char *str)
 // column = same, other axis. Does not change.
 // map_array = the map
 // max_y = the number of lines in the map, where to stop the downward check.
+// NOTE special case to avoid testing any spaces in the last line
 int	walls_downwards(int start_line, char **map_array, int max_y, int column)
 {
 	int		test_y;
@@ -45,7 +46,6 @@ int	walls_downwards(int start_line, char **map_array, int max_y, int column)
 			return (1);
 		else if (!map_array[test_y][column])
 			return (1);
-		// what we need is to not be testing any spaces in the last line
 		else if ((test_y == max_y - 1) && (testing == ' '))
 			return (0);
 		else if ((map_array[test_y][column] == ' ') && (testing != ' '))
@@ -115,22 +115,12 @@ int	check_each_square(t_lib1 *map)
 		{
 			if (walls_left(t_col, map->map_array[t_line]) == 1
 				|| walls_right(t_col, map->map_array[t_line], t_len) == 1)
-			{
-				printf("left or right boundinfail\n");
 				return (0);
-			}
 			if (walls_upwards(t_line, map->map_array, t_col) == 1)
-			{
-				printf("upward boundinfail\n");
 				return (0);
-			}
 			if (walls_downwards(t_line, map->map_array,
 					map->how_many_lines, t_col) == 1)
-			{
-				printf("%i, %i\t", t_col, t_line);
-				printf("downward boundinfail\n");
 				return (0);
-			}
 			t_col++;
 		}
 		t_col = 0;
