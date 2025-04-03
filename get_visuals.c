@@ -46,7 +46,8 @@ static void	process_line(t_lib1 *map_data, int fd, char *line)
 		map_data->rgb_ceiling = get_colour_array_from_line(fd, 'C', line);
 }
 
-// NOTE This count *only* works if we are guaranteed to receive a non-blank line!
+// NOTE This count *only* works if we are guaranteed
+// to receive a non-blank line!
 void	parse_visuals(t_lib1 *map_data, int fd)
 {
 	int		i;
@@ -58,7 +59,6 @@ void	parse_visuals(t_lib1 *map_data, int fd)
 	{
 		tmp = find_next_line(fd);
 		line = ft_strtrim(tmp, " ");
-		printf("Reading line:%s\ttrimmed to:%s\n", tmp, line);	// HACK remove later
 		if (!tmp || tmp[0] == '1')
 		{
 			if (tmp)

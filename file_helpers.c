@@ -14,8 +14,6 @@
 #include <sys/stat.h>
 
 // Skip forward over the blank lines and return the next with content.
-// FIXME Detect blank line better
-// - make sure we have something in the line
 char	*find_next_line(int fd)
 {
 	char	*line;
@@ -33,7 +31,6 @@ char	*find_next_line(int fd)
 
 // Return 1 if the line only contains spaces.
 // 0 if there is an alphanumeric kind character
-// FIXME This is useless!
 int	line_is_blank(char *line)
 {
 	int	i;
